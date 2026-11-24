@@ -367,7 +367,9 @@ b.addEventListener('click',async()=>{
 const links=[...document.querySelectorAll('.indice a')];
 const alvos=links.map(a=>document.getElementById(a.getAttribute('href').slice(1))).filter(Boolean);
 const marcar=id=>{for(const a of links){const s=a.getAttribute('href')==='#'+id;a.classList.toggle('atual',s);if(s)a.setAttribute('aria-current','true');else a.removeAttribute('aria-current');}
-  const at=document.querySelector('.indice a.atual');if(at&&getComputedStyle(at.closest('ul')).display==='flex')at.scrollIntoView({block:'nearest',inline:'nearest'});};
+  /* na faixa (tela estreita) rola SÓ a faixa, de lado: o scrollIntoView rolava a página de volta até o índice */
+  const at=document.querySelector('.indice a.atual'),fx=at&&at.closest('ul');
+  if(fx&&getComputedStyle(fx).display==='flex'){const ra=at.getBoundingClientRect(),rf=fx.getBoundingClientRect();fx.scrollLeft+=(ra.left-rf.left)-(rf.width-ra.width)/2;}};
 if('IntersectionObserver' in window){
   const vigia=new IntersectionObserver(es=>{const vis=es.filter(e=>e.isIntersecting).sort((a,b)=>a.boundingClientRect.top-b.boundingClientRect.top);if(vis.length)marcar(vis[vis.length-1].target.id);},{rootMargin:'-20% 0px -65% 0px'});
   alvos.forEach(el=>vigia.observe(el));}
