@@ -1,3 +1,7 @@
+# ⚠️ REGISTRO HISTÓRICO — script de UMA rodada, na máquina do autor: os caminhos abaixo são os do SSD de trabalho
+# dele e não existem noutra máquina. O que se mediu está registrado no banco (bancodedadosnles). Para repetir,
+# peça ao Claude para adaptar: achar o laboratório SUBINDO de pasta e gerar a mídia por uma receita
+# (skill ciclo-laboratorio) — nunca com o material de uma produção.
 """Calibração no Resolve: Sat e a curva Custom escritas pelo Body, renderizadas e medidas na carta."""
 import json, sys, time
 sys.stdout.reconfigure(encoding="utf-8")

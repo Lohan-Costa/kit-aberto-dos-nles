@@ -485,7 +485,7 @@ igual à origem e imagens pixel a pixel iguais às do 25 nativo; B01–B06 segue
   - O `VideoClipComponent` ("Clip", 25) embrulha um PSD em camada (clipe dentro de gráfico, com transform próprio).
   - Classes do 24/25 que o 23 não deve conhecer (na COPA): `AudioProxy`, `LUTAsset`, `AdaptiveToAdaptivePanProcessor` (pan de
     trilha ADAPTATIVA), `VideoClipComponent`, `DataClip`/`DataMediaSource`/`DataStream`. Pacote de teste no 2023 do Windows:
-    `\\Ilha02\_transfer\LABORATORIO - TESTE PREMIERE 2023`.
+    `\\ESTACAO-2\_transfer\LABORATORIO - TESTE PREMIERE 2023`.
   - ✅ **25.6.5 → 23.2 `confirmado` no Premiere 23.2.0 real (Windows, 2026-10-07, pela ponte Mac→Windows):** COPA (42
     sequências) e os casos B07/B08/B09 rebaixados ABREM, sem diálogo de conversão. O 23.2 regrava com `VideoFilterComponent`
     **8** (lê o 9 sem reclamar). Salvo pelo próprio 23.2 e comparado por conteúdo: B08 (merged) idêntico; perde só o que é do

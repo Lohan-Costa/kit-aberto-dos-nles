@@ -1,3 +1,7 @@
+# ⚠️ REGISTRO HISTÓRICO — script de UMA rodada, na máquina do autor: os caminhos abaixo são os do SSD de trabalho
+# dele e não existem noutra máquina. O que se mediu está registrado no banco (bancodedadosnles). Para repetir,
+# peça ao Claude para adaptar: achar o laboratório SUBINDO de pasta e gerar a mídia por uma receita
+# (skill ciclo-laboratorio) — nunca com o material de uma produção.
 """Bancada B20_DESFOQUE no Resolve — o Blur do Fusion (o mesmo plano que o De Lá Pra Cá escreve) em vários XBlurSize sobre
 o degrau; render e largura 10–90 % por clipe.
 

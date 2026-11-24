@@ -28,6 +28,8 @@ class TestDowngrade(unittest.TestCase):
         """Cada caso salvo por cada versão, rebaixado para cada versão mais velha: a MESMA estrutura do destino nativo.
         Um elemento novo que a tabela não conhece (um recurso novo num caso) faz isto falhar — de propósito."""
         pares = [("26.0.2", "25.6.5"), ("27.1.0", "26.0.2"), ("27.1.0", "25.6.5")]
+        if not os.path.isdir(os.path.join(RAIZ, "resultados")):
+            self.skipTest("cópia pública: os projetos salvos em resultados/*/prproj ficam fora do Git")
         casos = sorted(glob.glob(os.path.join(RAIZ, "resultados", "B0*", "prproj")))
         self.assertGreaterEqual(len(casos), 7, "faltam os projetos salvos em resultados/*/prproj")
         feitos = 0

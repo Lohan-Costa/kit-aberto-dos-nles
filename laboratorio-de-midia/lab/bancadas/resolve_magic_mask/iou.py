@@ -1,3 +1,7 @@
+# ⚠️ REGISTRO HISTÓRICO — script de UMA rodada, na máquina do autor: os caminhos abaixo são os do SSD de trabalho
+# dele e não existem noutra máquina. O que se mediu está registrado no banco (bancodedadosnles). Para repetir,
+# peça ao Claude para adaptar: achar o laboratório SUBINDO de pasta e gerar a mídia por uma receita
+# (skill ciclo-laboratorio) — nunca com o material de uma produção.
 # uso: iou.py render.mov  -> IoU do alfa do render x mascara perfeita do B10, por quadro
 import sys, subprocess, numpy as np, json
 W,H=1920,1080

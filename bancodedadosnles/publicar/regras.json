@@ -138,6 +138,10 @@
    "regras": [
     [
      "fica",
+     "catalogos/*/_a_refazer/*"
+    ],
+    [
+     "binario",
      "catalogos/*.png"
     ],
     [

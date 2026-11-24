@@ -1,3 +1,7 @@
+# ⚠️ REGISTRO HISTÓRICO — script de UMA rodada, na máquina do autor: os caminhos abaixo são os do SSD de trabalho
+# dele e não existem noutra máquina. O que se mediu está registrado no banco (bancodedadosnles). Para repetir,
+# peça ao Claude para adaptar: achar o laboratório SUBINDO de pasta e gerar a mídia por uma receita
+# (skill ciclo-laboratorio) — nunca com o material de uma produção.
 """Caso CROP: no Premiere 25.6.5 do Mac, 3 sequências com o crop do MOTION (+ posição/escala, + Transform na pilha),
 frames de referência; o .prproj vai para a pasta compartilhada para ser rebaixado e conferido no 23.2 do Windows."""
 import json, os, sys, time

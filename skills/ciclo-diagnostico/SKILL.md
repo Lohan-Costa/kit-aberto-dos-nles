@@ -25,9 +25,15 @@ dela será aberto. Pergunte se algum programa de edição está aberto com traba
 
 ## 3. Conferir
 
+- **O ambiente de testes** (uma vez; com o ok da pessoa — instala dois pacotes numa pasta só do kit, nada no sistema):
+  - macOS: `python3 -m venv .venv` e `.venv/bin/pip install pytest pillow`
+  - Windows: `py -m venv .venv` e `.venv\Scripts\pip install pytest pillow`
+  A pasta `.venv/` fica na raiz do kit e o `.gitignore` já a ignora. O Python que já vem no macOS (3.9) basta para o
+  kit; o app (Ciclo Assist) pede 3.11 ou mais novo e tem o instalador dele.
 - `python3 bancodedadosnles/verificar_plataforma.py laboratorio-de-midia --sem-testes --so-pendentes` (Windows: `py`).
-- A suíte do laboratório que não precisa de programa aberto: `python3 -m pytest laboratorio-de-midia/tests -q`
-  — conte os que PULAM e diga por quê (teste que não acha mídia pula calado).
+- Os testes que não precisam de programa aberto: `.venv/bin/python -m pytest laboratorio-de-midia/tests piloto/tests -q`
+  (Windows: `.venv\Scripts\python`). Nenhum deve FALHAR; vários PULAM e dizem por quê — dado de produção real que
+  não vem no kit, ou recurso só do outro sistema. Conte os que pulam e diga à pessoa o motivo de cada grupo.
 - Gere uma amostra sintética (skill `ciclo-laboratorio`) e confira com `ffprobe` que o arquivo diz o que é.
 
 ## 4. Propor a bateria

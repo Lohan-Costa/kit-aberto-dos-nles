@@ -1,3 +1,7 @@
+# ⚠️ REGISTRO HISTÓRICO — script de UMA rodada, na máquina do autor: os caminhos abaixo são os do SSD de trabalho
+# dele e não existem noutra máquina. O que se mediu está registrado no banco (bancodedadosnles). Para repetir,
+# peça ao Claude para adaptar: achar o laboratório SUBINDO de pasta e gerar a mídia por uma receita
+# (skill ciclo-laboratorio) — nunca com o material de uma produção.
 """Protótipo do relatório de entrega (PRODA): completo × só atenção. Mede tempo e tamanho."""
 import sys, os, json, time, base64, subprocess, html, hashlib
 APP = "/Volumes/SSD/PROGRAMAS COM CLAUDE/2 ATIVOS/_DeLaPraCa"

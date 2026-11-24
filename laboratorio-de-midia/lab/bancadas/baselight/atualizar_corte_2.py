@@ -1,3 +1,7 @@
+# ⚠️ REGISTRO HISTÓRICO — script de UMA rodada, na máquina do autor: os caminhos abaixo são os do SSD de trabalho
+# dele e não existem noutra máquina. O que se mediu está registrado no banco (bancodedadosnles). Para repetir,
+# peça ao Claude para adaptar: achar o laboratório SUBINDO de pasta e gerar a mídia por uma receita
+# (skill ciclo-laboratorio) — nunca com o material de uma produção.
 """BL09, 2ª parte — o que o "atualizar corte" ainda não tinha medido (Ciclo Assist, 2026-11-22, noite 8):
 
     grupos        o colorista agrupa planos (Scene.set_group); a v2 chega: o grupo vem? com quais planos?

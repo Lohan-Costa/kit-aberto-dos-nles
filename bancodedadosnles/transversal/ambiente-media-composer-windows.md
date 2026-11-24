@@ -10,7 +10,7 @@ editor estiver assim — e o sintoma que o editor relata **aponta para o lugar e
 casos abaixo.
 
 Levantado numa sessão de diagnóstico em estação real (2026-08-19): **Media Composer 25.6.0.58781,
-Windows 11 23H2 (10.0.22631), estação ILHA02**. Todos os quatro achados são `confirmado` — cada um
+Windows 11 23H2 (10.0.22631), estação ESTACAO-2**. Todos os quatro achados são `confirmado` — cada um
 foi reproduzido e a correção validada na tela.
 
 Complementa [analise-de-executaveis.md](analise-de-executaveis.md): lá é engenharia reversa do

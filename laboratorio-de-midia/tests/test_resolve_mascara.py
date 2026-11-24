@@ -110,6 +110,8 @@ class TestBanco(unittest.TestCase):
 
 class TestPrmf(unittest.TestCase):
     def test_mascaras_das_duas_passadas(self):
+        if not os.path.isdir(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "resultados")):
+            self.skipTest("cópia pública: os .prmf da rotoscopia real (resultados/B10_ROTO) ficam fora do Git")
         arqs = sorted(glob.glob(os.path.join(PASTA_PRMF, "[!.]*.prmf")))
         m = ppr.mascaras(arqs, 25, 1920, 1080)
         self.assertEqual((min(m), max(m), len(m)), (7, 278, 272))

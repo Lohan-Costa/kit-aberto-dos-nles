@@ -1,3 +1,7 @@
+# ⚠️ REGISTRO HISTÓRICO — script de UMA rodada, na máquina do autor: os caminhos abaixo são os do SSD de trabalho
+# dele e não existem noutra máquina. O que se mediu está registrado no banco (bancodedadosnles). Para repetir,
+# peça ao Claude para adaptar: achar o laboratório SUBINDO de pasta e gerar a mídia por uma receita
+# (skill ciclo-laboratorio) — nunca com o material de uma produção.
 """A correção que o MC aplicou: para cada quadro k, a transformação de semelhança tremido_k → render_k (features AKAZE +
 estimateAffinePartial2D) → escala s, rotação, e o deslocamento u no espaço da FONTE (antes do zoom em torno do centro)."""
 import json, subprocess, sys

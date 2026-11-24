@@ -1,3 +1,7 @@
+# ⚠️ REGISTRO HISTÓRICO — script de UMA rodada, na máquina do autor: os caminhos abaixo são os do SSD de trabalho
+# dele e não existem noutra máquina. O que se mediu está registrado no banco (bancodedadosnles). Para repetir,
+# peça ao Claude para adaptar: achar o laboratório SUBINDO de pasta e gerar a mídia por uma receita
+# (skill ciclo-laboratorio) — nunca com o material de uma produção.
 # uso: chave.py render.mov -> por faixa de quadros, a chave do render bate com a máscara ORIGINAL ou com a INJETADA (+400 px)?
 import sys,subprocess,numpy as np,glob
 from dvcc import ler_dvcc

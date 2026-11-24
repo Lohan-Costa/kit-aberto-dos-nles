@@ -10,17 +10,5 @@
   ],
   "limite": 20,
   "acao_em_palavras": "OK"
- },
- {
-  "nome": "Convert Project",
-  "foto": "convert_project.png",
-  "texto": "This project was saved from a previous version of Adobe Premiere Pro and must be converted. The original project file will not be modified. Location … Name <projeto>_1 [OK] [Cancel]",
-  "quando": "ao abrir um .prproj de versão anterior (Premiere 26.5.2, Windows, 2026-10-31: o destino do lab B110). OK grava a cópia convertida <nome>_1.prproj na mesma pasta e a abre; o original fica intacto. Autorizado pelo autor (2026-10-31)",
-  "clique": [
-   615,
-   211
-  ],
-  "limite": 20,
-  "acao_em_palavras": "OK"
  }
 ]

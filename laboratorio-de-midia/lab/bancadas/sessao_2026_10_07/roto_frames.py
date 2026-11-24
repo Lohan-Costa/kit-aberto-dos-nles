@@ -1,3 +1,7 @@
+# ⚠️ REGISTRO HISTÓRICO — script de UMA rodada, na máquina do autor: os caminhos abaixo são os do SSD de trabalho
+# dele e não existem noutra máquina. O que se mediu está registrado no banco (bancodedadosnles). Para repetir,
+# peça ao Claude para adaptar: achar o laboratório SUBINDO de pasta e gerar a mídia por uma receita
+# (skill ciclo-laboratorio) — nunca com o material de uma produção.
 """Exporta, no Premiere 2026 do Mac, frames de cada clipe da sequência de rotoscopia do autor (cópia), a cada 12 quadros
 da FONTE, e grava qual quadro da fonte cada PNG mostra."""
 import json, os, sys, time

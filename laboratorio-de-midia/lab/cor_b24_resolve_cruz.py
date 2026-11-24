@@ -1,3 +1,7 @@
+# ⚠️ REGISTRO HISTÓRICO — script de UMA rodada, na máquina do autor: os caminhos abaixo são os do SSD de trabalho
+# dele e não existem noutra máquina. O que se mediu está registrado no banco (bancodedadosnles). Para repetir,
+# peça ao Claude para adaptar: achar o laboratório SUBINDO de pasta e gerar a mídia por uma receita
+# (skill ciclo-laboratorio) — nunca com o material de uma produção.
 """O CC real da PRODA (Sat 87,5 + curva) no Resolve: 2 nós em série × 1 nó; e a Sat forte com curva (a ordem)."""
 import json, sys
 sys.stdout.reconfigure(encoding="utf-8")

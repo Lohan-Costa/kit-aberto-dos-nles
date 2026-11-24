@@ -5,10 +5,10 @@ gatilhos no comando (Bash/PowerShell) ou no código que vai ser escrito (Write/E
 adicional. Uma vez por sessão para cada linha. Nunca bloqueia: qualquer falha aqui sai calada com 0 — um gancho que
 quebra não pode parar o trabalho.
 
-Configuração (settings.json do usuário):
+Configuração (settings.json do usuário; <pasta> = a pasta que tem o `bancodedadosnles` — a do kit, ou a da família):
     "hooks": {"PreToolUse": [{"matcher": "Bash|PowerShell|Write|Edit",
-        "hooks": [{"type": "command", "command": "py -3 \\"D:/PROGRAMAS COM CLAUDE/bancodedadosnles/ganchos/operacoes_conhecidas.py\\""}]}]}
-    (no Mac: python3 "/Volumes/<SSD>/PROGRAMAS COM CLAUDE/bancodedadosnles/ganchos/operacoes_conhecidas.py" — pendente)
+        "hooks": [{"type": "command", "command": "py -3 \\"<pasta>/bancodedadosnles/ganchos/operacoes_conhecidas.py\\""}]}]}
+    (no Mac: python3 "<pasta>/bancodedadosnles/ganchos/operacoes_conhecidas.py" — pendente)
 """
 from __future__ import annotations
 

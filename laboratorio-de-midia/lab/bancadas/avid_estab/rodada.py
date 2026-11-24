@@ -1,3 +1,7 @@
+# ⚠️ REGISTRO HISTÓRICO — script de UMA rodada, na máquina do autor: os caminhos abaixo são os do SSD de trabalho
+# dele e não existem noutra máquina. O que se mediu está registrado no banco (bancodedadosnles). Para repetir,
+# peça ao Claude para adaptar: achar o laboratório SUBINDO de pasta e gerar a mídia por uma receita
+# (skill ciclo-laboratorio) — nunca com o material de uma produção.
 """python rodada.py <sufixo> — fecha o Effect Editor, grava a bin, lê o filtro, reabre e exporta B19_MC_ESTAB_<sufixo>."""
 import ctypes, json, os, sys, time
 sys.path.insert(0, r"D:\PROGRAMAS COM CLAUDE\piloto"); sys.path.insert(0, r"D:\PROGRAMAS COM CLAUDE\laboratorio-de-midia")

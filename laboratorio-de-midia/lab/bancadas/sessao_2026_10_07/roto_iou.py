@@ -1,3 +1,7 @@
+# ⚠️ REGISTRO HISTÓRICO — script de UMA rodada, na máquina do autor: os caminhos abaixo são os do SSD de trabalho
+# dele e não existem noutra máquina. O que se mediu está registrado no banco (bancodedadosnles). Para repetir,
+# peça ao Claude para adaptar: achar o laboratório SUBINDO de pasta e gerar a mídia por uma receita
+# (skill ciclo-laboratorio) — nunca com o material de uma produção.
 """Mede cada máscara do autor contra a máscara perfeita do B10: IoU, quanto da pessoa ficou de fora e quanto de fundo
 entrou. Clipes 1–5: a máscara é o ALFA do frame exportado (máscara na Opacidade). Clipe 6 (máscara na Lumetri): a máscara
 é onde a cor mudou em relação à fonte."""

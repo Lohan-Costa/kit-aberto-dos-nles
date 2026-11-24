@@ -5,7 +5,7 @@
     "confianca": "confirmado",
     "atualizado": "2026-08-19",
     "fontes": [
-      "Sessao de diagnostico em estacao real ILHA02 (2026-08-19)",
+      "Sessao de diagnostico em estacao real ESTACAO-2 (2026-08-19)",
       "https://kb.avid.com/pkb/articles/en_US/Knowledge/Media-Composer-hanging-at-AAFProcessor-during-startup"
     ],
     "nle": "Avid Media Composer 25.6.0.58781 (Windows 11 23H2, build 10.0.22631)",
@@ -131,7 +131,7 @@
     },
     "regra_para_apps": "Qualquer app que enumere midia deve ignorar ^\\._ e .DS_Store ANTES de contar arquivos. Detectar por conteudo, nao so por prefixo. Mover para quarentena espelhada com manifesto, nao apagar.",
     "amostra_medida": {
-      "local": "E:\\MIDIAS DE TESTES (estacao ILHA02)",
+      "local": "E:\\MIDIAS DE TESTES (estacao ESTACAO-2)",
       "mp4_reais": 118,
       "mp4_sidecars": 118,
       "wav_sidecars": 57,
