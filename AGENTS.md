@@ -27,7 +27,7 @@ na versão que a pessoa tem, inclusive as antigas — e a ligar esses programas 
 ├─ ferramentas/           a varredura de segurança (a mesma que o GitHub roda nas contribuições)
 ├─ contribuicoes/         a quarentena: o que chega de outras pessoas, AINDA NÃO CONFIRMADO
 ├─ local/                 a camada PRIVADA desta pessoa (nunca vai ao Git)
-└─ ciclo-assist-kit-nle/  (opcional) o app aberto Ciclo Assist, clonado aqui dentro (repositório próprio)
+└─ ciclo-assist-kit-nle/  (opcional) o app aberto Ciclo Assist: git clone https://github.com/Lohan-Costa/ciclo-assist-kit-nle.git aqui dentro
 ```
 
 ⭐ **Os nomes das pastas importam.** O código acha o banco, o piloto e o laboratório SUBINDO de pasta até encontrar

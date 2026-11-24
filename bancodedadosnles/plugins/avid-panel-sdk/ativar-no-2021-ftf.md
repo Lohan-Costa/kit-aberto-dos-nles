@@ -175,7 +175,7 @@ A habilitação do painel **mudou de natureza depois do 23.8.2**:
 | **`IsPanelSDKEnabled()`** (enable geral, `ABinView.cpp`) | ❌ | ❌ | ✅ | ✅ |
 | **menu `Extensions` / `Host Panels`** (`PanelSDKMenu.cpp`) | ❌ | ❌ | ❌ | ✅ |
 
-**Medido no 23.8.2 instalado:** runtime de pé (`avid-api-gateway.exe`, **9100** gRPC do MC, gateway `[::1]:4920/4930`, `PanelSDK.json` ports 9100-9110, `APIGateway/config.json` apiPort 4920/pluginPort 4930), 2 `.avpi` em `C:\ProgramData\Avid\PanelSDKPlugins` (o `com.usuario.delapraca.mc.avpi` do autor + `PARCEIRO-Q_1.0.0.avpi`), **mas painéis NÃO aparecem no Tools** — nem o dev nem o comercial. Exe é **release** (`dwFileFlags=0x0` @ file offset **0x4870334**); sem `.ftf` em `ProgramData\Avid\Support`.
+**Medido no 23.8.2 instalado:** runtime de pé (`avid-api-gateway.exe`, **9100** gRPC do MC, gateway `[::1]:4920/4930`, `PanelSDK.json` ports 9100-9110, `APIGateway/config.json` apiPort 4920/pluginPort 4930), 2 `.avpi` em `C:\ProgramData\Avid\PanelSDKPlugins` (o `com.ciclomedia.delapraca.mc.avpi` do autor + `PARCEIRO-Q_1.0.0.avpi`), **mas painéis NÃO aparecem no Tools** — nem o dev nem o comercial. Exe é **release** (`dwFileFlags=0x0` @ file offset **0x4870334**); sem `.ftf` em `ProgramData\Avid\Support`.
 
 **Conclusão:** o **23.8.2 é cedo demais** (só o toggle dev → painel não-assinado some sem gambiarra). O **25.6 do autor mostrava os painéis** por ser da era do `IsPanelSDKEnabled`/Extensions. **Base recomendada p/ os plugins/painéis = 24.6.0+ (idealmente 25.x).** Em aberto: se no 24.6.0+ o enable é default/por setting de UI (menu Extensions/Host Panels) ou se houve ação do autor no 25.6.
 
@@ -197,7 +197,7 @@ O autor instalou o **Quickture Avid Helper 1.6.3** (MSI oficial) no MC 23.8.2. P
 
 ## ✅ RESULTADO NO MC 25.12.2 (2026-10-17, pilotado): painéis ASSINADOS aparecem; o não-assinado NÃO
 
-Após o autor desinstalar o 23.8.2 e instalar o **25.12.2** (Trial), com os 4 `.avpi` em `PanelSDKPlugins` (avid-huddle, com.usuario.delapraca.mc, quickture, PARCEIRO-Q) e o helper do Quickture rodando: abri o MC pelo piloto (a tela inicial do 25.x é "Select Project" redesenhada — botão **Open** sem foco, ENTER não abre; **duplo-clique na linha do projeto** abre) e o **menu bar do 25.x tem um menu `Extensions`** (entre Script e Help; não existe no 23.8.2). O menu **Extensions** lista: **Quickture** e **PARCEIRO-Q** — os DOIS painéis **assinados pela Avid**. ⛔ O **`De Lá Pra Cá` (não-assinado) NÃO aparece**.
+Após o autor desinstalar o 23.8.2 e instalar o **25.12.2** (Trial), com os 4 `.avpi` em `PanelSDKPlugins` (avid-huddle, com.ciclomedia.delapraca.mc, quickture, PARCEIRO-Q) e o helper do Quickture rodando: abri o MC pelo piloto (a tela inicial do 25.x é "Select Project" redesenhada — botão **Open** sem foco, ENTER não abre; **duplo-clique na linha do projeto** abre) e o **menu bar do 25.x tem um menu `Extensions`** (entre Script e Help; não existe no 23.8.2). O menu **Extensions** lista: **Quickture** e **PARCEIRO-Q** — os DOIS painéis **assinados pela Avid**. ⛔ O **`De Lá Pra Cá` (não-assinado) NÃO aparece**.
 
 ⇒ **Conclusão dupla:** (1) o host de painel do 25.x funciona e carrega painel assinado **sem gambiarra** (versão confirmada como a variável-chave do 23.8.2); (2) **painel NÃO-ASSINADO continua bloqueado no 25.12.2** — precisa do `3PDevPanelSDK` ("Enable 3P development"). Agora, diferente do 2021, **há runtime**, então ligar o `3PDevPanelSDK` no 25.12.2 deve fazer o `De Lá Pra Cá` aparecer. ⚠️ O autor dizia que no 25.6 o painel dele aparecia "sozinho" — ou o 25.6 era mais permissivo com não-assinado (Avid apertou até o 25.12.2), ou havia o toggle ligado. Caminho p/ o painel do autor: assinar (programa de parceiro Avid) OU ligar 3PDevPanelSDK (CIT_OVERRIDE + patch de build-type, agora re-mirado no exe 25.12.2 — offset do dwFileFlags a recalcular).
 
@@ -205,13 +205,13 @@ Após o autor desinstalar o 23.8.2 e instalar o **25.12.2** (Trial), com os 4 `.
 
 Correções do que esta página afirmou mais cedo hoje: (1) o gateway é **o mesmo binário** do 23.8.2 ao 25.12.2 (24.6.0 e 25.12.2 com tamanho idêntico) e o verificador `zipdsign` ("package is not signed") **sempre existiu** — portanto a assinatura NÃO explica por que o painel não-assinado funcionava no 25.6/Windows e no 25.12.0/macOS; (2) o `.avpi` do De Lá Pra Cá em `PanelSDKPlugins` é **byte a byte** o que o app monta (`integracoes.avpi`, v0.1.98) — o pacote não é o problema; (3) os toggles achados no exe: `/Media Composer/3PDevPanelSDK` e `/Media Composer/GatewayDevMode` ("Bypass Gateway Authorization for Plugin Loader developers. FOR INTERNAL USE ONLY.", presente desde 23.8.2; o gateway tem `SwitchTo`/`handleSwitchTo` e o log "switched to the developer mode").
 
-**Teste limpo** (procedimento do banco: MC fechado → gateway morto → instalar → abrir): instalado um **painel-teste mínimo não-assinado** (`com.usuario.teste.mc`, manifesto no formato dos que funcionam, entradas com `/`), com o **Órbita** (`com.orbita.sync.avpi`, instalado pelo autor) e o **De Lá Pra Cá** também presentes. Menu **Extensions** = **só Quickture e PARCEIRO-Q** (assinados). **Nenhum dos três não-assinados registrou**; o `avid-huddle` (assinado, cadeia antiga de 4 certs, folha vencida em 2025-10-10) também não. Nada no Tools.
+**Teste limpo** (procedimento do banco: MC fechado → gateway morto → instalar → abrir): instalado um **painel-teste mínimo não-assinado** (`com.ciclomedia.teste.mc`, manifesto no formato dos que funcionam, entradas com `/`), com o **Órbita** (`com.orbita.sync.avpi`, instalado pelo autor) e o **De Lá Pra Cá** também presentes. Menu **Extensions** = **só Quickture e PARCEIRO-Q** (assinados). **Nenhum dos três não-assinados registrou**; o `avid-huddle` (assinado, cadeia antiga de 4 certs, folha vencida em 2025-10-10) também não. Nada no Tools.
 
 ⇒ **No MC 25.12.2 / Windows / Trial, painel não-assinado NÃO registra — qualquer um, não é o De Lá Pra Cá.** Contradiz o histórico (25.6/Windows e 25.12.0/macOS carregaram não-assinado). Variáveis ainda não separadas: **versão** (25.12.0→25.12.2 ou 25.6→25.12) × **licença Trial** × Windows. Controle decisivo: instalar o **25.6** nesta mesma máquina (mesma condição de trial) e repetir o teste.
 
 ## ✅ CAUSA ACHADA (2026-10-17 20:55, macOS 15.6.1) — o MC 25.12.2 bloqueia painel não-assinado; o 25.12.0 aceita. É VERSÃO, não SO nem licença
 
-Mesmo Mac (Mac mini, licença Pro), mesmo pacote não-assinado `com.usuario.delapraca.mc.avpi` (3072 bytes), lido pelos
+Mesmo Mac (Mac mini, licença Pro), mesmo pacote não-assinado `com.ciclomedia.delapraca.mc.avpi` (3072 bytes), lido pelos
 menus via acessibilidade (`osascript` / System Events, sem clicar):
 
 | MC (macOS) | menu Extensions | painéis listados |
@@ -262,7 +262,7 @@ Comparei os dois instaladores `.pkg` do Mac (25.12.0.58863 × 25.12.2.59112), pe
 
 O autor instalou o **24.6.0.58520** no Windows (por cima do 25.12.2). Medido com o MC aberto: gateway rodando
 (mesma linha de comando do 25.x), portas 9100 (MC) e 4920/4930 (gateway) de pé, e em `C:\ProgramData\Avid\PanelSDKPlugins`
-os pacotes `com.usuario.teste.mc.avpi`, `com.usuario.delapraca.mc.avpi`, `com.orbita.sync.avpi` (não-assinados),
+os pacotes `com.ciclomedia.teste.mc.avpi`, `com.ciclomedia.delapraca.mc.avpi`, `com.orbita.sync.avpi` (não-assinados),
 `PARCEIRO-Q_1.0.0.avpi` (assinado) e `quickture.avpi`. **Tools mostra só Quickture e PARCEIRO-Q** (assinados); nenhum
 dos nossos. Os manifestos têm o mesmo formato do PARCEIRO-Q (category, uiItems dropdown em "Tools", targetHosts) ⇒ não é
 o pacote.

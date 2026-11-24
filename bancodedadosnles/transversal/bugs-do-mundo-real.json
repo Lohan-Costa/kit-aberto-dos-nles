@@ -2920,10 +2920,10 @@
    "titulo": "Juntar 'vizinhos' depois de filtrar costura falas separadas pelo outro ator",
    "data": "2026-09-01",
    "onde": "Assist anterior (casador de falas, C04_FALAS NOVO.avb, conferida pelo autor em 2026-09-01)",
-   "sintoma": "Uma fala da PERSONAGEM-F saía costurada com outra dita dez segundos depois, por cima da fala do EDU.",
+   "sintoma": "Uma fala da PERSONAGEM-F saía costurada com outra dita dez segundos depois, por cima da fala do PERSONAGEM-G.",
    "causa": "A junção 'até N consecutivos' era feita na lista já filtrada por canal: tirado o outro ator, falas distantes viravam vizinhas.",
    "regra": "Toda junção depois de um filtro tem teto em TEMPO real (ou na posição original), não só em contagem.",
-   "como_conferir": "Um diálogo de dois atores em canais separados (C04 da PERSONAGEM-F/EDU serve) em que o ator A fala, B fala ≥ 5 s, A fala de novo. Rodar a separação/junção do app filtrando o canal de A. Medir: o maior vão dentro de um trecho juntado (tem de ficar abaixo do teto, ~4 s; o legítimo foi 3,22 s) e se algum trecho de A cobre tempo em que só B fala.",
+   "como_conferir": "Um diálogo de dois atores em canais separados (C04 da PERSONAGEM-F/PERSONAGEM-G serve) em que o ator A fala, B fala ≥ 5 s, A fala de novo. Rodar a separação/junção do app filtrando o canal de A. Medir: o maior vão dentro de um trecho juntado (tem de ficar abaixo do teto, ~4 s; o legítimo foi 3,22 s) e se algum trecho de A cobre tempo em que só B fala.",
    "confianca": "confirmado",
    "alvos": {
     "Assist anterior": {

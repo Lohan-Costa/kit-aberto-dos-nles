@@ -70,7 +70,7 @@ no menu de sempre.
 ### ⚠️ `CORRIGE:` 2026-08-17 — "o 25.6 honra `menuName`" era `confirmado` e não estava medido
 
 A conclusão acima foi tirada de três painéis (`avid-huddle`, `com.orbita.sync`,
-`com.usuario.delapraca.mc`) que aparecem em Tools. **Os três declaram
+`com.ciclomedia.delapraca.mc`) que aparecem em Tools. **Os três declaram
 `"menuName": "Tools"`.** A amostra inteira era compatível com as duas explicações
 concorrentes — *"o menu declarado é obedecido"* e *"vai sempre para Tools"* — e o fato foi
 promovido a `confirmado` sem nenhum caso que pudesse refutá-lo.
@@ -410,7 +410,7 @@ Implementação completa (com o `PROCESSENTRY32W`) em `_DeLaPraCa`,
 ## 7c. ⭐ Instalar o `.avpi` no Windows: confirmado, e o ZIP tem regra própria — `confirmado`
 
 Segunda confirmação independente de §1, agora **escrevendo**: um painel próprio
-(`com.usuario.delapraca.mc.avpi`) foi empacotado e copiado para
+(`com.ciclomedia.delapraca.mc.avpi`) foi empacotado e copiado para
 `%PROGRAMDATA%\Avid\PanelSDKPlugins` **sem elevação**, ao lado do `avid-huddle.avpi` da Avid e
 do `com.orbita.sync.avpi` (2026-08-15). Reforça — sem fechar — a pendência sobre a ACL.
 

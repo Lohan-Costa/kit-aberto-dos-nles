@@ -33,7 +33,8 @@ diagnóstico da sua máquina com mídia sintética — sem tocar no seu material
 | `docs/` | a página do kit |
 
 O app **Ciclo Assist** (sincronizar, conformar, assistir) é aberto e vem em repositório próprio,
-`ciclo-assist-kit-nle` (em preparação); ele é clonado DENTRO desta pasta, para achar o banco, o piloto e o laboratório.
+https://github.com/Lohan-Costa/ciclo-assist-kit-nle — clone-o DENTRO desta pasta, para ele achar o banco, o piloto e o
+laboratório.
 
 ## O método
 

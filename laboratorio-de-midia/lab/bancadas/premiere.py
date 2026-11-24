@@ -28,7 +28,7 @@ import urllib.request
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 FONTE = os.path.join(AQUI, "premiere", "ponte-cep")
-ID = "com.usuario.lab.ponte"
+ID = "com.ciclomedia.lab.ponte"
 
 
 def _pasta_extensoes() -> str:

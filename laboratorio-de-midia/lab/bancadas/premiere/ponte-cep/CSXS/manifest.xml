@@ -6,11 +6,11 @@
   (lab/bancadas/premiere.py). Autorizada pelo autor em 2026-10-06 ("ponte livre").
   Arranque automático sem janela: banco, plugins/premiere-cep/painel-servido-e-identidade.md §1.
 -->
-<ExtensionManifest Version="7.0" ExtensionBundleId="com.usuario.lab.ponte"
+<ExtensionManifest Version="7.0" ExtensionBundleId="com.ciclomedia.lab.ponte"
     ExtensionBundleVersion="0.1.0" ExtensionBundleName="Laboratorio Ponte"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <ExtensionList>
-    <Extension Id="com.usuario.lab.ponte.invisivel" Version="0.1.0" />
+    <Extension Id="com.ciclomedia.lab.ponte.invisivel" Version="0.1.0" />
   </ExtensionList>
   <ExecutionEnvironment>
     <HostList>
@@ -24,7 +24,7 @@
     </RequiredRuntimeList>
   </ExecutionEnvironment>
   <DispatchInfoList>
-    <Extension Id="com.usuario.lab.ponte.invisivel">
+    <Extension Id="com.ciclomedia.lab.ponte.invisivel">
       <DispatchInfo>
         <Resources>
           <MainPath>./index.html</MainPath>

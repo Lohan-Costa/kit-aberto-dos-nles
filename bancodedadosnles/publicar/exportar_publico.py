@@ -65,7 +65,8 @@ def decidir(rel: str, regras: list[list[str]], binario: bool) -> tuple[bool, str
 
 # ── os apelidos ──────────────────────────────────────────────────────────────────────────────────────────────────────
 #: fronteira de nome: letra ou dígito do lado = parte de outra palavra; o "_" SEPARA (prova_produto_PRODC)
-_ANTES, _DEPOIS = r"(?<![A-Za-z0-9À-ÿ])", r"(?![A-Za-z0-9À-ÿ])"
+#: ⚠️ o "\n" escrito no código ("…\nPERSONAGEM-F\n…") é fronteira: o "n" da barra não é parte do nome (5º ensaio, 2026-11-24)
+_ANTES, _DEPOIS = r"(?:(?<![A-Za-z0-9À-ÿ])|(?<=\\[nrt]))", r"(?![A-Za-z0-9À-ÿ])"
 
 
 def _corpo(nome: str) -> str:
@@ -76,12 +77,14 @@ def _corpo(nome: str) -> str:
 
 
 def compilar(apelidos: list[dict]) -> list[tuple[re.Pattern, str, str]]:
-    """[{de, para, maiusculas: bool, solto: bool}] → (regex, troca, de). `solto` = sem a fronteira (prefixos como
+    """[{de, para, maiusculas: bool, solto: bool, exceto_antes: regex de largura fixa}] → (regex, troca, de). `solto` = sem a fronteira (prefixos como
     "PRODA_"). Os mais longos primeiro ("Assist anterior" antes de "Emissora")."""
     out = []
     for a in sorted(apelidos, key=lambda a: -len(a["de"])):
         corpo = _corpo(a["de"])
         rx = corpo if a.get("solto") else _ANTES + corpo + _DEPOIS
+        if a.get("exceto_antes"):   # ex.: "usuario" é o usuário da máquina, mas "com.ciclomedia.*" é a marca (o id)
+            rx = f"(?<!{a['exceto_antes']})" + rx
         out.append((re.compile(rx, 0 if a.get("maiusculas") else re.IGNORECASE), a["para"], a["de"]))
     return out
 

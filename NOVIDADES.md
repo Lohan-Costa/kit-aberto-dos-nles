@@ -10,3 +10,4 @@ começa por `adicionado:`, `corrigido:` ou `mudado:`) e na seção "Últimas atu
   ambiente de cada programa, no Windows e no macOS), o piloto com o vigia, o laboratório de mídia sintética, as skills
   do kit e a quarentena de contribuições.
 - **Adicionado:** a página do kit e a porta de entrada (`COMECE-AQUI.md`).
+- **Adicionado:** o app aberto Ciclo Assist, em repositório próprio (`ciclo-assist-kit-nle`), clonado dentro do kit.

@@ -19,10 +19,10 @@
 | app | script de dev | serviço | painel `.avpi` instalado | outras |
 |---|---|---|---|---|
 | **Órbita** (`DRAMASYNC`) | `dev.bat` | **7817** (ponte com os plugins, `src-tauri/src/httpserver.rs`) | `com.orbita.sync` | Vite **1420** (`strictPort`) |
-| **De Lá Pra Cá** | `dev.ps1` | **7823** | `com.usuario.delapraca.mc` → 7823 | — |
-| **Ciclo Assist** (`_CICLO ASSIST`) | `dev.ps1` | **7824** | `com.usuario.cicloassist.mc` v0.2.0 → 7824 | Ollama **11434**; SigLIP no Mac **7825**; `tools/print_painel.mjs` **9333** |
-| **Assist anterior** (`_ASSIST ANTERIOR`) | `dev.ps1` | **7830** (era 7823 até 2026-09-16) | `com.usuario.assist_anterior.mc` → 7830 desde 2026-09-19 (antes: o mesmo id do Ciclo Assist, ver §4). ⚠️ O `.avpi` instalado com esse id em 25/08 ainda aponta para a 7823 até o próximo `tools/pack.py` | — |
-| **Promo Entrega** | `dev.ps1` | **7829** | `com.usuario.promoentrega.mc` → 7829 | Vite **1421** |
+| **De Lá Pra Cá** | `dev.ps1` | **7823** | `com.ciclomedia.delapraca.mc` → 7823 | — |
+| **Ciclo Assist** (`_CICLO ASSIST`) | `dev.ps1` | **7824** | `com.ciclomedia.cicloassist.mc` v0.2.0 → 7824 | Ollama **11434**; SigLIP no Mac **7825**; `tools/print_painel.mjs` **9333** |
+| **Assist anterior** (`_ASSIST ANTERIOR`) | `dev.ps1` | **7830** (era 7823 até 2026-09-16) | `com.ciclomedia.assist_anterior.mc` → 7830 desde 2026-09-19 (antes: o mesmo id do Ciclo Assist, ver §4). ⚠️ O `.avpi` instalado com esse id em 25/08 ainda aponta para a 7823 até o próximo `tools/pack.py` | — |
+| **Promo Entrega** | `dev.ps1` | **7829** | `com.ciclomedia.promoentrega.mc` → 7829 | Vite **1421** |
 
 ⭐ **Livres e próximas:** 7818–7822, 7826–7828, 7831+. Quem criar app novo pega a seguinte e
 **acrescenta a linha aqui**, não no `CLAUDE.md` do próprio projeto — o choque é entre apps,
@@ -73,7 +73,7 @@ testes, que o projeto trava juntos de propósito), e o De Lá Pra Cá passou a u
 
 `_ASSIST ANTERIOR` é a versão **anterior** do Ciclo Assist: o repositório foi renomeado por
 dentro (`NOME_DO_APP = "CicloAssist"`, `NOME_ANTERIOR = "assist_anterior"`), e desde então o
-`painel/avid-manifest.json` dele declara `com.usuario.cicloassist.mc` — **o mesmo id** que
+`painel/avid-manifest.json` dele declara `com.ciclomedia.cicloassist.mc` — **o mesmo id** que
 o `_CICLO ASSIST` novo empacota.
 
 O arquivo instalado é nomeado **pelo id**. Então empacotar e instalar o painel do repositório
@@ -103,7 +103,7 @@ passou a gravar lá. Nenhum dos dois quebrou, porque os nomes de arquivo não co
 não desenho.
 
 **Resolvido em 2026-09-19:** o `_ASSIST ANTERIOR` voltou a ser **Assist anterior**, com id
-`com.usuario.assist_anterior.mc` e pasta `assist_anterior`. ⛔ A migração de volta **não pode ser
+`com.ciclomedia.assist_anterior.mc` e pasta `assist_anterior`. ⛔ A migração de volta **não pode ser
 um rename da pasta** (levaria os dados do outro app): ela move **só os itens listados** em
 `plataforma.NOSSOS_NA_PASTA_ANTERIOR`, e se falhar no meio desfaz o que já moveu. Seis
 mutantes, seis mortos.

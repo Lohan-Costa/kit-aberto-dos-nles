@@ -282,8 +282,12 @@
   },
   {
    "repo": "2 ATIVOS/_CICLO ASSIST",
-   "destino": "ciclo-assist",
+   "destino": "ciclo-assist-kit-nle",
    "regras": [
+    [
+     "fica",
+     "________claude-iniciar_opcoes*"
+    ],
     [
      "prproj",
      "cicloassist/carta/moldes/*.prproj"
