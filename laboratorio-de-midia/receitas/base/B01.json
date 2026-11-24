@@ -1,0 +1,13 @@
+{
+ "caso": "B01_FORMATOS",
+ "pergunta": "O mesmo clipe nos seis perfis chega igual em cada NLE?",
+ "segundos": 10,
+ "fps": "25",
+ "raster": [1920, 1080],
+ "tc_inicio": "01:00:00:00",
+ "camera": 1,
+ "take": 1,
+ "fonte": 1,
+ "canais": 2,
+ "perfis": ["mp4-h264", "mov-prores", "mxf-op1a", "mxf-xdcam50", "mxf-opatom", "wav-bwf"]
+}

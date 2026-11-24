@@ -1,0 +1,1944 @@
+{
+ "_o_que": "transcrição das fotos do Effect Editor (MC 25.6, 2026-10-12), UMA por painel distinto — a chave é o md5 do painel abaixo da linha do título (montar_catalogo.py agrupa e distribui pelos efeitos)",
+ "d049c540": {
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "f5457ccf": {
+  "grupos": {
+   "More Options...": false,
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "4050faca": {
+  "grupos": {
+   "More Options...": false,
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "098b2313": {
+  "grupos": {
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   },
+   "Scaling": {
+    "Wid": 100,
+    "Hgt": 100,
+    "Scaling Fixed Aspect": true
+   }
+  }
+ },
+ "6e75daee": {
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 255,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 32
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "PlasmaWipe (AVX): painel plano, sem triângulos de subgrupo; o pontinho verde ao lado do ícone"
+ },
+ "85b8bf58": {
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 63,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 63,
+    "Soft": 0
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "molduras Metal/Stone: borda cinza (Lum 63) e Width 63"
+ },
+ "a6bee31f": {
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 255,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  }
+ },
+ "ccda76f1": {
+  "grupos": {
+   "Background Color": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 0
+   }
+  }
+ },
+ "b07b48b0": {
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   },
+   "Scaling": {
+    "Wid": 100,
+    "Hgt": 100,
+    "Scaling Fixed Aspect": true
+   },
+   "Position": {
+    "H Pos": 0,
+    "V Pos": 0
+   }
+  }
+ },
+ "0663b5df+e4ac8063+925796d2+2bea6c6f": {
+  "grupos": {
+   "Shape": {
+    "forma": "Page Fold",
+    "Curl": 50,
+    "Radius": 15,
+    "Angle": 45,
+    "dobra": "Tuck Over",
+    "realce": "Auto Highlight"
+   },
+   "Corner Pin": {
+    "Corner 1": {
+     "X": -500,
+     "Y": 500
+    },
+    "Corner 2": {
+     "X": 500,
+     "Y": 500
+    },
+    "Corner 3": {
+     "X": 500,
+     "Y": -500
+    },
+    "Corner 4": {
+     "X": -500,
+     "Y": -500
+    }
+   },
+   "Corner Tracking": {
+    "trackers": [
+     "No Tracker 1",
+     "No Tracker 1",
+     "No Tracker 1",
+     "No Tracker 1"
+    ],
+    "Stabilize Tracking": false
+   },
+   "Crop": {
+    "Top": 999.0,
+    "Bot": -999.0,
+    "Lft": -999.0,
+    "Rgt": 999.0
+   },
+   "Scaling": {
+    "X": 100.0,
+    "Y": 100.0,
+    "Fixed Aspect": true,
+    "Scale Tracking": {
+     "trackers": [
+      "No Tracker 1",
+      "No Tracker 1"
+     ],
+     "Stabilize Tracking": false
+    }
+   },
+   "Axis": {
+    "X": 0.0,
+    "Y": 0.0,
+    "Z": 0.0
+   },
+   "Skew": {
+    "X": 0,
+    "Y": 0
+   },
+   "Rotation": {
+    "Z": 0.0,
+    "X": 0.0,
+    "Y": 0.0,
+    "Rotation Tracking": {
+     "trackers": [
+      "No Tracker 1",
+      "No Tracker 1"
+     ],
+     "Stabilize Tracking": false
+    }
+   },
+   "Position": {
+    "X": 0.0,
+    "Y": 0.0,
+    "Z": 0.0,
+    "Position Tracking": {
+     "trackers": [
+      "No Tracker 1"
+     ],
+     "modo": "X and Y Tracking",
+     "Stabilize Tracking": false
+    }
+   },
+   "Perspective": {
+    "X": 0,
+    "Y": 0,
+    "Z": 250
+   },
+   "Target": {
+    "X": 0.0,
+    "Y": 0.0,
+    "Size": 100.0
+   },
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 0
+    },
+    "Limit to video levels": true,
+    "estilo": "Plain",
+    "Wid": 0,
+    "Sft": 0
+   },
+   "Highlight": {
+    "Soft": 50,
+    "Inty": 50,
+    "Rad": 50,
+    "Angle": 0,
+    "Aspct": 0,
+    "X": 0,
+    "Y": 0
+   },
+   "Highlight Color": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 255
+   },
+   "Lowlight Color": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 0
+   },
+   "Defocus": {
+    "modo": "Internal",
+    "Horz": 10,
+    "Vert": 10
+   },
+   "Shadow": {
+    "Opac.": 50,
+    "X": 50,
+    "Y": -50
+   },
+   "Trail": {
+    "Decay": 75,
+    "Use Sparkle": false
+   },
+   "Stamp": {
+    "Stamp Image": false,
+    "Clear Image": false,
+    "Opac.": 100,
+    "Foregnd. On Top": false
+   },
+   "Foreground": {
+    "modo": "Full Key",
+    "Opac.": 100,
+    "Foreground is pre-multiplied": false,
+    "Swap Sources": false,
+    "Reverse Animation": false,
+    "Invert Key": false,
+    "Show Alpha": false
+   },
+   "Spill Suppression": {
+    "Target Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 0
+    },
+    "Use Key Color": false,
+    "Replace Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 128
+    },
+    "Gain": 0,
+    "Soft": 0
+   },
+   "Erode / Expand": {
+    "Filter": 3,
+    "Center": 127,
+    "Soft": 127
+   },
+   "Background Color": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 0,
+    "Limit to video levels": true
+   }
+  },
+  "nota": "todos os grupos com o interruptor (●○) DESLIGADO de fábrica — o efeito só vale com ele ligado (banco: 3D Warp)"
+ },
+ "24f39c4b": {
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": true,
+    "Blend": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Wid": 0,
+    "Sft": 0
+   },
+   "Foreground": {
+    "Level": 100,
+    "Swap Sources": false,
+    "Reverse Animation": false
+   },
+   "Scaling": {
+    "X": 50.0,
+    "Y": 50.0,
+    "Fixed Aspect": true,
+    "Tracking": {
+     "trackers": [
+      "No Tracker 1",
+      "No Tracker 1"
+     ]
+    }
+   },
+   "Position": {
+    "X": 0.0,
+    "Y": 0.0,
+    "Tracking": {
+     "trackers": [
+      "No Tracker 1"
+     ],
+     "modo": "X Tracking Only"
+    }
+   },
+   "Crop": {
+    "Top": 0.0,
+    "Bot": 0.0,
+    "Lft": 0.0,
+    "Rgt": 0.0
+   }
+  },
+  "nota": "Scaling 50 de fábrica (o PIP sem escala na bin = 50 %, confirmado no render); Fixed Border LIGADO; no Crop o controle de Bot e Rgt fica na ponta DIREITA com o valor 0"
+ },
+ "4687af1f": {
+  "grupos": {
+   "Foreground": {
+    "Opacity": 50
+   }
+  }
+ },
+ "0771ffc0": {
+  "grupos": {
+   "Background Color": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 0
+   },
+   "Scaling": {
+    "Wid": 100,
+    "Hgt": 80,
+    "Scaling Fixed Aspect": true
+   },
+   "Position": {
+    "H Pos": 0,
+    "V Pos": 0
+   }
+  }
+ },
+ "4baaff6c": {
+  "grupos": {
+   "Background Color": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 0
+   },
+   "Scaling": {
+    "Wid": 100,
+    "Hgt": 72,
+    "Scaling Fixed Aspect": true
+   },
+   "Position": {
+    "H Pos": 0,
+    "V Pos": 0
+   }
+  }
+ },
+ "5160035f": {
+  "grupos": {
+   "Background Color": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 0
+   },
+   "Scaling": {
+    "Wid": 100,
+    "Hgt": 75,
+    "Scaling Fixed Aspect": true
+   },
+   "Position": {
+    "H Pos": 0,
+    "V Pos": 0
+   }
+  }
+ },
+ "a8ad19d7": {
+  "grupos": {
+   "Background Color": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 0
+   },
+   "Scaling": {
+    "Wid": 100,
+    "Hgt": 53,
+    "Scaling Fixed Aspect": true
+   },
+   "Position": {
+    "H Pos": 0,
+    "V Pos": 0
+   }
+  }
+ },
+ "e8376ef6": {
+  "grupos": {
+   "Background Color": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 0
+   },
+   "Blowup": {
+    "Field": 0,
+    "X Pos": 0,
+    "Y Pos": 0
+   },
+   "Crop": {
+    "T": 0,
+    "B": 0,
+    "L": 0,
+    "R": 0
+   }
+  }
+ },
+ "ee7f5732+09b9d143": {
+  "grupos": {
+   "Edit Global Properties...": false,
+   "Bypass Effect": false,
+   "Caption Files": {
+    "Import Caption Data...": false,
+    "Export Caption Data...": false
+   },
+   "Text Appearance": {
+    "Color": {
+     "Red": 255.0,
+     "Green": 255.0,
+     "Blue": 255.0
+    },
+    "Opacity": 100,
+    "fonte": "Arial",
+    "Font Size (pixels)": 20,
+    "Letter Spacing": 0,
+    "Line Weight": 25,
+    "Outline Weight": 25,
+    "contorno": "No Outline",
+    "Color (contorno)": {
+     "Red": 0.0,
+     "Green": 0.0,
+     "Blue": 0.0
+    },
+    "sombra": "No Shadow",
+    "alinhamento": "Left Align"
+   },
+   "Box Appearance": {
+    "Color": {
+     "Red": 0.0,
+     "Green": 0.0,
+     "Blue": 0.0
+    },
+    "Opacity": 100,
+    "caixas": "One Box",
+    "ancora": "Anchor To Bottom of Text",
+    "lado": "Anchor Left",
+    "Anchor Position": {
+     "X": -410,
+     "Y": -265
+    },
+    "Extent": {
+     "X": 999,
+     "Y": 999
+    },
+    "largura": "Fixed Width (Wrap)",
+    "Box Width": 500,
+    "linhas": "As Many Rows As Needed",
+    "Padding": {
+     "Vertical": 2,
+     "Horizontal": 3
+    },
+    "Row Spacing": 0
+   },
+   "Edit Master Caption List...": false,
+   "Caption Text": ""
+  }
+ },
+ "84c951c8+13edbfca+d882fea0+21ff0d9f+ebe85bec": {
+  "grupos": {
+   "Display 1": {
+    "ligado": true,
+    "fonte_dado": "Timecode",
+    "trilha": "Current Track",
+    "rotulo": "Clip Notes",
+    "tempo": "Current Time",
+    "Display Label": false,
+    "Display Fields": false,
+    "Timecode Display": "Track",
+    "Appearance": {
+     "Position": {
+      "X": -18,
+      "Y": 42
+     },
+     "Font Size (pixels)": 30,
+     "Text": {
+      "Color": "branco (Red/Green/Blue cortados: '2…')",
+      "Text Opacity": "1.… (cortado)",
+      "Line Weight": "2… (cortado)",
+      "Outline Weight": "2… (cortado)",
+      "Use Text Outline": false
+     },
+     "Background": {
+      "Color": "preto (0)",
+      "Background Opacity": "1.… (cortado)"
+     }
+    }
+   },
+   "Display 2": {
+    "ligado": false,
+    "igual ao Display 1 exceto": {
+     "Position": {
+      "X": -18,
+      "Y": 32
+     }
+    }
+   },
+   "Display 3": {
+    "ligado": false,
+    "igual ao Display 1 exceto": {
+     "Position": {
+      "X": -18,
+      "Y": 22
+     }
+    }
+   },
+   "Display 4": {
+    "ligado": false,
+    "igual ao Display 1 exceto": {
+     "Position": {
+      "X": -18,
+      "Y": 12
+     }
+    }
+   },
+   "Text": {
+    "ligado": false,
+    "texto": "",
+    "Position": {
+     "X": -18,
+     "Y": 2
+    },
+    "Font Size (pixels)": 30,
+    "fonte": "Arial",
+    "resto": "como o Display 1"
+   }
+  },
+  "nota": "os números da coluna da direita saem CORTADOS nesta largura (subgrupos fundos) — ler pela bin; o pontinho verde do Display 1 = só ele ligado de fábrica"
+ },
+ "0d423bd7": {
+  "grupos": {
+   "Color Level": 50,
+   "Color": {
+    "R": 204,
+    "G": 51,
+    "B": 255
+   }
+  },
+  "nota": "cor de fábrica magenta"
+ },
+ "1774a1da": {
+  "grupos": {
+   "Size": 10,
+   "Jitter": 25,
+   "Seed": 500,
+   "Anti-alias": false,
+   "Border": {
+    "Left": 10,
+    "Right": 10,
+    "Top": 1,
+    "Bottom": 1
+   }
+  }
+ },
+ "6300c3c9": {
+  "grupos": {
+   "Level": 15,
+   "Size": 1,
+   "Color": 50,
+   "Field Mode": false,
+   "Hilite Grain": 50,
+   "Shadow Grain": 50
+  }
+ },
+ "3e58a1f2": {
+  "grupos": {
+   "Brightness": 30,
+   "Size": 50,
+   "Width": 10,
+   "Amount": 10,
+   "Random Seed": 500,
+   "Position": {
+    "X": 0,
+    "Y": 0
+   }
+  }
+ },
+ "309c7bdd": {
+  "grupos": {
+   "Input Parameters": {
+    "Blur Amount": 5,
+    "Lower Motion Threshold": 2,
+    "Upper Motion Threshold": 4,
+    "Trail": 50,
+    "Sharpen Leading Edge": 20,
+    "Progressive Source": false
+   },
+   "Border": {
+    "Left": 10,
+    "Right": 10,
+    "Top": 1,
+    "Bottom": 1
+   }
+  }
+ },
+ "3f5f7ac5": {
+  "grupos": {
+   "Input Parameters": {
+    "Min Motion Threshold": 2,
+    "Max Motion Threshold": 20,
+    "Constant Saturation": 30,
+    "Progressive Source": false
+   },
+   "Border": {
+    "Left": 10,
+    "Right": 10,
+    "Top": 1,
+    "Bottom": 1
+   }
+  }
+ },
+ "38d867e2": {
+  "grupos": {
+   "modo": "Still->Still",
+   "Input Parameters": {
+    "Feature Match": false,
+    "Swap Sources": false,
+    "Progressive Source": false
+   },
+   "Border": {
+    "Left": 10,
+    "Right": 10,
+    "Top": 1,
+    "Bottom": 1
+   }
+  }
+ },
+ "582cc19d": {
+  "grupos": {
+   "Amount": 25,
+   "Softness": 10,
+   "Position": {
+    "X": 0,
+    "Y": 0
+   },
+   "Swap": false
+  }
+ },
+ "b49a694f": {
+  "grupos": {
+   "Symmetry": 6,
+   "Angle": 0.0,
+   "Scale": 100,
+   "Center": {
+    "X": 0,
+    "Y": 0
+   },
+   "X Offset": 0,
+   "Y Offset": 0,
+   "Anti-alias": false,
+   "Border": {
+    "Left": 10,
+    "Right": 10,
+    "Top": 1,
+    "Bottom": 1
+   }
+  }
+ },
+ "9bab4279": {
+  "grupos": {
+   "Generation": {
+    "Amount": 100,
+    "Branch Probability": 40,
+    "Random Seed": 400,
+    "modo": "Standard",
+    "Position": {
+     "X": 0,
+     "Y": -500
+    }
+   },
+   "Core": {
+    "Width": 1.0,
+    "Color": {
+     "R": 255,
+     "G": 255,
+     "B": 255
+    }
+   },
+   "Glow": {
+    "Width": 14.0,
+    "Color": {
+     "R": 230,
+     "G": 230,
+     "B": 102
+    }
+   }
+  }
+ },
+ "c90f678c": {
+  "grupos": {
+   "Bleed": false,
+   "Melt up": false,
+   "Amount": 50,
+   "Strength": 40,
+   "Random Seed": 500,
+   "Anti-alias": false,
+   "Swap Sources": false,
+   "Border": {
+    "Left": 10,
+    "Right": 10,
+    "Top": 1,
+    "Bottom": 1
+   }
+  }
+ },
+ "a35002fa": {
+  "grupos": {
+   "Amount": 5.0,
+   "Direction": 0.0
+  }
+ },
+ "eaf93929": {
+  "grupos": {
+   "Turn Left": true,
+   "Reverse": false,
+   "Swap": false
+  }
+ },
+ "6ee41a93": {
+  "grupos": {
+   "Amount": 0.5,
+   "Size": 15,
+   "Spacing": 10,
+   "Front Speed": 10,
+   "Front Randomness": 10,
+   "Speed": 10,
+   "Speed Randomness": 50,
+   "Acceleration": 10,
+   "Bumpiness": 50,
+   "Swap": true,
+   "Border": {
+    "Left": 10,
+    "Right": 10,
+    "Top": 1,
+    "Bottom": 1
+   }
+  },
+  "nota": "Swap LIGADO de fábrica"
+ },
+ "f05744c1": {
+  "grupos": {
+   "Amount": 50,
+   "Size": 15,
+   "Spacing": 10,
+   "Bumpiness": 50,
+   "Speed": 25,
+   "Swap": false,
+   "Border": {
+    "Left": 10,
+    "Right": 10,
+    "Top": 1,
+    "Bottom": 1
+   }
+  }
+ },
+ "0a7ebc6b": {
+  "grupos": {
+   "Amount": 0.5,
+   "Size": 15,
+   "Spacing": 10,
+   "Front Speed": 10,
+   "Front Randomness": 10,
+   "Speed": 30,
+   "Speed Randomness": 50,
+   "Acceleration": 10,
+   "Angle": 45.0,
+   "Bumpiness": 50,
+   "Swap": true,
+   "Border": {
+    "Left": 10,
+    "Right": 10,
+    "Top": 1,
+    "Bottom": 1
+   }
+  },
+  "nota": "Swap LIGADO de fábrica"
+ },
+ "7f6367ad": {
+  "grupos": {
+   "Background": {
+    "padrao": "SMPTE Bars",
+    "eixo": "X Axis",
+    "Color": {
+     "R": 235,
+     "G": 235,
+     "B": 235
+    }
+   },
+   "Number": {
+    "Number Offset": 0,
+    "Opacity": 50,
+    "Text Size": 50,
+    "Stroke Width": 5.0,
+    "Color": {
+     "R": 16,
+     "G": 16,
+     "B": 16
+    },
+    "Position": {
+     "X": -200,
+     "Y": -100
+    }
+   },
+   "Circle": {
+    "Size": 10,
+    "Width": 5.0,
+    "Opacity": 50,
+    "Color": {
+     "R": 16,
+     "G": 16,
+     "B": 16
+    },
+    "Position": {
+     "X": 100,
+     "Y": -100
+    }
+   }
+  }
+ },
+ "777e9550": {
+  "grupos": {
+   "Amount": 75,
+   "Size": 50,
+   "Position": {
+    "X": 0,
+    "Y": 0
+   },
+   "Anti-alias": false,
+   "Border": {
+    "Left": 10,
+    "Right": 10,
+    "Top": 1,
+    "Bottom": 1
+   }
+  }
+ },
+ "6d6ff743": {
+  "grupos": {
+   "Zoom": 1.5,
+   "Direction": 15.0,
+   "Position": {
+    "X": 0,
+    "Y": 0
+   },
+   "qualidade": "Render Low Quality",
+   "Border": {
+    "Left": 10,
+    "Right": 10,
+    "Top": 1,
+    "Bottom": 1
+   }
+  }
+ },
+ "433a6e41": {
+  "grupos": {
+   "Amount": 50,
+   "Random Scale": 50,
+   "Swap Sources": false
+  }
+ },
+ "e6ce6ee4": {
+  "grupos": {
+   "Motion": {
+    "Amount": 15.0,
+    "Wave Speed": 0.1,
+    "Ripple Spread": 0.3,
+    "Reflections": false
+   },
+   "Generation": {
+    "Strength": 50,
+    "Length": 0.1,
+    "Number of Ripples": 1,
+    "Seed": 500,
+    "Anti-alias": false
+   },
+   "Illumination": {
+    "Color": {
+     "R": 204,
+     "G": 51,
+     "B": 255
+    },
+    "Angle": 45.0
+   },
+   "Border": {
+    "Left": 10,
+    "Right": 10,
+    "Top": 1,
+    "Bottom": 1
+   }
+  }
+ },
+ "f80131d9": {
+  "grupos": {
+   "Amount": 50,
+   "Curl Size": 20,
+   "Direction": 45.0,
+   "Anti-alias": false,
+   "Swap Sources": false,
+   "Border": {
+    "Left": 10,
+    "Right": 10,
+    "Top": 1,
+    "Bottom": 1
+   }
+  }
+ },
+ "88011d63": {
+  "grupos": {
+   "Amount": 50,
+   "Min Width": 10,
+   "Max Width": 20,
+   "Width Randomness": 100,
+   "Spread": 50,
+   "Angle": 45.0,
+   "Random Seed": 500,
+   "Anti-alias": false,
+   "Swap Sources": true,
+   "Border": {
+    "Left": 10,
+    "Right": 10,
+    "Top": 1,
+    "Bottom": 1
+   }
+  },
+  "nota": "Swap Sources LIGADO de fábrica"
+ },
+ "199d112c": {
+  "grupos": {
+   "Generation": {
+    "Birth Rate": 50,
+    "Lifetime": 10,
+    "Position": {
+     "X": 0,
+     "Y": 0
+    },
+    "Link Speed": true,
+    "Length": 1.0,
+    "Speed Bias X": 0,
+    "Speed Bias Y": -5
+   },
+   "Movement": {
+    "Speed": 30,
+    "Gravity": 15,
+    "Air Resistance": 40,
+    "Wind X": 0,
+    "Wind Y": 0,
+    "Turbulence": 50
+   },
+   "Glow": {
+    "Glow Radius": 8.0,
+    "Color": {
+     "R": 255,
+     "G": 0,
+     "B": 0
+    }
+   },
+   "Core": {
+    "Core Radius": 2.0,
+    "Color": {
+     "R": 255,
+     "G": 255,
+     "B": 0
+    }
+   }
+  }
+ },
+ "37187a04": {
+  "grupos": {
+   "Amount": 50,
+   "Size": 100,
+   "Center": {
+    "X": 0,
+    "Y": 0
+   },
+   "Anti-alias": false,
+   "Border": {
+    "Left": 10,
+    "Right": 10,
+    "Top": 1,
+    "Bottom": 1
+   }
+  }
+ },
+ "5b692019": {
+  "grupos": {
+   "Amount": 75,
+   "Size": 50,
+   "Center": {
+    "X": 0,
+    "Y": 0
+   },
+   "Anti-alias": false,
+   "Border": {
+    "Left": 10,
+    "Right": 10,
+    "Top": 1,
+    "Bottom": 1
+   }
+  }
+ },
+ "0c55a8dc": {
+  "grupos": {
+   "Amount": 35,
+   "Position": {
+    "X": 0,
+    "Y": 0
+   },
+   "eixo": "X Axis",
+   "Anti-alias": false,
+   "Border": {
+    "Left": 10,
+    "Right": 10,
+    "Top": 1,
+    "Bottom": 1
+   }
+  }
+ },
+ "dd23d065": {
+  "grupos": {
+   "Amount": 50,
+   "Minimum Size": 15,
+   "Maximum Size": 40,
+   "Horizontal Factor": 100,
+   "Vertical Factor": 100,
+   "Number of Waves": 1,
+   "Speed": 10,
+   "Random Seed": 500,
+   "Anti-alias": false,
+   "Border": {
+    "Left": 10,
+    "Right": 10,
+    "Top": 1,
+    "Bottom": 1
+   }
+  }
+ },
+ "da3075ce+966bb03f": {
+  "grupos": {
+   "Acceleration": 0,
+   "Tracking": {
+    "trackers": [
+     "No Tracker",
+     "No Tracker",
+     "No Tracker",
+     "No Tracker"
+    ]
+   },
+   "Foreground": {
+    "Swap Src": false
+   },
+   "Mode": {
+    "modo": "Key In",
+    "Opac.": "sem número",
+    "Object Visible": false
+   },
+   "Feathering": {
+    "Bias": 50,
+    "Hor": 0,
+    "Vert": 0,
+    "Fixed Aspect": true,
+    "Anti-alias": false
+   },
+   "Magic Mask": {
+    "Hue": 255,
+    "Sat": 255,
+    "Lum": 127,
+    "Gain": 32,
+    "Soft": 32
+   },
+   "Brush": {
+    "Path": "sem número",
+    "Soft": "sem número",
+    "Size": "sem número",
+    "formas": "paleta de pincéis",
+    "Spin": "sem número"
+   }
+  },
+  "nota": "família de PINTURA: os controles só mostram NÚMERO com uma forma selecionada no monitor (2026-10-12: Feathering Bias 50, Hor 0, Vert 0, Fixed Aspect ligado; Magic Mask Hue 255, Sat 255, Lum 127, Gain 32, Soft 32); age numa forma desenhada; a paleta lateral ganha as ferramentas de desenho. A forma fica num bloco BZFX (banco: avb/estruturas.md, AniMatte)"
+ },
+ "b1c2a495": {
+  "grupos": {
+   "Key": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 0
+    },
+    "Gain": 26,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 100,
+    "Swap Sources": false,
+    "Invert Key": false,
+    "Show Alpha": false
+   },
+   "Scaling": {
+    "Wid": 100,
+    "Hgt": 100,
+    "Scaling Fixed Aspect": true
+   },
+   "Position": {
+    "H Pos": 0,
+    "V Pos": 0
+   },
+   "Grid": {
+    "ligado": false,
+    "forma": "Square",
+    "Fields": 12,
+    "Sub": 4,
+    "Source Scan Size": {
+     "Hor": 720,
+     "Vert": 486
+    },
+    "Source Grid Offset": {
+     "Hor": 0,
+     "Vert": 0,
+     "Inset": 0
+    },
+    "transfer": "Transfer: Full Aperture"
+   },
+   "Crop": {
+    "T": 0,
+    "B": 0,
+    "L": 0,
+    "R": 0
+   }
+  }
+ },
+ "032db055": {
+  "grupos": {
+   "Foreground": {
+    "Opacity": 100,
+    "Unpremultiply Alpha": false,
+    "Swap Sources": false,
+    "Invert Key": false,
+    "Show Alpha": false
+   },
+   "Scaling": {
+    "Wid": 100,
+    "Hgt": 100,
+    "Scaling Fixed Aspect": true,
+    "Tracking": {
+     "trackers": [
+      "No Tracker 1",
+      "No Tracker 1"
+     ]
+    }
+   },
+   "Position": {
+    "H Pos": 0,
+    "V Pos": 0,
+    "Tracking": {
+     "trackers": [
+      "No Tracker 1"
+     ],
+     "modo": "X and Y Tracking"
+    }
+   },
+   "Grid": {
+    "ligado": false,
+    "forma": "Square",
+    "Fields": 12,
+    "Sub": 4,
+    "Source Scan Size": {
+     "Hor": 720,
+     "Vert": 486
+    },
+    "Source Grid Offset": {
+     "Hor": 0,
+     "Vert": 0,
+     "Inset": 0
+    },
+    "transfer": "Transfer: Full Aperture"
+   },
+   "Crop": {
+    "T": 0,
+    "B": 0,
+    "L": 0,
+    "R": 0
+   }
+  }
+ },
+ "c92aeecb": {
+  "grupos": {
+   "Key Color": {
+    "H": 171,
+    "S": 255,
+    "V": 255
+   },
+   "Chroma Key": {
+    "ligado": true,
+    "Gain": 20,
+    "Soft": 10,
+    "Show Alpha": false,
+    "Spill": 0,
+    "Level": 100,
+    "Reverse": false
+   },
+   "Matte Control": {
+    "ligado": false,
+    "Blur": 0.0,
+    "Erode": 0
+   },
+   "Color Correction": {
+    "ligado": false,
+    "Hue": 0,
+    "Sat": 0,
+    "Bright": 0,
+    "Cont": 0
+   }
+  },
+  "nota": "chave AZUL de fábrica (H 171); só o Chroma Key ligado"
+ },
+ "fecec407+eed107fc": {
+  "grupos": {
+   "Bypass": false,
+   "Key Color": {
+    "Red": 91,
+    "Green": 119,
+    "Blue": 192
+   },
+   "Matte Analysis": {
+    "Show Alpha": false,
+    "SpectraGraph": false,
+    "monitor": "Source Monitoring - Off",
+    "SpectraGraph Brightness": 50
+   },
+   "Chroma Control": {
+    "Tolerance": 90,
+    "Key Sat Line": 0,
+    "Key Saturation": 0,
+    "Inner Softness": 10,
+    "Outer Softness": 0,
+    "Alpha Offset": 0,
+    "Opacity": 100
+   },
+   "Luma Control": {
+    "Enable Luma Curve": false,
+    "Luma Curve": 0,
+    "Suppress Shadow": 0
+   },
+   "Matte Processing": {
+    "Matte Blur": 0,
+    "modo": "Erode",
+    "Soften Alpha Saturation": false
+   },
+   "Spill": {
+    "Spill Angle Offset": 5,
+    "Spill Saturation": 0
+   },
+   "Scaling": {
+    "Wid": 100,
+    "Hgt": 100,
+    "Scaling Fixed Aspect": true
+   },
+   "Position": {
+    "H Pos": 0,
+    "V Pos": 0
+   },
+   "Crop": {
+    "T": 0,
+    "B": 0,
+    "L": 0,
+    "R": 0
+   }
+  },
+  "nota": "cor-chave de fábrica azul (91,119,192)"
+ },
+ "6c1f6fc1": {
+  "grupos": {
+   "Background Color": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 0
+   },
+   "Position H": {
+    "H Pos": 0
+   }
+  }
+ },
+ "00b2ed83": {
+  "grupos": {
+   "Aspect Ratios": {
+    "origem": "1.33 (4:3)",
+    "destino": "1.33 (4:3)"
+   },
+   "Scaling": {
+    "Wid": 100,
+    "Hgt": 100
+   },
+   "Position": {
+    "H Pos": 0,
+    "V Pos": 0
+   },
+   "Actions": {
+    "Establish Origin": false,
+    "Subdivide": false,
+    "Reset To Origin": false
+   },
+   "Grid": {
+    "ligado": false,
+    "forma": "Square",
+    "Fields": 8,
+    "Sub": 0,
+    "Source Scan Size": {
+     "Hor": 720,
+     "Vert": 243
+    },
+    "Source Grid Offset": {
+     "Hor": 0,
+     "Vert": 0,
+     "Inset": 0
+    },
+    "transfer": "Transfer: Full Aperture"
+   }
+  },
+  "nota": "a grade de fábrica é NTSC SD (720×243 por campo; nos keys, 720×486) mesmo num projeto 1080"
+ },
+ "eab2a9cf": {
+  "grupos": {
+   "A-Side Vergence": 0.0,
+   "B-Side Vergence": 0.0,
+   "Dissolve": 0.0
+  }
+ },
+ "ece009a0": {
+  "grupos": {
+   "Symmetric": false,
+   "Left Eye": {
+    "Left": 0.0,
+    "Right": 100.0
+   },
+   "Right Eye": {
+    "Left": 0.0,
+    "Right": 100.0
+   }
+  }
+ },
+ "1af87bc4+6ce69b9c": {
+  "grupos": {
+   "Alignment": {
+    "Left Eye": {
+     "Translation": {
+      "X": 0.0,
+      "Y": 0.0
+     },
+     "Center": {
+      "X": 0.0,
+      "Y": 0.0
+     },
+     "Scaling": {
+      "X": 100.0,
+      "Y": 100.0,
+      "Fixed Aspect": false
+     },
+     "Shearing": {
+      "X": 0.0,
+      "Y": 0.0
+     },
+     "Rotation": {
+      "X": 0.0,
+      "Y": 0.0,
+      "Z": 0.0
+     }
+    },
+    "Right Eye": "igual ao Left Eye",
+    "Global": {
+     "Translation": {
+      "X": 0.0,
+      "Y": 0.0
+     },
+     "Center": {
+      "X": 0.0,
+      "Y": 0.0
+     },
+     "Scaling": {
+      "X": 100.0,
+      "Y": 100.0,
+      "Fixed Aspect": false
+     },
+     "Rotation": {
+      "X": 0.0,
+      "Y": 0.0,
+      "Z": 0.0
+     }
+    }
+   },
+   "Vergence": {
+    "modo": "Symmetric",
+    "Vergence": 0.0
+   },
+   "Zoom": {
+    "Auto-Zoom": false,
+    "Zoom": 1.0
+   },
+   "Floating Window": {
+    "Symmetric": false,
+    "Left Eye": {
+     "Left": 0.0,
+     "Right": 100.0
+    },
+    "Right Eye": {
+     "Left": 0.0,
+     "Right": 100.0
+    }
+   },
+   "Crop": {
+    "Left": 0.0,
+    "Right": 100.0,
+    "Top": 0.0,
+    "Bottom": 100.0
+   }
+  },
+  "nota": "todos os interruptores de grupo DESLIGADOS de fábrica; o Crop daqui é em % de 0 a 100 (Right/Bottom = 100), não ±999"
+ },
+ "634ec315": {
+  "grupos": {
+   "modo": "Symmetric",
+   "Vergence": 0.0,
+   "Auto-Zoom": false,
+   "Zoom": 1.0
+  }
+ },
+ "6c355bc4": {
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   },
+   "Scaling": {
+    "Wid": 100,
+    "Hgt": 100,
+    "Scaling Fixed Aspect": true
+   },
+   "Position": {
+    "H Pos": 0,
+    "V Pos": 0
+   }
+  }
+ },
+ "5e81285d": {
+  "grupos": {
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "0d8e0ea4": {
+  "grupos": {
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   },
+   "Scaling": {
+    "Wid": 100,
+    "Hgt": 100,
+    "Scaling Fixed Aspect": true
+   },
+   "Position": {
+    "H Pos": 0,
+    "V Pos": 0
+   }
+  }
+ },
+ "404961a8": {
+  "grupos": {
+   "Foreground": {
+    "ligado": false,
+    "Fill Overlay": 0.0,
+    "Opacity": 100.0,
+    "Crop": {
+     "Top": 0.0,
+     "Bottom": 0.0,
+     "Left": 0.0,
+     "Right": 0.0
+    }
+   },
+   "Background": {
+    "ligado": false,
+    "Color Gradient": false,
+    "Solid Color (RGB)": {
+     "Red": 64.0,
+     "Green": 64.0,
+     "Blue": 64.0
+    },
+    "Opacity": 100.0
+   },
+   "Roll / Crawl": {
+    "ligado": false,
+    "modo": "Roll",
+    "Effect Position": 0.0,
+    "Edit Mode": true
+   }
+  },
+  "nota": "o texto em si não aparece no editor (é editado no monitor); a paleta lateral vira a do Titler"
+ },
+ "6f2f18fb": {
+  "grupos": {
+   "Background": {
+    "ligado": false,
+    "Color Gradient": false,
+    "Solid Color (RGB)": {
+     "Red": 130.4,
+     "Green": 130.4,
+     "Blue": 130.4
+    },
+    "Opacity": 100.0
+   },
+   "Foreground": {
+    "Level": 100.0,
+    "Video Fill Opacity": 0.0,
+    "Crop": {
+     "Top": 0.0,
+     "Bottom": 0.0,
+     "Left": 0.0,
+     "Right": 0.0
+    }
+   },
+   "Effect": {
+    "ligado": false,
+    "modo": "Crawl",
+    "Effect position": 0.0,
+    "Edit Mode": false
+   }
+  },
+  "nota": "Legacy: fundo de fábrica 130.4 (o Titler+ atual: 64.0); efeito Crawl (o atual: Roll) e Edit Mode desligado"
+ },
+ "4cd577ce+add30593": {
+  "grupos": {
+   "Shape": {
+    "ligado": true,
+    "forma": "Ball",
+    "Radius": 70,
+    "Curve": 30,
+    "X Pos": 0,
+    "Y Pos": 0,
+    "Aspct": 0,
+    "Angle": 0
+   },
+   "Scaling": {
+    "ligado": false,
+    "X": 100,
+    "Y": 100,
+    "Fixed Aspect": true
+   },
+   "Position": {
+    "ligado": false,
+    "X": 0,
+    "Y": 0,
+    "Z": 0
+   },
+   "Target": {
+    "ligado": false,
+    "X": 0,
+    "Y": 0,
+    "Size": 100
+   },
+   "Border": {
+    "ligado": false,
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 0
+    },
+    "Limit to video levels": true,
+    "estilo": "Plain",
+    "Wid": 0,
+    "Sft": 0
+   },
+   "Foreground": {
+    "ligado": false,
+    "Level": 100,
+    "Swap Sources": false,
+    "Invert Key": false,
+    "Show Alpha": false,
+    "Reverse Animation": false
+   },
+   "Background Color": {
+    "ligado": false,
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 0,
+    "Limit to video levels": true
+   }
+  },
+  "nota": "Xpress 3D = o 3D Warp com um preset: só o grupo do preset vem LIGADO (aqui Shape)"
+ },
+ "86ff6265+5a630cd4": {
+  "grupos": {
+   "Shape": {
+    "ligado": false,
+    "forma": "Ball",
+    "Radius": 15,
+    "Curve": 0,
+    "X Pos": 0,
+    "Y Pos": 0,
+    "Aspct": 0,
+    "Angle": 45,
+    "Shape Tracking": {
+     "trackers": [
+      "No Tracker 1"
+     ]
+    }
+   },
+   "Crop": {
+    "ligado": false,
+    "Top": 999.0,
+    "Bot": -999.0,
+    "Lft": -999.0,
+    "Rgt": 999.0
+   },
+   "Scaling": {
+    "ligado": true,
+    "X": 50.0,
+    "Y": 50.0,
+    "Fixed Aspect": true,
+    "Scale Tracking": {
+     "trackers": [
+      "No Tracker 1",
+      "No Tracker 1"
+     ],
+     "Stabilize Tracking": false
+    }
+   },
+   "Axis": {
+    "ligado": false,
+    "X": 0.0,
+    "Y": 0.0,
+    "Z": 0.0
+   },
+   "Rotation": {
+    "ligado": false,
+    "Z": 0.0,
+    "X": 0.0,
+    "Y": 0.0,
+    "Rotation Tracking": {
+     "trackers": [
+      "No Tracker 1",
+      "No Tracker 1"
+     ],
+     "Stabilize Tracking": false
+    }
+   },
+   "Position": {
+    "ligado": false,
+    "X": 0.0,
+    "Y": 0.0,
+    "Z": 0.0,
+    "Position Tracking": {
+     "trackers": [
+      "No Tracker 1"
+     ],
+     "modo": "X and Y Tracking",
+     "Stabilize Tracking": false
+    }
+   },
+   "Target": {
+    "ligado": false,
+    "X": 0.0,
+    "Y": 0.0,
+    "Size": 100.0
+   },
+   "Border": {
+    "ligado": false,
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 0
+    },
+    "Limit to video levels": true,
+    "estilo": "Plain",
+    "Wid": 0,
+    "Sft": 0
+   },
+   "Shadow": {
+    "ligado": false,
+    "Opac.": 50,
+    "X": 50,
+    "Y": -50
+   },
+   "Trail": {
+    "ligado": false,
+    "Decay": 75,
+    "Use Sparkle": false
+   },
+   "Foreground": {
+    "ligado": false,
+    "Level": 100,
+    "Swap Sources": false,
+    "Invert Key": false,
+    "Show Alpha": false,
+    "Reverse Animation": false
+   },
+   "Background Color": {
+    "ligado": false,
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 0,
+    "Limit to video levels": true
+   }
+  },
+  "nota": "3D PIP: só Scaling ligado, em 50 (como o PIP)"
+ },
+ "8102dff4": {
+  "grupos": {
+   "Shape": {
+    "ligado": true,
+    "forma": "Page Fold",
+    "Curl": 100,
+    "Radius": 15,
+    "Angle": 45,
+    "dobra": "Tuck Over"
+   },
+   "Crop": {
+    "ligado": false,
+    "Top": 999,
+    "Bot": -999,
+    "Lft": -999,
+    "Rgt": 999
+   },
+   "Target": {
+    "ligado": false,
+    "X": 0,
+    "Y": 0,
+    "Size": 100
+   },
+   "Border": {
+    "ligado": false,
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 0
+    },
+    "Limit to video levels": true,
+    "estilo": "Plain",
+    "Wid": 0,
+    "Sft": 0
+   },
+   "Foreground": {
+    "ligado": false,
+    "Level": 100,
+    "Swap Sources": false,
+    "Invert Key": false,
+    "Show Alpha": false,
+    "Reverse Animation": false
+   },
+   "Background Color": {
+    "ligado": false,
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 0,
+    "Limit to video levels": true
+   }
+  },
+  "nota": "Curl 100 (o 3D Warp de fábrica: 50)"
+ },
+ "f7de7463": {
+  "grupos": {
+   "Shape": {
+    "ligado": true,
+    "forma": "Slats",
+    "Ampl": 75,
+    "Angle": 45,
+    "Freq": 3,
+    "Offset": 0,
+    "SkAmp": 0,
+    "SkAng": 0
+   },
+   "Crop": {
+    "ligado": false,
+    "Top": 999,
+    "Bot": -999,
+    "Lft": -999,
+    "Rgt": 999
+   },
+   "Target": {
+    "ligado": false,
+    "X": 0,
+    "Y": 0,
+    "Size": 100
+   },
+   "Border": {
+    "ligado": false,
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 0
+    },
+    "Limit to video levels": true,
+    "estilo": "Plain",
+    "Wid": 0,
+    "Sft": 0
+   },
+   "Foreground": {
+    "ligado": false,
+    "Level": 100,
+    "Swap Sources": false,
+    "Invert Key": false,
+    "Show Alpha": false,
+    "Reverse Animation": false
+   },
+   "Background Color": {
+    "ligado": false,
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 0,
+    "Limit to video levels": true
+   }
+  }
+ }
+}

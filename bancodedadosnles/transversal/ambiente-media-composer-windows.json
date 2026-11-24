@@ -1,0 +1,213 @@
+{
+  "_meta": {
+    "protocolo": "transversal",
+    "titulo": "Ambiente do Media Composer no Windows: antivirus, bridge QuickTime 32-bit, lixo AppleDouble e roteamento do AMA autodetect",
+    "confianca": "confirmado",
+    "atualizado": "2026-08-19",
+    "fontes": [
+      "Sessao de diagnostico em estacao real ILHA02 (2026-08-19)",
+      "https://kb.avid.com/pkb/articles/en_US/Knowledge/Media-Composer-hanging-at-AAFProcessor-during-startup"
+    ],
+    "nle": "Avid Media Composer 25.6.0.58781 (Windows 11 23H2, build 10.0.22631)",
+    "notas": "Nao e sobre formato de arquivo: e o runtime em volta do NLE. Os quatro achados foram reproduzidos e a correcao validada na tela. Narrativa completa em ambiente-media-composer-windows.md."
+  },
+
+  "sintomas_para_causa": {
+    "_nota": "Tabela de triagem: sintoma observado pelo editor -> causa real. Todos confirmados nesta estacao.",
+    "confianca": "confirmado",
+    "entries": [
+      {
+        "sintoma": "Trava no splash em 'Initializing plugin: AAFProcessor.avx'; force quit e reabrir funciona",
+        "causa": "Varredura em tempo real do antivirus (Windows Defender) sobre os binarios da Avid",
+        "por_que_a_segunda_tentativa_funciona": "cache de scan do Defender aquecido; nao e o force quit que conserta",
+        "correcao": "exclusoes de caminho e processo (ver defender_exclusoes)",
+        "evento_windows": "AppHangB1, Application Hang id 1002, mesma Hang Signature em todas as ocorrencias"
+      },
+      {
+        "sintoma": "MP4 H.264 nao linka, ou linka com duracao/TC corretos e trava o MC no play",
+        "causa": "QuickTime 7 para Windows nao instalado; o bridge out-of-process de 32 bits nao inicializa",
+        "correcao": "instalar QuickTime 7 para Windows (QT 7.7.9)",
+        "codigos": ["0xA000006F", "0xA0000070"]
+      },
+      {
+        "sintoma": "Link de mp4 demora o dobro e falha na metade dos arquivos de uma pasta",
+        "causa": "sidecars AppleDouble '._nome.mp4' criados por copia via macOS; o AMA tenta linka-los como midia",
+        "correcao": "varrer por conteudo (magic 00 05 16 07) e mover para quarentena"
+      },
+      {
+        "sintoma": "Link funciona mas continua lento depois de instalar o QuickTime",
+        "causa": "IPC para processo 32-bit (inerente) somado a antivirus escaneando o drive de midia e o processo helper",
+        "correcao": "excluir o drive de midia e QuickTime_OPServer.exe do antivirus; para acervo grande, transcodificar para DNxHR MXF"
+      }
+    ]
+  },
+
+  "bridge_quicktime": {
+    "_nota": "Arquitetura out-of-process que o MC usa para falar com o QuickTime. Razao pela qual uma varredura de import table NAO detecta a dependencia.",
+    "confianca": "confirmado",
+    "componentes": [
+      { "caminho": "Avid Media Composer\\AvidMediaComposer.exe", "arquitetura": "x64", "papel": "aplicacao" },
+      { "caminho": "Avid Media Composer\\AVX2_Plug-Ins\\AMA\\QuickTime\\MVP_MSP_QuickTime.avx", "arquitetura": "x64", "papel": "plugin AMA (stub)" },
+      { "caminho": "Avid Media Composer\\AVX2_Plug-Ins\\QuickTime_OPClient.avx", "arquitetura": "x64", "papel": "cliente IPC dentro do MC" },
+      { "caminho": "Avid Media Composer\\QuickTimeServer\\QuickTime_OPServer.exe", "arquitetura": "x86", "papel": "helper out-of-process que hospeda o QuickTime; varias instancias simultaneas (4 observadas)" },
+      { "caminho": "C:\\Program Files (x86)\\QuickTime\\QTSystem\\QTMLClient.dll", "arquitetura": "x86", "papel": "QuickTime 7.7.9 (dez/2015), dependencia externa obrigatoria" }
+    ],
+    "imports_estaticos_do_plugin": ["KERNEL32.dll", "MSVCP140.dll", "VCRUNTIME140.dll", "api-ms-win-crt-*"],
+    "armadilha": "O plugin nao tem NENHUMA referencia estatica ao QuickTime. Import table so enxerga link estatico dentro do mesmo processo; e cega para LoadLibrary em runtime e para processos helper. Em arquitetura com ponte de bitness, procure o *_OPServer.exe / *Host.exe ao lado, confira a arquitetura dele e pegue o caminho do PROCESSO VIVO (nao da raiz do app)."
+  },
+
+  "codigos_de_erro_ama": {
+    "_nota": "Inteiros negativos que o console do MC imprime. Converter para hex (somar 2^32) antes de procurar significado.",
+    "confianca": "confirmado",
+    "entries": [
+      {
+        "decimal": -1610612625,
+        "hex": "0xA000006F",
+        "onde": "APlayer::Play -> CreateContainerHolder.InitContainerHandler failed, AMAFI_AME_Utils.cpp",
+        "significado": "nenhum container handler valido associado ao clipe",
+        "causa_confirmada": "QuickTime 7 ausente"
+      },
+      {
+        "hex": "0xA0000070",
+        "onde": "[AMA|FI/MetadataTranslator] Error HRESULT",
+        "acompanhado_de": ["UMID generation from container contents failed", "SourceID retrieval failed"],
+        "significado": "falha ao identificar o container no momento do link",
+        "causa_confirmada": "QuickTime 7 ausente, ou o arquivo nao e midia (sidecar AppleDouble)"
+      }
+    ]
+  },
+
+  "mensagens_de_console_que_NAO_sao_erro": {
+    "_nota": "Todas presentes tambem no estado FUNCIONANDO. Nunca diagnosticar a partir delas.",
+    "confianca": "confirmado",
+    "entries": [
+      {
+        "mensagem": "[QuickTime Plug-In] The FOURCC video code of avc1 is not natively supported.",
+        "explicacao": "FourCharMapper.xml lista so codecs nativos Avid (DNxHD, DNxHR, ProRes). avc1 nunca esteve la; o plugin recusa de proposito e repassa."
+      },
+      {
+        "mensagem": "CDCIDescriptor::GetAAFProperties: Either B/W points or ColorRange missing in metadata.",
+        "explicacao": "valores default aplicados; aparece no estado bom"
+      },
+      {
+        "mensagem": "AudioMediaDesc::ConvertDescriptorFromAAF unable to recognize audio coding. Unrecognized essence coding label: 060e2b34.04010101.0e040202.027f0000",
+        "explicacao": "aparece no estado bom"
+      },
+      {
+        "mensagem": "AMA Autodetect: Registered matchings were not found.",
+        "explicacao": "aparece no estado bom"
+      }
+    ]
+  },
+
+  "ama_autodetect_extensoes": {
+    "_nota": "AVX2_Plug-Ins\\AMA\\AMAAutodetect\\RegisteredExtensions.xml — mapeia extensao para GUID de plugin. MP4 e MOV caem no MESMO plugin, por isso rewrap de mp4 para mov NAO contorna a falta do QuickTime.",
+    "confianca": "confirmado",
+    "entries": [
+      {
+        "plugin": "QuickTime",
+        "guid": "781F84B7-B989-4534-8A07-C595CB9A6FB8",
+        "extensoes": ["3G2", "3GP", "AAC", "AU", "AVI", "BMP", "DV", "GIF", "JFIF", "JPEG", "JPG", "M4A", "M4V", "MID", "MOOV", "MOV", "MOVIE", "MP2", "MP3", "MP4", "MPA", "MPE", "MPEG", "MPG", "PNG", "PSD", "QT", "TIF", "TIFF"]
+      },
+      { "plugin": "GenericMXF", "guid": "60EB8921-2A02-4406-891C-D9B6A6AE0645", "extensoes": ["MXF"] },
+      { "plugin": "AVCHD", "guid": "F37D624B-307D-4EF5-9BEB-C539046CAD54", "extensoes": ["M2TS", "MTS"] },
+      { "plugin": "WaveAiff", "guid": "3711D3CC-62D0-49D7-B0AE-C118101D1A16", "extensoes": ["AIF", "AIFC", "AIFF", "BWF", "CDDA", "WAV", "WAVE"] },
+      { "plugin": "RED", "guid": "2208D9E0-D9E1-4B50-A0BA-E03BB2C315FB", "extensoes": ["R3D"] },
+      { "plugin": "ARRIRAW", "guid": "A172ADFA-CD97-414A-B257-3351B95F07C5", "extensoes": ["ARI"] },
+      { "plugin": "DPX", "guid": "4964178D-B3D5-485F-8E98-BEB89D92A5F4", "extensoes": ["DPX"] },
+      { "plugin": "PhantomCine", "guid": "9FC22562-27BC-40D2-9733-EB18A0BBD12B", "extensoes": ["CINE"] }
+    ]
+  },
+
+  "appledouble": {
+    "_nota": "Sidecars que o macOS cria ao copiar para volume nao-HFS. Carregam a MESMA extensao do original, entao o AMA tenta linka-los como midia.",
+    "confianca": "confirmado",
+    "deteccao": {
+      "magic_bytes_0_3": "00 05 16 07",
+      "string_em_0x08": "Mac OS X",
+      "tamanho_tipico": 4096,
+      "prefixo": "._",
+      "companheiro": ".DS_Store"
+    },
+    "regra_para_apps": "Qualquer app que enumere midia deve ignorar ^\\._ e .DS_Store ANTES de contar arquivos. Detectar por conteudo, nao so por prefixo. Mover para quarentena espelhada com manifesto, nao apagar.",
+    "amostra_medida": {
+      "local": "E:\\MIDIAS DE TESTES (estacao ILHA02)",
+      "mp4_reais": 118,
+      "mp4_sidecars": 118,
+      "wav_sidecars": 57,
+      "ds_store": 18,
+      "total": 601,
+      "data_midia": "2025-10-16",
+      "data_sidecars": "2026-06-14",
+      "nota": "a diferenca de data identifica o evento de copia via Mac, que e o 'dia em que parou de funcionar'"
+    }
+  },
+
+  "defender_exclusoes": {
+    "_nota": "Lista aplicada e validada. Add-MpPreference -ExclusionPath / -ExclusionProcess, em sessao ELEVADA.",
+    "confianca": "confirmado",
+    "verificacao_de_elevacao": "Get-MpPreference devolve 'N/A: Must be an administrator to view exclusions' sem elevacao. O cabecalho do Start-Transcript NAO serve: imprime RunAs User igual ao usuario normal mesmo elevado.",
+    "vigencia": "imediata, sem reboot; mas processos JA em execucao nao pegam a regra nova",
+    "caminhos": [
+      "C:\\Program Files\\Avid",
+      "C:\\ProgramData\\Avid",
+      "C:\\Program Files (x86)\\QuickTime",
+      "%LOCALAPPDATA%\\Avid",
+      "%APPDATA%\\AvidMediaComposer",
+      "%USERPROFILE%\\Documents\\Avid Projects",
+      "<cada drive ou pasta de midia, incluindo as Avid MediaFiles>"
+    ],
+    "processos": [
+      "AvidMediaComposer.exe", "AvidIOManager.exe", "AvidBackgroundServicesManager.exe",
+      "AvidBinIndexer.exe", "AvidPhoneticIndexer.exe", "AvidOPFrameGeneratorApp.exe",
+      "AvidSearch.exe", "AvidInspector.exe", "AvidTitleTool.exe", "AvidCrashReporter.exe",
+      "EditorServiceMgr.exe", "avid-api-gateway.exe", "acfcacheregister.exe",
+      "QuickTime_OPServer.exe", "Marquee.exe", "pictcomm.exe",
+      "AvidApplicationManager.exe", "Avid Link.exe",
+      "AvidEditorTranscode.exe", "AvidEditorMSE.exe", "AvidEditorDbEngine.exe",
+      "TranscodeServiceWorker.exe", "MediaEngineServiceHost.exe",
+      "MediaEngineCoordinatorService.exe", "MediaEngineJobDriverService.exe",
+      "MediaEngineSchedulerService.exe", "MediaEngineWorkflowService.exe"
+    ],
+    "atencao": "Excluir tambem o DRIVE DE MIDIA. Sem isso cada leitura e escaneada duas vezes no caminho QuickTime: uma no MC e outra no processo helper."
+  },
+
+  "diagnostico_hang_windows": {
+    "_nota": "Metodo generico para travamento de qualquer app no Windows. Nao precisa de depurador.",
+    "confianca": "confirmado",
+    "relatorio": "C:\\ProgramData\\Microsoft\\Windows\\WER\\ReportArchive\\AppHang_<app>_<hash>\\Report.wer",
+    "encoding": "UTF-16LE",
+    "campos": [
+      { "campo": "Sig[3].Value", "uso": "Hang Signature; igual em todas as ocorrencias = causa unica e reproduzivel" },
+      { "campo": "Response.LegacyBucketId", "uso": "agrupa ocorrencias" },
+      { "campo": "LoadedModule[N]", "uso": "ordem de CARGA; os ultimos indices sao o que estava acontecendo no instante do travamento" }
+    ],
+    "peneira": "Filtrar LoadedModule por CAMINHO, nao por nome. Nesta estacao, 1 modulo entre 287 estava fora de C:\\Windows e C:\\Program Files\\Avid — era o MpOav.dll do Defender.",
+    "marcador_barato": "%LOCALAPPDATA%\\Avid\\Crashlog\\*.dmp de 0 byte = force quit de processo travado (hang), nao crash."
+  },
+
+  "estado_do_mc_no_disco": {
+    "_nota": "Onde o Media Composer 25.6 guarda configuracao e estado no Windows.",
+    "confianca": "confirmado",
+    "entries": [
+      { "caminho": "C:\\Users\\Public\\Documents\\Avid Media Composer\\Settings\\Site_Settings.xml", "conteudo": "site settings, regravado a cada sessao" },
+      { "caminho": "C:\\Users\\Public\\Documents\\Avid Media Composer\\Avid Users\\<user>\\", "conteudo": ".ave, MCState, <user> Settings.xml" },
+      { "caminho": "%LOCALAPPDATA%\\Avid\\Crashlog\\", "conteudo": "dumps" },
+      { "caminho": "%APPDATA%\\AvidMediaComposer\\QtWebEngine\\<panel-id>\\", "conteudo": "estado dos paineis do Panel SDK" },
+      { "caminho": "C:\\ProgramData\\Avid\\", "conteudo": "dados compartilhados e licenciamento (SWL)" }
+    ],
+    "ama_management": "Plugin AMA desabilitado a mao apareceria no Site_Settings.xml. Ausencia da entrada = tudo habilitado no padrao."
+  },
+
+  "licoes_de_metodo": {
+    "_nota": "O que generaliza para alem do Media Composer.",
+    "confianca": "confirmado",
+    "entries": [
+      "Import table so enxerga link estatico no mesmo processo. Para dependencia carregada em runtime ou hospedada em processo helper, ela e a ferramenta errada e responde 'tudo OK' com confianca.",
+      "Codigo de erro negativo: converter para hex (somar 2^32) antes de procurar significado. Codigos vizinhos (0x...6F e 0x...70) costumam ser a mesma familia de falha.",
+      "Antes de acreditar numa linha de erro do console, verifique se ela tambem aparece no estado FUNCIONANDO. Quatro das mensagens desta sessao apareciam nos dois estados.",
+      "O teste que separa 'achei lixo' de 'achei a causa': aplicar a correcao e conferir se o sintoma ESPECIFICO desapareceu. Aqui a limpeza dos AppleDouble era legitima e o 'Unable to autodetect plug-in' sobreviveu a ela — logo a hipotese caiu, por mais convincente que fosse a correlacao de datas.",
+      "Sintoma 'falha na primeira vez, funciona na segunda' em Windows aponta para cache de antivirus, nao para o app."
+    ]
+  }
+}

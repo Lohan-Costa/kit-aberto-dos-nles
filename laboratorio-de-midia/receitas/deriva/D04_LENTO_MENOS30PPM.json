@@ -1,0 +1,28 @@
+{
+ "caso": "D04_LENTO_MENOS30PPM",
+ "pergunta": "Relógio do som ATRASADO (−30 ppm): o som chega ADIANTADO ao longo do tempo. O sinal da correção fica certo (velocidade < 100 %)?",
+ "cena": {
+  "segundos": 1800,
+  "relogio": "10:00:00:00",
+  "semente": 24,
+  "data": "2026-10-30"
+ },
+ "raster": [
+  640,
+  360
+ ],
+ "fps": "25",
+ "camera": {
+  "inicio_s": 5,
+  "fim_s": 1795,
+  "atraso_ms": 3,
+  "relogio_ppm": 0,
+  "canais": 2
+ },
+ "som": {
+  "inicio_s": 2,
+  "fim_s": 1798,
+  "relogio_ppm": -30,
+  "canais": 1
+ }
+}

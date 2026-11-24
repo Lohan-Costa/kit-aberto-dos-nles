@@ -1,0 +1,257 @@
+{
+  "_meta": {
+    "protocolo": "transversal",
+    "titulo": "Metadado de canal do som direto — onde vive e como chega",
+    "confianca": "confirmado",
+    "atualizado": "2026-09-03",
+    "fontes": [
+      "_ASSIST ANTERIOR/assist_anterior/som/canais.py",
+      "_ASSIST ANTERIOR/assist_anterior/som/ixml.py",
+      "C:/Users/<user>/Documents/Avid Projects/_Assist anterior (18 bins, 517 masters de som)"
+    ],
+    "nle": "Avid Media Composer 25.x (bins .avb lidas com pyavb)",
+    "notas": "Varredura do projeto inteiro do autor em 2026-09-02: quatro produções, dois fluxos de importação (direto e via Resolve). A distribuição NAO e' estatistica de mercado — e' a prova de que as quatro condicoes existem."
+  },
+  "acesso": {
+    "onde_mora": {
+      "caminho": "mob.attributes['_USER']['TRK<n>']",
+      "confianca": "confirmado",
+      "nota": "container ANINHADO. Ler mob.attributes direto mostra so' _COLOR_*, _GEN, _ORG_BIN, _USER — e leva a concluir, errado, que a bin nao tem metadado. pyavb e' preguicoso: ler DENTRO do `with`."
+    },
+    "nome_na_trilha": {
+      "valor": null,
+      "confianca": "confirmado",
+      "nota": "track.name e' None nos 517 masters. A trilha carrega, quando muito, AudioMixerCompSolo/Mute — estado do mixer, nao identidade."
+    },
+    "nome_no_opatom": {
+      "campo": "TAG:track_name",
+      "exemplo": "PRODUCAO-A - 05-04 C7 P1-T001_A01",
+      "confianca": "confirmado",
+      "nota": "So' a POSICAO (sufixo _A0x). Sem iXML, sem papel. Um OP-Atom de som e' mono, um arquivo por canal."
+    }
+  },
+  "condicoes": {
+    "A_nome_completo": {
+      "confianca": "confirmado",
+      "exemplo": "PRODUCAO-F/SOM DIRETO — 51/51 masters",
+      "trk": [
+        "MixL",
+        "MixR",
+        "BOOM 2",
+        "BOOM 1",
+        "PESSOA-H",
+        "DITO"
+      ],
+      "atribuicao": "completa, com nome do personagem"
+    },
+    "B_nome_parcial": {
+      "confianca": "confirmado",
+      "exemplo": "D03 SOM 36/36 · PRODE 36/73",
+      "trk": [
+        "",
+        "",
+        "MIC2",
+        "MIC3",
+        "BOOM"
+      ],
+      "atribuicao": "funciona — as vazias viram sem-nome e nao disputam"
+    },
+    "C_sem_nome_com_mapa_do_app": {
+      "confianca": "confirmado",
+      "exemplo": "C04 15/31 · C07 9/19 · D02_SOM 24/24",
+      "trk": [],
+      "atribuicao": "referencia PENDURADA: o mapa fala em MIC2/MIC3 e a bin nao tem TRK",
+      "licao": "gravar o mapa personagem->canal tambem por POSICAO, que e' o que sempre existe"
+    },
+    "D_nada": {
+      "confianca": "confirmado",
+      "exemplo": "D01_SOM 0/5 · D04_SOM 0/20 · PRODE 2 0/50 · PRODE 3 0/46",
+      "trk": [],
+      "atribuicao": "nao avaliado — e' a resposta certa"
+    }
+  },
+  "variacoes": {
+    "posicao_nao_diz_papel": {
+      "confianca": "confirmado",
+      "prova": "PRODUCAO-F, mesma diaria: canal 3 e' 'BOOM 2' em 19 takes e 'BOOM 1' em 8; canal 4 e' 'BOOM 1' em 19 e 'STEREO MS L' em 7",
+      "nota": "derruba qualquer regra do tipo '1-2 e' a mixagem, o resto sao os mics'"
+    },
+    "largura_varia_na_mesma_bin": {
+      "confianca": "confirmado",
+      "exemplos": {
+        "PRODUCAO-F/SOM DIRETO": {
+          "3ch": 8,
+          "5ch": 9,
+          "6ch": 27,
+          "7ch": 7
+        },
+        "PRODE 3": {
+          "2ch": 26,
+          "3ch": 7,
+          "4ch": 4,
+          "5ch": 9
+        },
+        "D04_SOM": {
+          "3ch": 7,
+          "4ch": 4,
+          "5ch": 9
+        }
+      }
+    },
+    "metade_da_bin_sem_nome": {
+      "confianca": "confirmado",
+      "exemplo": "PRODE/_Assist anterior: 36 de 73 masters com TRK",
+      "licao": "a estrategia se decide por MASTER, nunca por bin"
+    }
+  },
+  "vocabulario_medido": {
+    "_nota": "os 11 nomes reais do acervo e o papel que assist_anterior/som/canais.py lhes da'. Papeis tecnicos sao fechados; o que nao e' nenhum deles e' PESSOA.",
+    "MixL": "mistura",
+    "MixR": "mistura",
+    "BOOM": "boom",
+    "BOOM 1": "boom",
+    "BOOM 2": "boom",
+    "STEREO MS L": "ambiente",
+    "STEREO MS R": "ambiente",
+    "PESSOA-H": "pessoa",
+    "DITO": "pessoa",
+    "MIC2": "pessoa",
+    "MIC3": "pessoa",
+    "": "sem-nome"
+  },
+  "custo_asr": {
+    "_meta": {
+      "confianca": "confirmado",
+      "maquina": "i7-13650HX + RTX 4050 6GB",
+      "motor": "whisper.cpp cuBLAS 12.4, large-v3-turbo, VAD silero",
+      "medido": "2026-09-02"
+    },
+    "s_por_minuto_de_audio": 1.6,
+    "fator_tempo_real": 0.03,
+    "carga_do_modelo_s": 1.7,
+    "take_4min_1canal_s": 6.4,
+    "take_4min_5canais_s": 32.2,
+    "mixagem_vs_canal_a_canal": {
+      "amostra": "D03 C14 P2/006, 120 s, 5 canais",
+      "mixagem_s": 3.4,
+      "mixagem_deixas": 5,
+      "canal_a_canal_s": 14.1,
+      "canal_a_canal_deixas": 28,
+      "nota": "a mixagem NAO perdeu o miolo — trouxe as 5 falas. O ganho do canal a canal e' ATRIBUICAO e granularidade, nao mais texto."
+    }
+  },
+  "detector_de_canal_problematico": {
+    "confianca": "hipotese",
+    "metricas": [
+      "rms",
+      "fator_de_crista",
+      "fracao_de_silencio_relativo",
+      "correlacao_com_a_soma_dos_outros"
+    ],
+    "o_que_separa": "canal que ouve OUTRA coisa (corr 0,08-0,28, silencio 0,00) de canal redundante (corr 0,5-0,93)",
+    "o_que_NAO_separa": "mic com defeito de ator afastado — o MIC3 que parecia doente transcreveu fala limpa e era uma lapela distante do boom",
+    "canal_mudo": {
+      "confianca": "confirmado",
+      "assinatura": "rms 0,0 · silencio 1,00 · correlacao 0,000",
+      "exemplo": "D03/FOLLY A02, 6 de 6 takes"
+    },
+    "pendente": "nao ha' no acervo medido um take com interferencia real para calibrar"
+  },
+  "estatisticas_que_nao_separam": {
+    "confianca": "confirmado",
+    "medido_em": "2026-09-03",
+    "pergunta": "quais canais sao pessoas, sem coluna TRK?",
+    "sobre": "midia gerenciada (OP-Atom juntados num proxy multipista), nao o WAV",
+    "gabaritos": [
+      "D03 SOM.avb (36/36 com TRK)",
+      "PRODUCAO-F/SOM DIRETO.avb (51/51 com nome completo)"
+    ],
+    "medidas": [
+      {
+        "nome": "cobertura",
+        "como": "fracao das janelas com voz (0,5 s) em que o canal esta' ativo, limiar a meia faixa dinamica propria",
+        "veredito": "nao separa",
+        "numeros": {
+          "BOOM": [
+            0.47,
+            0.7
+          ],
+          "MIC3": [
+            0.58,
+            0.8
+          ]
+        },
+        "porque": "a lapela capta o outro ator alto o bastante para estar ativa quase sempre"
+      },
+      {
+        "nome": "dominancia bruta",
+        "como": "fracao das janelas em que o canal e' o mais alto",
+        "veredito": "artefato de ganho",
+        "porque": "na D03 o boom entra ~20 dB acima das lapelas por escolha do tecnico de som"
+      },
+      {
+        "nome": "R2 da regressao multipla",
+        "como": "este canal e' combinacao linear dos outros?",
+        "veredito": "degenerado",
+        "numeros": {
+          "todos os canais": 1.0
+        },
+        "porque": "com TRK2 = MIC2 + MIC3 o conjunto fica deficiente de posto e TODO canal vira combinacao dos demais, lapelas inclusive"
+      },
+      {
+        "nome": "dominancia exclusiva",
+        "como": "lidera por >=3 dB depois de normalizar cada canal pelo proprio p95",
+        "veredito": "ordena certo, sem corte absoluto",
+        "numeros": {
+          "PESSOA-H": [
+            0.54,
+            0.63
+          ],
+          "MIC3": [
+            0.13,
+            0.38
+          ],
+          "MIC2": [
+            0.0,
+            0.05
+          ],
+          "BOOM em tomada sem lapela": 0.29
+        },
+        "porque": "nao ha' limiar entre 0,05 e 0,29 que guarde o MIC2 e recuse o boom"
+      },
+      {
+        "nome": "correlacao de amostra (60 s)",
+        "veredito": "acha a mistura, nao acha o boom",
+        "numeros": {
+          "mistura x lapelas": [
+            0.535,
+            0.854
+          ],
+          "boom x lapelas": [
+            0.0,
+            0.06
+          ]
+        },
+        "porque": "a mistura e' soma linear; o boom e' caminho acustico independente"
+      }
+    ],
+    "assimetria": "classificar uma lapela como nao-pessoa perde UM personagem; classificar a mistura como pessoa perde TODOS (ela vence quase toda janela e resolve a cena para um falante so')",
+    "conclusao": "confirma o §6 por outro caminho: separar exige o CONTEUDO, nao a estatistica. O desenho que sobra e' 'a estatistica levanta a suspeita, o ASR da' o veredito', sustentado pelo custo do §5 (1,6 s/min/canal)."
+  },
+  "surpresas_do_material": {
+    "confianca": "confirmado",
+    "medido_em": "2026-09-03",
+    "bin": "D03 SOM.avb (TRK1='' TRK2='' TRK3=MIC2 TRK4=MIC3 TRK5=BOOM)",
+    "achados": [
+      {
+        "o_que": "TRK1 e' copia bit a bit do BOOM",
+        "prova": "corr(A01, A05) = 1,000, com 3 dB (raiz de 2) de diferenca de nivel"
+      },
+      {
+        "o_que": "TRK2 e' a mistura das duas lapelas",
+        "prova": "corr(A02, MIC3) = 0,854 e corr(A02, MIC2) = 0,535"
+      }
+    ],
+    "licao": "o gravador escreveu o barramento L/R nas duas primeiras trilhas, e o L dele e' so' o boom. Trilha sem nome NAO e' uma coisa so': na MESMA tomada uma e' copia do boom e a outra e' a mistura. E canal duplicado (corr=1,000) e' trivial de achar e vale achar -- ele empata com o original dentro de qualquer margem da atribuicao."
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "_meta": {
+    "protocolo": "transversal",
+    "titulo": "Modelo neutro de efeitos geometricos e formulas de conversao entre NLEs",
+    "confianca": "confirmado",
+    "atualizado": "2026-06-27",
+    "fontes": ["RELINKER/docs/effect-translation.md"],
+    "notas": "Medido contra chart de grade sintetico (RELINKER_TESTCHART), 2026-06-14. Modelo neutro = fracao do raster, +X direita, +Y cima, anchor = centro.",
+    "modelo_neutro": {
+      "scale": "fator (1.0 = 100%)",
+      "position": "fracao do raster (x: +direita; y: +cima)",
+      "rotation": "graus",
+      "crop": "fracao por borda",
+      "opacity": "0..1",
+      "anchor": "fracao do raster (centro = padrao)",
+      "keyframes": "[{t (0..1), valor_por_primitiva, interp, handles}]"
+    }
+  },
+  "convencoes_por_nle": {
+    "avid": {
+      "position": "milesimos do frame (frac = pos/1000), +Y cima, resolution-independent",
+      "scale": "% (fator = v/100)",
+      "rotation": "graus (DVE_ROT_Z_U; X/Y = perspectiva)",
+      "crop": "POSICAO da borda em +-999 (0 = 50% cropado)",
+      "opacity": "0-100",
+      "origem": "centro"
+    },
+    "resolve": {
+      "position": "FRACAO interna: frac_x = px/largura, frac_y = px/altura, +Y cima, resolution-independent",
+      "scale": "zoom decimal (1.0 = 100%; omite eixo = 1.0)",
+      "rotation": "graus",
+      "crop": "FRACAO cropada por borda",
+      "opacity": "0-100",
+      "origem": "centro"
+    },
+    "premiere": {
+      "position": "pixels ABSOLUTOS, origem canto superior-esquerdo, medida na ancora, +Y BAIXO, resolution-DEPENDENT",
+      "scale": "% (uniforme; Scale Width/Height se destravar)",
+      "rotation": "graus (so Z)",
+      "crop": "% (efeito separado)",
+      "opacity": "0-100 (efeito fixo separado)",
+      "origem": "canto superior-esquerdo"
+    }
+  },
+  "conversoes_para_neutro": {
+    "position": {
+      "avid_para_neutro": "frac = pos/1000 (X e Y); +Y ja cima",
+      "resolve_para_neutro": "frac_x = px/largura, frac_y = px/altura; +Y cima (interno ja e fracao)",
+      "premiere_para_neutro": "frac = offset_px/dim_raster; INVERTER sinal de Y (+Y baixo no Premiere)"
+    },
+    "scale": {
+      "avid_para_neutro": "v/100",
+      "resolve_para_neutro": "zoom direto (ja e fator)",
+      "premiere_para_neutro": "v/100",
+      "anchor": "CENTRO; posicao aplicada independente da escala (sem residuo de ordem para pos+scale)"
+    },
+    "crop": {
+      "avid_para_resolve": "crop_l/crop_b = (v+999)/1998; crop_r/crop_t = (999-v)/1998 (invertidos, +X dir/+Y cima). Validado.",
+      "resolve": "ja e fracao por borda",
+      "premiere": "% (25 -> 0.25)"
+    },
+    "opacity": "0-100 em todas; neutro = /100",
+    "rotation": "graus em todas; sinal por NLE a confirmar"
+  },
+  "exemplo_validado": {
+    "descricao": "Avid pos 150 (frac 0.15) numa timeline 1920x1080 no Resolve",
+    "resultado": "(288, 162) px",
+    "residuos": "< 1% (arredondamento de UI/medicao)"
+  },
+  "armadilhas": {
+    "valor_de_ui_engana": "o '150' significa coisas diferentes por NLE (milesimos vs px). O que importa para traduzir e a FRACAO, nao o valor de UI.",
+    "origem_premiere": "Premiere top-left vs Resolve/Avid centro e a 1a fonte de erro de posicao — converter a ORIGEM, nao so a unidade.",
+    "ordem_operacoes": "fixar ordem canonica (scale -> rotate -> translate em torno da ancora); sem isso scale!=1 + position divergem."
+  }
+}

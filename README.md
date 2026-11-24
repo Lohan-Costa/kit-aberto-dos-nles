@@ -1,43 +1,59 @@
 # KIT ABERTO DOS NLEs
 
-> 🚧 **Em preparação.** Já estão aqui a **página do kit** (https://lohan-costa.github.io/kit-aberto-dos-nles/) e a
-> porta de entrada para o seu Claude (`COMECE-AQUI.md`). O banco, o piloto, o laboratório e as skills estão sendo
-> anonimizados e revisados antes de chegar. Acompanhe este repositório (Watch → Releases) ou as "Últimas atualizações"
-> da página.
+Um kit aberto para o Claude — ou outra IA com funções agênticas — aprender a trabalhar no Avid Media Composer, no Adobe
+Premiere Pro, no DaVinci Resolve e no Baselight, **na versão que você tem, inclusive nas antigas**, e a ligar esses
+programas em fluxos que as fabricantes não oferecem. **Scripts e apps que rodam sem IA fazem o mecânico; a IA
+orquestra**, no seu computador, aprendendo com o seu fluxo.
 
-Um kit aberto para que o Claude — ou outra IA — aprenda a lidar com os programas de edição (Avid Media Composer,
-Adobe Premiere Pro, DaVinci Resolve, Baselight) e a acelerar a pós-produção: **scripts e apps que rodam sem IA para o
-que é mecânico, e a IA orquestrando esses scripts**.
+**A página do kit:** https://lohan-costa.github.io/kit-aberto-dos-nles/
 
-O diferencial não é só o que já se sabe sobre os programas, mas **como se investiga** um caminho até um objetivo:
-consultar o que já foi medido, medir antes de afirmar, provar com mídia sintética e registrar o que se descobriu.
+## Como começar
 
-## O que vai ter aqui
+Abra o Claude no computador onde ficam os seus programas de edição (o app Claude, com o Claude Code dentro, ou o Claude
+Code no terminal) e mande esta mensagem:
 
-- **O banco dos NLEs** — o que já se mediu dos formatos, das APIs e do ambiente de cada programa, nos dois sistemas
-  (Windows e macOS), com o nível de confiança e a versão em que foi medido.
-- **O piloto e o vigia** — o Claude operando a máquina onde a API do programa não alcança: mouse, teclado, fotos da
-  tela, freio e diálogos conhecidos.
-- **O laboratório de mídia** — receitas que geram mídia sintética (cada quadro e canal diz o que é) para testar os
-  programas no ambiente de quem usa.
-- **O kit** — as instruções e as skills `ciclo-*` que ensinam o método ao Claude de cada pessoa: o diagnóstico da
-  primeira sessão, o laboratório, o piloto, a segurança e como contribuir.
+```
+Leia e siga as instruções deste link: https://raw.githubusercontent.com/Lohan-Costa/kit-aberto-dos-nles/main/COMECE-AQUI.md
+```
 
-O app **Ciclo Assist** (sincronizar, conformar, assistir) virá em repositório próprio, como código aberto, para que o
-Claude de cada pessoa o calibre para o seu ambiente.
+Ele combina com você onde guardar o kit, baixa, lê as instruções, instala as skills (mostrando antes o que faz) e faz um
+diagnóstico da sua máquina com mídia sintética — sem tocar no seu material.
 
-## A ideia
+## O que tem aqui
 
-Cada pessoa tem fluxos e particularidades que nenhum mapeamento cobre. O kit não ensina "um jeito": dá ao Claude de
-cada um o método, as ferramentas e o que já se sabe, para que ele se aprimore no ambiente de quem usa. Se a pessoa
-quiser, o Claude dela devolve o que aprendeu — sempre anonimizado e com a concordância dela — numa área de
-contribuições que é testada antes de entrar no banco principal.
+| pasta | o que é |
+|---|---|
+| `AGENTS.md` | a regra de trabalho da IA (o método, a privacidade, a segurança) |
+| `bancodedadosnles/` | o banco: o que já se mediu dos formatos (AAF, XML, OTIO, EDL, ALE, AVB, PRPROJ, DRT, DRP, FLE, BLG), das APIs e do ambiente de cada programa, no Windows e no macOS, com a confiança e a versão |
+| `piloto/` | o piloto e o vigia: a IA operando a máquina onde a API do programa não alcança, com freio |
+| `laboratorio-de-midia/` | receitas de mídia sintética (cada quadro e canal diz o que é) e bancadas que medem cada programa |
+| `skills/` | as skills do kit: diagnóstico, laboratório, contribuir, segurança, novidades |
+| `contribuicoes/` | a quarentena: o que chega de outras pessoas, antes de ser reproduzido no laboratório |
+| `ferramentas/` | a varredura de segurança (a mesma que o GitHub roda nos pull requests) |
+| `docs/` | a página do kit |
+
+O app **Ciclo Assist** (sincronizar, conformar, assistir) é aberto e vem em repositório próprio,
+`ciclo-assist-kit-nle` (em preparação); ele é clonado DENTRO desta pasta, para achar o banco, o piloto e o laboratório.
+
+## O método
+
+O diferencial é **como se investiga**: consultar o banco antes; medir antes de afirmar (um render, um número, um
+quadro); provar com mídia sintética; registrar depois, com a confiança, a versão do programa e o sistema. Opus investiga
+e desenvolve, Sonnet executa e olha a tela, scripts fazem o mecânico.
+
+## Privacidade
+
+O que é seu fica na sua máquina: a pasta `local/` é a sua camada privada e não vai ao Git. Para contribuir, a IA
+anonimiza, mostra o que vai sair e só envia com o seu "pode enviar". Tudo o que está neste repositório foi anonimizado:
+produções, clientes e pessoas aparecem com apelidos (PRODUCAO-A, casa-pos-1…).
 
 ## Como as mudanças são anotadas
 
-A seção "Últimas atualizações" da página lê o histórico deste repositório. Cada envio começa pelo tipo:
-`adicionado:`, `corrigido:` ou `mudado:` (aceitos também `feat:` e `fix:`), seguido de uma frase para quem edita.
+A seção "Últimas atualizações" da página lê o histórico deste repositório. Cada envio começa pelo tipo — `adicionado:`,
+`corrigido:` ou `mudado:` (aceitos também `feat:` e `fix:`) — seguido de uma frase para quem edita. O resumo por versão
+fica em `NOVIDADES.md`.
 
 ## Licença
 
-Código: Apache-2.0 · Texto do banco: CC BY 4.0 · Ciclo Assist: GPL-3.0.
+Código: Apache-2.0 (`LICENSE`) · Texto do banco: CC BY 4.0 (`LICENSE-banco-CC-BY-4.0`) · Ciclo Assist: GPL-3.0 (no
+repositório dele). Idealizado por Lohan Costa, edt. As marcas dos programas citados são de seus donos (`NOTICE`).

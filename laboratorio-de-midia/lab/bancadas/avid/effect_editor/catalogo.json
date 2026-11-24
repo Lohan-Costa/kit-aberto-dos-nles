@@ -1,0 +1,7144 @@
+{
+ "_meta": {
+  "o_que": "catálogo do Effect Editor do MC 25.6: grupos, parâmetros e PADRÕES de cada efeito (lidos na tela, com a foto ao lado)",
+  "como": "bancada: T no clipe com o efeito → DoCommand 1939 (Effect Editor) → a janela solta (395,0) aumentada para 1000 px → os grupos abertos pelo MOLDE do ▶ (x 30–200), em passadas do topo ao fim pela faixa da barra de rolagem até nenhuma abrir → fotos em PÁGINAS (_pN)",
+  "atualizado": "2026-10-12",
+  "leitura": "Categoria Image lida nas fotos IMAGE_*.png (MC 25.6). ⭐ O pontinho VERDE ao lado de um grupo = grupo LIGADO (o DVE_*_ENABLED_U da bin), cinza = desligado. Família de PINTURA (Blur, Mosaic, Paint, Scratch Removal, Spot Color): controles SEM número, age numa forma desenhada no monitor (sem forma, nada muda), grupos Acceleration/Tracking/Feathering/Brush/Magic Mask. | 2026-10-12: as outras 25 categorias (201 efeitos, 214 fotos, 67 PAINÉIS distintos) lidas uma vez por painel em transcricao_paineis.json e distribuídas por montar_catalogo.py (campo 'painel' = md5 da foto abaixo do título). 'ligado' = o interruptor ●○ do grupo (verde = ligado). Achados: Xpress 3D = 3D Warp com UM grupo ligado (o do preset; 3D PIP = Scaling 50); Film masks = Scaling Hgt 80/72/75/53 (1.66/1.85/16:9/Anamórfico); a grade dos keys e do Pan and Scan é NTSC SD (720×486 / 720×243) de fábrica; o S3D Crop vai de 0 a 100, o do 3D Warp de ±999; Timecode Burn-In tem números CORTADOS na foto (subgrupos fundos); AniMatte é da família de pintura.",
+  "pendente": [
+   "família de pintura (Image + AniMatte): os valores sem número — ler pela bin ou pela posição do controle",
+   "Timecode Burn-In: os números cortados (cor, opacidade, Line/Outline Weight) — ler pela bin",
+   "conferir cada PADRÃO no render (como o PIP 50 %)",
+   "Timewarp: 0 TrackEffect na bin (outra classe) — conferir os 8 clipes à parte"
+  ]
+ },
+ "EFF2_BLEND_RESIZE": {
+  "nome": "Resize",
+  "foto": "resize.png",
+  "grupos": {
+   "Background": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 0
+   },
+   "Scaling": {
+    "X": 100.0,
+    "Y": 100.0,
+    "Fixed Aspect": true
+   },
+   "Position": {
+    "X": 0.0,
+    "Y": 0.0
+   },
+   "Crop": {
+    "Top": 0.0,
+    "Bot": 0.0,
+    "Lft": 0.0,
+    "Rgt": 0.0
+   }
+  },
+  "bin": {
+   "Scaling X/Y": "AFX_SCALE_X_U/AFX_SCALE_Y_U",
+   "Position X/Y": "AFX_POS_X_U/AFX_POS_Y_U (milésimos; +Y desce)",
+   "Fixed Aspect": "AFX_FIXED_ASPECT_U"
+  }
+ },
+ "9A3F479D-2D48-4244-822E-0A0CA12EA9DD": {
+  "nome": "Avid Pan & Zoom",
+  "foto": "IMAGE_00_Avid_Pan_Zoom.png",
+  "grupos": {
+   "(topo)": {
+    "Import image…": "botão",
+    "Display": "Source"
+   },
+   "Display Options": {
+    "Show Safe Action": true,
+    "Use Subres in Preview": false
+   },
+   "Size": {
+    "Zoom Factor": 1.0
+   },
+   "Position": {
+    "X Pos": 0,
+    "Y Pos": 0
+   },
+   "Velocity": {
+    "In": "Ease In",
+    "Out": "Ease Out",
+    "Path": "Linear",
+    "Filter": "Triangle"
+   },
+   "Background": {
+    "tipo": "Color",
+    "Color R/G/B": [
+     0,
+     0,
+     0
+    ]
+   },
+   "Advanced": {
+    "Source Has Square Pixels": true,
+    "níveis": "Source has RGB Levels"
+   },
+   "Cache": {
+    "Free Current Cache": false,
+    "Free All Caches": false
+   },
+   "Render Mode": {
+    "Progressive": false
+   }
+  }
+ },
+ "EFF_PAINT_BLUR": {
+  "nome": "Blur Effect",
+  "familia": "pintura",
+  "foto": "IMAGE_01_Blur_Effect.png",
+  "grupos": {
+   "Acceleration": {
+    "valor": 0
+   },
+   "Tracking": {
+    "rastreadores": 4,
+    "estado": "No Tracker"
+   },
+   "Blur": [
+    "Opac.",
+    "Blur Visible",
+    "Hor",
+    "Vert",
+    "Fixed Aspect"
+   ],
+   "Feathering": [
+    "Bias",
+    "Hor",
+    "Vert",
+    "Fixed Aspect",
+    "Anti-alias"
+   ]
+  }
+ },
+ "EFF2_RGB_COLOR_CORRECTION": {
+  "nome": "Color Correction",
+  "fotos": [
+   "IMAGE_02_Color_Correction_p1.png",
+   "IMAGE_02_Color_Correction_p2.png",
+   "IMAGE_02_Color_Correction_p3.png",
+   "IMAGE_02_Color_Correction_p4.png",
+   "IMAGE_02_Color_Correction_p5.png",
+   "IMAGE_02_Color_Correction_p6.png",
+   "IMAGE_02_Color_Correction_p7.png",
+   "IMAGE_02_Color_Correction_p8.png",
+   "IMAGE_02_Color_Correction_p9.png"
+  ],
+  "grupos": {
+   "Base HSL > Controls": {
+    "Master": {
+     "Hue": 0.0,
+     "Saturation": 100.0,
+     "Brightness": 0.0,
+     "Contrast": 0.0,
+     "Gain": 100.0,
+     "Gamma": 1.0,
+     "Setup": 0.0,
+     "Invert Chroma": false,
+     "Invert Luma": false,
+     "Clip": {
+      "Clip Low": "(mínimo)",
+      "Clip High": "(máximo)"
+     }
+    },
+    "Highlights": {
+     "Hue": 0.0,
+     "Saturation": 100.0,
+     "Brightness": 0.0,
+     "Contrast": 0.0,
+     "Gain": 100.0,
+     "Gamma": 1.0,
+     "Setup": 0.0
+    },
+    "Midtones": {
+     "Hue": 0.0,
+     "Saturation": 100.0,
+     "Brightness": 0.0,
+     "Contrast": 0.0,
+     "Gain": 100.0,
+     "Gamma": 1.0,
+     "Setup": 0.0
+    },
+    "Shadows": {
+     "Hue": 0.0,
+     "Saturation": 100.0,
+     "Brightness": 0.0,
+     "Contrast": 0.0,
+     "Gain": 100.0,
+     "Gamma": 1.0,
+     "Setup": 0.0
+    }
+   },
+   "Base HSL > Hue Offsets": {
+    "Shadows": {
+     "Shadow Hue": 0.0,
+     "Shadow Hue Amt": 0.0
+    },
+    "Midtones": {
+     "Mid Hue": 0.0,
+     "Mid Hue Amt": 0.0
+    },
+    "Highlights": {
+     "Hlt Hue": 0.0,
+     "Hlt Hue Amt": 0.0
+    },
+    "Master": {
+     "Master Hue": 0.0,
+     "Master Hue Amt": 0.0
+    }
+   },
+   "Base Levels": [
+    "Master",
+    "Red",
+    "Green",
+    "Blue",
+    "Luma",
+    "Comp"
+   ],
+   "Base Curves": [
+    "Red",
+    "Green",
+    "Blue",
+    "Master"
+   ],
+   "Base Secondary": {
+    "Vector G": {
+     "Input Hue": 240.0,
+     "Input Saturation": 50.0,
+     "Input Hue Width": 30.0,
+     "Input Sat Min": 10.0,
+     "Input Softness": 30.0,
+     "Output Hue": 240.0,
+     "Output Saturation": 50.0,
+     "Delta Luminance": 0.0
+    },
+    "Vector YL": {
+     "Input Hue": 300.0,
+     "Input Saturation": 50.0,
+     "Input Hue Width": 30.0,
+     "Input Sat Min": 10.0,
+     "Input Softness": 30.0,
+     "Output Hue": 300.0,
+     "Output Saturation": 50.0,
+     "Delta Luminance": 0.0
+    },
+    "Vector R": {
+     "Input Hue": 0.0,
+     "Input Saturation": 50.0,
+     "Input Hue Width": 30.0,
+     "Input Sat Min": 10.0,
+     "Input Softness": 30.0,
+     "Output Hue": 0.0,
+     "Output Saturation": 50.0,
+     "Delta Luminance": 0.0
+    },
+    "Vector MG": {
+     "Input Hue": 60.0,
+     "Input Saturation": 50.0,
+     "Input Hue Width": 30.0,
+     "Input Sat Min": 10.0,
+     "Input Softness": 30.0,
+     "Output Hue": 60.0,
+     "Output Saturation": 50.0,
+     "Delta Luminance": 0.0
+    },
+    "Vector B": {
+     "Input Hue": 120.0,
+     "Input Saturation": 50.0,
+     "Input Hue Width": 30.0,
+     "Input Sat Min": 10.0,
+     "Input Softness": 30.0,
+     "Output Hue": 120.0,
+     "Output Saturation": 50.0,
+     "Delta Luminance": 0.0
+    },
+    "Vector CY": {
+     "Input Hue": 180.0,
+     "Input Saturation": 50.0,
+     "Input Hue Width": 30.0,
+     "Input Sat Min": 10.0,
+     "Input Softness": 30.0,
+     "Output Hue": 180.0,
+     "Output Saturation": 50.0,
+     "Delta Luminance": 0.0
+    },
+    "Ellipse 1": {
+     "Input Hue": 344.29,
+     "Input Saturation": 26.92,
+     "Input Hue Width": 30.0,
+     "Input Sat Width": 40.0,
+     "Input Softness": 30.0,
+     "Output Hue": 344.29,
+     "Output Saturation": 26.92,
+     "Delta Luminance": 0.0
+    },
+    "Ellipse 2": {
+     "Input Hue": 344.48,
+     "Input Saturation": 26.61,
+     "Input Hue Width": 30.0,
+     "Input Sat Width": 40.0,
+     "Input Softness": 30.0,
+     "Output Hue": 344.48,
+     "Output Saturation": 26.61,
+     "Delta Luminance": 0.0
+    },
+    "Ellipse 3": {
+     "Input Hue": 146.79,
+     "Input Saturation": 24.78,
+     "Input Hue Width": 30.0,
+     "Input Sat Width": 40.0,
+     "Input Softness": 30.0,
+     "Output Hue": 146.79,
+     "Output Saturation": 24.78,
+     "Delta Luminance": 0.0
+    },
+    "Ellipse 4": {
+     "Input Hue": 266.51,
+     "Input Saturation": 27.39,
+     "Input Hue Width": 30.0,
+     "Input Sat Width": 40.0,
+     "Input Softness": 30.0,
+     "Output Hue": 266.51,
+     "Output Saturation": 27.39,
+     "Delta Luminance": 0.0
+    },
+    "Ellipse 5": {
+     "Input Hue": 112.34,
+     "Input Saturation": 19.67,
+     "Input Hue Width": 30.0,
+     "Input Sat Width": 40.0,
+     "Input Softness": 30.0,
+     "Output Hue": 112.34,
+     "Output Saturation": 19.67,
+     "Delta Luminance": 0.0
+    },
+    "Ellipse 6": {
+     "Input Hue": 198.95,
+     "Input Saturation": 40.43,
+     "Input Hue Width": 30.0,
+     "Input Sat Width": 40.0,
+     "Input Softness": 30.0,
+     "Output Hue": 198.95,
+     "Output Saturation": 40.43,
+     "Delta Luminance": 0.0
+    }
+   },
+   "Shapes": {
+    "Interpolation": {
+     "Smooth": 0.0
+    },
+    "Mode": {
+     "Opacity": 0.0,
+     "Visibility": false
+    },
+    "Softness": {
+     "Bias": 0.0,
+     "Hor": 0.0,
+     "Vert": 0.0,
+     "Fixed Aspect": false,
+     "Anti-alias": false
+    }
+   },
+   "Layers": {
+    "camada": "Base Layer",
+    "Serial Mode": true,
+    "Show Result": true,
+    "Show Alpha": false,
+    "Invert Alpha": false
+   }
+  },
+  "obs": "Vector YL/R/G: a 1ª linha cortada entre páginas — os valores seguem o padrão dos vetores (Input = Output Hue, 50/30/10/30). Os Ellipse saem com hue/sat próprios (padrão de fábrica do MC 25.6)."
+ },
+ "EFF2_COLORCORRECT": {
+  "nome": "Color Effect",
+  "foto": "IMAGE_03_Color_Effect.png",
+  "grupos": {
+   "Luma Adjust": {
+    "Invert": false,
+    "Bright": 0,
+    "Cont": 0
+   },
+   "Luma Range": {
+    "faixa": "16 to 235",
+    "W Point": 235,
+    "B Point": 16,
+    "Gamma": 0
+   },
+   "Luma Clip": {
+    "High": 235,
+    "Low": 16
+   },
+   "Chroma Adjust": {
+    "Invert": false,
+    "Hue": 0,
+    "Sat": 0
+   },
+   "Color Style": {
+    "Post": 0,
+    "Solar": 0
+   },
+   "Color Gain": {
+    "Red": 100,
+    "Green": 100,
+    "Blue": 100
+   }
+  }
+ },
+ "EFF2_COLOR_SPACE": {
+  "nome": "Color LUT",
+  "foto": "IMAGE_04_Color_LUT.png",
+  "grupos": {
+   "Available LUTs": "lista (vazia)"
+  }
+ },
+ "C4698BF3-6E10-3E18-8DCE-40F6B002E591": {
+  "nome": "Field Swap",
+  "foto": "IMAGE_05_Field_Swap.png",
+  "grupos": {
+   "(topo)": {
+    "Bypass": false
+   }
+  }
+ },
+ "EFF2_BLEND_FLIP_VERT": {
+  "nome": "Flip",
+  "sem_parametros": true
+ },
+ "EFF2_BLEND_FLIP_HORZ": {
+  "nome": "Flop",
+  "sem_parametros": true
+ },
+ "EFF2_BLEND_FLIP_BOTH": {
+  "nome": "Flip-Flop",
+  "sem_parametros": true,
+  "foto": "IMAGE_07_Flip_Flop.png"
+ },
+ "EFF2_BLEND_MASK_IMAGE": {
+  "nome": "Mask",
+  "foto": "IMAGE_09_Mask.png",
+  "grupos": {
+   "Background Color": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 0
+   },
+   "Scaling": {
+    "Wid": 100,
+    "Hgt": 100,
+    "Scaling Fixed Aspect": true
+   },
+   "Position": {
+    "H Pos": 0,
+    "V Pos": 0
+   }
+  }
+ },
+ "EFF_PAINT_MOSAIC": {
+  "nome": "Mosaic Effect",
+  "familia": "pintura",
+  "foto": "IMAGE_10_Mosaic_Effect.png",
+  "grupos": {
+   "Acceleration": {
+    "valor": 0
+   },
+   "Tracking": {
+    "rastreadores": 4,
+    "estado": "No Tracker"
+   },
+   "Mosaic": [
+    "Opac.",
+    "Mosaic Visible",
+    "Hor",
+    "Vert"
+   ],
+   "Feathering": [
+    "Bias",
+    "Hor",
+    "Vert",
+    "Fixed Aspect",
+    "Anti-alias"
+   ]
+  }
+ },
+ "EFF_PAINT": {
+  "nome": "Paint Effect",
+  "familia": "pintura",
+  "grupos": {
+   "Acceleration": {
+    "valor": 0
+   },
+   "Tracking": {
+    "rastreadores": 4,
+    "estado": "No Tracker"
+   },
+   "Mode": {
+    "modo": "Solid",
+    "itens": [
+     "Opac.",
+     "Object Visible"
+    ]
+   },
+   "Feathering": [
+    "Bias",
+    "Hor",
+    "Vert",
+    "Fixed Aspect",
+    "Anti-alias"
+   ],
+   "Magic Mask": [
+    "Hue",
+    "Sat",
+    "Lum",
+    "Gain",
+    "Soft"
+   ],
+   "Color": [
+    "Hue",
+    "Sat",
+    "Lum"
+   ],
+   "Brush": [
+    "Path",
+    "Soft",
+    "Size",
+    "formas do pincel",
+    "Spin"
+   ]
+  },
+  "fotos": [
+   "IMAGE_11_Paint_Effect_p1.png",
+   "IMAGE_11_Paint_Effect_p2.png"
+  ]
+ },
+ "177D88F3-B608-3B56-B4EF-4F213B23242C": {
+  "nome": "Region Stabilize",
+  "foto": "IMAGE_12_Region_Stabilize.png",
+  "grupos": {
+   "Model": "Translational",
+   "Region of Interest": {
+    "T": -100,
+    "L": -100,
+    "B": 100,
+    "R": 100
+   },
+   "Options": {
+    "Auto Zoom": false,
+    "Progressive Source": false
+   }
+  }
+ },
+ "43EAFD65-44DE-3F16-A253-691E159C5197": {
+  "nome": "Safe Color Limiter",
+  "foto": "IMAGE_14_Safe_Color_Limiter.png",
+  "grupos": {
+   "(topo)": {
+    "422 Safe": false
+   },
+   "Source Monitor Analysis": "Source Monitoring - Off",
+   "Composite/Luma Levels (ligado)": {
+    "Composite L": -20.0,
+    "Composite H": 110.0,
+    "unidade": "IRE",
+    "Luma L": 7.5,
+    "Luma H": 100.0
+   },
+   "RGB Levels (ligado)": {
+    "RGB Gamut L": 0.0,
+    "RGB Gamut H": 255.0,
+    "bits": "8 Bit"
+   }
+  }
+ },
+ "EFF_PAINT_SCRATCH": {
+  "nome": "Scratch Removal",
+  "familia": "pintura",
+  "grupos": {
+   "Acceleration": {
+    "valor": 0
+   },
+   "Tracking": {
+    "rastreadores": 4,
+    "estado": "No Tracker"
+   },
+   "Scratch": [
+    "Opac.",
+    "Object Visible",
+    "Hor",
+    "Vert",
+    "Field",
+    "From Start",
+    "Frame Processing"
+   ],
+   "Feathering": [
+    "Bias",
+    "Hor",
+    "Vert",
+    "Fixed Aspect",
+    "Anti-alias"
+   ],
+   "Brush": [
+    "Path",
+    "Soft",
+    "Size",
+    "formas do pincel",
+    "Spin"
+   ]
+  },
+  "fotos": [
+   "IMAGE_15_Scratch_Removal_p1.png",
+   "IMAGE_15_Scratch_Removal_p2.png"
+  ]
+ },
+ "EFF_PAINT_SPOT_COLOR": {
+  "nome": "Spot Color Effect",
+  "familia": "pintura",
+  "grupos": {
+   "Acceleration": {
+    "valor": 0
+   },
+   "Tracking": {
+    "rastreadores": 4,
+    "estado": "No Tracker"
+   },
+   "Luma Adjust": [
+    "Invert",
+    "Bright",
+    "Cont"
+   ],
+   "Luma Range": {
+    "faixa": "16 to 235",
+    "itens": [
+     "W Point",
+     "B Point",
+     "Gamma"
+    ]
+   },
+   "Luma Clip": [
+    "High",
+    "Low"
+   ],
+   "Chroma Adjust": [
+    "Invert",
+    "Hue",
+    "Sat"
+   ],
+   "Color Style": [
+    "Post",
+    "Solar"
+   ],
+   "Color Gain": [
+    "Red",
+    "Green",
+    "Blue"
+   ],
+   "Color Match": [
+    "Use Natural Match"
+   ],
+   "Feathering": [
+    "Bias",
+    "Hor",
+    "Vert",
+    "Fixed Aspect",
+    "Anti-alias"
+   ],
+   "Magic Mask": [
+    "Hue",
+    "Sat",
+    "Lum",
+    "Gain",
+    "Soft"
+   ],
+   "Brush": [
+    "Path",
+    "Soft",
+    "Size",
+    "formas do pincel",
+    "Spin"
+   ]
+  },
+  "fotos": [
+   "IMAGE_16_Spot_Color_Effect_p1.png",
+   "IMAGE_16_Spot_Color_Effect_p2.png",
+   "IMAGE_16_Spot_Color_Effect_p3.png"
+  ]
+ },
+ "EFF2_STABILIZE": {
+  "nome": "Stabilize",
+  "foto": "IMAGE_17_Stabilize.png",
+  "obs": "depois do rastreio (os valores abaixo são os que o próprio efeito pôs)",
+  "grupos": {
+   "Border (desligado)": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 0
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Background Color (desligado)": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 0
+   },
+   "Scaling (LIGADO)": {
+    "Scaling X": 101,
+    "Scaling Y": 101,
+    "Scaling Fixed Aspect": true,
+    "Tracking (desligado)": "No Tracker 1"
+   },
+   "Position (LIGADO)": {
+    "Position X": 0,
+    "Position Y": 0,
+    "Position Z": 0,
+    "Tracking (LIGADO)": {
+     "ponto": "T1 Point A",
+     "modo": "X and Y Tracking",
+     "Auto-Zoom": true
+    }
+   },
+   "Crop (desligado)": {
+    "T": 999,
+    "B": -999,
+    "L": -999,
+    "R": 999
+   },
+   "Tracking (desligado)": "No Tracker 1"
+  }
+ },
+ "EFF_SUBMASTER": {
+  "nome": "Submaster",
+  "sem_parametros": true,
+  "foto": "IMAGE_18_Submaster.png"
+ },
+ "EFF2_SBLEND": {
+  "nome": "3DWarp",
+  "categoria": "AVX2 Effect",
+  "tipo": "AVX2",
+  "fotos": [
+   "BLEND_00_3DWarp_p1.png",
+   "BLEND_00_3DWarp_p2.png",
+   "BLEND_00_3DWarp_p3.png",
+   "BLEND_00_3DWarp_p4.png"
+  ],
+  "painel": "0663b5df+e4ac8063+925796d2+2bea6c6f",
+  "grupos": {
+   "Shape": {
+    "forma": "Page Fold",
+    "Curl": 50,
+    "Radius": 15,
+    "Angle": 45,
+    "dobra": "Tuck Over",
+    "realce": "Auto Highlight"
+   },
+   "Corner Pin": {
+    "Corner 1": {
+     "X": -500,
+     "Y": 500
+    },
+    "Corner 2": {
+     "X": 500,
+     "Y": 500
+    },
+    "Corner 3": {
+     "X": 500,
+     "Y": -500
+    },
+    "Corner 4": {
+     "X": -500,
+     "Y": -500
+    }
+   },
+   "Corner Tracking": {
+    "trackers": [
+     "No Tracker 1",
+     "No Tracker 1",
+     "No Tracker 1",
+     "No Tracker 1"
+    ],
+    "Stabilize Tracking": false
+   },
+   "Crop": {
+    "Top": 999.0,
+    "Bot": -999.0,
+    "Lft": -999.0,
+    "Rgt": 999.0
+   },
+   "Scaling": {
+    "X": 100.0,
+    "Y": 100.0,
+    "Fixed Aspect": true,
+    "Scale Tracking": {
+     "trackers": [
+      "No Tracker 1",
+      "No Tracker 1"
+     ],
+     "Stabilize Tracking": false
+    }
+   },
+   "Axis": {
+    "X": 0.0,
+    "Y": 0.0,
+    "Z": 0.0
+   },
+   "Skew": {
+    "X": 0,
+    "Y": 0
+   },
+   "Rotation": {
+    "Z": 0.0,
+    "X": 0.0,
+    "Y": 0.0,
+    "Rotation Tracking": {
+     "trackers": [
+      "No Tracker 1",
+      "No Tracker 1"
+     ],
+     "Stabilize Tracking": false
+    }
+   },
+   "Position": {
+    "X": 0.0,
+    "Y": 0.0,
+    "Z": 0.0,
+    "Position Tracking": {
+     "trackers": [
+      "No Tracker 1"
+     ],
+     "modo": "X and Y Tracking",
+     "Stabilize Tracking": false
+    }
+   },
+   "Perspective": {
+    "X": 0,
+    "Y": 0,
+    "Z": 250
+   },
+   "Target": {
+    "X": 0.0,
+    "Y": 0.0,
+    "Size": 100.0
+   },
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 0
+    },
+    "Limit to video levels": true,
+    "estilo": "Plain",
+    "Wid": 0,
+    "Sft": 0
+   },
+   "Highlight": {
+    "Soft": 50,
+    "Inty": 50,
+    "Rad": 50,
+    "Angle": 0,
+    "Aspct": 0,
+    "X": 0,
+    "Y": 0
+   },
+   "Highlight Color": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 255
+   },
+   "Lowlight Color": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 0
+   },
+   "Defocus": {
+    "modo": "Internal",
+    "Horz": 10,
+    "Vert": 10
+   },
+   "Shadow": {
+    "Opac.": 50,
+    "X": 50,
+    "Y": -50
+   },
+   "Trail": {
+    "Decay": 75,
+    "Use Sparkle": false
+   },
+   "Stamp": {
+    "Stamp Image": false,
+    "Clear Image": false,
+    "Opac.": 100,
+    "Foregnd. On Top": false
+   },
+   "Foreground": {
+    "modo": "Full Key",
+    "Opac.": 100,
+    "Foreground is pre-multiplied": false,
+    "Swap Sources": false,
+    "Reverse Animation": false,
+    "Invert Key": false,
+    "Show Alpha": false
+   },
+   "Spill Suppression": {
+    "Target Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 0
+    },
+    "Use Key Color": false,
+    "Replace Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 128
+    },
+    "Gain": 0,
+    "Soft": 0
+   },
+   "Erode / Expand": {
+    "Filter": 3,
+    "Center": 127,
+    "Soft": 127
+   },
+   "Background Color": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 0,
+    "Limit to video levels": true
+   }
+  },
+  "nota": "todos os grupos com o interruptor (●○) DESLIGADO de fábrica — o efeito só vale com ele ligado (banco: 3D Warp)"
+ },
+ "EFF2_BLEND_PIP": {
+  "nome": "PictureInPicture",
+  "categoria": "AVX2 Effect",
+  "tipo": "AVX2",
+  "fotos": [
+   "BLEND_01_PictureInPicture.png"
+  ],
+  "painel": "24f39c4b",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": true,
+    "Blend": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Wid": 0,
+    "Sft": 0
+   },
+   "Foreground": {
+    "Level": 100,
+    "Swap Sources": false,
+    "Reverse Animation": false
+   },
+   "Scaling": {
+    "X": 50.0,
+    "Y": 50.0,
+    "Fixed Aspect": true,
+    "Tracking": {
+     "trackers": [
+      "No Tracker 1",
+      "No Tracker 1"
+     ]
+    }
+   },
+   "Position": {
+    "X": 0.0,
+    "Y": 0.0,
+    "Tracking": {
+     "trackers": [
+      "No Tracker 1"
+     ],
+     "modo": "X Tracking Only"
+    }
+   },
+   "Crop": {
+    "Top": 0.0,
+    "Bot": 0.0,
+    "Lft": 0.0,
+    "Rgt": 0.0
+   }
+  },
+  "nota": "Scaling 50 de fábrica (o PIP sem escala na bin = 50 %, confirmado no render); Fixed Border LIGADO; no Crop o controle de Bot e Rgt fica na ponta DIREITA com o valor 0"
+ },
+ "EFF2_BLEND_SUPER": {
+  "nome": "Superimpose",
+  "categoria": "Blend",
+  "tipo": "AVX2",
+  "fotos": [
+   "BLEND_02_Superimpose.png"
+  ],
+  "painel": "4687af1f",
+  "grupos": {
+   "Foreground": {
+    "Opacity": 50
+   }
+  }
+ },
+ "EFF2_BLEND_WIPE_BBOX": {
+  "nome": "Bottom Box",
+  "categoria": "Box Wipe",
+  "tipo": "AVX2",
+  "fotos": [
+   "BOX_WIPE_00_Bottom_Box.png"
+  ],
+  "painel": "d049c540",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_WIPE_LL": {
+  "nome": "Bottom Left to Top Right",
+  "categoria": "Box Wipe",
+  "tipo": "AVX2",
+  "fotos": [
+   "BOX_WIPE_01_Bottom_Left_to_Top_Right.png"
+  ],
+  "painel": "d049c540",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_WIPE_LR": {
+  "nome": "Bottom Right to Top Left",
+  "categoria": "Box Wipe",
+  "tipo": "AVX2",
+  "fotos": [
+   "BOX_WIPE_02_Bottom_Right_to_Top_Left.png"
+  ],
+  "painel": "d049c540",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_WIPE_LBOX": {
+  "nome": "Left Box",
+  "categoria": "Box Wipe",
+  "tipo": "AVX2",
+  "fotos": [
+   "BOX_WIPE_03_Left_Box.png"
+  ],
+  "painel": "d049c540",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_WIPE_RBOX": {
+  "nome": "Right Box",
+  "categoria": "Box Wipe",
+  "tipo": "AVX2",
+  "fotos": [
+   "BOX_WIPE_04_Right_Box.png"
+  ],
+  "painel": "d049c540",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_WIPE_TBOX": {
+  "nome": "Top Box",
+  "categoria": "Box Wipe",
+  "tipo": "AVX2",
+  "fotos": [
+   "BOX_WIPE_05_Top_Box.png"
+  ],
+  "painel": "d049c540",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_WIPE_UL": {
+  "nome": "Top Left to Bottom Right",
+  "categoria": "Box Wipe",
+  "tipo": "AVX2",
+  "fotos": [
+   "BOX_WIPE_06_Top_Left_to_Bottom_Right.png"
+  ],
+  "painel": "d049c540",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_WIPE_UR": {
+  "nome": "Top Right to Bottom Left",
+  "categoria": "Box Wipe",
+  "tipo": "AVX2",
+  "fotos": [
+   "BOX_WIPE_07_Top_Right_to_Bottom_Left.png"
+  ],
+  "painel": "d049c540",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_CONCEAL_BOTTOMLEFT": {
+  "nome": "Bottom Left to Top Right",
+  "categoria": "Conceal",
+  "tipo": "AVX2",
+  "fotos": [
+   "CONCEAL_00_Bottom_Left_to_Top_Right.png"
+  ],
+  "painel": "d049c540",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_CONCEAL_BOTTOMRIGHT": {
+  "nome": "Bottom Right to Top Left",
+  "categoria": "Conceal",
+  "tipo": "AVX2",
+  "fotos": [
+   "CONCEAL_01_Bottom_Right_to_Top_Left.png"
+  ],
+  "painel": "d049c540",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_CONCEAL_UP": {
+  "nome": "Bottom to Top",
+  "categoria": "Conceal",
+  "tipo": "AVX2",
+  "fotos": [
+   "CONCEAL_02_Bottom_to_Top.png"
+  ],
+  "painel": "d049c540",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_CONCEAL_LEFT": {
+  "nome": "Left to Right",
+  "categoria": "Conceal",
+  "tipo": "AVX2",
+  "fotos": [
+   "CONCEAL_03_Left_to_Right.png"
+  ],
+  "painel": "d049c540",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_CONCEAL_RIGHT": {
+  "nome": "Right to Left",
+  "categoria": "Conceal",
+  "tipo": "AVX2",
+  "fotos": [
+   "CONCEAL_04_Right_to_Left.png"
+  ],
+  "painel": "d049c540",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_CONCEAL_TOPLEFT": {
+  "nome": "Top Left to Bottom Right",
+  "categoria": "Conceal",
+  "tipo": "AVX2",
+  "fotos": [
+   "CONCEAL_05_Top_Left_to_Bottom_Right.png"
+  ],
+  "painel": "d049c540",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_CONCEAL_TOPRIGHT": {
+  "nome": "Top Right to Bottom Left",
+  "categoria": "Conceal",
+  "tipo": "AVX2",
+  "fotos": [
+   "CONCEAL_06_Top_Right_to_Bottom_Left.png"
+  ],
+  "painel": "d049c540",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_CONCEAL_DOWN": {
+  "nome": "Top to Bottom",
+  "categoria": "Conceal",
+  "tipo": "AVX2",
+  "fotos": [
+   "CONCEAL_07_Top_to_Bottom.png"
+  ],
+  "painel": "d049c540",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_WIPE_HORZ": {
+  "nome": "Horizontal",
+  "categoria": "Edge Wipe",
+  "tipo": "AVX2",
+  "fotos": [
+   "EDGE_WIPE_00_Horizontal.png"
+  ],
+  "painel": "d049c540",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_WIPE_HOPEN": {
+  "nome": "Horz Open",
+  "categoria": "Edge Wipe",
+  "tipo": "AVX2",
+  "fotos": [
+   "EDGE_WIPE_01_Horz_Open.png"
+  ],
+  "painel": "d049c540",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_WIPE_LLRDIAG": {
+  "nome": "Lower Left Diagonal",
+  "categoria": "Edge Wipe",
+  "tipo": "AVX2",
+  "fotos": [
+   "EDGE_WIPE_02_Lower_Left_Diagonal.png"
+  ],
+  "painel": "098b2313",
+  "grupos": {
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   },
+   "Scaling": {
+    "Wid": 100,
+    "Hgt": 100,
+    "Scaling Fixed Aspect": true
+   }
+  }
+ },
+ "EFF2_BLEND_WIPE_LRLDIAG": {
+  "nome": "Lower Right Diagonal",
+  "categoria": "Edge Wipe",
+  "tipo": "AVX2",
+  "fotos": [
+   "EDGE_WIPE_03_Lower_Right_Diagonal.png"
+  ],
+  "painel": "098b2313",
+  "grupos": {
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   },
+   "Scaling": {
+    "Wid": 100,
+    "Hgt": 100,
+    "Scaling Fixed Aspect": true
+   }
+  }
+ },
+ "EFF2_BLEND_WIPE_ULRDIAG": {
+  "nome": "Upper Left Diagonal",
+  "categoria": "Edge Wipe",
+  "tipo": "AVX2",
+  "fotos": [
+   "EDGE_WIPE_04_Upper_Left_Diagonal.png"
+  ],
+  "painel": "098b2313",
+  "grupos": {
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   },
+   "Scaling": {
+    "Wid": 100,
+    "Hgt": 100,
+    "Scaling Fixed Aspect": true
+   }
+  }
+ },
+ "EFF2_BLEND_WIPE_URLDIAG": {
+  "nome": "Upper Right Diagonal",
+  "categoria": "Edge Wipe",
+  "tipo": "AVX2",
+  "fotos": [
+   "EDGE_WIPE_05_Upper_Right_Diagonal.png"
+  ],
+  "painel": "098b2313",
+  "grupos": {
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   },
+   "Scaling": {
+    "Wid": 100,
+    "Hgt": 100,
+    "Scaling Fixed Aspect": true
+   }
+  }
+ },
+ "EFF2_BLEND_WIPE_VOPEN": {
+  "nome": "Vert Open",
+  "categoria": "Edge Wipe",
+  "tipo": "AVX2",
+  "fotos": [
+   "EDGE_WIPE_06_Vert_Open.png"
+  ],
+  "painel": "d049c540",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_WIPE_VERT": {
+  "nome": "Vertical",
+  "categoria": "Edge Wipe",
+  "tipo": "AVX2",
+  "fotos": [
+   "EDGE_WIPE_07_Vertical.png"
+  ],
+  "painel": "d049c540",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_MASK_166": {
+  "nome": "1.66 Mask",
+  "categoria": "Film",
+  "tipo": "AVX2",
+  "fotos": [
+   "FILM_00_1_66_Mask.png"
+  ],
+  "painel": "0771ffc0",
+  "grupos": {
+   "Background Color": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 0
+   },
+   "Scaling": {
+    "Wid": 100,
+    "Hgt": 80,
+    "Scaling Fixed Aspect": true
+   },
+   "Position": {
+    "H Pos": 0,
+    "V Pos": 0
+   }
+  }
+ },
+ "EFF2_BLEND_MASK_185": {
+  "nome": "1.85 Mask",
+  "categoria": "Film",
+  "tipo": "AVX2",
+  "fotos": [
+   "FILM_01_1_85_Mask.png"
+  ],
+  "painel": "4baaff6c",
+  "grupos": {
+   "Background Color": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 0
+   },
+   "Scaling": {
+    "Wid": 100,
+    "Hgt": 72,
+    "Scaling Fixed Aspect": true
+   },
+   "Position": {
+    "H Pos": 0,
+    "V Pos": 0
+   }
+  }
+ },
+ "EFF2_BLEND_MASK_177": {
+  "nome": "16:9 Mask",
+  "categoria": "Film",
+  "tipo": "AVX2",
+  "fotos": [
+   "FILM_02_16_9_Mask.png"
+  ],
+  "painel": "5160035f",
+  "grupos": {
+   "Background Color": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 0
+   },
+   "Scaling": {
+    "Wid": 100,
+    "Hgt": 75,
+    "Scaling Fixed Aspect": true
+   },
+   "Position": {
+    "H Pos": 0,
+    "V Pos": 0
+   }
+  }
+ },
+ "EFF2_BLEND_MASK_235": {
+  "nome": "Anamorphic Mask",
+  "categoria": "Film",
+  "tipo": "AVX2",
+  "fotos": [
+   "FILM_03_Anamorphic_Mask.png"
+  ],
+  "painel": "a8ad19d7",
+  "grupos": {
+   "Background Color": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 0
+   },
+   "Scaling": {
+    "Wid": 100,
+    "Hgt": 53,
+    "Scaling Fixed Aspect": true
+   },
+   "Position": {
+    "H Pos": 0,
+    "V Pos": 0
+   }
+  }
+ },
+ "EFF2_BLOW_UP": {
+  "nome": "Blowup",
+  "categoria": "Film",
+  "tipo": "AVX2",
+  "fotos": [
+   "FILM_04_Blowup.png"
+  ],
+  "painel": "e8376ef6",
+  "grupos": {
+   "Background Color": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 0
+   },
+   "Blowup": {
+    "Field": 0,
+    "X Pos": 0,
+    "Y Pos": 0
+   },
+   "Crop": {
+    "T": 0,
+    "B": 0,
+    "L": 0,
+    "R": 0
+   }
+  }
+ },
+ "E4FE520A-B815-447F-A969-2D5E1C5F6C14": {
+  "nome": "SubCap",
+  "categoria": "Generator",
+  "tipo": "AVX2",
+  "fotos": [
+   "GENERATOR_00_SubCap_p1.png",
+   "GENERATOR_00_SubCap_p2.png"
+  ],
+  "painel": "ee7f5732+09b9d143",
+  "grupos": {
+   "Edit Global Properties...": false,
+   "Bypass Effect": false,
+   "Caption Files": {
+    "Import Caption Data...": false,
+    "Export Caption Data...": false
+   },
+   "Text Appearance": {
+    "Color": {
+     "Red": 255.0,
+     "Green": 255.0,
+     "Blue": 255.0
+    },
+    "Opacity": 100,
+    "fonte": "Arial",
+    "Font Size (pixels)": 20,
+    "Letter Spacing": 0,
+    "Line Weight": 25,
+    "Outline Weight": 25,
+    "contorno": "No Outline",
+    "Color (contorno)": {
+     "Red": 0.0,
+     "Green": 0.0,
+     "Blue": 0.0
+    },
+    "sombra": "No Shadow",
+    "alinhamento": "Left Align"
+   },
+   "Box Appearance": {
+    "Color": {
+     "Red": 0.0,
+     "Green": 0.0,
+     "Blue": 0.0
+    },
+    "Opacity": 100,
+    "caixas": "One Box",
+    "ancora": "Anchor To Bottom of Text",
+    "lado": "Anchor Left",
+    "Anchor Position": {
+     "X": -410,
+     "Y": -265
+    },
+    "Extent": {
+     "X": 999,
+     "Y": 999
+    },
+    "largura": "Fixed Width (Wrap)",
+    "Box Width": 500,
+    "linhas": "As Many Rows As Needed",
+    "Padding": {
+     "Vertical": 2,
+     "Horizontal": 3
+    },
+    "Row Spacing": 0
+   },
+   "Edit Master Caption List...": false,
+   "Caption Text": ""
+  }
+ },
+ "169317AB-ACAA-416F-84CE-249BFE0B09ED": {
+  "nome": "Timecode Burn-In",
+  "categoria": "Generator",
+  "tipo": "AVX2",
+  "fotos": [
+   "GENERATOR_01_Timecode_Burn_In_p1.png",
+   "GENERATOR_01_Timecode_Burn_In_p2.png",
+   "GENERATOR_01_Timecode_Burn_In_p3.png",
+   "GENERATOR_01_Timecode_Burn_In_p4.png",
+   "GENERATOR_01_Timecode_Burn_In_p5.png"
+  ],
+  "painel": "84c951c8+13edbfca+d882fea0+21ff0d9f+ebe85bec",
+  "grupos": {
+   "Display 1": {
+    "ligado": true,
+    "fonte_dado": "Timecode",
+    "trilha": "Current Track",
+    "rotulo": "Clip Notes",
+    "tempo": "Current Time",
+    "Display Label": false,
+    "Display Fields": false,
+    "Timecode Display": "Track",
+    "Appearance": {
+     "Position": {
+      "X": -18,
+      "Y": 42
+     },
+     "Font Size (pixels)": 30,
+     "Text": {
+      "Color": "branco (Red/Green/Blue cortados: '2…')",
+      "Text Opacity": "1.… (cortado)",
+      "Line Weight": "2… (cortado)",
+      "Outline Weight": "2… (cortado)",
+      "Use Text Outline": false
+     },
+     "Background": {
+      "Color": "preto (0)",
+      "Background Opacity": "1.… (cortado)"
+     }
+    }
+   },
+   "Display 2": {
+    "ligado": false,
+    "igual ao Display 1 exceto": {
+     "Position": {
+      "X": -18,
+      "Y": 32
+     }
+    }
+   },
+   "Display 3": {
+    "ligado": false,
+    "igual ao Display 1 exceto": {
+     "Position": {
+      "X": -18,
+      "Y": 22
+     }
+    }
+   },
+   "Display 4": {
+    "ligado": false,
+    "igual ao Display 1 exceto": {
+     "Position": {
+      "X": -18,
+      "Y": 12
+     }
+    }
+   },
+   "Text": {
+    "ligado": false,
+    "texto": "",
+    "Position": {
+     "X": -18,
+     "Y": 2
+    },
+    "Font Size (pixels)": 30,
+    "fonte": "Arial",
+    "resto": "como o Display 1"
+   }
+  },
+  "nota": "os números da coluna da direita saem CORTADOS nesta largura (subgrupos fundos) — ler pela bin; o pontinho verde do Display 1 = só ele ligado de fábrica"
+ },
+ "C6C6FE2D-2EEA-301A-B346-83ACE55A7DEA": {
+  "nome": "Color Mix",
+  "categoria": "Illusion FX",
+  "tipo": "AVX2",
+  "fotos": [
+   "ILLUSION_FX_00_Color_Mix.png"
+  ],
+  "painel": "0d423bd7",
+  "grupos": {
+   "Color Level": 50,
+   "Color": {
+    "R": 204,
+    "G": 51,
+    "B": 255
+   }
+  },
+  "nota": "cor de fábrica magenta"
+ },
+ "05356304-047E-3AE3-9374-D7D484CB679F": {
+  "nome": "Crystal",
+  "categoria": "Illusion FX",
+  "tipo": "AVX2",
+  "fotos": [
+   "ILLUSION_FX_01_Crystal.png"
+  ],
+  "painel": "1774a1da",
+  "grupos": {
+   "Size": 10,
+   "Jitter": 25,
+   "Seed": 500,
+   "Anti-alias": false,
+   "Border": {
+    "Left": 10,
+    "Right": 10,
+    "Top": 1,
+    "Bottom": 1
+   }
+  }
+ },
+ "2A25DBDD-7326-311D-8316-C84BE0686389": {
+  "nome": "Film Grain",
+  "categoria": "Illusion FX",
+  "tipo": "AVX2",
+  "fotos": [
+   "ILLUSION_FX_02_Film_Grain.png"
+  ],
+  "painel": "6300c3c9",
+  "grupos": {
+   "Level": 15,
+   "Size": 1,
+   "Color": 50,
+   "Field Mode": false,
+   "Hilite Grain": 50,
+   "Shadow Grain": 50
+  }
+ },
+ "3C93D920-443B-3AF6-9C54-0B90C71E83B2": {
+  "nome": "Flare",
+  "categoria": "Illusion FX",
+  "tipo": "AVX2",
+  "fotos": [
+   "ILLUSION_FX_03_Flare.png"
+  ],
+  "painel": "3e58a1f2",
+  "grupos": {
+   "Brightness": 30,
+   "Size": 50,
+   "Width": 10,
+   "Amount": 10,
+   "Random Seed": 500,
+   "Position": {
+    "X": 0,
+    "Y": 0
+   }
+  }
+ },
+ "CF8BE7DD-626C-389B-AC89-3E4F1AC7479B": {
+  "nome": "FluidBlur",
+  "categoria": "Illusion FX",
+  "tipo": "AVX2",
+  "fotos": [
+   "ILLUSION_FX_04_FluidBlur.png"
+  ],
+  "painel": "309c7bdd",
+  "grupos": {
+   "Input Parameters": {
+    "Blur Amount": 5,
+    "Lower Motion Threshold": 2,
+    "Upper Motion Threshold": 4,
+    "Trail": 50,
+    "Sharpen Leading Edge": 20,
+    "Progressive Source": false
+   },
+   "Border": {
+    "Left": 10,
+    "Right": 10,
+    "Top": 1,
+    "Bottom": 1
+   }
+  }
+ },
+ "10098268-59E0-3D87-9356-ABA678D73509": {
+  "nome": "FluidColorMap",
+  "categoria": "Illusion FX",
+  "tipo": "AVX2",
+  "fotos": [
+   "ILLUSION_FX_05_FluidColorMap.png"
+  ],
+  "painel": "3f5f7ac5",
+  "grupos": {
+   "Input Parameters": {
+    "Min Motion Threshold": 2,
+    "Max Motion Threshold": 20,
+    "Constant Saturation": 30,
+    "Progressive Source": false
+   },
+   "Border": {
+    "Left": 10,
+    "Right": 10,
+    "Top": 1,
+    "Bottom": 1
+   }
+  }
+ },
+ "E816FE5A-3A35-3896-89D6-F43492F1595D": {
+  "nome": "FluidMorph",
+  "categoria": "Illusion FX",
+  "tipo": "AVX2",
+  "fotos": [
+   "ILLUSION_FX_06_FluidMorph.png"
+  ],
+  "painel": "38d867e2",
+  "grupos": {
+   "modo": "Still->Still",
+   "Input Parameters": {
+    "Feature Match": false,
+    "Swap Sources": false,
+    "Progressive Source": false
+   },
+   "Border": {
+    "Left": 10,
+    "Right": 10,
+    "Top": 1,
+    "Bottom": 1
+   }
+  }
+ },
+ "64F48DCD-D97F-3864-813E-FFE5AA89D718": {
+  "nome": "Iris",
+  "categoria": "Illusion FX",
+  "tipo": "AVX2",
+  "fotos": [
+   "ILLUSION_FX_07_Iris.png"
+  ],
+  "painel": "582cc19d",
+  "grupos": {
+   "Amount": 25,
+   "Softness": 10,
+   "Position": {
+    "X": 0,
+    "Y": 0
+   },
+   "Swap": false
+  }
+ },
+ "F888CE94-3449-3F4B-859D-8A44436251AD": {
+  "nome": "Kaleidoscope",
+  "categoria": "Illusion FX",
+  "tipo": "AVX2",
+  "fotos": [
+   "ILLUSION_FX_08_Kaleidoscope.png"
+  ],
+  "painel": "b49a694f",
+  "grupos": {
+   "Symmetry": 6,
+   "Angle": 0.0,
+   "Scale": 100,
+   "Center": {
+    "X": 0,
+    "Y": 0
+   },
+   "X Offset": 0,
+   "Y Offset": 0,
+   "Anti-alias": false,
+   "Border": {
+    "Left": 10,
+    "Right": 10,
+    "Top": 1,
+    "Bottom": 1
+   }
+  }
+ },
+ "3BC1E43F-546E-3C83-A9BE-44192EEA85F8": {
+  "nome": "Lightning",
+  "categoria": "Illusion FX",
+  "tipo": "AVX2",
+  "fotos": [
+   "ILLUSION_FX_09_Lightning.png"
+  ],
+  "painel": "9bab4279",
+  "grupos": {
+   "Generation": {
+    "Amount": 100,
+    "Branch Probability": 40,
+    "Random Seed": 400,
+    "modo": "Standard",
+    "Position": {
+     "X": 0,
+     "Y": -500
+    }
+   },
+   "Core": {
+    "Width": 1.0,
+    "Color": {
+     "R": 255,
+     "G": 255,
+     "B": 255
+    }
+   },
+   "Glow": {
+    "Width": 14.0,
+    "Color": {
+     "R": 230,
+     "G": 230,
+     "B": 102
+    }
+   }
+  }
+ },
+ "3872E85B-7BC2-37CC-8689-64F88C3ACC65": {
+  "nome": "Melt",
+  "categoria": "Illusion FX",
+  "tipo": "AVX2",
+  "fotos": [
+   "ILLUSION_FX_10_Melt.png"
+  ],
+  "painel": "c90f678c",
+  "grupos": {
+   "Bleed": false,
+   "Melt up": false,
+   "Amount": 50,
+   "Strength": 40,
+   "Random Seed": 500,
+   "Anti-alias": false,
+   "Swap Sources": false,
+   "Border": {
+    "Left": 10,
+    "Right": 10,
+    "Top": 1,
+    "Bottom": 1
+   }
+  }
+ },
+ "7EA5B600-839E-3D8A-A676-2E29C07E6AEE": {
+  "nome": "Motion Blur",
+  "categoria": "Illusion FX",
+  "tipo": "AVX2",
+  "fotos": [
+   "ILLUSION_FX_11_Motion_Blur.png"
+  ],
+  "painel": "a35002fa",
+  "grupos": {
+   "Amount": 5.0,
+   "Direction": 0.0
+  }
+ },
+ "DD9B9205-9BCA-3026-9BE0-F7F9C59E1C53": {
+  "nome": "Pagecurl",
+  "categoria": "Illusion FX",
+  "tipo": "AVX2",
+  "fotos": [
+   "ILLUSION_FX_12_Pagecurl.png"
+  ],
+  "painel": "eaf93929",
+  "grupos": {
+   "Turn Left": true,
+   "Reverse": false,
+   "Swap": false
+  }
+ },
+ "D19CCCA7-6172-3F91-ABB4-ACFACB2498AD": {
+  "nome": "Particle Blast",
+  "categoria": "Illusion FX",
+  "tipo": "AVX2",
+  "fotos": [
+   "ILLUSION_FX_13_Particle_Blast.png"
+  ],
+  "painel": "6ee41a93",
+  "grupos": {
+   "Amount": 0.5,
+   "Size": 15,
+   "Spacing": 10,
+   "Front Speed": 10,
+   "Front Randomness": 10,
+   "Speed": 10,
+   "Speed Randomness": 50,
+   "Acceleration": 10,
+   "Bumpiness": 50,
+   "Swap": true,
+   "Border": {
+    "Left": 10,
+    "Right": 10,
+    "Top": 1,
+    "Bottom": 1
+   }
+  },
+  "nota": "Swap LIGADO de fábrica"
+ },
+ "1E74B31F-42EF-34CC-AA56-1C114A7F332E": {
+  "nome": "Particle Orbit",
+  "categoria": "Illusion FX",
+  "tipo": "AVX2",
+  "fotos": [
+   "ILLUSION_FX_14_Particle_Orbit.png"
+  ],
+  "painel": "f05744c1",
+  "grupos": {
+   "Amount": 50,
+   "Size": 15,
+   "Spacing": 10,
+   "Bumpiness": 50,
+   "Speed": 25,
+   "Swap": false,
+   "Border": {
+    "Left": 10,
+    "Right": 10,
+    "Top": 1,
+    "Bottom": 1
+   }
+  }
+ },
+ "605137DD-01C0-3931-9966-5DDDEFAE5D59": {
+  "nome": "Particle Wind",
+  "categoria": "Illusion FX",
+  "tipo": "AVX2",
+  "fotos": [
+   "ILLUSION_FX_15_Particle_Wind.png"
+  ],
+  "painel": "0a7ebc6b",
+  "grupos": {
+   "Amount": 0.5,
+   "Size": 15,
+   "Spacing": 10,
+   "Front Speed": 10,
+   "Front Randomness": 10,
+   "Speed": 30,
+   "Speed Randomness": 50,
+   "Acceleration": 10,
+   "Angle": 45.0,
+   "Bumpiness": 50,
+   "Swap": true,
+   "Border": {
+    "Left": 10,
+    "Right": 10,
+    "Top": 1,
+    "Bottom": 1
+   }
+  },
+  "nota": "Swap LIGADO de fábrica"
+ },
+ "84D56D8A-A0A9-3A95-898F-0365A418F965": {
+  "nome": "Pattern Generator",
+  "categoria": "Illusion FX",
+  "tipo": "AVX2",
+  "fotos": [
+   "ILLUSION_FX_16_Pattern_Generator.png"
+  ],
+  "painel": "7f6367ad",
+  "grupos": {
+   "Background": {
+    "padrao": "SMPTE Bars",
+    "eixo": "X Axis",
+    "Color": {
+     "R": 235,
+     "G": 235,
+     "B": 235
+    }
+   },
+   "Number": {
+    "Number Offset": 0,
+    "Opacity": 50,
+    "Text Size": 50,
+    "Stroke Width": 5.0,
+    "Color": {
+     "R": 16,
+     "G": 16,
+     "B": 16
+    },
+    "Position": {
+     "X": -200,
+     "Y": -100
+    }
+   },
+   "Circle": {
+    "Size": 10,
+    "Width": 5.0,
+    "Opacity": 50,
+    "Color": {
+     "R": 16,
+     "G": 16,
+     "B": 16
+    },
+    "Position": {
+     "X": 100,
+     "Y": -100
+    }
+   }
+  }
+ },
+ "883728D0-F9F2-36BB-B772-01777C78AE35": {
+  "nome": "Pinch",
+  "categoria": "Illusion FX",
+  "tipo": "AVX2",
+  "fotos": [
+   "ILLUSION_FX_17_Pinch.png"
+  ],
+  "painel": "777e9550",
+  "grupos": {
+   "Amount": 75,
+   "Size": 50,
+   "Position": {
+    "X": 0,
+    "Y": 0
+   },
+   "Anti-alias": false,
+   "Border": {
+    "Left": 10,
+    "Right": 10,
+    "Top": 1,
+    "Bottom": 1
+   }
+  }
+ },
+ "A596F7ED-D442-3301-A649-95B1CC8E7F3F": {
+  "nome": "Radial Blur",
+  "categoria": "Illusion FX",
+  "tipo": "AVX2",
+  "fotos": [
+   "ILLUSION_FX_18_Radial_Blur.png"
+  ],
+  "painel": "6d6ff743",
+  "grupos": {
+   "Zoom": 1.5,
+   "Direction": 15.0,
+   "Position": {
+    "X": 0,
+    "Y": 0
+   },
+   "qualidade": "Render Low Quality",
+   "Border": {
+    "Left": 10,
+    "Right": 10,
+    "Top": 1,
+    "Bottom": 1
+   }
+  }
+ },
+ "0B38B792-CA43-39E2-8A55-97AA5B67918F": {
+  "nome": "Random Blend",
+  "categoria": "Illusion FX",
+  "tipo": "AVX2",
+  "fotos": [
+   "ILLUSION_FX_19_Random_Blend.png"
+  ],
+  "painel": "433a6e41",
+  "grupos": {
+   "Amount": 50,
+   "Random Scale": 50,
+   "Swap Sources": false
+  }
+ },
+ "CD60D3F3-9599-370D-ACF2-CBC2064884E0": {
+  "nome": "Ripple",
+  "categoria": "Illusion FX",
+  "tipo": "AVX2",
+  "fotos": [
+   "ILLUSION_FX_20_Ripple.png"
+  ],
+  "painel": "e6ce6ee4",
+  "grupos": {
+   "Motion": {
+    "Amount": 15.0,
+    "Wave Speed": 0.1,
+    "Ripple Spread": 0.3,
+    "Reflections": false
+   },
+   "Generation": {
+    "Strength": 50,
+    "Length": 0.1,
+    "Number of Ripples": 1,
+    "Seed": 500,
+    "Anti-alias": false
+   },
+   "Illumination": {
+    "Color": {
+     "R": 204,
+     "G": 51,
+     "B": 255
+    },
+    "Angle": 45.0
+   },
+   "Border": {
+    "Left": 10,
+    "Right": 10,
+    "Top": 1,
+    "Bottom": 1
+   }
+  }
+ },
+ "BD6A5480-005E-35F1-927B-10DF2F34835A": {
+  "nome": "Rollup",
+  "categoria": "Illusion FX",
+  "tipo": "AVX2",
+  "fotos": [
+   "ILLUSION_FX_21_Rollup.png"
+  ],
+  "painel": "f80131d9",
+  "grupos": {
+   "Amount": 50,
+   "Curl Size": 20,
+   "Direction": 45.0,
+   "Anti-alias": false,
+   "Swap Sources": false,
+   "Border": {
+    "Left": 10,
+    "Right": 10,
+    "Top": 1,
+    "Bottom": 1
+   }
+  }
+ },
+ "96AC794D-6816-39DF-BF43-822A7EA9BDD9": {
+  "nome": "Shear",
+  "categoria": "Illusion FX",
+  "tipo": "AVX2",
+  "fotos": [
+   "ILLUSION_FX_22_Shear.png"
+  ],
+  "painel": "88011d63",
+  "grupos": {
+   "Amount": 50,
+   "Min Width": 10,
+   "Max Width": 20,
+   "Width Randomness": 100,
+   "Spread": 50,
+   "Angle": 45.0,
+   "Random Seed": 500,
+   "Anti-alias": false,
+   "Swap Sources": true,
+   "Border": {
+    "Left": 10,
+    "Right": 10,
+    "Top": 1,
+    "Bottom": 1
+   }
+  },
+  "nota": "Swap Sources LIGADO de fábrica"
+ },
+ "8F2CE5C5-682E-3594-97B1-7AC802AACBB5": {
+  "nome": "Sparkler",
+  "categoria": "Illusion FX",
+  "tipo": "AVX2",
+  "fotos": [
+   "ILLUSION_FX_23_Sparkler.png"
+  ],
+  "painel": "199d112c",
+  "grupos": {
+   "Generation": {
+    "Birth Rate": 50,
+    "Lifetime": 10,
+    "Position": {
+     "X": 0,
+     "Y": 0
+    },
+    "Link Speed": true,
+    "Length": 1.0,
+    "Speed Bias X": 0,
+    "Speed Bias Y": -5
+   },
+   "Movement": {
+    "Speed": 30,
+    "Gravity": 15,
+    "Air Resistance": 40,
+    "Wind X": 0,
+    "Wind Y": 0,
+    "Turbulence": 50
+   },
+   "Glow": {
+    "Glow Radius": 8.0,
+    "Color": {
+     "R": 255,
+     "G": 0,
+     "B": 0
+    }
+   },
+   "Core": {
+    "Core Radius": 2.0,
+    "Color": {
+     "R": 255,
+     "G": 255,
+     "B": 0
+    }
+   }
+  }
+ },
+ "4555E33B-4ABD-3220-8F7C-59A3BBF2B30C": {
+  "nome": "Sphere",
+  "categoria": "Illusion FX",
+  "tipo": "AVX2",
+  "fotos": [
+   "ILLUSION_FX_24_Sphere.png"
+  ],
+  "painel": "37187a04",
+  "grupos": {
+   "Amount": 50,
+   "Size": 100,
+   "Center": {
+    "X": 0,
+    "Y": 0
+   },
+   "Anti-alias": false,
+   "Border": {
+    "Left": 10,
+    "Right": 10,
+    "Top": 1,
+    "Bottom": 1
+   }
+  }
+ },
+ "DC97D298-358C-3439-8433-7E9E617D2C42": {
+  "nome": "Swirl",
+  "categoria": "Illusion FX",
+  "tipo": "AVX2",
+  "fotos": [
+   "ILLUSION_FX_25_Swirl.png"
+  ],
+  "painel": "5b692019",
+  "grupos": {
+   "Amount": 75,
+   "Size": 50,
+   "Center": {
+    "X": 0,
+    "Y": 0
+   },
+   "Anti-alias": false,
+   "Border": {
+    "Left": 10,
+    "Right": 10,
+    "Top": 1,
+    "Bottom": 1
+   }
+  }
+ },
+ "1C97818C-257E-315F-A923-0210F92F7C57": {
+  "nome": "Twist",
+  "categoria": "Illusion FX",
+  "tipo": "AVX2",
+  "fotos": [
+   "ILLUSION_FX_26_Twist.png"
+  ],
+  "painel": "0c55a8dc",
+  "grupos": {
+   "Amount": 35,
+   "Position": {
+    "X": 0,
+    "Y": 0
+   },
+   "eixo": "X Axis",
+   "Anti-alias": false,
+   "Border": {
+    "Left": 10,
+    "Right": 10,
+    "Top": 1,
+    "Bottom": 1
+   }
+  }
+ },
+ "C6426C81-B71E-361C-AFD4-1380FC006A75": {
+  "nome": "Wave",
+  "categoria": "Illusion FX",
+  "tipo": "AVX2",
+  "fotos": [
+   "ILLUSION_FX_27_Wave.png"
+  ],
+  "painel": "dd23d065",
+  "grupos": {
+   "Amount": 50,
+   "Minimum Size": 15,
+   "Maximum Size": 40,
+   "Horizontal Factor": 100,
+   "Vertical Factor": 100,
+   "Number of Waves": 1,
+   "Speed": 10,
+   "Random Seed": 500,
+   "Anti-alias": false,
+   "Border": {
+    "Left": 10,
+    "Right": 10,
+    "Top": 1,
+    "Bottom": 1
+   }
+  }
+ },
+ "EFF_ANIMATTE": {
+  "nome": "AniMatte",
+  "categoria": "Key",
+  "tipo": "Unknown",
+  "fotos": [
+   "KEY_00_AniMatte_p1.png",
+   "KEY_00_AniMatte_p2.png"
+  ],
+  "painel": "da3075ce+966bb03f",
+  "grupos": {
+   "Acceleration": 0,
+   "Tracking": {
+    "trackers": [
+     "No Tracker",
+     "No Tracker",
+     "No Tracker",
+     "No Tracker"
+    ]
+   },
+   "Foreground": {
+    "Swap Src": false
+   },
+   "Mode": {
+    "modo": "Key In",
+    "Opac.": "sem número",
+    "Object Visible": false
+   },
+   "Feathering": {
+    "Bias": 50,
+    "Hor": 0,
+    "Vert": 0,
+    "Fixed Aspect": true,
+    "Anti-alias": false
+   },
+   "Magic Mask": {
+    "Hue": 255,
+    "Sat": 255,
+    "Lum": 127,
+    "Gain": 32,
+    "Soft": 32
+   },
+   "Brush": {
+    "Path": "sem número",
+    "Soft": "sem número",
+    "Size": "sem número",
+    "formas": "paleta de pincéis",
+    "Spin": "sem número"
+   }
+  },
+  "nota": "família de PINTURA: os controles só mostram NÚMERO com uma forma selecionada no monitor (2026-10-12: Feathering Bias 50, Hor 0, Vert 0, Fixed Aspect ligado; Magic Mask Hue 255, Sat 255, Lum 127, Gain 32, Soft 32); age numa forma desenhada; a paleta lateral ganha as ferramentas de desenho. A forma fica num bloco BZFX (banco: avb/estruturas.md, AniMatte)"
+ },
+ "EFF2_BLEND_LUMAKEY": {
+  "nome": "Luma Key",
+  "categoria": "Key",
+  "tipo": "AVX2",
+  "fotos": [
+   "KEY_01_Luma_Key.png"
+  ],
+  "painel": "b1c2a495",
+  "grupos": {
+   "Key": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 0
+    },
+    "Gain": 26,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 100,
+    "Swap Sources": false,
+    "Invert Key": false,
+    "Show Alpha": false
+   },
+   "Scaling": {
+    "Wid": 100,
+    "Hgt": 100,
+    "Scaling Fixed Aspect": true
+   },
+   "Position": {
+    "H Pos": 0,
+    "V Pos": 0
+   },
+   "Grid": {
+    "ligado": false,
+    "forma": "Square",
+    "Fields": 12,
+    "Sub": 4,
+    "Source Scan Size": {
+     "Hor": 720,
+     "Vert": 486
+    },
+    "Source Grid Offset": {
+     "Hor": 0,
+     "Vert": 0,
+     "Inset": 0
+    },
+    "transfer": "Transfer: Full Aperture"
+   },
+   "Crop": {
+    "T": 0,
+    "B": 0,
+    "L": 0,
+    "R": 0
+   }
+  }
+ },
+ "EFF2_BLEND_MATTE_KEY": {
+  "nome": "Matte Key",
+  "categoria": "Key",
+  "tipo": "AVX2",
+  "fotos": [
+   "KEY_02_Matte_Key.png"
+  ],
+  "painel": "032db055",
+  "grupos": {
+   "Foreground": {
+    "Opacity": 100,
+    "Unpremultiply Alpha": false,
+    "Swap Sources": false,
+    "Invert Key": false,
+    "Show Alpha": false
+   },
+   "Scaling": {
+    "Wid": 100,
+    "Hgt": 100,
+    "Scaling Fixed Aspect": true,
+    "Tracking": {
+     "trackers": [
+      "No Tracker 1",
+      "No Tracker 1"
+     ]
+    }
+   },
+   "Position": {
+    "H Pos": 0,
+    "V Pos": 0,
+    "Tracking": {
+     "trackers": [
+      "No Tracker 1"
+     ],
+     "modo": "X and Y Tracking"
+    }
+   },
+   "Grid": {
+    "ligado": false,
+    "forma": "Square",
+    "Fields": 12,
+    "Sub": 4,
+    "Source Scan Size": {
+     "Hor": 720,
+     "Vert": 486
+    },
+    "Source Grid Offset": {
+     "Hor": 0,
+     "Vert": 0,
+     "Inset": 0
+    },
+    "transfer": "Transfer: Full Aperture"
+   },
+   "Crop": {
+    "T": 0,
+    "B": 0,
+    "L": 0,
+    "R": 0
+   }
+  }
+ },
+ "A1030EAA-7868-3296-B8E8-9306C77736EA": {
+  "nome": "RGBKeyer",
+  "categoria": "Key",
+  "tipo": "AVX2",
+  "fotos": [
+   "KEY_03_RGBKeyer.png"
+  ],
+  "painel": "c92aeecb",
+  "grupos": {
+   "Key Color": {
+    "H": 171,
+    "S": 255,
+    "V": 255
+   },
+   "Chroma Key": {
+    "ligado": true,
+    "Gain": 20,
+    "Soft": 10,
+    "Show Alpha": false,
+    "Spill": 0,
+    "Level": 100,
+    "Reverse": false
+   },
+   "Matte Control": {
+    "ligado": false,
+    "Blur": 0.0,
+    "Erode": 0
+   },
+   "Color Correction": {
+    "ligado": false,
+    "Hue": 0,
+    "Sat": 0,
+    "Bright": 0,
+    "Cont": 0
+   }
+  },
+  "nota": "chave AZUL de fábrica (H 171); só o Chroma Key ligado"
+ },
+ "B654B779-8100-3B98-BFBD-864F89C96166": {
+  "nome": "SpectraMatte",
+  "categoria": "Key",
+  "tipo": "AVX2",
+  "fotos": [
+   "KEY_04_SpectraMatte_p1.png",
+   "KEY_04_SpectraMatte_p2.png"
+  ],
+  "painel": "fecec407+eed107fc",
+  "grupos": {
+   "Bypass": false,
+   "Key Color": {
+    "Red": 91,
+    "Green": 119,
+    "Blue": 192
+   },
+   "Matte Analysis": {
+    "Show Alpha": false,
+    "SpectraGraph": false,
+    "monitor": "Source Monitoring - Off",
+    "SpectraGraph Brightness": 50
+   },
+   "Chroma Control": {
+    "Tolerance": 90,
+    "Key Sat Line": 0,
+    "Key Saturation": 0,
+    "Inner Softness": 10,
+    "Outer Softness": 0,
+    "Alpha Offset": 0,
+    "Opacity": 100
+   },
+   "Luma Control": {
+    "Enable Luma Curve": false,
+    "Luma Curve": 0,
+    "Suppress Shadow": 0
+   },
+   "Matte Processing": {
+    "Matte Blur": 0,
+    "modo": "Erode",
+    "Soften Alpha Saturation": false
+   },
+   "Spill": {
+    "Spill Angle Offset": 5,
+    "Spill Saturation": 0
+   },
+   "Scaling": {
+    "Wid": 100,
+    "Hgt": 100,
+    "Scaling Fixed Aspect": true
+   },
+   "Position": {
+    "H Pos": 0,
+    "V Pos": 0
+   },
+   "Crop": {
+    "T": 0,
+    "B": 0,
+    "L": 0,
+    "R": 0
+   }
+  },
+  "nota": "cor-chave de fábrica azul (91,119,192)"
+ },
+ "EFF2_BLEND_LCONCEAL_BOTTOMLEFT": {
+  "nome": "Bottom Left",
+  "categoria": "L-Conceal",
+  "tipo": "AVX2",
+  "fotos": [
+   "L_CONCEAL_00_Bottom_Left.png"
+  ],
+  "painel": "d049c540",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_LCONCEAL_BOTTOMRIGHT": {
+  "nome": "Bottom Right",
+  "categoria": "L-Conceal",
+  "tipo": "AVX2",
+  "fotos": [
+   "L_CONCEAL_01_Bottom_Right.png"
+  ],
+  "painel": "d049c540",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_LCONCEAL_TOPLEFT": {
+  "nome": "Top Left",
+  "categoria": "L-Conceal",
+  "tipo": "AVX2",
+  "fotos": [
+   "L_CONCEAL_02_Top_Left.png"
+  ],
+  "painel": "d049c540",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_LCONCEAL_TOPRIGHT": {
+  "nome": "Top Right",
+  "categoria": "L-Conceal",
+  "tipo": "AVX2",
+  "fotos": [
+   "L_CONCEAL_03_Top_Right.png"
+  ],
+  "painel": "d049c540",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_WIPE_GRID": {
+  "nome": "Grid",
+  "categoria": "Matrix Wipe",
+  "tipo": "AVX2",
+  "fotos": [
+   "MATRIX_WIPE_00_Grid.png"
+  ],
+  "painel": "f5457ccf",
+  "grupos": {
+   "More Options...": false,
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_WIPE_1ROW": {
+  "nome": "One-Way Row",
+  "categoria": "Matrix Wipe",
+  "tipo": "AVX2",
+  "fotos": [
+   "MATRIX_WIPE_01_One_Way_Row.png"
+  ],
+  "painel": "f5457ccf",
+  "grupos": {
+   "More Options...": false,
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_WIPE_SPECKLE": {
+  "nome": "Speckle",
+  "categoria": "Matrix Wipe",
+  "tipo": "AVX2",
+  "fotos": [
+   "MATRIX_WIPE_02_Speckle.png"
+  ],
+  "painel": "f5457ccf",
+  "grupos": {
+   "More Options...": false,
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_WIPE_SPIRAL": {
+  "nome": "Spiral",
+  "categoria": "Matrix Wipe",
+  "tipo": "AVX2",
+  "fotos": [
+   "MATRIX_WIPE_03_Spiral.png"
+  ],
+  "painel": "f5457ccf",
+  "grupos": {
+   "More Options...": false,
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_WIPE_ZIG_ZAG": {
+  "nome": "Zig Zag",
+  "categoria": "Matrix Wipe",
+  "tipo": "AVX2",
+  "fotos": [
+   "MATRIX_WIPE_04_Zig_Zag.png"
+  ],
+  "painel": "f5457ccf",
+  "grupos": {
+   "More Options...": false,
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_PEEL_BOTTOMLEFT": {
+  "nome": "Bottom Left Corner",
+  "categoria": "Peel",
+  "tipo": "AVX2",
+  "fotos": [
+   "PEEL_00_Bottom_Left_Corner.png"
+  ],
+  "painel": "d049c540",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_PEEL_BOTTOMRIGHT": {
+  "nome": "Bottom Right Corner",
+  "categoria": "Peel",
+  "tipo": "AVX2",
+  "fotos": [
+   "PEEL_01_Bottom_Right_Corner.png"
+  ],
+  "painel": "d049c540",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_PEEL_BOTTOM": {
+  "nome": "Bottom to Top",
+  "categoria": "Peel",
+  "tipo": "AVX2",
+  "fotos": [
+   "PEEL_02_Bottom_to_Top.png"
+  ],
+  "painel": "d049c540",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_PEEL_LEFT": {
+  "nome": "Left to Right",
+  "categoria": "Peel",
+  "tipo": "AVX2",
+  "fotos": [
+   "PEEL_03_Left_to_Right.png"
+  ],
+  "painel": "d049c540",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_PEEL_RIGHT": {
+  "nome": "Right to Left",
+  "categoria": "Peel",
+  "tipo": "AVX2",
+  "fotos": [
+   "PEEL_04_Right_to_Left.png"
+  ],
+  "painel": "d049c540",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_PEEL_TOPLEFT": {
+  "nome": "Top Left Corner",
+  "categoria": "Peel",
+  "tipo": "AVX2",
+  "fotos": [
+   "PEEL_05_Top_Left_Corner.png"
+  ],
+  "painel": "d049c540",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_PEEL_TOPRIGHT": {
+  "nome": "Top Right Corner",
+  "categoria": "Peel",
+  "tipo": "AVX2",
+  "fotos": [
+   "PEEL_06_Top_Right_Corner.png"
+  ],
+  "painel": "d049c540",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_PEEL_TOP": {
+  "nome": "Top to Bottom",
+  "categoria": "Peel",
+  "tipo": "AVX2",
+  "fotos": [
+   "PEEL_07_Top_to_Bottom.png"
+  ],
+  "painel": "d049c540",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF_PLASMAWIPE_AVID_BORDERS_METAL_FRAME_LARGE": {
+  "nome": "Metal Frame Large",
+  "categoria": "PlasmaWipe Avid Borders",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_BORDERS_00_Metal_Frame_Large.png"
+  ],
+  "painel": "85b8bf58",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 63,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 63,
+    "Soft": 0
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "molduras Metal/Stone: borda cinza (Lum 63) e Width 63"
+ },
+ "EFF_PLASMAWIPE_AVID_BORDERS_METAL_FRAME_MEDIUM": {
+  "nome": "Metal Frame Medium",
+  "categoria": "PlasmaWipe Avid Borders",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_BORDERS_01_Metal_Frame_Medium.png"
+  ],
+  "painel": "85b8bf58",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 63,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 63,
+    "Soft": 0
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "molduras Metal/Stone: borda cinza (Lum 63) e Width 63"
+ },
+ "EFF_PLASMAWIPE_AVID_BORDERS_METAL_FRAME_SMALL": {
+  "nome": "Metal Frame Small",
+  "categoria": "PlasmaWipe Avid Borders",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_BORDERS_02_Metal_Frame_Small.png"
+  ],
+  "painel": "85b8bf58",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 63,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 63,
+    "Soft": 0
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "molduras Metal/Stone: borda cinza (Lum 63) e Width 63"
+ },
+ "EFF_PLASMAWIPE_AVID_BORDERS_ROUND_BORDER": {
+  "nome": "Round Border",
+  "categoria": "PlasmaWipe Avid Borders",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_BORDERS_03_Round_Border.png"
+  ],
+  "painel": "6e75daee",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 255,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 32
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "PlasmaWipe (AVX): painel plano, sem triângulos de subgrupo; o pontinho verde ao lado do ícone"
+ },
+ "EFF_PLASMAWIPE_AVID_BORDERS_SOFT_SKY": {
+  "nome": "Soft Sky",
+  "categoria": "PlasmaWipe Avid Borders",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_BORDERS_04_Soft_Sky.png"
+  ],
+  "painel": "6e75daee",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 255,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 32
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "PlasmaWipe (AVX): painel plano, sem triângulos de subgrupo; o pontinho verde ao lado do ícone"
+ },
+ "EFF_PLASMAWIPE_AVID_BORDERS_SOFT_WINDOW": {
+  "nome": "Soft Window",
+  "categoria": "PlasmaWipe Avid Borders",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_BORDERS_05_Soft_Window.png"
+  ],
+  "painel": "6e75daee",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 255,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 32
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "PlasmaWipe (AVX): painel plano, sem triângulos de subgrupo; o pontinho verde ao lado do ícone"
+ },
+ "EFF_PLASMAWIPE_AVID_BORDERS_SQUARE_BORDER": {
+  "nome": "Square Border",
+  "categoria": "PlasmaWipe Avid Borders",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_BORDERS_06_Square_Border.png"
+  ],
+  "painel": "6e75daee",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 255,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 32
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "PlasmaWipe (AVX): painel plano, sem triângulos de subgrupo; o pontinho verde ao lado do ícone"
+ },
+ "EFF_PLASMAWIPE_AVID_BORDERS_STONE_FRAME_LARGE": {
+  "nome": "Stone Frame Large",
+  "categoria": "PlasmaWipe Avid Borders",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_BORDERS_07_Stone_Frame_Large.png"
+  ],
+  "painel": "85b8bf58",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 63,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 63,
+    "Soft": 0
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "molduras Metal/Stone: borda cinza (Lum 63) e Width 63"
+ },
+ "EFF_PLASMAWIPE_AVID_BORDERS_STONE_FRAME_MEDIUM": {
+  "nome": "Stone Frame Medium",
+  "categoria": "PlasmaWipe Avid Borders",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_BORDERS_08_Stone_Frame_Medium.png"
+  ],
+  "painel": "85b8bf58",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 63,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 63,
+    "Soft": 0
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "molduras Metal/Stone: borda cinza (Lum 63) e Width 63"
+ },
+ "EFF_PLASMAWIPE_AVID_BORDERS_STONE_FRAME_SMALL": {
+  "nome": "Stone Frame Small",
+  "categoria": "PlasmaWipe Avid Borders",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_BORDERS_09_Stone_Frame_Small.png"
+  ],
+  "painel": "85b8bf58",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 63,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 63,
+    "Soft": 0
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "molduras Metal/Stone: borda cinza (Lum 63) e Width 63"
+ },
+ "EFF_PLASMAWIPE_AVID_BORDERS_WOOD_FRAME_LARGE": {
+  "nome": "Wood Frame Large",
+  "categoria": "PlasmaWipe Avid Borders",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_BORDERS_10_Wood_Frame_Large.png"
+  ],
+  "painel": "85b8bf58",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 63,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 63,
+    "Soft": 0
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "molduras Metal/Stone: borda cinza (Lum 63) e Width 63"
+ },
+ "EFF_PLASMAWIPE_AVID_BORDERS_WOOD_FRAME_MEDIUM": {
+  "nome": "Wood Frame Medium",
+  "categoria": "PlasmaWipe Avid Borders",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_BORDERS_11_Wood_Frame_Medium.png"
+  ],
+  "painel": "85b8bf58",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 63,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 63,
+    "Soft": 0
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "molduras Metal/Stone: borda cinza (Lum 63) e Width 63"
+ },
+ "EFF_PLASMAWIPE_AVID_BORDERS_WOOD_FRAME_SMALL": {
+  "nome": "Wood Frame Small",
+  "categoria": "PlasmaWipe Avid Borders",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_BORDERS_12_Wood_Frame_Small.png"
+  ],
+  "painel": "85b8bf58",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 63,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 63,
+    "Soft": 0
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "molduras Metal/Stone: borda cinza (Lum 63) e Width 63"
+ },
+ "EFF_PLASMAWIPE_AVID_CENTER_CENTER_BRICK": {
+  "nome": "Center Brick",
+  "categoria": "PlasmaWipe Avid Center",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_CENTER_00_Center_Brick.png"
+  ],
+  "painel": "6e75daee",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 255,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 32
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "PlasmaWipe (AVX): painel plano, sem triângulos de subgrupo; o pontinho verde ao lado do ícone"
+ },
+ "EFF_PLASMAWIPE_AVID_CENTER_CENTER_BURLAP": {
+  "nome": "Center Burlap",
+  "categoria": "PlasmaWipe Avid Center",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_CENTER_01_Center_Burlap.png"
+  ],
+  "painel": "6e75daee",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 255,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 32
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "PlasmaWipe (AVX): painel plano, sem triângulos de subgrupo; o pontinho verde ao lado do ícone"
+ },
+ "EFF_PLASMAWIPE_AVID_CENTER_CENTER_CANVAS": {
+  "nome": "Center Canvas",
+  "categoria": "PlasmaWipe Avid Center",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_CENTER_02_Center_Canvas.png"
+  ],
+  "painel": "6e75daee",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 255,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 32
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "PlasmaWipe (AVX): painel plano, sem triângulos de subgrupo; o pontinho verde ao lado do ícone"
+ },
+ "EFF_PLASMAWIPE_AVID_CENTER_CENTER_CRYSTAL": {
+  "nome": "Center Crystal",
+  "categoria": "PlasmaWipe Avid Center",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_CENTER_03_Center_Crystal.png"
+  ],
+  "painel": "6e75daee",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 255,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 32
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "PlasmaWipe (AVX): painel plano, sem triângulos de subgrupo; o pontinho verde ao lado do ícone"
+ },
+ "EFF_PLASMAWIPE_AVID_CENTER_CENTER_ELLIPSE": {
+  "nome": "Center Ellipse",
+  "categoria": "PlasmaWipe Avid Center",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_CENTER_04_Center_Ellipse.png"
+  ],
+  "painel": "6e75daee",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 255,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 32
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "PlasmaWipe (AVX): painel plano, sem triângulos de subgrupo; o pontinho verde ao lado do ícone"
+ },
+ "EFF_PLASMAWIPE_AVID_CENTER_CENTER_HEART": {
+  "nome": "Center Heart",
+  "categoria": "PlasmaWipe Avid Center",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_CENTER_05_Center_Heart.png"
+  ],
+  "painel": "6e75daee",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 255,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 32
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "PlasmaWipe (AVX): painel plano, sem triângulos de subgrupo; o pontinho verde ao lado do ícone"
+ },
+ "EFF_PLASMAWIPE_AVID_CENTER_CENTER_MOSAIC": {
+  "nome": "Center Mosaic",
+  "categoria": "PlasmaWipe Avid Center",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_CENTER_06_Center_Mosaic.png"
+  ],
+  "painel": "6e75daee",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 255,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 32
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "PlasmaWipe (AVX): painel plano, sem triângulos de subgrupo; o pontinho verde ao lado do ícone"
+ },
+ "EFF_PLASMAWIPE_AVID_CENTER_CENTER_MULTIRING": {
+  "nome": "Center MultiRing",
+  "categoria": "PlasmaWipe Avid Center",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_CENTER_07_Center_MultiRing.png"
+  ],
+  "painel": "6e75daee",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 255,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 32
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "PlasmaWipe (AVX): painel plano, sem triângulos de subgrupo; o pontinho verde ao lado do ícone"
+ },
+ "EFF_PLASMAWIPE_AVID_CENTER_CENTER_OCEAN": {
+  "nome": "Center Ocean",
+  "categoria": "PlasmaWipe Avid Center",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_CENTER_08_Center_Ocean.png"
+  ],
+  "painel": "6e75daee",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 255,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 32
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "PlasmaWipe (AVX): painel plano, sem triângulos de subgrupo; o pontinho verde ao lado do ícone"
+ },
+ "EFF_PLASMAWIPE_AVID_CENTER_CENTER_POINTS": {
+  "nome": "Center Points",
+  "categoria": "PlasmaWipe Avid Center",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_CENTER_09_Center_Points.png"
+  ],
+  "painel": "6e75daee",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 255,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 32
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "PlasmaWipe (AVX): painel plano, sem triângulos de subgrupo; o pontinho verde ao lado do ícone"
+ },
+ "EFF_PLASMAWIPE_AVID_CENTER_CENTER_RING": {
+  "nome": "Center Ring",
+  "categoria": "PlasmaWipe Avid Center",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_CENTER_10_Center_Ring.png"
+  ],
+  "painel": "6e75daee",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 255,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 32
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "PlasmaWipe (AVX): painel plano, sem triângulos de subgrupo; o pontinho verde ao lado do ícone"
+ },
+ "EFF_PLASMAWIPE_AVID_CENTER_CENTER_RIPPLE": {
+  "nome": "Center Ripple",
+  "categoria": "PlasmaWipe Avid Center",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_CENTER_11_Center_Ripple.png"
+  ],
+  "painel": "6e75daee",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 255,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 32
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "PlasmaWipe (AVX): painel plano, sem triângulos de subgrupo; o pontinho verde ao lado do ícone"
+ },
+ "EFF_PLASMAWIPE_AVID_CENTER_CENTER_SCALES": {
+  "nome": "Center Scales",
+  "categoria": "PlasmaWipe Avid Center",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_CENTER_12_Center_Scales.png"
+  ],
+  "painel": "6e75daee",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 255,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 32
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "PlasmaWipe (AVX): painel plano, sem triângulos de subgrupo; o pontinho verde ao lado do ícone"
+ },
+ "EFF_PLASMAWIPE_AVID_CENTER_CENTER_SMOOTH": {
+  "nome": "Center Smooth",
+  "categoria": "PlasmaWipe Avid Center",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_CENTER_13_Center_Smooth.png"
+  ],
+  "painel": "6e75daee",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 255,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 32
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "PlasmaWipe (AVX): painel plano, sem triângulos de subgrupo; o pontinho verde ao lado do ícone"
+ },
+ "EFF_PLASMAWIPE_AVID_CENTER_CENTER_SPONGE": {
+  "nome": "Center Sponge",
+  "categoria": "PlasmaWipe Avid Center",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_CENTER_14_Center_Sponge.png"
+  ],
+  "painel": "6e75daee",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 255,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 32
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "PlasmaWipe (AVX): painel plano, sem triângulos de subgrupo; o pontinho verde ao lado do ícone"
+ },
+ "EFF_PLASMAWIPE_AVID_CENTER_CENTER_SQUARES": {
+  "nome": "Center Squares",
+  "categoria": "PlasmaWipe Avid Center",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_CENTER_15_Center_Squares.png"
+  ],
+  "painel": "6e75daee",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 255,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 32
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "PlasmaWipe (AVX): painel plano, sem triângulos de subgrupo; o pontinho verde ao lado do ícone"
+ },
+ "EFF_PLASMAWIPE_AVID_CENTER_CENTER_STONE": {
+  "nome": "Center Stone",
+  "categoria": "PlasmaWipe Avid Center",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_CENTER_16_Center_Stone.png"
+  ],
+  "painel": "6e75daee",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 255,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 32
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "PlasmaWipe (AVX): painel plano, sem triângulos de subgrupo; o pontinho verde ao lado do ícone"
+ },
+ "EFF_PLASMAWIPE_AVID_CENTER_CENTER_TWIRL": {
+  "nome": "Center Twirl",
+  "categoria": "PlasmaWipe Avid Center",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_CENTER_17_Center_Twirl.png"
+  ],
+  "painel": "6e75daee",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 255,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 32
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "PlasmaWipe (AVX): painel plano, sem triângulos de subgrupo; o pontinho verde ao lado do ícone"
+ },
+ "EFF_PLASMAWIPE_AVID_HORIZ_HORIZ_BRICK": {
+  "nome": "Horiz Brick",
+  "categoria": "PlasmaWipe Avid Horiz",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_HORIZ_00_Horiz_Brick.png"
+  ],
+  "painel": "6e75daee",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 255,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 32
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "PlasmaWipe (AVX): painel plano, sem triângulos de subgrupo; o pontinho verde ao lado do ícone"
+ },
+ "EFF_PLASMAWIPE_AVID_HORIZ_HORIZ_BURLAP": {
+  "nome": "Horiz Burlap",
+  "categoria": "PlasmaWipe Avid Horiz",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_HORIZ_01_Horiz_Burlap.png"
+  ],
+  "painel": "6e75daee",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 255,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 32
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "PlasmaWipe (AVX): painel plano, sem triângulos de subgrupo; o pontinho verde ao lado do ícone"
+ },
+ "EFF_PLASMAWIPE_AVID_HORIZ_HORIZ_CANVAS": {
+  "nome": "Horiz Canvas",
+  "categoria": "PlasmaWipe Avid Horiz",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_HORIZ_02_Horiz_Canvas.png"
+  ],
+  "painel": "6e75daee",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 255,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 32
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "PlasmaWipe (AVX): painel plano, sem triângulos de subgrupo; o pontinho verde ao lado do ícone"
+ },
+ "EFF_PLASMAWIPE_AVID_HORIZ_HORIZ_CRYSTAL": {
+  "nome": "Horiz Crystal",
+  "categoria": "PlasmaWipe Avid Horiz",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_HORIZ_03_Horiz_Crystal.png"
+  ],
+  "painel": "6e75daee",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 255,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 32
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "PlasmaWipe (AVX): painel plano, sem triângulos de subgrupo; o pontinho verde ao lado do ícone"
+ },
+ "EFF_PLASMAWIPE_AVID_HORIZ_HORIZ_ELLIPSE": {
+  "nome": "Horiz Ellipse",
+  "categoria": "PlasmaWipe Avid Horiz",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_HORIZ_04_Horiz_Ellipse.png"
+  ],
+  "painel": "6e75daee",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 255,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 32
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "PlasmaWipe (AVX): painel plano, sem triângulos de subgrupo; o pontinho verde ao lado do ícone"
+ },
+ "EFF_PLASMAWIPE_AVID_HORIZ_HORIZ_MOSAIC": {
+  "nome": "Horiz Mosaic",
+  "categoria": "PlasmaWipe Avid Horiz",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_HORIZ_05_Horiz_Mosaic.png"
+  ],
+  "painel": "6e75daee",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 255,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 32
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "PlasmaWipe (AVX): painel plano, sem triângulos de subgrupo; o pontinho verde ao lado do ícone"
+ },
+ "EFF_PLASMAWIPE_AVID_HORIZ_HORIZ_MULTIRING": {
+  "nome": "Horiz MultiRing",
+  "categoria": "PlasmaWipe Avid Horiz",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_HORIZ_06_Horiz_MultiRing.png"
+  ],
+  "painel": "6e75daee",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 255,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 32
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "PlasmaWipe (AVX): painel plano, sem triângulos de subgrupo; o pontinho verde ao lado do ícone"
+ },
+ "EFF_PLASMAWIPE_AVID_HORIZ_HORIZ_OCEAN": {
+  "nome": "Horiz Ocean",
+  "categoria": "PlasmaWipe Avid Horiz",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_HORIZ_07_Horiz_Ocean.png"
+  ],
+  "painel": "6e75daee",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 255,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 32
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "PlasmaWipe (AVX): painel plano, sem triângulos de subgrupo; o pontinho verde ao lado do ícone"
+ },
+ "EFF_PLASMAWIPE_AVID_HORIZ_HORIZ_POINTS": {
+  "nome": "Horiz Points",
+  "categoria": "PlasmaWipe Avid Horiz",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_HORIZ_08_Horiz_Points.png"
+  ],
+  "painel": "6e75daee",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 255,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 32
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "PlasmaWipe (AVX): painel plano, sem triângulos de subgrupo; o pontinho verde ao lado do ícone"
+ },
+ "EFF_PLASMAWIPE_AVID_HORIZ_HORIZ_RING": {
+  "nome": "Horiz Ring",
+  "categoria": "PlasmaWipe Avid Horiz",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_HORIZ_09_Horiz_Ring.png"
+  ],
+  "painel": "6e75daee",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 255,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 32
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "PlasmaWipe (AVX): painel plano, sem triângulos de subgrupo; o pontinho verde ao lado do ícone"
+ },
+ "EFF_PLASMAWIPE_AVID_HORIZ_HORIZ_RIPPLE": {
+  "nome": "Horiz Ripple",
+  "categoria": "PlasmaWipe Avid Horiz",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_HORIZ_10_Horiz_Ripple.png"
+  ],
+  "painel": "6e75daee",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 255,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 32
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "PlasmaWipe (AVX): painel plano, sem triângulos de subgrupo; o pontinho verde ao lado do ícone"
+ },
+ "EFF_PLASMAWIPE_AVID_HORIZ_HORIZ_SCALES": {
+  "nome": "Horiz Scales",
+  "categoria": "PlasmaWipe Avid Horiz",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_HORIZ_11_Horiz_Scales.png"
+  ],
+  "painel": "6e75daee",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 255,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 32
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "PlasmaWipe (AVX): painel plano, sem triângulos de subgrupo; o pontinho verde ao lado do ícone"
+ },
+ "EFF_PLASMAWIPE_AVID_HORIZ_HORIZ_SMOOTH": {
+  "nome": "Horiz Smooth",
+  "categoria": "PlasmaWipe Avid Horiz",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_HORIZ_12_Horiz_Smooth.png"
+  ],
+  "painel": "6e75daee",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 255,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 32
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "PlasmaWipe (AVX): painel plano, sem triângulos de subgrupo; o pontinho verde ao lado do ícone"
+ },
+ "EFF_PLASMAWIPE_AVID_HORIZ_HORIZ_SPONGE": {
+  "nome": "Horiz Sponge",
+  "categoria": "PlasmaWipe Avid Horiz",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_HORIZ_13_Horiz_Sponge.png"
+  ],
+  "painel": "6e75daee",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 255,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 32
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "PlasmaWipe (AVX): painel plano, sem triângulos de subgrupo; o pontinho verde ao lado do ícone"
+ },
+ "EFF_PLASMAWIPE_AVID_HORIZ_HORIZ_SQUARES": {
+  "nome": "Horiz Squares",
+  "categoria": "PlasmaWipe Avid Horiz",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_HORIZ_14_Horiz_Squares.png"
+  ],
+  "painel": "6e75daee",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 255,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 32
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "PlasmaWipe (AVX): painel plano, sem triângulos de subgrupo; o pontinho verde ao lado do ícone"
+ },
+ "EFF_PLASMAWIPE_AVID_HORIZ_HORIZ_STONE": {
+  "nome": "Horiz Stone",
+  "categoria": "PlasmaWipe Avid Horiz",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_HORIZ_15_Horiz_Stone.png"
+  ],
+  "painel": "6e75daee",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 255,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 32
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "PlasmaWipe (AVX): painel plano, sem triângulos de subgrupo; o pontinho verde ao lado do ícone"
+ },
+ "EFF_PLASMAWIPE_AVID_HORIZ_HORIZ_TWIRL": {
+  "nome": "Horiz Twirl",
+  "categoria": "PlasmaWipe Avid Horiz",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_HORIZ_16_Horiz_Twirl.png"
+  ],
+  "painel": "6e75daee",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 255,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 32
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "PlasmaWipe (AVX): painel plano, sem triângulos de subgrupo; o pontinho verde ao lado do ícone"
+ },
+ "EFF_PLASMAWIPE_AVID_LAVA_LAVA_FLOW1": {
+  "nome": "Lava Flow1",
+  "categoria": "PlasmaWipe Avid Lava",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_LAVA_00_Lava_Flow1.png"
+  ],
+  "painel": "6e75daee",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 255,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 32
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "PlasmaWipe (AVX): painel plano, sem triângulos de subgrupo; o pontinho verde ao lado do ícone"
+ },
+ "EFF_PLASMAWIPE_AVID_LAVA_LAVA_FLOW2": {
+  "nome": "Lava Flow2",
+  "categoria": "PlasmaWipe Avid Lava",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_LAVA_01_Lava_Flow2.png"
+  ],
+  "painel": "6e75daee",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 255,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 32
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "PlasmaWipe (AVX): painel plano, sem triângulos de subgrupo; o pontinho verde ao lado do ícone"
+ },
+ "EFF_PLASMAWIPE_AVID_LAVA_LAVA_FLOW3": {
+  "nome": "Lava Flow3",
+  "categoria": "PlasmaWipe Avid Lava",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_LAVA_02_Lava_Flow3.png"
+  ],
+  "painel": "6e75daee",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 255,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 32
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "PlasmaWipe (AVX): painel plano, sem triângulos de subgrupo; o pontinho verde ao lado do ícone"
+ },
+ "EFF_PLASMAWIPE_AVID_LAVA_LAVA_FLOW4": {
+  "nome": "Lava Flow4",
+  "categoria": "PlasmaWipe Avid Lava",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_LAVA_03_Lava_Flow4.png"
+  ],
+  "painel": "6e75daee",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 255,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 32
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "PlasmaWipe (AVX): painel plano, sem triângulos de subgrupo; o pontinho verde ao lado do ícone"
+ },
+ "EFF_PLASMAWIPE_AVID_LAVA_LAVA_FLOW5": {
+  "nome": "Lava Flow5",
+  "categoria": "PlasmaWipe Avid Lava",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_LAVA_04_Lava_Flow5.png"
+  ],
+  "painel": "6e75daee",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 255,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 32
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "PlasmaWipe (AVX): painel plano, sem triângulos de subgrupo; o pontinho verde ao lado do ícone"
+ },
+ "EFF_PLASMAWIPE_AVID_LAVA_LAVA_FLOW6": {
+  "nome": "Lava Flow6",
+  "categoria": "PlasmaWipe Avid Lava",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_LAVA_05_Lava_Flow6.png"
+  ],
+  "painel": "6e75daee",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 255,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 32
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "PlasmaWipe (AVX): painel plano, sem triângulos de subgrupo; o pontinho verde ao lado do ícone"
+ },
+ "EFF_PLASMAWIPE_AVID_PAINT_PAINT_STROKES_1": {
+  "nome": "Paint Strokes 1",
+  "categoria": "PlasmaWipe Avid Paint",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_PAINT_00_Paint_Strokes_1.png"
+  ],
+  "painel": "a6bee31f",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 255,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  }
+ },
+ "EFF_PLASMAWIPE_AVID_PAINT_PAINT_STROKES_2": {
+  "nome": "Paint Strokes 2",
+  "categoria": "PlasmaWipe Avid Paint",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_PAINT_01_Paint_Strokes_2.png"
+  ],
+  "painel": "a6bee31f",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 255,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  }
+ },
+ "EFF_PLASMAWIPE_AVID_PAINT_PAINT_STROKES_3": {
+  "nome": "Paint Strokes 3",
+  "categoria": "PlasmaWipe Avid Paint",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_PAINT_02_Paint_Strokes_3.png"
+  ],
+  "painel": "a6bee31f",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 255,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  }
+ },
+ "EFF_PLASMAWIPE_AVID_PAINT_PAINT_STROKES_4": {
+  "nome": "Paint Strokes 4",
+  "categoria": "PlasmaWipe Avid Paint",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_PAINT_03_Paint_Strokes_4.png"
+  ],
+  "painel": "a6bee31f",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 255,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  }
+ },
+ "EFF_PLASMAWIPE_AVID_TECHNO_10101010": {
+  "nome": "10101010",
+  "categoria": "PlasmaWipe Avid Techno",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_TECHNO_00_10101010.png"
+  ],
+  "painel": "6e75daee",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 255,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 32
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "PlasmaWipe (AVX): painel plano, sem triângulos de subgrupo; o pontinho verde ao lado do ícone"
+ },
+ "EFF_PLASMAWIPE_AVID_TECHNO_FALLING_TEXT": {
+  "nome": "Falling Text",
+  "categoria": "PlasmaWipe Avid Techno",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_TECHNO_01_Falling_Text.png"
+  ],
+  "painel": "6e75daee",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 255,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 32
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "PlasmaWipe (AVX): painel plano, sem triângulos de subgrupo; o pontinho verde ao lado do ícone"
+ },
+ "EFF_PLASMAWIPE_AVID_TECHNO_PUZZLE": {
+  "nome": "Puzzle",
+  "categoria": "PlasmaWipe Avid Techno",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_TECHNO_02_Puzzle.png"
+  ],
+  "painel": "6e75daee",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 255,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 32
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "PlasmaWipe (AVX): painel plano, sem triângulos de subgrupo; o pontinho verde ao lado do ícone"
+ },
+ "EFF_PLASMAWIPE_AVID_TECHNO_TV_NOISE": {
+  "nome": "TV Noise",
+  "categoria": "PlasmaWipe Avid Techno",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_TECHNO_03_TV_Noise.png"
+  ],
+  "painel": "6e75daee",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 255,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 32
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "PlasmaWipe (AVX): painel plano, sem triângulos de subgrupo; o pontinho verde ao lado do ícone"
+ },
+ "EFF_PLASMAWIPE_AVID_TECHNO_TV_NOISE_HORIZ": {
+  "nome": "TV Noise Horiz",
+  "categoria": "PlasmaWipe Avid Techno",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_TECHNO_04_TV_Noise_Horiz.png"
+  ],
+  "painel": "6e75daee",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 255,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 32
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "PlasmaWipe (AVX): painel plano, sem triângulos de subgrupo; o pontinho verde ao lado do ícone"
+ },
+ "EFF_PLASMAWIPE_AVID_TECHNO_TV_NOISE_VERT": {
+  "nome": "TV Noise Vert",
+  "categoria": "PlasmaWipe Avid Techno",
+  "tipo": "Unknown",
+  "fotos": [
+   "PLASMAWIPE_AVID_TECHNO_05_TV_Noise_Vert.png"
+  ],
+  "painel": "6e75daee",
+  "grupos": {
+   "Border": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 255,
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 32
+   },
+   "Profile": "curva reta (plana, no meio)",
+   "Foreground": {
+    "Level": 50,
+    "Reverse Animation": false
+   },
+   "Acceleration": 0
+  },
+  "nota": "PlasmaWipe (AVX): painel plano, sem triângulos de subgrupo; o pontinho verde ao lado do ícone"
+ },
+ "EFF2_BLEND_PUSH_BOTTOMLEFT": {
+  "nome": "Bottom Left to Top Right",
+  "categoria": "Push",
+  "tipo": "AVX2",
+  "fotos": [
+   "PUSH_00_Bottom_Left_to_Top_Right.png"
+  ],
+  "painel": "d049c540",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_PUSH_BOTTOMRIGHT": {
+  "nome": "Bottom Right to Top Left",
+  "categoria": "Push",
+  "tipo": "AVX2",
+  "fotos": [
+   "PUSH_01_Bottom_Right_to_Top_Left.png"
+  ],
+  "painel": "d049c540",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_PUSH_BOTTOM": {
+  "nome": "Bottom to Top",
+  "categoria": "Push",
+  "tipo": "AVX2",
+  "fotos": [
+   "PUSH_02_Bottom_to_Top.png"
+  ],
+  "painel": "d049c540",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_PUSH_LEFT": {
+  "nome": "Left to Right",
+  "categoria": "Push",
+  "tipo": "AVX2",
+  "fotos": [
+   "PUSH_03_Left_to_Right.png"
+  ],
+  "painel": "d049c540",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_PUSH_RIGHT": {
+  "nome": "Right to Left",
+  "categoria": "Push",
+  "tipo": "AVX2",
+  "fotos": [
+   "PUSH_04_Right_to_Left.png"
+  ],
+  "painel": "d049c540",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_PUSH_TOPLEFT": {
+  "nome": "Top Left to Bottom Right",
+  "categoria": "Push",
+  "tipo": "AVX2",
+  "fotos": [
+   "PUSH_05_Top_Left_to_Bottom_Right.png"
+  ],
+  "painel": "d049c540",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_PUSH_TOPRIGHT": {
+  "nome": "Top Right to Bottom Left",
+  "categoria": "Push",
+  "tipo": "AVX2",
+  "fotos": [
+   "PUSH_06_Top_Right_to_Bottom_Left.png"
+  ],
+  "painel": "d049c540",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_PUSH_TOP": {
+  "nome": "Top to Bottom",
+  "categoria": "Push",
+  "tipo": "AVX2",
+  "fotos": [
+   "PUSH_07_Top_to_Bottom.png"
+  ],
+  "painel": "d049c540",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_14x9_LETTERBOX": {
+  "nome": "14:9 Letterbox",
+  "categoria": "Reformat",
+  "tipo": "AVX2",
+  "fotos": [
+   "REFORMAT_00_14_9_Letterbox.png"
+  ],
+  "painel": "6c1f6fc1",
+  "grupos": {
+   "Background Color": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 0
+   },
+   "Position H": {
+    "H Pos": 0
+   }
+  }
+ },
+ "EFF2_16x9_LETTERBOX": {
+  "nome": "16:9 Letterbox",
+  "categoria": "Reformat",
+  "tipo": "AVX2",
+  "fotos": [
+   "REFORMAT_01_16_9_Letterbox.png"
+  ],
+  "painel": "ccda76f1",
+  "grupos": {
+   "Background Color": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 0
+   }
+  }
+ },
+ "EFF2_4x3_SIDEBAR": {
+  "nome": "4:3 Sidebar",
+  "categoria": "Reformat",
+  "tipo": "AVX2",
+  "fotos": [
+   "REFORMAT_02_4_3_Sidebar.png"
+  ],
+  "painel": "ccda76f1",
+  "grupos": {
+   "Background Color": {
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 0
+   }
+  }
+ },
+ "EFF2_PAN_SCAN": {
+  "nome": "Pan and Scan",
+  "categoria": "Reformat",
+  "tipo": "AVX2",
+  "fotos": [
+   "REFORMAT_03_Pan_and_Scan.png"
+  ],
+  "painel": "00b2ed83",
+  "grupos": {
+   "Aspect Ratios": {
+    "origem": "1.33 (4:3)",
+    "destino": "1.33 (4:3)"
+   },
+   "Scaling": {
+    "Wid": 100,
+    "Hgt": 100
+   },
+   "Position": {
+    "H Pos": 0,
+    "V Pos": 0
+   },
+   "Actions": {
+    "Establish Origin": false,
+    "Subdivide": false,
+    "Reset To Origin": false
+   },
+   "Grid": {
+    "ligado": false,
+    "forma": "Square",
+    "Fields": 8,
+    "Sub": 0,
+    "Source Scan Size": {
+     "Hor": 720,
+     "Vert": 243
+    },
+    "Source Grid Offset": {
+     "Hor": 0,
+     "Vert": 0,
+     "Inset": 0
+    },
+    "transfer": "Transfer: Full Aperture"
+   }
+  },
+  "nota": "a grade de fábrica é NTSC SD (720×243 por campo; nos keys, 720×486) mesmo num projeto 1080"
+ },
+ "INT_EFF_STEREO_DEPTH_TRANSITION": {
+  "nome": "S3D Depth Transition",
+  "categoria": "S3D",
+  "tipo": "AVX2",
+  "fotos": [
+   "S3D_00_S3D_Depth_Transition.png"
+  ],
+  "painel": "eab2a9cf",
+  "grupos": {
+   "A-Side Vergence": 0.0,
+   "B-Side Vergence": 0.0,
+   "Dissolve": 0.0
+  }
+ },
+ "INT_EFF_STEREO_FLOATING_WINDOW": {
+  "nome": "S3D Floating Window",
+  "categoria": "S3D",
+  "tipo": "AVX2",
+  "fotos": [
+   "S3D_01_S3D_Floating_Window.png"
+  ],
+  "painel": "ece009a0",
+  "grupos": {
+   "Symmetric": false,
+   "Left Eye": {
+    "Left": 0.0,
+    "Right": 100.0
+   },
+   "Right Eye": {
+    "Left": 0.0,
+    "Right": 100.0
+   }
+  }
+ },
+ "INT_EFF_STEREO_SPATIAL_ALIGNMENT": {
+  "nome": "S3D Spatial Alignment",
+  "categoria": "S3D",
+  "tipo": "AVX2",
+  "fotos": [
+   "S3D_02_S3D_Spatial_Alignment_p1.png",
+   "S3D_02_S3D_Spatial_Alignment_p2.png"
+  ],
+  "painel": "1af87bc4+6ce69b9c",
+  "grupos": {
+   "Alignment": {
+    "Left Eye": {
+     "Translation": {
+      "X": 0.0,
+      "Y": 0.0
+     },
+     "Center": {
+      "X": 0.0,
+      "Y": 0.0
+     },
+     "Scaling": {
+      "X": 100.0,
+      "Y": 100.0,
+      "Fixed Aspect": false
+     },
+     "Shearing": {
+      "X": 0.0,
+      "Y": 0.0
+     },
+     "Rotation": {
+      "X": 0.0,
+      "Y": 0.0,
+      "Z": 0.0
+     }
+    },
+    "Right Eye": "igual ao Left Eye",
+    "Global": {
+     "Translation": {
+      "X": 0.0,
+      "Y": 0.0
+     },
+     "Center": {
+      "X": 0.0,
+      "Y": 0.0
+     },
+     "Scaling": {
+      "X": 100.0,
+      "Y": 100.0,
+      "Fixed Aspect": false
+     },
+     "Rotation": {
+      "X": 0.0,
+      "Y": 0.0,
+      "Z": 0.0
+     }
+    }
+   },
+   "Vergence": {
+    "modo": "Symmetric",
+    "Vergence": 0.0
+   },
+   "Zoom": {
+    "Auto-Zoom": false,
+    "Zoom": 1.0
+   },
+   "Floating Window": {
+    "Symmetric": false,
+    "Left Eye": {
+     "Left": 0.0,
+     "Right": 100.0
+    },
+    "Right Eye": {
+     "Left": 0.0,
+     "Right": 100.0
+    }
+   },
+   "Crop": {
+    "Left": 0.0,
+    "Right": 100.0,
+    "Top": 0.0,
+    "Bottom": 100.0
+   }
+  },
+  "nota": "todos os interruptores de grupo DESLIGADOS de fábrica; o Crop daqui é em % de 0 a 100 (Right/Bottom = 100), não ±999"
+ },
+ "INT_EFF_STEREO_VERGENCE": {
+  "nome": "S3D Vergence",
+  "categoria": "S3D",
+  "tipo": "AVX2",
+  "fotos": [
+   "S3D_03_S3D_Vergence.png"
+  ],
+  "painel": "634ec315",
+  "grupos": {
+   "modo": "Symmetric",
+   "Vergence": 0.0,
+   "Auto-Zoom": false,
+   "Zoom": 1.0
+  }
+ },
+ "EFF2_BLEND_WIPE_HSAW": {
+  "nome": "Horizontal Sawtooth",
+  "categoria": "Sawtooth Wipe",
+  "tipo": "AVX2",
+  "fotos": [
+   "SAWTOOTH_WIPE_00_Horizontal_Sawtooth.png"
+  ],
+  "painel": "4050faca",
+  "grupos": {
+   "More Options...": false,
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_WIPE_HOPEN_SAW": {
+  "nome": "Horz Open Sawtooth",
+  "categoria": "Sawtooth Wipe",
+  "tipo": "AVX2",
+  "fotos": [
+   "SAWTOOTH_WIPE_01_Horz_Open_Sawtooth.png"
+  ],
+  "painel": "4050faca",
+  "grupos": {
+   "More Options...": false,
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_WIPE_VOPEN_SAW": {
+  "nome": "Vert Open Sawtooth",
+  "categoria": "Sawtooth Wipe",
+  "tipo": "AVX2",
+  "fotos": [
+   "SAWTOOTH_WIPE_02_Vert_Open_Sawtooth.png"
+  ],
+  "painel": "4050faca",
+  "grupos": {
+   "More Options...": false,
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_WIPE_VSAW": {
+  "nome": "Vertical Sawtooth",
+  "categoria": "Sawtooth Wipe",
+  "tipo": "AVX2",
+  "fotos": [
+   "SAWTOOTH_WIPE_03_Vertical_Sawtooth.png"
+  ],
+  "painel": "4050faca",
+  "grupos": {
+   "More Options...": false,
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_WIPE_4CORNER": {
+  "nome": "4 Corners",
+  "categoria": "Shape Wipe",
+  "tipo": "AVX2",
+  "fotos": [
+   "SHAPE_WIPE_00_4_Corners.png"
+  ],
+  "painel": "d049c540",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_WIPE_BOX": {
+  "nome": "Center Box",
+  "categoria": "Shape Wipe",
+  "tipo": "AVX2",
+  "fotos": [
+   "SHAPE_WIPE_01_Center_Box.png"
+  ],
+  "painel": "6c355bc4",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   },
+   "Scaling": {
+    "Wid": 100,
+    "Hgt": 100,
+    "Scaling Fixed Aspect": true
+   },
+   "Position": {
+    "H Pos": 0,
+    "V Pos": 0
+   }
+  }
+ },
+ "EFF2_BLEND_WIPE_CIRCLE": {
+  "nome": "Circle",
+  "categoria": "Shape Wipe",
+  "tipo": "AVX2",
+  "fotos": [
+   "SHAPE_WIPE_02_Circle.png"
+  ],
+  "painel": "b07b48b0",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   },
+   "Scaling": {
+    "Wid": 100,
+    "Hgt": 100,
+    "Scaling Fixed Aspect": true
+   },
+   "Position": {
+    "H Pos": 0,
+    "V Pos": 0
+   }
+  }
+ },
+ "EFF2_BLEND_WIPE_RADAR": {
+  "nome": "Clock",
+  "categoria": "Shape Wipe",
+  "tipo": "AVX2",
+  "fotos": [
+   "SHAPE_WIPE_03_Clock.png"
+  ],
+  "painel": "5e81285d",
+  "grupos": {
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_WIPE_DIAMOND": {
+  "nome": "Diamond",
+  "categoria": "Shape Wipe",
+  "tipo": "AVX2",
+  "fotos": [
+   "SHAPE_WIPE_04_Diamond.png"
+  ],
+  "painel": "0d8e0ea4",
+  "grupos": {
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   },
+   "Scaling": {
+    "Wid": 100,
+    "Hgt": 100,
+    "Scaling Fixed Aspect": true
+   },
+   "Position": {
+    "H Pos": 0,
+    "V Pos": 0
+   }
+  }
+ },
+ "EFF2_BLEND_WIPE_ELLIPSE": {
+  "nome": "Ellipse",
+  "categoria": "Shape Wipe",
+  "tipo": "AVX2",
+  "fotos": [
+   "SHAPE_WIPE_05_Ellipse.png"
+  ],
+  "painel": "b07b48b0",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   },
+   "Scaling": {
+    "Wid": 100,
+    "Hgt": 100,
+    "Scaling Fixed Aspect": true
+   },
+   "Position": {
+    "H Pos": 0,
+    "V Pos": 0
+   }
+  }
+ },
+ "EFF2_BLEND_WIPE_2ROW": {
+  "nome": "Horizontal Bands",
+  "categoria": "Shape Wipe",
+  "tipo": "AVX2",
+  "fotos": [
+   "SHAPE_WIPE_06_Horizontal_Bands.png"
+  ],
+  "painel": "f5457ccf",
+  "grupos": {
+   "More Options...": false,
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_WIPE_HBLIND": {
+  "nome": "Horizontal Blinds",
+  "categoria": "Shape Wipe",
+  "tipo": "AVX2",
+  "fotos": [
+   "SHAPE_WIPE_07_Horizontal_Blinds.png"
+  ],
+  "painel": "f5457ccf",
+  "grupos": {
+   "More Options...": false,
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_WIPE_VBLIND": {
+  "nome": "Vertical Blinds",
+  "categoria": "Shape Wipe",
+  "tipo": "AVX2",
+  "fotos": [
+   "SHAPE_WIPE_08_Vertical_Blinds.png"
+  ],
+  "painel": "f5457ccf",
+  "grupos": {
+   "More Options...": false,
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_ROTATE_XROTATE": {
+  "nome": "X Spin",
+  "categoria": "Spin",
+  "tipo": "AVX2",
+  "fotos": [
+   "SPIN_00_X_Spin.png"
+  ],
+  "painel": "d049c540",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_ROTATE_YROTATE": {
+  "nome": "Y Spin",
+  "categoria": "Spin",
+  "tipo": "AVX2",
+  "fotos": [
+   "SPIN_01_Y_Spin.png"
+  ],
+  "painel": "d049c540",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_ROTATE_ZROTATE": {
+  "nome": "Z Spin",
+  "categoria": "Spin",
+  "tipo": "AVX2",
+  "fotos": [
+   "SPIN_02_Z_Spin.png"
+  ],
+  "painel": "d049c540",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_SQUEEZE_BOTTOMCENTER": {
+  "nome": "Bottom Centered",
+  "categoria": "Squeeze",
+  "tipo": "AVX2",
+  "fotos": [
+   "SQUEEZE_00_Bottom_Centered.png"
+  ],
+  "painel": "d049c540",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_SQUEEZE_BOTTOMLEFT": {
+  "nome": "Bottom Left",
+  "categoria": "Squeeze",
+  "tipo": "AVX2",
+  "fotos": [
+   "SQUEEZE_01_Bottom_Left.png"
+  ],
+  "painel": "d049c540",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_SQUEEZE_BOTTOMRIGHT": {
+  "nome": "Bottom Right",
+  "categoria": "Squeeze",
+  "tipo": "AVX2",
+  "fotos": [
+   "SQUEEZE_02_Bottom_Right.png"
+  ],
+  "painel": "d049c540",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_SQUEEZEBOTTOM": {
+  "nome": "Bottom to Top",
+  "categoria": "Squeeze",
+  "tipo": "AVX2",
+  "fotos": [
+   "SQUEEZE_03_Bottom_to_Top.png"
+  ],
+  "painel": "d049c540",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_SQUEEZE_ZOOM": {
+  "nome": "Centered Zoom",
+  "categoria": "Squeeze",
+  "tipo": "AVX2",
+  "fotos": [
+   "SQUEEZE_04_Centered_Zoom.png"
+  ],
+  "painel": "d049c540",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_SQUEEZE_HORZ": {
+  "nome": "Horizontal Centered",
+  "categoria": "Squeeze",
+  "tipo": "AVX2",
+  "fotos": [
+   "SQUEEZE_05_Horizontal_Centered.png"
+  ],
+  "painel": "d049c540",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_SQUEEZE_LEFTCENTER": {
+  "nome": "Left Centered",
+  "categoria": "Squeeze",
+  "tipo": "AVX2",
+  "fotos": [
+   "SQUEEZE_06_Left_Centered.png"
+  ],
+  "painel": "d049c540",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_SQUEEZELEFT": {
+  "nome": "Left to Right",
+  "categoria": "Squeeze",
+  "tipo": "AVX2",
+  "fotos": [
+   "SQUEEZE_07_Left_to_Right.png"
+  ],
+  "painel": "d049c540",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_SQUEEZE_RIGHTCENTER": {
+  "nome": "Right Centered",
+  "categoria": "Squeeze",
+  "tipo": "AVX2",
+  "fotos": [
+   "SQUEEZE_08_Right_Centered.png"
+  ],
+  "painel": "d049c540",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_SQUEEZERIGHT": {
+  "nome": "Right to Left",
+  "categoria": "Squeeze",
+  "tipo": "AVX2",
+  "fotos": [
+   "SQUEEZE_09_Right_to_Left.png"
+  ],
+  "painel": "d049c540",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_SQUEEZE_TOPCENTER": {
+  "nome": "Top Centered",
+  "categoria": "Squeeze",
+  "tipo": "AVX2",
+  "fotos": [
+   "SQUEEZE_10_Top_Centered.png"
+  ],
+  "painel": "d049c540",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_SQUEEZE_TOPLEFT": {
+  "nome": "Top Left",
+  "categoria": "Squeeze",
+  "tipo": "AVX2",
+  "fotos": [
+   "SQUEEZE_11_Top_Left.png"
+  ],
+  "painel": "d049c540",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_SQUEEZE_TOPRIGHT": {
+  "nome": "Top Right",
+  "categoria": "Squeeze",
+  "tipo": "AVX2",
+  "fotos": [
+   "SQUEEZE_12_Top_Right.png"
+  ],
+  "painel": "d049c540",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_SQUEEZETOP": {
+  "nome": "Top to Bottom",
+  "categoria": "Squeeze",
+  "tipo": "AVX2",
+  "fotos": [
+   "SQUEEZE_13_Top_to_Bottom.png"
+  ],
+  "painel": "d049c540",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "EFF2_BLEND_SQUEEZE_VERT": {
+  "nome": "Vertical Centered",
+  "categoria": "Squeeze",
+  "tipo": "AVX2",
+  "fotos": [
+   "SQUEEZE_14_Vertical_Centered.png"
+  ],
+  "painel": "d049c540",
+  "grupos": {
+   "Border": {
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Fixed Border": false,
+    "Blend Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 255
+    },
+    "Width": 0,
+    "Soft": 0
+   },
+   "Foreground": {
+    "Opacity": 50,
+    "Swap Sources": false
+   }
+  }
+ },
+ "E4EEBB07-AFAA-4122-BFA8-0A838BB40A8C": {
+  "nome": "Avid Titler+",
+  "categoria": "Title",
+  "tipo": "AVX2",
+  "fotos": [
+   "TITLE_00_Avid_Titler.png"
+  ],
+  "painel": "404961a8",
+  "grupos": {
+   "Foreground": {
+    "ligado": false,
+    "Fill Overlay": 0.0,
+    "Opacity": 100.0,
+    "Crop": {
+     "Top": 0.0,
+     "Bottom": 0.0,
+     "Left": 0.0,
+     "Right": 0.0
+    }
+   },
+   "Background": {
+    "ligado": false,
+    "Color Gradient": false,
+    "Solid Color (RGB)": {
+     "Red": 64.0,
+     "Green": 64.0,
+     "Blue": 64.0
+    },
+    "Opacity": 100.0
+   },
+   "Roll / Crawl": {
+    "ligado": false,
+    "modo": "Roll",
+    "Effect Position": 0.0,
+    "Edit Mode": true
+   }
+  },
+  "nota": "o texto em si não aparece no editor (é editado no monitor); a paleta lateral vira a do Titler"
+ },
+ "8BA34E51-D647-443E-BFB5-30DFCECE5415": {
+  "nome": "Avid Titler+ Legacy",
+  "categoria": "Title",
+  "tipo": "AVX2",
+  "fotos": [
+   "TITLE_01_Avid_Titler_Legacy.png"
+  ],
+  "painel": "6f2f18fb",
+  "grupos": {
+   "Background": {
+    "ligado": false,
+    "Color Gradient": false,
+    "Solid Color (RGB)": {
+     "Red": 130.4,
+     "Green": 130.4,
+     "Blue": 130.4
+    },
+    "Opacity": 100.0
+   },
+   "Foreground": {
+    "Level": 100.0,
+    "Video Fill Opacity": 0.0,
+    "Crop": {
+     "Top": 0.0,
+     "Bottom": 0.0,
+     "Left": 0.0,
+     "Right": 0.0
+    }
+   },
+   "Effect": {
+    "ligado": false,
+    "modo": "Crawl",
+    "Effect position": 0.0,
+    "Edit Mode": false
+   }
+  },
+  "nota": "Legacy: fundo de fábrica 130.4 (o Titler+ atual: 64.0); efeito Crawl (o atual: Roll) e Edit Mode desligado"
+ },
+ "EFF2_3DSHAPE_BALL": {
+  "nome": "3D Ball",
+  "categoria": "Xpress 3D Effect",
+  "tipo": "Unknown",
+  "fotos": [
+   "XPRESS_3D_EFFECT_00_3D_Ball_p1.png",
+   "XPRESS_3D_EFFECT_00_3D_Ball_p2.png"
+  ],
+  "painel": "4cd577ce+add30593",
+  "grupos": {
+   "Shape": {
+    "ligado": true,
+    "forma": "Ball",
+    "Radius": 70,
+    "Curve": 30,
+    "X Pos": 0,
+    "Y Pos": 0,
+    "Aspct": 0,
+    "Angle": 0
+   },
+   "Scaling": {
+    "ligado": false,
+    "X": 100,
+    "Y": 100,
+    "Fixed Aspect": true
+   },
+   "Position": {
+    "ligado": false,
+    "X": 0,
+    "Y": 0,
+    "Z": 0
+   },
+   "Target": {
+    "ligado": false,
+    "X": 0,
+    "Y": 0,
+    "Size": 100
+   },
+   "Border": {
+    "ligado": false,
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 0
+    },
+    "Limit to video levels": true,
+    "estilo": "Plain",
+    "Wid": 0,
+    "Sft": 0
+   },
+   "Foreground": {
+    "ligado": false,
+    "Level": 100,
+    "Swap Sources": false,
+    "Invert Key": false,
+    "Show Alpha": false,
+    "Reverse Animation": false
+   },
+   "Background Color": {
+    "ligado": false,
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 0,
+    "Limit to video levels": true
+   }
+  },
+  "nota": "Xpress 3D = o 3D Warp com um preset: só o grupo do preset vem LIGADO (aqui Shape)"
+ },
+ "EFF2_3DPIP": {
+  "nome": "3D PIP",
+  "categoria": "Xpress 3D Effect",
+  "tipo": "Unknown",
+  "fotos": [
+   "XPRESS_3D_EFFECT_01_3D_PIP_p1.png",
+   "XPRESS_3D_EFFECT_01_3D_PIP_p2.png"
+  ],
+  "painel": "86ff6265+5a630cd4",
+  "grupos": {
+   "Shape": {
+    "ligado": false,
+    "forma": "Ball",
+    "Radius": 15,
+    "Curve": 0,
+    "X Pos": 0,
+    "Y Pos": 0,
+    "Aspct": 0,
+    "Angle": 45,
+    "Shape Tracking": {
+     "trackers": [
+      "No Tracker 1"
+     ]
+    }
+   },
+   "Crop": {
+    "ligado": false,
+    "Top": 999.0,
+    "Bot": -999.0,
+    "Lft": -999.0,
+    "Rgt": 999.0
+   },
+   "Scaling": {
+    "ligado": true,
+    "X": 50.0,
+    "Y": 50.0,
+    "Fixed Aspect": true,
+    "Scale Tracking": {
+     "trackers": [
+      "No Tracker 1",
+      "No Tracker 1"
+     ],
+     "Stabilize Tracking": false
+    }
+   },
+   "Axis": {
+    "ligado": false,
+    "X": 0.0,
+    "Y": 0.0,
+    "Z": 0.0
+   },
+   "Rotation": {
+    "ligado": false,
+    "Z": 0.0,
+    "X": 0.0,
+    "Y": 0.0,
+    "Rotation Tracking": {
+     "trackers": [
+      "No Tracker 1",
+      "No Tracker 1"
+     ],
+     "Stabilize Tracking": false
+    }
+   },
+   "Position": {
+    "ligado": false,
+    "X": 0.0,
+    "Y": 0.0,
+    "Z": 0.0,
+    "Position Tracking": {
+     "trackers": [
+      "No Tracker 1"
+     ],
+     "modo": "X and Y Tracking",
+     "Stabilize Tracking": false
+    }
+   },
+   "Target": {
+    "ligado": false,
+    "X": 0.0,
+    "Y": 0.0,
+    "Size": 100.0
+   },
+   "Border": {
+    "ligado": false,
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 0
+    },
+    "Limit to video levels": true,
+    "estilo": "Plain",
+    "Wid": 0,
+    "Sft": 0
+   },
+   "Shadow": {
+    "ligado": false,
+    "Opac.": 50,
+    "X": 50,
+    "Y": -50
+   },
+   "Trail": {
+    "ligado": false,
+    "Decay": 75,
+    "Use Sparkle": false
+   },
+   "Foreground": {
+    "ligado": false,
+    "Level": 100,
+    "Swap Sources": false,
+    "Invert Key": false,
+    "Show Alpha": false,
+    "Reverse Animation": false
+   },
+   "Background Color": {
+    "ligado": false,
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 0,
+    "Limit to video levels": true
+   }
+  },
+  "nota": "3D PIP: só Scaling ligado, em 50 (como o PIP)"
+ },
+ "EFF2_3DSHAPE_PAGE_FOLD": {
+  "nome": "3D Page Fold",
+  "categoria": "Xpress 3D Effect",
+  "tipo": "Unknown",
+  "fotos": [
+   "XPRESS_3D_EFFECT_02_3D_Page_Fold.png"
+  ],
+  "painel": "8102dff4",
+  "grupos": {
+   "Shape": {
+    "ligado": true,
+    "forma": "Page Fold",
+    "Curl": 100,
+    "Radius": 15,
+    "Angle": 45,
+    "dobra": "Tuck Over"
+   },
+   "Crop": {
+    "ligado": false,
+    "Top": 999,
+    "Bot": -999,
+    "Lft": -999,
+    "Rgt": 999
+   },
+   "Target": {
+    "ligado": false,
+    "X": 0,
+    "Y": 0,
+    "Size": 100
+   },
+   "Border": {
+    "ligado": false,
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 0
+    },
+    "Limit to video levels": true,
+    "estilo": "Plain",
+    "Wid": 0,
+    "Sft": 0
+   },
+   "Foreground": {
+    "ligado": false,
+    "Level": 100,
+    "Swap Sources": false,
+    "Invert Key": false,
+    "Show Alpha": false,
+    "Reverse Animation": false
+   },
+   "Background Color": {
+    "ligado": false,
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 0,
+    "Limit to video levels": true
+   }
+  },
+  "nota": "Curl 100 (o 3D Warp de fábrica: 50)"
+ },
+ "EFF2_3DSHAPE_SLATS": {
+  "nome": "3D Slats",
+  "categoria": "Xpress 3D Effect",
+  "tipo": "Unknown",
+  "fotos": [
+   "XPRESS_3D_EFFECT_03_3D_Slats.png"
+  ],
+  "painel": "f7de7463",
+  "grupos": {
+   "Shape": {
+    "ligado": true,
+    "forma": "Slats",
+    "Ampl": 75,
+    "Angle": 45,
+    "Freq": 3,
+    "Offset": 0,
+    "SkAmp": 0,
+    "SkAng": 0
+   },
+   "Crop": {
+    "ligado": false,
+    "Top": 999,
+    "Bot": -999,
+    "Lft": -999,
+    "Rgt": 999
+   },
+   "Target": {
+    "ligado": false,
+    "X": 0,
+    "Y": 0,
+    "Size": 100
+   },
+   "Border": {
+    "ligado": false,
+    "Color": {
+     "Hue": 0,
+     "Sat": 0,
+     "Lum": 0
+    },
+    "Limit to video levels": true,
+    "estilo": "Plain",
+    "Wid": 0,
+    "Sft": 0
+   },
+   "Foreground": {
+    "ligado": false,
+    "Level": 100,
+    "Swap Sources": false,
+    "Invert Key": false,
+    "Show Alpha": false,
+    "Reverse Animation": false
+   },
+   "Background Color": {
+    "ligado": false,
+    "Hue": 0,
+    "Sat": 0,
+    "Lum": 0,
+    "Limit to video levels": true
+   }
+  }
+ }
+}

@@ -1,0 +1,27 @@
+{
+ "caso": "B11_RELINK",
+ "pergunta": "Relink do convertido para o original: a escala do Premiere se corrige pela razão das larguras em todo raster, tarja, recorte e PAR? E os homônimos?",
+ "segundos": 4,
+ "fps": "24",
+ "tc_inicio": "10:00:00:00",
+ "camera": 1,
+ "take": 1,
+ "fonte": 1,
+ "canais": 2,
+ "perfis": [
+  "mov-prores"
+ ],
+ "pasta_original": "ORIGINAIS",
+ "variantes": [
+  {"rotulo": "FIT", "raster": [3840, 2160], "convertido": {"raster": [1920, 1080], "modo": "fit"}},
+  {"rotulo": "DCI_TARJA", "raster": [4096, 2160], "convertido": {"raster": [1920, 1080], "modo": "fit"}},
+  {"rotulo": "DCI_CORTE", "raster": [4096, 2160], "convertido": {"raster": [1920, 1080], "modo": "fill"}},
+  {"rotulo": "STRETCH", "raster": [4096, 2160], "convertido": {"raster": [1920, 1080], "modo": "stretch"}},
+  {"rotulo": "VERTICAL", "raster": [1080, 1920], "convertido": {"raster": [1920, 1080], "modo": "fit"}},
+  {"rotulo": "ANAMORFICO", "raster": [1440, 1080], "sar": "2:1", "convertido": {"raster": [1920, 1080], "modo": "fit"}},
+  {"rotulo": "ALEXA", "raster": [2880, 1620], "camera": 3, "convertido": {"raster": [1920, 1080], "modo": "fit", "queimar_nome": true}},
+  {"rotulo": "TC_ZERADO", "raster": [3840, 2160], "tc_inicio": "11:00:00:00", "convertido": {"raster": [1920, 1080], "modo": "fit", "tc_zerado": true}},
+  {"rotulo": "DRONE_A", "nome": "DJI_0001", "pasta_original": "ORIGINAIS/DRONE_A", "raster": [3840, 2160], "camera": 1, "tc_inicio": "12:00:00:00", "convertido": {"raster": [1920, 1080], "modo": "fit"}},
+  {"rotulo": "DRONE_B", "nome": "DJI_0001", "pasta_original": "ORIGINAIS/DRONE_B", "raster": [3840, 2160], "camera": 2, "tc_inicio": "12:00:00:00"}
+ ]
+}

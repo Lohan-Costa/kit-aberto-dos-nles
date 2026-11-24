@@ -1,0 +1,102 @@
+{
+  "_meta": {
+    "protocolo": "transversal",
+    "titulo": "Modelo de execução: como a decisão de um agente chega na timeline",
+    "confianca": "inferido",
+    "atualizado": "2026-08-09",
+    "fontes": [
+      "bancodedadosnles/transversal/modelo-de-execucao-de-agente.md",
+      "bancodedadosnles/plugins/premiere-cep/eddie-ai-arquitetura.md",
+      "bancodedadosnles/plugins/premiere-cep/premiere-copilot-arquitetura.md",
+      "bancodedadosnles/plugins/premiere-cep/chat-video-pro-arquitetura.md",
+      "bancodedadosnles/plugins/avid-panel-sdk/paineis-de-terceiros.md",
+      "medições diretas de 2026-08-09 nos painéis instalados e no bundle remoto do Premiere Copilot"
+    ],
+    "notas": "Taxonomia derivada de varredura de verbos de mutação e de sítios de evalScript. Nenhuma lógica descompilada."
+  },
+
+  "modelos": {
+    "1_estado_alvo_declarativo": {
+      "exemplo": "Eddie AI",
+      "confianca": "inferido",
+      "descricao": "o agente descreve o RESULTADO; o painel materializa a sequência de uma vez",
+      "evidencia": "varredura de verbos em Eddie AI/jsx/PPRO/Premiere.jsx (5267 linhas): overwriteClip 11x e NADA MAIS — zero razor/split/trim/setPlayerPosition/createSubClip",
+      "simbolos": ["createSequenceFromData", "addClipsToSequence", "updateClipItemTime", "ensureSequenceHasTracks", "deleteEmptyTracks", "importXMLToProject", "importXMLAndResolveToTimeline"],
+      "round_trips": "1 por sequência",
+      "atomicidade": "alta",
+      "undo": "1 passo",
+      "limitacao": "só CRIA; não edita cirurgicamente timeline existente"
+    },
+    "2_script_gerado": {
+      "exemplo": "Premiere Copilot",
+      "confianca": "inferido",
+      "descricao": "o servidor produz código ExtendScript e o painel executa; painel é interpretador burro",
+      "evidencia": "no bundle remoto de 2 MB há EXATAMENTE 2 sítios de evalScript, ambos pontes genéricas (runExtendScript(code) devolvendo Promise); pouco ExtendScript literal no cliente (videoTracks 11x, audioTracks 27x)",
+      "aviso_de_leitura": "2 sítios de CHAMADA não são 2 execuções — é uma ponte genérica chamada N vezes. É a causa da 'agulha andando ao vivo' e da lentidão relatada pelo usuário.",
+      "round_trips": "1 por script, e o servidor manda muitos scripts pequenos",
+      "atomicidade": "nenhuma entre scripts — quebrar no meio deixa projeto pela metade",
+      "undo": "1 passo por script",
+      "vantagem": "flexibilidade total, alcança qualquer API sem redeploy",
+      "risco": "executar código gerado por LLM dentro do projeto do cliente"
+    },
+    "3_rpc_fino": {
+      "exemplo": "Chat Video Pro",
+      "confianca": "inferido",
+      "descricao": "o painel expõe funções nomeadas e o LLM chama uma por uma via tool calling",
+      "evidencia": "jsx/main_v2.jsx tem setPlayerPosition(6), overwriteClip(6), split(4), trim, insertClip, applyPreset, remove(false); bundle.js tem tool_calls e tool_choice → laço de ferramentas no cliente",
+      "round_trips": "1 ida ao LLM + 1 ao ExtendScript POR AÇÃO (2N)",
+      "atomicidade": "nenhuma",
+      "undo": "1 passo por ação",
+      "vantagem": "o agente reage ao estado real a cada passo",
+      "custo": "o pior dos cinco em latência e em tokens"
+    },
+    "4_autoracao_externa_de_arquivo": {
+      "exemplo": "nosso Órbita / RELINKER / DRAMASYNC",
+      "confianca": "confirmado",
+      "descricao": "o app escreve o arquivo de projeto (.avb/.prproj/.drt) e o NLE abre",
+      "em_producao_desde": "2026-08-08 (Media Composer)",
+      "round_trips": 0,
+      "atomicidade": "total",
+      "fidelidade": "máxima — preserva efeito, rampa, multicam, metadado de cor (o que a API de painel não expõe e o OTIO perde)",
+      "limitacao": "o NLE precisa abrir/reler; não altera o projeto aberto",
+      "testavel_sem_nle": true
+    },
+    "5_comando_nativo_sem_parametro": {
+      "exemplo": "Avid DoCommand",
+      "confianca": "confirmado",
+      "descricao": "724 comandos e NENHUM aceita parâmetro → obriga 'posiciona → marca → comanda'",
+      "consequencia": "força o modelo 3 mesmo contra a vontade, com piso medido de ~500 ms por chamada e nenhum canal de evento",
+      "aritmetica": "um corte de 200 eventos custaria ~100 s só de latência de barramento",
+      "corolario": "é POR ISSO que no Avid a nossa forma é invertida (timeline autorada, não comandada) — restrição de plataforma, não preferência"
+    }
+  },
+
+  "recomendacao_plano_de_acoes": {
+    "confianca": "hipotese",
+    "nome": "plano de ações como dado (o meio que nenhum dos 4 produtos ocupa)",
+    "forma": "LLM → PLANO (JSON, NLE-neutro) → validador → executor do NLE → 1 script que itera",
+    "diagnostico": "nos 4 produtos o plano NUNCA existe como objeto: no modelo 2 é código, no 3 é histórico de chamadas, no 1 só o resultado",
+    "ganhos": [
+      "uma ida e volta — o executor itera DENTRO do ExtendScript; latência para de multiplicar pelo nº de eventos",
+      "um undoGroup — o usuário desfaz a operação, não trinta operações",
+      "validação antes de tocar no projeto — checar contra as regras já registradas no banco (áudio vinculado V k↔A k, overwriteClip em segundos, tracks suficientes) e RECUSAR o plano inteiro",
+      "testável sem NLE — o plano é fixture; suíte de teste do agente sem abrir o Premiere (nenhum dos 4 consegue)",
+      "portável — plano neutro + executor por NLE, o mesmo padrão de modelo-neutro-efeitos.md aplicado a AÇÃO em vez de estrutura",
+      "auditável — é o que se mostra ao editor para aprovar antes, e o que se arquiva depois"
+    ],
+    "compatibilidade": "o plano não impede o modelo 1: alvo 'sequência nova' → createSequenceFromData; alvo 'cortes em projeto aberto' → iterador. O plano é a fronteira; o executor escolhe a técnica por NLE, inclusive autoração de arquivo no Avid.",
+    "restricao_a_respeitar": "a timeline do Premiere não repinta depois do script (clipe invisível até hover) — o lote precisa terminar provocando redesenho; mais fácil em lote que em N chamadas"
+  },
+
+  "onde_vive_o_cerebro_do_agente": {
+    "confianca": "inferido",
+    "jumper": { "local": true, "alcancavel": "sim, já temos", "evidencia": "11 SKILL.md + 36 tools MCP no bundle" },
+    "chat_video_pro": { "local": true, "alcancavel": "sim (obfuscado)", "evidencia": "tool_calls e tool_choice no bundle.js" },
+    "eddie_ai": { "local": false, "alcancavel": "só por sessão autenticada", "evidencia": "nada de tool no bundle; renderer mcp_webview; servidor mcp.heyeddie.ai" },
+    "premiere_copilot": { "local": false, "alcancavel": "não", "evidencia": "zero nome de tool, zero tool_calls, só 2 pontes evalScript" },
+    "quickture": { "local": false, "alcancavel": "não" },
+    "regra_preditiva": "BYOK OBRIGA O PROMPT A SER LOCAL: se o usuário traz a própria chave, é o cliente que monta a requisição ao provedor, então tool definition e system prompt TÊM de estar na máquina dele. Quem cobra assinatura de inferência pode esconder tudo atrás do próprio endpoint. Antes de procurar prompt num bundle, olhe o modelo de cobrança.",
+    "regua_aplicada": "no Chat Video Pro foi verificada a PRESENÇA da estrutura de tool calling, não colhido o texto dos prompts. Ler system prompt de concorrente é copiar conhecimento de domínio, não entender arquitetura.",
+    "caminho_legitimo_eddie": "MCP tem tools/list no protocolo; um cliente autenticado enumerando ferramentas é o uso previsto, não engenharia reversa. Exige conta ativa e decisão do usuário. NÃO FOI FEITO."
+  }
+}

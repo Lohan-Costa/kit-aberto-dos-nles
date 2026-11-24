@@ -1,0 +1,24 @@
+# a camada PRIVADA de quem usa: nunca vai ao Git (só o LEIA-ME)
+local/*
+!local/LEIA-ME.md
+
+# o app aberto é clonado aqui dentro, no repositório dele
+ciclo-assist-kit-nle/
+
+# o que se gera ao trabalhar
+saida/
+**/saida/
+**/resultados/
+__pycache__/
+*.pyc
+.venv/
+.venv-*/
+node_modules/
+.DS_Store
+._*
+
+# segredos
+.env
+*.env
+*.pem
+*.key

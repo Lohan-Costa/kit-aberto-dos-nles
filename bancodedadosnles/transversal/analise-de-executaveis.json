@@ -1,0 +1,76 @@
+{
+  "_meta": {
+    "protocolo": "transversal",
+    "titulo": "Analisar o executável do concorrente — receitas de extração e sinais de alto rendimento",
+    "confianca": "confirmado",
+    "atualizado": "2026-08-09",
+    "fontes": [
+      "Jumper 2026.07.27 build 3283 (macOS ARM), 3241 (Intel), 1623 (Windows)",
+      "Quickture 1.6.3 (ZXP CEP, PKG/DMG macOS, MSI/EXE Windows)",
+      "transversal/analise-de-executaveis.md"
+    ],
+    "notas": "Comandos executados de verdade nesta máquina (macOS 26.x). Todos SEM instalar e sem executar o app analisado.",
+    "regra_etica": "Ler configuração, manifesto, licença, nome de símbolo e endpoint = arquitetura. Descompilar lógica = implementação, e fica de fora — mesmo quando é fácil (o source map do Quickture vinha com o TypeScript completo; foi lida só a lista de caminhos)."
+  },
+  "ordem_de_ataque": [
+    { "passo": 1, "o_que": "llms.txt no domínio de docs", "porque": "índice de toda a documentação em markdown cru" },
+    { "passo": 2, "o_que": "OpenAPI / spec", "porque": "schemas revelam arquitetura que a prosa não conta" },
+    { "passo": 3, "o_que": "política de privacidade", "porque": "software local não precisa de Data Privacy Framework — foi o 1º sinal de cloud no Quickture" },
+    { "passo": 4, "o_que": "tamanho do instalador", "porque": "6 MB não carrega modelo de ML; 5 GB carrega" },
+    { "passo": 5, "o_que": "extrair sem instalar", "porque": "ver receitas" },
+    { "passo": 6, "o_que": "metadados (manifesto, config.json, licenças, dist-info)", "porque": "barato e muito revelador" },
+    { "passo": 7, "o_que": "nomes de símbolo/módulo", "porque": "arquitetura sem tocar em lógica" },
+    { "passo": 8, "o_que": "strings dirigidas (endpoints, portas, flags)", "porque": "interoperabilidade" },
+    { "passo": 9, "o_que": "PARAR", "porque": "descompilar lógica é copiar implementação" }
+  ],
+  "receitas": {
+    "dmg": {
+      "comando": "yes | hdiutil attach X.dmg -nobrowse -readonly -noverify",
+      "fechar": "hdiutil detach /Volumes/<NOME>",
+      "gotcha": "o EULA trava a montagem em silêncio — o `yes |` responde por você; sem ele o attach devolve 'sistemas de arquivos não montáveis'"
+    },
+    "pkg": { "comando": "xar -xf X.pkg && cat <comp>.pkg/Payload | gunzip -dc | cpio -i", "nota": "o PackageInfo traz identifier, versão e install-location" },
+    "zip_disfarcado": { "extensoes": [".zxp", ".avpi", ".appex", ".asar", ".epub"], "comando": "unzip -q X" },
+    "msi_cab": { "comando": "unzip X.zip && cabextract -q -d out X1.cab", "gotcha": "os nomes dentro do CAB são hashes do MSI (filXXXX...) — identifique pelo nome interno do PE" },
+    "pyinstaller": {
+      "cookie": "MEI\\014\\013\\012\\013\\016",
+      "como": "rfind do cookie no executável; struct '!8sIIII' + 64 bytes de nome de lib; TOC em (pkgStart+toc); entradas com typeCmprsData 'z' = PYZ",
+      "rende": "marshal.loads do TOC do PYZ dá a LISTA DE MÓDULOS (nomes, não código). O code object do script principal traz rotas e constantes."
+    },
+    "rust": {
+      "comando": "strings -n 10 BIN | grep -oE 'cargo/registry/src/[^/]+/[a-z0-9_-]+-[0-9.]+' | sed 's#.*/##' | sort -u",
+      "rende": "árvore de dependências EXATA com versão — e as crates de domínio dizem o que o app sabe fazer"
+    },
+    "pe_sem_nome": { "comando": "strings BIN | grep -oE '[A-Za-z0-9_.-]+\\.pdb' | head -1", "rende": "o nome real da DLL quando o instalador a renomeou" },
+    "source_map": { "ler": "apenas o array `sources` (caminhos)", "nao_ler": "`sourcesContent` — é o código-fonte original" },
+    "js_inline": { "validar": "extrair <script> (removendo comentários HTML antes!) e rodar `node --check`", "porque": "pega erro de sintaxe antes de abrir dentro do NLE" }
+  },
+  "sinais_de_alto_rendimento": {
+    "model_licenses/": "identifica os AUTORES dos modelos de ML (LICENSE_IGLOVIKOV -> RetinaFace; ATTRIBUTION_NVIDIA -> Parakeet)",
+    "config.json de modelo": "architectures / timm_model_name / hf_tokenizer_name / embed_dim — arquitetura DECLARADA",
+    "cargo/registry": "dependências Rust com versão",
+    "manifesto de plugin": "revela os LIMITES da plataforma e o que dá para pedir a ela (usesApi, allowedDomains, url do uiItem)",
+    "ausencia": "não achar lib de vector DB provou busca em RAM; não achar crate de ML provou inferência remota"
+  },
+  "higiene": [
+    "montar -readonly e DESMONTAR ao terminar (conferir /Volumes)",
+    "nada instalado, nenhum binário executado, nenhuma conta criada",
+    "apagar temporários (os CABs do Quickture geraram 10 GB)",
+    "registrar o que NÃO foi feito com a mesma clareza do que foi"
+  ],
+  "calibracao": {
+    "placar_primeira_sessao": "6 inferências certas, 4 erradas, 3 parciais (feitas só de documentação, conferidas depois contra o binário)",
+    "acerta": ["arquitetura de sistema", "ordem de grandeza", "padrões de produto"],
+    "erra": [
+      "escolha de componente (era RetinaFace+LVFace, não InsightFace/ArcFace)",
+      "AUSÊNCIA — a doc não lista o que ela não menciona (existia um scene_detection inteiro)",
+      "contagem de parâmetros por tamanho de disco quando há quantização misturada"
+    ],
+    "licao_principal": "Prompt de runtime é fonte MAIS confiável que inventário de arquivos. O Jumper empacota um qwen3-forced-aligner, mas as skills dele declaram 'there are no word-level timestamps'. Um modelo no disco não é uma feature."
+  },
+  "quando_repetir": [
+    "um limite parece da plataforma e não do nosso código -> ver como um concorrente com acesso oficial resolveu",
+    "precisamos saber o que um app manda para fora antes de usá-lo com material sob embargo",
+    "vamos escolher stack e alguém já resolveu o mesmo problema em produção"
+  ]
+}

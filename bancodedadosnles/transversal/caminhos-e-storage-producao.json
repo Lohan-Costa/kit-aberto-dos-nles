@@ -1,0 +1,228 @@
+{
+  "_meta": {
+    "protocolo": "transversal",
+    "titulo": "Caminhos de locator, layout de storage de producao e identidade de volume",
+    "confianca": "confirmado",
+    "atualizado": "2026-08-17",
+    "fontes": [
+      "LOCALIZADOR_DE_MIDIA_PELO_AAF/app/aaf_reader.py",
+      "LOCALIZADOR_DE_MIDIA_PELO_AAF/app/links.py",
+      "LOCALIZADOR_DE_MIDIA_PELO_AAF/app/scanner.py",
+      "LOCALIZADOR_DE_MIDIA_PELO_AAF/CLAUDE.md"
+    ],
+    "nle": "Avid Media Composer 2021 e 25.x (Windows 11 / macOS)",
+    "notas": "Lido de AAF real do projeto 'PRODUCAO-Q' (178 mobs, 42 MasterMobs) e medido em ambiente real de producao (Emissora). Layout da Avid MediaFiles em si esta em protocolos/mxf/."
+  },
+
+  "formas_de_url_no_locator": {
+    "_nota": "URLString do NetworkLocator em EssenceDescriptor.Locator. As cinco formas aparecem NO MESMO arquivo. Sempre percent-encoded.",
+    "confianca": "confirmado",
+    "entries": [
+      {
+        "forma": "file://SERVIDOR/share/pasta/arq.mxf",
+        "resultado": "\\\\SERVIDOR\\share\\pasta\\arq.mxf",
+        "regra": "netloc = servidor; path = resto; trocar / por \\",
+        "visto_em": "Nexis, ingest"
+      },
+      {
+        "forma": "file://SERVIDOR//volumes/x/y.mov",
+        "resultado": "\\\\SERVIDOR\\volumes\\x\\y.mov",
+        "regra": "colapsar /{2,} no path ANTES de montar a UNC, senao gera \\\\host\\\\volumes (invalido)",
+        "visto_em": "VFX edit-in-place"
+      },
+      {
+        "forma": "file:///VOLUME/pasta/arq.mov",
+        "resultado": "/VOLUME/pasta/arq.mov",
+        "regra": "caminho POSIX / volume do Mac; manter como veio (serve de pista de nome de pasta)",
+        "visto_em": "ingest visto do Mac"
+      },
+      {
+        "forma": "file:////C/Users/x/arq.mp4",
+        "resultado": "C:\\Users\\x\\arq.mp4",
+        "regra": "path vira '//C/Users/...': 1a componente e a letra de unidade SEM os dois-pontos",
+        "visto_em": "import de estacao Windows"
+      },
+      {
+        "forma": "file:///C:/Users/x/arq.mp4",
+        "resultado": "C:\\Users\\x\\arq.mp4",
+        "regra": "path vira '/C:/Users/...'",
+        "visto_em": "import de estacao Windows"
+      }
+    ],
+    "armadilhas": [
+      {
+        "nome": "percent-encoding",
+        "detalhe": "'avid mediafiles' vem como 'avid%20mediafiles'. Filtro na URL crua NUNCA casa e a midia gerenciada do Avid vaza como se fosse o original. unquote() antes de QUALQUER comparacao.",
+        "confianca": "confirmado"
+      },
+      {
+        "nome": "caixa nao e confiavel",
+        "detalhe": "O mesmo .mov apareceu como '.../pedro_e_nina/2026-07-30/digitacao texto v4.mov' (CDCIDescriptor) e '.../PEDRO_E_NINA/2026-07-30/DIGITACAO TEXTO v4.mov' (ImportDescriptor). Comparar sempre case-insensitive.",
+        "confianca": "confirmado"
+      },
+      {
+        "nome": "unicode",
+        "detalhe": "Pastas com acento ('Cena 11 - Hotel - Opcoes 4x3 e 16x9'). Normalizar NFC: NFD do macOS vs NFC do Windows nao casam.",
+        "confianca": "confirmado"
+      }
+    ]
+  },
+
+  "layout_producao": {
+    "_nota": "Cinco familias de storage no MESMO projeto. Um app de coleta nao pode assumir um storage so.",
+    "entries": {
+      "avid_gerenciada_nexis": {
+        "padrao": "\\\\NEXIS-01-A\\<projeto>\\avid mediafiles\\mxf\\<workspace>.<n>\\<nome-truncado><track>.<hash>.mxf",
+        "workspaces_vistos": ["srvegpaws295875.1", "srvegpaws277417.1", "srvegpaws308593.1", "srvegpaws345060.1", "ilha_eg_offline_25.1"],
+        "workspace_padrao": "<host-ou-ilha>.<n>",
+        "e_original": false,
+        "acao": "PODAR da varredura de originais",
+        "confianca": "confirmado"
+      },
+      "ingest_cartao_mac": {
+        "padrao": "/Macintosh HD/Volumes/INGEST/<PROJETO>/MEDIA_PRODUCER/Externa/<MM-MES>/<MM-DD>/<CARTAO>/<arquivo>",
+        "exemplo": "/Macintosh HD/Volumes/INGEST/PEDRO_E_NINA/MEDIA_PRODUCER/Externa/06-JUNHO/06-15/4K_CYBERSHOT_260611_UPP05/DSC03652.JPG",
+        "nota": "mes em portugues na pasta (06-JUNHO); pasta de dia MM-DD",
+        "e_original": true,
+        "confianca": "confirmado"
+      },
+      "ingest_cartao_windows": {
+        "padrao": "\\\\servidor-ingest\\ingest\\<projeto>\\...",
+        "mapeado_em": "P:",
+        "nota": "MESMO storage do ingest_cartao_mac visto do Windows. A letra mapeia para share ANINHADO (ver identidade_de_volume).",
+        "e_original": true,
+        "confianca": "confirmado"
+      },
+      "arte_telas": {
+        "padrao": "Q:\\ASSISTENTES_POS\\<ASSISTENTE>\\<PROJETO>\\ARTE\\TELAS\\<Cena NN - descricao>\\<arquivo>.mp4",
+        "exemplos": [
+          "Q:\\ASSISTENTES_POS\\PESSOA-P\\PRODUCAO-Q\\ARTE\\TELAS\\Cena 56\\Cena-56-desktop-lan-house-nina-3.mp4",
+          "Q:\\ASSISTENTES_POS\\PESSOA-P\\PRODUCAO-Q\\ARTE\\TELAS\\Cena 11 - Hotel - Opcoes 4x3 e 16x9\\Computador-Hotel-Nina-Cena-11-wide.mp4"
+        ],
+        "e_original": true,
+        "confianca": "confirmado"
+      },
+      "vfx_edit_in_place": {
+        "padrao": "\\\\servidor-vfx.emissora.exemplo\\volumes\\edit_in_place\\vfx_edicao\\<projeto>\\<AAAA-MM-DD>\\<arquivo>.mov",
+        "visto_do_mac": "/EDIT_IN_PLACE/VFX_Edicao/<PROJETO>/<AAAA-MM-DD>/",
+        "nota": "pasta de dia em ISO aqui — convencao DIFERENTE da do ingest. Ha subpasta por tipo (.../2026-07-30/digitacao/).",
+        "e_original": true,
+        "confianca": "confirmado"
+      },
+      "import_de_estacao": {
+        "padrao": "C:\\Users\\<usuario>\\Downloads\\<arquivo>.mp4",
+        "nota": "material que entrou pela maquina de alguem; NAO e localizavel em raiz de rede. Tratar como faltando e pedir a mao.",
+        "e_original": true,
+        "confianca": "confirmado"
+      }
+    },
+    "marcadores_de_midia_gerenciada": {
+      "_nota": "Comparar case-insensitive e APOS unquote. Usados para podar a varredura.",
+      "valores": ["avid mediafiles", "avid_mediafiles", "omfi mediafiles", "avid attic"],
+      "confianca": "confirmado"
+    },
+    "nome_no_mxf_gerenciado_e_truncado": {
+      "detalhe": "O nome do clipe vem truncado no nome do arquivo MXF gerenciado, logo NAO se recupera o nome do clipe a partir dele. Usar MobName/MasterMob ou o .mdb.",
+      "exemplos": [
+        {"clipe": "6K_F017_260615_UPP05", "mxf": "6k_f017_26v01.6a304bfa63c4v.mxf"},
+        {"clipe": "WhatsApp Video 2026-07-21 at 17.26.11.mp4", "mxf": "whatsapp video 202eae20c0ba.mxf"},
+        {"clipe": "DSC03652.JPG", "mxf": "dsc03652v01.596d8ff5.612070.mxf"}
+      ],
+      "sufixo_de_track": {"v": "video", "a": "audio"},
+      "confianca": "inferido"
+    }
+  },
+
+  "nomenclatura_cartao_e_fita": {
+    "padrao": "<RESOLUCAO>_<CAMERA|ROLO>_<AAMMDD>_<OPERADOR/UPP>",
+    "regra_de_ouro": "O nome da fita (TapeDescriptor mob name) e o nome da PASTA do cartao no ingest — serve para PRIORIZAR a varredura numa rede lenta.",
+    "confianca_regra_de_ouro": "confirmado para 4K_CYBERSHOT_260611_UPP05 (ImportDescriptor do DSC03652.JPG termina em .../4K_CYBERSHOT_260611_UPP05/DSC03652.JPG e o TapeDescriptor do mesmo masterclipe tem esse nome); inferido para os demais, que so tem fita, sem path para cruzar",
+    "entries": [
+      {"fita": "4K_CYBERSHOT_260611_UPP05", "resolucao": "4K", "camera": "CYBERSHOT", "data": "2026-06-11", "posto": "UPP05"},
+      {"fita": "6K_F017_260615_UPP05", "resolucao": "6K", "camera_ou_rolo": "F017", "data": "2026-06-15", "posto": "UPP05"},
+      {"fita": "HD_MINIDV_260613_UPP05", "resolucao": "HD", "camera": "MINIDV", "data": "2026-06-13", "posto": "UPP05"}
+    ],
+    "ressalva": "A data no nome da fita e a da gravacao/cartao, nao a do dia de ingest. Nas amostras a pasta de dia (06-15) coincidiu com a data da fita (260615), mas isso NAO foi verificado como regra.",
+    "confianca": "confirmado"
+  },
+
+  "identidade_de_volume": {
+    "_nota": "Mesmo volume e a UNICA condicao de hardlink. Reduzir os DOIS lados a servidor+share.",
+    "confianca": "confirmado",
+    "reducao": [
+      {"entrada": "\\\\srv\\share\\a\\b.mxf", "volume": "\\\\srv\\share"},
+      {"entrada": "S:\\a\\b.mxf (mapeado)", "volume": "\\\\srv\\share"},
+      {"entrada": "D:\\a\\b.mxf (local)", "volume": "d:"}
+    ],
+    "armadilha_share_aninhado": {
+      "detalhe": "A letra mapeada pode apontar para servidor + share + SUBPASTA. Medido: P: -> \\\\servidor-ingest\\ingest\\pedro_e_nina. Se a via UNC reduz a \\\\srv\\share e a via letra devolve a UNC inteira, o MESMO storage vira dois volumes e o hardlink gratis e perdido.",
+      "confianca": "confirmado"
+    },
+    "api_letra_para_unc": "WNetGetConnectionW (mpr.dll); devolve erro para drive local",
+    "shares_distintos_mesmo_servidor": "contam como volumes distintos (conservador — podem estar no mesmo volume fisico; prever copia e TENTAR de fato na execucao e o lado seguro do erro)"
+  },
+
+  "mecanismos_de_link_windows": {
+    "_nota": "Medido em Windows 11 sem elevacao. Objetivo: levar o original ao NLE sem copiar bytes.",
+    "confianca": "confirmado",
+    "entries": {
+      "hardlink": {
+        "api": "CreateHardLink / os.link",
+        "sem_admin": true,
+        "atravessa_volume": false,
+        "nle_abre": true,
+        "razao": "e outra entrada de diretorio para o MESMO arquivo; nao e reparse point, nao passa por politica nenhuma — o Avid nao tem como distinguir do original",
+        "preferir": true
+      },
+      "symlink": {
+        "api": "CreateSymbolicLinkW",
+        "sem_admin": false,
+        "erro_sem_privilegio": "WinError 1314 — A required privilege is not held by the client",
+        "atravessa_volume": true,
+        "nle_abre": "confirmado em macOS (symlink POSIX, MC 2021); SEM registro de validacao em Windows",
+        "privilegio_vem_de": ["processo elevado", "Modo Desenvolvedor ligado", "politica de grupo"],
+        "detectar": "NAO deduzir — testar criando um link numa pasta temporaria"
+      },
+      "atalho_lnk": {
+        "sem_admin": true,
+        "atravessa_volume": true,
+        "nle_abre": false,
+        "razao": "o Avid le os bytes do atalho como essencia e falha com 'Header partition not found'. Vale tambem para alias do Finder.",
+        "usar": false
+      },
+      "junction": {
+        "api": "mklink /J",
+        "sem_admin": true,
+        "atravessa_volume": "so volume LOCAL",
+        "erro_com_unc": "Local volumes are required to complete the operation",
+        "usar_para_rede": false
+      }
+    },
+    "armadilhas": [
+      {
+        "nome": "os.symlink do Python nao serve",
+        "detalhe": "O CPython nao passa SYMBOLIC_LINK_FLAG_ALLOW_UNPRIVILEGED_CREATE (0x2), entao falha MESMO com o Modo Desenvolvedor ligado. Chamar CreateSymbolicLinkW direto (ctypes) com o flag; retentar sem ele em Windows < 10/1703, que devolve ERROR_INVALID_PARAMETER (87) para o flag desconhecido.",
+        "confianca": "confirmado"
+      },
+      {
+        "nome": "politica de avaliacao de symlink",
+        "comando": "fsutil behavior query SymlinkEvaluation",
+        "padrao": {"local_to_local": "ENABLED", "local_to_remote": "ENABLED", "remote_to_local": "DISABLED", "remote_to_remote": "DISABLED"},
+        "detalhe": "Pasta de links DENTRO de um share apontando para OUTRO share nao resolve. O link e criado com sucesso, aparece normal no Explorer, e so o NLE falha. Rebaixar para copia nesse caso em vez de criar link que mente.",
+        "confianca": "confirmado"
+      }
+    ]
+  },
+
+  "receita_para_achar_originais": {
+    "confianca": "confirmado",
+    "passos": [
+      "Ler os locators, unquote ANTES de qualquer comparacao, e converter as 5 formas de URL",
+      "Descartar o que aponta para avid mediafiles / omfi mediafiles / avid attic",
+      "Chaves de busca em ordem de confianca: basename do ImportDescriptor (tem a extensao real) -> nome do SourceMob de arquivo -> nome do MasterMob",
+      "Usar o nome da fita como pista de PASTA para priorizar a varredura",
+      "Comparar nome/caminho case-insensitive e com Unicode normalizado (NFC)",
+      "Calcular identidade de volume e escolher o mecanismo; PREVER para o usuario o que vira link e o que vira copia"
+    ]
+  }
+}

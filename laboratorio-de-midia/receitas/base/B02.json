@@ -1,0 +1,21 @@
+{
+ "caso": "B02_TAXAS",
+ "pergunta": "Cada taxa é lida e contada certo, inclusive com drop-frame?",
+ "segundos": 10,
+ "raster": [1920, 1080],
+ "camera": 1,
+ "take": 1,
+ "fonte": 1,
+ "canais": 2,
+ "perfis": ["mov-prores", "mxf-op1a"],
+ "variantes": [
+  {"rotulo": "2398", "fps": "23.976", "tc_inicio": "01:00:59:15"},
+  {"rotulo": "24", "fps": "24", "tc_inicio": "01:00:59:15"},
+  {"rotulo": "25", "fps": "25", "tc_inicio": "01:00:59:15"},
+  {"rotulo": "2997ND", "fps": "29.97", "tc_inicio": "01:00:59:15"},
+  {"rotulo": "2997DF", "fps": "29.97", "drop_frame": true, "tc_inicio": "01:00:59;15"},
+  {"rotulo": "30", "fps": "30", "tc_inicio": "01:00:59:15"},
+  {"rotulo": "50", "fps": "50", "tc_inicio": "01:00:59:15"},
+  {"rotulo": "5994", "fps": "59.94", "tc_inicio": "01:00:59:15"}
+ ]
+}

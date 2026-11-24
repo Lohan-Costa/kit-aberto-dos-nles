@@ -1,0 +1,322 @@
+<title>Quatro Câmeras, Uma Cena</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira+Semi+Condensed:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: uma coluna de laudo de bancada — veredito, prova visual, as medidas, e o piloto no fim. */
+:root {
+  --bg: #f5f6f8; --surface: #fcfcfb; --ink: #14171c; --ink-2: #4a505a; --ink-3: #6b717c;
+  --rule: #dde0e5; --grid: #e7e9ed; --band: #e6f1ea;
+  --cam1: #2a78d6; --cam2: #eda100; --cam3: #008300; --cam4: #6250d6; --som: #6b717c;
+  --good: #1f7a3d; --good-bg: #e3f2e8; --warn: #9a5b00; --warn-bg: #fbefd8;
+  --display: "Saira Semi Condensed", "Arial Narrow", sans-serif;
+  --body: "IBM Plex Sans", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #111317; --surface: #1a1c20; --ink: #eef0f3; --ink-2: #b9bec8; --ink-3: #9aa0ab;
+  --rule: #2c3036; --grid: #24272c; --band: #1c3326;
+  --cam1: #3987e5; --cam2: #c98500; --cam3: #008300; --cam4: #9085e9; --som: #9aa0ab;
+  --good: #6fd08f; --good-bg: #173322; --warn: #f0b04a; --warn-bg: #3a2a10; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #111317; --surface: #1a1c20; --ink: #eef0f3; --ink-2: #b9bec8; --ink-3: #9aa0ab;
+  --rule: #2c3036; --grid: #24272c; --band: #1c3326;
+  --cam1: #3987e5; --cam2: #c98500; --cam3: #008300; --cam4: #9085e9; --som: #9aa0ab;
+  --good: #6fd08f; --good-bg: #173322; --warn: #f0b04a; --warn-bg: #3a2a10; color-scheme: dark }
+* { box-sizing: border-box }
+body { background: var(--bg); color: var(--ink); font: 15px/1.55 var(--body); margin: 0 }
+main { max-width: 1040px; margin: 0 auto; padding-block: 32px 64px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: 40px }
+h1, h2 { font-family: var(--display); font-weight: 700; text-wrap: balance; margin: 0; line-height: 1.1 }
+h1 { font-size: clamp(32px, 6vw, 52px); letter-spacing: -.01em }
+h2 { font-size: 24px }
+p { margin: 0; max-width: 68ch }
+.eyebrow { font: 500 12px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3) }
+.mono { font-family: var(--mono); font-variant-numeric: tabular-nums }
+header { display: grid; gap: 14px }
+.pergunta { color: var(--ink-2); font-size: 17px }
+.veredito { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 999px;
+  font-weight: 600; width: fit-content }
+.veredito.ok { background: var(--good-bg); color: var(--good) }
+.veredito.nao { background: var(--warn-bg); color: var(--warn) }
+.numeros { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 1px; background: var(--rule);
+  border: 1px solid var(--rule); border-radius: 10px; overflow: hidden }
+.numeros div { background: var(--surface); padding: 14px 16px; display: grid; gap: 4px; min-width: 0 }
+.numeros b { font: 700 30px/1 var(--display) }
+.numeros span { color: var(--ink-2); font-size: 13px }
+section { display: grid; gap: 14px; min-width: 0 }
+.lede { color: var(--ink-2) }
+figure { margin: 0; display: grid; gap: 8px }
+figcaption { color: var(--ink-3); font-size: 13px }
+.mosaico img { border-radius: 8px; width: 100%; display: block }
+.quadro { background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 16px 12px 10px;
+  overflow-x: auto }
+svg { display: block; font-family: var(--body) }
+svg text { fill: var(--ink-2); font-size: 12px }
+svg .rot { fill: var(--ink); font-weight: 600 }
+svg .eixo { fill: var(--ink-3); font: 11px var(--mono) }
+.legenda { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 13px; color: var(--ink-2) }
+.legenda i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; vertical-align: -2px; margin-right: 6px }
+.alternar { display: inline-flex; border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; width: fit-content }
+.alternar button { font: 500 13px var(--body); padding: 6px 14px; border: 0; background: var(--surface); color: var(--ink-2);
+  cursor: pointer }
+.alternar button[aria-pressed="true"] { background: var(--ink); color: var(--bg) }
+.alternar button:focus-visible, summary:focus-visible { outline: 2px solid var(--cam1); outline-offset: 2px }
+.fotos { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px }
+.fotos figure { background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 8px }
+.fotos img { border-radius: 6px; display: block; width: 100%; cursor: zoom-in }
+.fotos figcaption b { color: var(--ink); font-weight: 600 }
+.zoom { position: fixed; inset: 0; background: rgba(0,0,0,.82); display: grid; place-items: center; z-index: 20;
+  padding: max(16px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px))
+           max(16px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); cursor: zoom-out }
+.zoom img { max-height: 100%; border-radius: 6px }
+.tabela { overflow-x: auto; border: 1px solid var(--rule); border-radius: 10px; background: var(--surface) }
+table { border-collapse: collapse; width: 100%; font-size: 13px }
+th, td { padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--grid); white-space: nowrap }
+th { color: var(--ink-3); font-weight: 500; font-size: 12px }
+td.n { text-align: right; font-family: var(--mono); font-variant-numeric: tabular-nums }
+details summary { cursor: pointer; color: var(--ink-2); font-weight: 500 }
+#dica { position: fixed; pointer-events: none; background: var(--ink); color: var(--bg); font-size: 12px; line-height: 1.45;
+  padding: 8px 10px; border-radius: 6px; max-width: 280px; z-index: 30; white-space: pre-line }
+footer { color: var(--ink-3); font-size: 13px; border-top: 1px solid var(--rule); padding-top: 16px }
+@media (prefers-reduced-motion: no-preference) { .barra-entrada { transition: transform .5s ease } }
+</style>
+
+<main id="raiz">
+  <header>
+    <div class="eyebrow" id="eyebrow">Laboratório de Mídia · bancada do piloto</div>
+    <h1>Quatro câmeras, uma cena</h1>
+    <p class="pergunta" id="pergunta"></p>
+    <div id="veredito"></div>
+    <div class="numeros" id="numeros"></div>
+  </header>
+
+  <section>
+    <h2>O mesmo instante, quatro relógios</h2>
+    <p class="lede">O laboratório gera a mídia, e cada quadro diz o que é: a cor e o nome da câmera, o timecode e o número do quadro. Abaixo está o mesmo instante da cena nas quatro câmeras.</p>
+    <figure class="mosaico"><img id="mosaico" alt="Mosaico com um quadro de cada câmera no mesmo instante da cena"><figcaption id="mosaico-leg"></figcaption></figure>
+  </section>
+
+  <section>
+    <h2>Onde o Órbita pôs cada arquivo</h2>
+    <p class="lede">A linha do tempo da cena, com uma faixa por fonte. O bloco preenchido é onde o arquivo ficou na sequência. O contorno tracejado é onde a receita diz que ele deveria estar. Quando os dois coincidem, o sync está certo.</p>
+    <div class="legenda" id="leg-gantt"></div>
+    <div class="quadro"><svg id="gantt" role="img" aria-label="Linha do tempo das tomadas de cada câmera"></svg></div>
+  </section>
+
+  <section>
+    <h2>O erro de cada arquivo, em milissegundos</h2>
+    <p class="lede">A faixa verde é ±1 quadro (40 ms a 25 q/s). O som de cada câmera chega alguns milissegundos depois do da cena, conforme a distância do microfone. Por isso um sync pela forma de onda pode adiantar a imagem desse tanto, e o traço vazado mostra esse atraso.</p>
+    <div class="quadro"><svg id="erros" role="img" aria-label="Erro de posição por arquivo"></svg></div>
+  </section>
+
+  <section>
+    <h2>A forma de onda que achou a CAM 4</h2>
+    <p class="lede">O comum a todas as fontes é o som da cena: rajadas irregulares que nunca se repetem. Em <b>Antes</b>, cada arquivo está no relógio que trouxe, e a CAM 4, sem timecode, começa no zero. Em <b>Depois</b>, todos estão onde o Órbita os pôs, e as rajadas se alinham de cima a baixo.</p>
+    <div class="alternar" role="group" aria-label="Antes ou depois do sync">
+      <button id="b-antes" aria-pressed="false">Antes</button><button id="b-depois" aria-pressed="true">Depois</button>
+    </div>
+    <div class="quadro"><svg id="ondas" role="img" aria-label="Formas de onda das fontes na linha do tempo da cena"></svg></div>
+  </section>
+
+  <section>
+    <h2>O piloto, gesto a gesto</h2>
+    <p class="lede">Ninguém tocou no mouse. O Claude opera a máquina pelo piloto: tira uma foto, mede o ponto na foto, age e fotografa de novo. Toda espera tem prazo, e o freio é a tecla F12.</p>
+    <div class="quadro"><svg id="passos" role="img" aria-label="Duração de cada gesto da bancada"></svg></div>
+    <div class="fotos" id="fotos"></div>
+  </section>
+
+  <section>
+    <details>
+      <summary>Ver a tabela de todos os arquivos</summary>
+      <div class="tabela" style="margin-top:12px"><table id="tabela"></table></div>
+    </details>
+  </section>
+
+  <footer id="rodape"></footer>
+</main>
+<div id="dica" hidden></div>
+
+<script>
+const D = /*DADOS*/null;
+const NS = "http://www.w3.org/2000/svg";
+const corDe = f => f === "SOM DIRETO" ? "var(--som)" : "var(--cam" + f.replace(/\D/g, "") + ")";
+const ms = v => (v > 0 ? "+" : "") + v.toFixed(1).replace(".", ",") + " ms";
+const num = (v, c = 1) => v.toFixed(c).replace(".", ",");
+function el(tag, at = {}, pai) { const e = document.createElementNS(NS, tag);
+  for (const k in at) e.setAttribute(k, at[k]); if (pai) pai.appendChild(e); return e; }
+function txt(pai, x, y, s, at = {}) { const t = el("text", { x, y, ...at }, pai); t.textContent = s; return t; }
+function tc(seg) { // segundos da cena → timecode do relógio da cena
+  const [h, m, s] = D.relogio.split(":").map(Number); let t = Math.round((h * 3600 + m * 60 + s + seg) * D.fps);
+  const q = t % D.fps; t = (t - q) / D.fps; const p = n => String(n).padStart(2, "0");
+  return p(Math.floor(t / 3600)) + ":" + p(Math.floor(t / 60) % 60) + ":" + p(t % 60) + ":" + p(q); }
+const largura = id => Math.max(560, document.getElementById(id).parentElement.clientWidth - 24);
+
+const dica = document.getElementById("dica");
+function comDica(alvo, texto) {
+  alvo.addEventListener("pointermove", e => { dica.textContent = texto; dica.hidden = false;
+    const r = dica.getBoundingClientRect();
+    dica.style.left = Math.min(e.clientX + 14, innerWidth - r.width - 8) + "px";
+    dica.style.top = Math.min(e.clientY + 14, innerHeight - r.height - 8) + "px"; });
+  alvo.addEventListener("pointerleave", () => dica.hidden = true);
+}
+
+// ---- cabeçalho
+document.getElementById("pergunta").textContent = D.pergunta;
+const ok = D.pior_erro_quadros <= 1 && !D.fora;
+document.getElementById("veredito").innerHTML =
+  `<span class="veredito ${ok ? "ok" : "nao"}">${ok ? "✓" : "!"} ${D.veredito}</span>`;
+const noLugar = D.arquivos.filter(a => a.medido !== null && Math.abs(a.erro_quadros) <= 1).length;
+const sync = D.passos.find(p => p.nome === "esperar a sequência");
+const total = D.passos.reduce((s, p) => s + p.segundos, 0);
+document.getElementById("numeros").innerHTML = [
+  [`${noLugar}<small style="font-size:18px"> de ${D.arquivos.length}</small>`, "arquivos no lugar, até 1 quadro"],
+  [num(Math.max(...D.arquivos.filter(a => a.erro_ms !== null).map(a => Math.abs(a.erro_ms)))) + "<small style='font-size:18px'> ms</small>", "pior distância da verdade"],
+  [sync ? Math.round(sync.segundos) + "<small style='font-size:18px'> s</small>" : "—", "do clique em Sincronizar à sequência no Premiere"],
+  [Math.round(total / 60) + "<small style='font-size:18px'> min</small>", "a bancada inteira, da mídia gerada ao laudo"],
+].map(([b, s]) => `<div><b class="mono">${b}</b><span>${s}</span></div>`).join("");
+document.getElementById("eyebrow").textContent = `Laboratório de Mídia · bancada do piloto · ${D.quando}`;
+
+// ---- mosaico
+document.getElementById("mosaico").src = D.mosaico;
+const semTc = D.fontes.filter(f => f.sem_tc).map(f => f.nome).join(", ");
+document.getElementById("mosaico-leg").textContent =
+  `O instante ${tc(20)} da cena. ${semTc} não tem timecode, então o relógio dela conta desde o primeiro quadro do arquivo.`;
+
+// ---- legenda das fontes
+document.getElementById("leg-gantt").innerHTML = D.fontes.map(f =>
+  `<span><i style="background:${corDe(f.nome)}"></i>${f.nome}${f.sem_tc ? " · sem TC" : ""}</span>`).join("");
+
+const FONTES = D.fontes.map(f => f.nome);
+const daFonte = n => D.arquivos.filter(a => a.fonte === n);
+
+// ---- gantt
+function gantt() {
+  const svg = document.getElementById("gantt"); svg.innerHTML = "";
+  const W = largura("gantt"), E = 132, Dd = 16, lin = 40, topo = 8, H = topo + FONTES.length * lin + 28;
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`); svg.setAttribute("width", W); svg.setAttribute("height", H);
+  const x = s => E + (s / D.cena_s) * (W - E - Dd);
+  for (let s = 0; s <= D.cena_s; s += 10) {
+    el("line", { x1: x(s), x2: x(s), y1: topo, y2: H - 24, stroke: "var(--grid)" }, svg);
+    txt(svg, x(s), H - 8, tc(s).slice(3, 8), { class: "eixo", "text-anchor": s === 0 ? "start" : "middle" });
+  }
+  FONTES.forEach((f, i) => {
+    const y = topo + i * lin;
+    const fonte = D.fontes[i];
+    txt(svg, 0, y + 20, f, { class: "rot" });
+    if (fonte.sem_tc) txt(svg, 0, y + 34, "sem timecode", { class: "eixo" });
+    daFonte(f).forEach(a => {
+      el("rect", { x: x(a.inicio), y: y + 6, width: x(a.inicio + a.duracao) - x(a.inicio), height: 22, rx: 4,
+        fill: "none", stroke: "var(--ink-3)", "stroke-dasharray": "3 3" }, svg);
+      if (a.medido === null) return;
+      const r = el("rect", { x: x(a.medido) + 1, y: y + 8, width: x(a.medido + a.duracao) - x(a.medido) - 2, height: 18,
+        rx: 4, fill: corDe(f) }, svg);
+      txt(svg, x(a.medido) + 8, y + 21, "T" + a.tomada, { style: "fill:#fff;font-weight:600;font-size:11px",
+        "pointer-events": "none" });
+      comDica(r, `${a.arquivo}\nTC do arquivo: ${a.tc || "nenhum"}\ndeveria começar em ${tc(a.inicio)}\nficou em ${tc(a.medido)}\nerro: ${ms(a.erro_ms)} (${num(a.erro_quadros, 2)} quadro)`);
+    });
+  });
+}
+
+// ---- erros
+function erros() {
+  const svg = document.getElementById("erros"); svg.innerHTML = "";
+  const lista = D.arquivos.filter(a => a.erro_ms !== null);
+  const W = largura("erros"), E = 250, Dd = 24, lin = 26, topo = 10, H = topo + lista.length * lin + 30;
+  const lim = Math.max(80, Math.ceil(Math.max(...lista.map(a => Math.abs(a.erro_ms)), ...lista.map(a => a.atraso_ms || 0)) / 20) * 20 + 20);
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`); svg.setAttribute("width", W); svg.setAttribute("height", H);
+  const x = v => E + ((v + lim) / (2 * lim)) * (W - E - Dd);
+  const q = 1000 / D.fps;
+  el("rect", { x: x(-q), y: topo, width: x(q) - x(-q), height: lista.length * lin, fill: "var(--band)" }, svg);
+  for (let v = -lim; v <= lim; v += 20) {
+    el("line", { x1: x(v), x2: x(v), y1: topo, y2: topo + lista.length * lin, stroke: v === 0 ? "var(--ink-3)" : "var(--grid)" }, svg);
+    if (v % 40 === 0) txt(svg, x(v), H - 8, (v > 0 ? "+" : "") + v, { class: "eixo", "text-anchor": "middle" });
+  }
+  txt(svg, x(q) + 4, topo + 12, "±1 quadro", { class: "eixo" });
+  lista.forEach((a, i) => {
+    const y = topo + i * lin + lin / 2;
+    txt(svg, 0, y + 4, a.arquivo.replace(/_MOV-H264\.mov|_WAV-BWF\.wav/, ""), { class: "eixo" });
+    el("line", { x1: x(0), x2: x(a.erro_ms), y1: y, y2: y, stroke: corDe(a.fonte), "stroke-width": 2 }, svg);
+    if (a.atraso_ms && !a.som) el("line", { x1: x(-a.atraso_ms), x2: x(-a.atraso_ms), y1: y - 7, y2: y + 7,
+      stroke: corDe(a.fonte), "stroke-width": 2, "stroke-dasharray": "2 2" }, svg);
+    const c = el("circle", { cx: x(a.erro_ms), cy: y, r: 6, fill: corDe(a.fonte), stroke: "var(--surface)", "stroke-width": 2 }, svg);
+    comDica(c, `${a.arquivo}\nerro: ${ms(a.erro_ms)} = ${num(a.erro_quadros, 2)} quadro` +
+      (a.atraso_ms && !a.som ? `\no som desta câmera chega ${num(a.atraso_ms, 0)} ms depois` : "") +
+      (a.explicado ? "\n→ é o atraso do microfone, não erro" : ""));
+  });
+}
+
+// ---- formas de onda
+let modo = "depois";
+function antes(a) { // onde o arquivo cairia pelo relógio que ele trouxe
+  if (a.tc) return a.inicio;
+  const irmas = daFonte(a.fonte).sort((p, q) => p.tomada - q.tomada); let t = 0;
+  for (const b of irmas) { if (b === a) return t; t += b.duracao + 1; } return 0;
+}
+function ondas() {
+  const svg = document.getElementById("ondas"); svg.innerHTML = "";
+  const W = largura("ondas"), E = 132, Dd = 16, lin = 54, topo = 8, H = topo + FONTES.length * lin + 28;
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`); svg.setAttribute("width", W); svg.setAttribute("height", H);
+  const x = s => E + (s / D.cena_s) * (W - E - Dd);
+  for (let s = 0; s <= D.cena_s; s += 10) {
+    el("line", { x1: x(s), x2: x(s), y1: topo, y2: H - 24, stroke: "var(--grid)" }, svg);
+    txt(svg, x(s), H - 8, tc(s).slice(3, 8), { class: "eixo", "text-anchor": s === 0 ? "start" : "middle" });
+  }
+  FONTES.forEach((f, i) => {
+    const meio = topo + i * lin + lin / 2;
+    txt(svg, 0, meio + 4, f, { class: "rot" });
+    daFonte(f).forEach(a => {
+      const ini = modo === "antes" ? antes(a) : (a.medido ?? a.inicio);
+      let cima = "", baixo = "";
+      a.envelope.forEach((v, k) => { const px = x(ini + k * D.envelope_s), h = Math.max(.5, v * (lin / 2 - 6));
+        cima += (k ? "L" : "M") + px.toFixed(1) + "," + (meio - h).toFixed(1);
+        baixo = "L" + px.toFixed(1) + "," + (meio + h).toFixed(1) + baixo; });
+      const p = el("path", { d: cima + baixo + "Z", fill: corDe(f), opacity: .9 }, svg);
+      comDica(p, `${a.arquivo}\n${modo === "antes" ? (a.tc ? "pelo TC do arquivo" : "sem TC: começa no zero") : "onde o Órbita pôs"}: ${tc(ini)}`);
+    });
+  });
+}
+const bA = document.getElementById("b-antes"), bD = document.getElementById("b-depois");
+function trocar(m) { modo = m; bA.setAttribute("aria-pressed", m === "antes"); bD.setAttribute("aria-pressed", m === "depois"); ondas(); }
+bA.onclick = () => trocar("antes"); bD.onclick = () => trocar("depois");
+
+// ---- passos do piloto
+function passos() {
+  const svg = document.getElementById("passos"); svg.innerHTML = "";
+  const NOMES = { "gerar a mídia": "o laboratório gera a mídia", premiere: "Premiere abre e importa",
+    arrastar: "o piloto arrasta a bin", clicar: "o piloto clica", "esperar a sequência": "Órbita sincroniza e monta",
+    conferir: "a régua confere" };
+  const W = largura("passos"), E = 210, Dd = 60, lin = 28, topo = 4, H = topo + D.passos.length * lin + 24;
+  const max = Math.max(...D.passos.map(p => p.segundos));
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`); svg.setAttribute("width", W); svg.setAttribute("height", H);
+  const x = s => E + (s / max) * (W - E - Dd);
+  D.passos.forEach((p, i) => {
+    const y = topo + i * lin;
+    txt(svg, 0, y + 17, NOMES[p.nome] || p.nome);
+    const r = el("rect", { x: E, y: y + 6, width: Math.max(4, x(p.segundos) - E), height: 16, rx: 4, fill: "var(--cam1)" }, svg);
+    txt(svg, x(p.segundos) + 6, y + 18, p.segundos < 90 ? num(p.segundos) + " s" : Math.floor(p.segundos / 60) + " min " + Math.round(p.segundos % 60) + " s", { class: "eixo" });
+    comDica(r, `${NOMES[p.nome] || p.nome}${p.legenda ? "\n" + p.legenda : ""}\n${num(p.segundos)} s`);
+  });
+}
+document.getElementById("fotos").innerHTML = D.fotos.map((f, i) =>
+  `<figure><img src="${f.src}" alt="${f.legenda}" data-i="${i}"><figcaption><b class="mono">${f.quando}</b> · ${f.legenda}</figcaption></figure>`).join("");
+document.getElementById("fotos").addEventListener("click", e => {
+  const img = e.target.closest("img"); if (!img) return;
+  const z = document.createElement("div"); z.className = "zoom"; z.innerHTML = `<img src="${img.src}" alt="${img.alt}">`;
+  z.onclick = () => z.remove(); document.body.appendChild(z);
+});
+
+// ---- tabela
+document.getElementById("tabela").innerHTML =
+  "<tr><th>arquivo</th><th>TC gravado</th><th>verdade</th><th>na sequência</th><th>erro</th><th>quadros</th></tr>" +
+  D.arquivos.map(a => `<tr><td>${a.arquivo}</td><td class="mono">${a.tc || "sem TC"}</td><td class="mono">${tc(a.inicio)}</td>` +
+    `<td class="mono">${a.medido === null ? "fora" : tc(a.medido)}</td><td class="n">${a.erro_ms === null ? "—" : ms(a.erro_ms)}</td>` +
+    `<td class="n">${a.erro_quadros === null ? "—" : num(a.erro_quadros, 2)}</td></tr>`).join("");
+document.getElementById("rodape").textContent =
+  `Caso ${D.caso} · rodada ${D.rodada} · sequência "${D.sequencia}" no Premiere ${D.premiere || ""} · régua lab.conferir_multicam contra o verdade.json da receita.`;
+
+function tudo() { gantt(); erros(); ondas(); passos(); }
+tudo();
+let espera; addEventListener("resize", () => { clearTimeout(espera); espera = setTimeout(tudo, 150); });
+</script>

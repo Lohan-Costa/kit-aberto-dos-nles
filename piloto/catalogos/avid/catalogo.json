@@ -1,0 +1,164 @@
+[
+ {
+  "nome": "layout de teclado",
+  "foto": "layout_de_teclado.png",
+  "texto": "Be advised, that by changing the Keyboard Input Locale, some of the keys may not perform their desired functions. ... [OK] [Don't warn me again]",
+  "quando": "ao abrir o projeto e quando o layout de teclado do Windows muda",
+  "clique": [
+   339,
+   196
+  ],
+  "acao_em_palavras": "Don't warn me again",
+  "regra": "⭐ autor, 2026-10-31: clicar em \"Don't warn me again\" — o OK só tira o aviso AGORA e ele volta no meio do trabalho (deixando a API em Busy). Em 2026-10-11 (MC 25.6) o autor disse que o Don't warn não funcionava ali; vale a regra nova, e se ele voltar mesmo assim, foto e registrar a versão."
+ },
+ {
+  "nome": "layout de teclado (troca)",
+  "foto": "layout_de_teclado_2.png",
+  "texto": "Your active Keyboard Setting will now be changed. Be advised, however, that some of the keys may not perform their desired functions unless the Keyboard Setting corresponds to the current Keyboard Input Locale. [OK] [Don't warn me again]",
+  "quando": "ao reabrir o MC/projeto com o layout do Windows diferente do da última vez (ABNT2 ↔ EN internacional); volta sempre",
+  "clique": [
+   337,
+   148
+  ],
+  "acao_em_palavras": "Don't warn me again",
+  "regra": "⭐ autor, 2026-10-31: clicar em \"Don't warn me again\" — o OK só tira o aviso AGORA e ele volta no meio do trabalho (deixando a API em Busy). Em 2026-10-11 (MC 25.6) o autor disse que o Don't warn não funcionava ali; vale a regra nova, e se ele voltar mesmo assim, foto e registrar a versão."
+ },
+ {
+  "nome": "nova configuração de monitores",
+  "foto": "nova_configuracao_de_monitores.png",
+  "texto": "Your workspaces were set up for a different number of monitors. Now that the number of monitors has changed, would you like to duplicate workspaces for the new configuration? [ ] Always duplicate workspaces if configuration has changed  [Yes] [No]",
+  "quando": "ao abrir o MC depois que o número de monitores mudou (o autor ligou um 2º monitor em 2026-10-11)",
+  "clique": [
+   838,
+   157
+  ],
+  "acao_em_palavras": "No (decisão do autor: não duplicar os workspaces)"
+ },
+ {
+  "nome": "sair do MC",
+  "foto": "sair_do_mc.png",
+  "texto": "Leave the application? [Leave] [Cancel]",
+  "quando": "depois do DoCommand Exit (1010)",
+  "clique": [
+   60,
+   88
+  ],
+  "acao_em_palavras": "Leave",
+  "so_quando": "fechar"
+ },
+ {
+  "nome": "tela de abertura",
+  "foto": "abertura_splash.png",
+  "texto": "Media Composer 2025.6 … Initializing … (a linha de baixo muda)",
+  "quando": "enquanto o MC abre",
+  "esperar": true,
+  "limite": 25,
+  "acao_em_palavras": "nenhuma: esperar"
+ },
+ {
+  "nome": "layout de teclado (ativar)",
+  "foto": "layout_de_teclado_3.png",
+  "texto": "It is recommended that you activate the Keyboard Setting corresponding to the new Keyboard Input Locale. Otherwise, some of the keys might not perform their desired functions. [OK] [Don't warn me again]",
+  "quando": "ao abrir o projeto com o layout do Windows diferente do do teclado do perfil",
+  "clique": [
+   294,
+   105
+  ],
+  "acao_em_palavras": "Don't warn me again",
+  "regra": "⭐ autor, 2026-10-31: clicar em \"Don't warn me again\" — o OK só tira o aviso AGORA e ele volta no meio do trabalho (deixando a API em Busy). Em 2026-10-11 (MC 25.6) o autor disse que o Don't warn não funcionava ali; vale a regra nova, e se ele voltar mesmo assim, foto e registrar a versão."
+ },
+ {
+  "nome": "progresso",
+  "foto": "progresso.png",
+  "texto": "Reading \"DLPC_LAB Settings\" + barra (o texto e a barra mudam)",
+  "quando": "abrindo o projeto (e outras operações longas)",
+  "esperar": true,
+  "limite": 30,
+  "acao_em_palavras": "nenhuma: esperar"
+ },
+ {
+  "nome": "layout de teclado (não corresponde)",
+  "foto": "layout_de_teclado_4.png",
+  "texto": "The currently active Keyboard Setting does not correspond to the current Keyboard Input Locale. Activate the Keyboard Setting corresponding to the current Keyboard Input Locale. Otherwise, some of the keys might not execute their desired functions. [OK] [Don't warn me again]",
+  "quando": "ao abrir o projeto do laboratório (perfil DLPC_LAB) — 4ª variante, vista em 2026-10-11 à noite",
+  "clique": [
+   429,
+   148
+  ],
+  "acao_em_palavras": "Don't warn me again",
+  "regra": "⭐ autor, 2026-10-31: clicar em \"Don't warn me again\" — o OK só tira o aviso AGORA e ele volta no meio do trabalho (deixando a API em Busy). Em 2026-10-11 (MC 25.6) o autor disse que o Don't warn não funcionava ali; vale a regra nova, e se ele voltar mesmo assim, foto e registrar a versão."
+ },
+ {
+  "nome": "sair do MC (foto cortada)",
+  "foto": "sair_do_mc_cortado.png",
+  "texto": "Leave the application? [Leave] [Cancel] — a foto da janela sai CORTADA (163 × 98) quando o diálogo abre no 2º monitor (escala diferente, 2026-10-12)",
+  "quando": "depois do DoCommand Exit (1010)",
+  "tecla": "ENTER",
+  "acao_em_palavras": "Leave (o botão em foco)",
+  "so_quando": "fechar"
+ },
+ {
+  "nome": "conflito de subclipe",
+  "foto": "conflito_de_subclipe.png",
+  "texto": "****** Sub clip conflict found. ****** The Clip you are importing (\"…\") conflicts with one already found in the system. Do you want to replace the original with the one you are importing? [Yes] [Yes To All] [No] [No To All]",
+  "quando": "ImportFile de uma AAF cujos subclipes já existem no projeto (mesmo MobID) — 2026-10-13, PRODUCAO-A importado duas vezes",
+  "clique": [
+   399,
+   217
+  ],
+  "acao_em_palavras": "No To All — mantém os do projeto (autor, 2026-10-13: pode responder automaticamente). O app evita o diálogo importando uma cópia achatada com MobIDs novos"
+ },
+ {
+  "nome": "scanning dependent objects",
+  "foto": "scanning_dependent_objects.png",
+  "texto": "Scanning dependent objects (janela de progresso, título AvidMediaComposer, 1920x752)",
+  "quando": "fechando o projeto depois de relinks grandes (2026-10-13)",
+  "esperar": true,
+  "acao_em_palavras": "esperar: o MC está gravando"
+ },
+ {
+  "nome": "ativação / trial",
+  "foto": "ativacao_trial.png",
+  "texto": "Avid Media Composer Activation — \"You have N days remaining in your trial period. Please select one of the following options:\" Electronic Activation / Hardware Key / Trial Mode (pré-selecionado) / Media Composer | First. Botões [Quit] [Continue] (Continue em foco).",
+  "quando": "ao abrir o MADE trial (23.8.2), ANTES da splash/Select Project. ⚠️ É a JANELA PRINCIPAL (sem dono) com título \"Avid Media Composer Activation\" — NÃO é diálogo com dono, então o vigia.varrer/dialogos NÃO a pega; tratar por título na rotina de abertura (ver apps titulo_ativacao).",
+  "janela_principal": true,
+  "tecla": "ENTER",
+  "acao_em_palavras": "ENTER: Trial Mode já vem marcado e Continue está em foco → continua o trial. (medido 2026-10-17, MC 23.8.2, janela 538x423 no 2º monitor, topo cortado em y<0)."
+ },
+ {
+  "nome": "edit rates incompatíveis",
+  "foto": "edit_rates_incompativeis.png",
+  "texto": "Tracks have incompatible edit rates. [OK]",
+  "quando": "MC 25.6 (Windows, 2026-10-31, lab B110): apareceu sozinho depois que a pasta dos .mov AMA de uma sequência carregada no Record foi renomeada (a mídia sumiu do disco). Trava a API (GetAppInfo/LinkFile respondem 'o Media Composer não respondeu'). OK é o único botão; autorizado pelo autor",
+  "clique": [
+   166,
+   92
+  ],
+  "limite": 20,
+  "acao_em_palavras": "OK"
+ },
+ {
+  "nome": "licença: conectar à internet",
+  "foto": "licenca_conectar_internet.png",
+  "texto": "In order to confirm that your software license is current, you must connect to the internet within the next two days or you will no longer be able to run Media Composer. [OK] [Go to Avid Support]",
+  "quando": "ao abrir o MC 2024.6 (Windows) sem conexão há tempo — 2026-11-05; o número de dias muda",
+  "clique": [
+   151,
+   130
+  ],
+  "acao_em_palavras": "OK",
+  "regra": "autor, 2026-11-05: OK e seguir. ⚠️ É AVISO REAL: conectar a máquina à internet antes que o prazo acabe — o piloto clica, mas DIZ ao autor que viu."
+ },
+ {
+  "nome": "volume não montado",
+  "foto": "volume_nao_montado.png",
+  "texto": "This volume has not yet been mounted by the application. You can either mount all volumes or load another project. [Mount All Volumes] [Load Another Project]",
+  "quando": "ao ENTRAR no projeto (criado ou aberto), no 1º arranque do MC depois de reiniciar a máquina; título \"Avid Media Composer\" (com espaços), 876×117 a 125 %, a principal desabilitada — a API fica muda (20 s) enquanto ele está na tela",
+  "clique": [
+   337,
+   92
+  ],
+  "acao_em_palavras": "Mount All Volumes",
+  "regra": "autor, 2026-11-19 (MC 2024.6, Windows): clicar em \"Mount All Volumes\" — o MC só lê os discos e o projeto abre. Nunca \"Load Another Project\"."
+ }
+]

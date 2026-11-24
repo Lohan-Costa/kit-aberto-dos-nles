@@ -1,0 +1,943 @@
+{
+ "_meta": {
+  "protocolo": "transversal",
+  "titulo": "Matriz de plataforma Windows ⇄ macOS — regra master do desenvolvimento",
+  "confianca": "confirmado",
+  "atualizado": "2026-10-28",
+  "fontes": [
+   "_CICLO ASSIST (revisão no macOS, 2026-09-14)",
+   "bancodedadosnles/transversal/desenvolvimento-cross-platform.md",
+   "bancodedadosnles/transversal/ambiente-media-composer-windows.md",
+   "bancodedadosnles/plugins/avid-panel-sdk/windows.md",
+   "De Lá Pra Cá — revisão no macOS 15.6.1, 2026-10-01",
+   "De Lá Pra Cá 0.1.81 — fase 4 do instalador no macOS 15.6.1 (Mac mini M4), 2026-10-05",
+   "laboratorio-de-midia (2026-10-06)"
+  ],
+  "nle": "Windows 11 23H2 (10.0.22631) + Media Composer 25.6.0.58781 · macOS 15.6.1 (24G90) + MC 25.12/26.8 · Python 3.12",
+  "notas": "Uma entrada por VARIÁVEL, com os dois lados. 'confianca' pode ser objeto por lado quando divergir. 'busca' é a regex que acha, num repositório, o código que precisa desta linha — serve para revisão antes de levar o código para a outra plataforma. None num lado = pendente. Narrativa e regras em matriz-de-plataforma.md. 'tratado' (opcional) é a regex que, a até 6 linhas de uma ocorrência de 'busca', sugere que o conserto já está ali — o verificador marca como 'parece tratado', nunca como aprovado."
+ },
+ "regras": [
+  "nenhum caminho literal de sistema no código; UMA função decide por plataforma",
+  "isolar testes por variável que os dois SOs leem (<APP>_DADOS), nunca LOCALAPPDATA/HOME só de um lado",
+  "comparar caminho como o disco: NFC e sem maiúsculas; a forma do caminho decide as regras",
+  "todo listdir/glob/rglob ignora ._*, .DS_Store e pastas ocultas",
+  "não confiar no PATH herdado; dizer onde procurou",
+  "subprocesso que morre na partida é erro, não fim; mostrar o stderr",
+  "checar se FUNCIONA, não se EXISTE (executar, tamanho, versão)",
+  "troca de arquivo do usuário preserva o que não são bytes (xattr no Mac)"
+ ],
+ "entries": {
+  "isolamento_de_teste": {
+   "categoria": "pastas",
+   "windows": "LOCALAPPDATA/APPDATA/USERPROFILE isolam",
+   "macos": "essas variáveis são ignoradas: o código cai em ~/…",
+   "armadilha": "teste 'isolado' por variável de um lado só escreve na pasta REAL do usuário no outro, e passa; um teste herda o lixo do anterior",
+   "confianca": "confirmado",
+   "fontes": [
+    "_CICLO ASSIST/CLAUDE.md (seção macOS, 2026-09-14)"
+   ],
+   "busca": "setenv\\([\\\"'](LOCALAPPDATA|APPDATA|USERPROFILE|HOME|XDG_DATA_HOME)[\\\"']",
+   "tratado": "_DADOS",
+   "regra": "isolar por <APP>_DADOS, que a função de pasta lê em qualquer SO; conftest autouse"
+  },
+  "pasta_de_dados_do_app": {
+   "categoria": "pastas",
+   "windows": "%LOCALAPPDATA%\\<App>",
+   "macos": "~/Library/Application Support/<App>",
+   "armadilha": "~/.local/share é Linux e o Finder esconde; isolar teste por LOCALAPPDATA não isola no Mac (a suíte gravou na pasta real)",
+   "confianca": "confirmado",
+   "fontes": [
+    "_CICLO ASSIST/CLAUDE.md (seção macOS, 2026-09-14)"
+   ],
+   "busca": "LOCALAPPDATA|APPDATA|\\.local/share",
+   "regra": "uma função só decide; <APP>_DADOS sobrepõe nos dois SOs",
+   "tratado": "sys\\.platform|darwin|_DADOS"
+  },
+  "temporario": {
+   "categoria": "pastas",
+   "windows": "%TEMP% (pode vir em nome 8.3, ex. USUARI~1)",
+   "macos": "$TMPDIR=/var/folders/…; /var→/private/var e /tmp→/private/tmp",
+   "armadilha": "resolve() troca o nome: a mesma pasta vira duas chaves antes e depois de existir",
+   "confianca": "confirmado",
+   "fontes": [
+    "_CICLO ASSIST/CLAUDE.md (seção macOS, 2026-09-14)",
+    "_CICLO ASSIST/cicloassist/midia/cache.py"
+   ]
+  },
+  "pai_da_raiz_de_volume": {
+   "categoria": "pastas",
+   "windows": "Path('D:\\\\').parent é o próprio D:\\",
+   "macos": "Path('/Volumes/RAID').parent é /Volumes (root, sem escrita)",
+   "armadilha": "raiz.parent joga arquivo em /Volumes quando a pasta escolhida é a raiz de um disco",
+   "confianca": "confirmado",
+   "fontes": [
+    "_CICLO ASSIST/CLAUDE.md (seção macOS, 2026-09-14)"
+   ],
+   "busca": "\\.parent\\s*/"
+  },
+  "segredo_em_disco": {
+   "categoria": "pastas",
+   "windows": "%APPDATA%/%LOCALAPPDATA% (ACL do perfil)",
+   "macos": "~/…",
+   "armadilha": "exFAT não guarda permissão POSIX",
+   "confianca": "inferido",
+   "fontes": [
+    "bancodedadosnles/transversal/desenvolvimento-cross-platform.md §7"
+   ]
+  },
+  "path_de_processo_lancado": {
+   "categoria": "processo",
+   "windows": "o PATH do perfil",
+   "macos": "/usr/bin:/bin:/usr/sbin:/sbin (Finder, launchd, .app)",
+   "armadilha": "shutil.which não acha Homebrew nem ~/.local/bin, e a mensagem diz 'não instalado'",
+   "confianca": "confirmado",
+   "fontes": [
+    "_CICLO ASSIST/CLAUDE.md (seção macOS, 2026-09-14)"
+   ],
+   "busca": "shutil\\.which",
+   "regra": "procurar também nos lugares dos instaladores e dizer onde procurou",
+   "tratado": "lugares_extras|/opt/homebrew|\\.local/bin"
+  },
+  "lugares_dos_instaladores": {
+   "categoria": "processo",
+   "windows": "winget/instalador no PATH; claude é shim .cmd",
+   "macos": [
+    "~/.local/bin (instalador do Claude Code)",
+    "/opt/homebrew/bin (Homebrew ARM)",
+    "/usr/local/bin (Homebrew Intel)"
+   ],
+   "armadilha": "dois claude no Mac: Homebrew/npm 2.1.150 recusa --restricted; instalador 2.1.270. ~/.local/bin antes do Homebrew",
+   "confianca": "confirmado",
+   "fontes": [
+    "_CICLO ASSIST/CLAUDE.md (seção macOS, 2026-09-14)"
+   ]
+  },
+  "python": {
+   "categoria": "processo",
+   "windows": "py -3.12 / python.exe",
+   "macos": "python3 (não há python); uv em ~/.local/share/uv/python",
+   "armadilha": "'rode python -m …' não funciona no Mac",
+   "confianca": "confirmado",
+   "fontes": [
+    "_CICLO ASSIST/CLAUDE.md (seção macOS, 2026-09-14)"
+   ]
+  },
+  "venv": {
+   "categoria": "processo",
+   "windows": "Scripts\\python.exe, Lib\\site-packages",
+   "macos": "bin/python, lib/python3.x/site-packages",
+   "armadilha": "um venv POR SO: Win32 é insensível à caixa (Lib=lib) e o pyvenv.cfg é um só",
+   "confianca": "confirmado",
+   "fontes": [
+    "bancodedadosnles/transversal/desenvolvimento-cross-platform.md §3"
+   ],
+   "versao_do_fato": "corrigido 2026-08-15"
+  },
+  "janela_de_console": {
+   "categoria": "processo",
+   "windows": "creationflags=CREATE_NO_WINDOW (0x08000000)",
+   "macos": "não existe; getattr(...,0) é inofensivo",
+   "armadilha": "sem a flag, pisca a cada subprocesso",
+   "confianca": "confirmado",
+   "fontes": [
+    "bancodedadosnles/transversal/desenvolvimento-cross-platform.md §5"
+   ],
+   "busca": "CREATE_NO_WINDOW",
+   "tratado": "getattr\\(subprocess"
+  },
+  "stderr_de_subprocesso": {
+   "categoria": "processo",
+   "windows": "cp1252 sem encoding=",
+   "macos": "UTF-8",
+   "armadilha": "stderr=PIPE sem leitor trava o filho (~64 KB); EOF sem o evento final é processo morto, não fim",
+   "confianca": "confirmado",
+   "fontes": [
+    "_CICLO ASSIST/CLAUDE.md (seção macOS, 2026-09-14)"
+   ],
+   "busca": "stderr=subprocess\\.PIPE",
+   "tratado": "drenar|moer|Thread\\("
+  },
+  "encerrar_servico": {
+   "categoria": "processo",
+   "windows": "Ctrl+C / fechar janela",
+   "macos": "SIGTERM (logout, kill, launchd)",
+   "armadilha": "sem handler de SIGTERM o finally não roda",
+   "confianca": "confirmado",
+   "fontes": [
+    "_CICLO ASSIST/CLAUDE.md (seção macOS, 2026-09-14)"
+   ],
+   "busca": "KeyboardInterrupt",
+   "tratado": "SIGTERM"
+  },
+  "processo_orfao": {
+   "categoria": "processo",
+   "windows": "não reparenta: ppid aponta para PID morto (PIDs reciclados)",
+   "macos": "ppid == 1 (launchd)",
+   "armadilha": "detector escrito num SO não detecta no outro",
+   "confianca": "confirmado",
+   "fontes": [
+    "bancodedadosnles/plugins/avid-panel-sdk/windows.md §4"
+   ]
+  },
+  "enumerar_processos": {
+   "categoria": "processo",
+   "windows": "Get-CimInstance Win32_Process (~300 ms); tasklist sem PPID; wmic deprecado",
+   "macos": "ps -o pid,ppid,lstart,command",
+   "armadilha": "—",
+   "confianca": "confirmado",
+   "fontes": [
+    "bancodedadosnles/plugins/avid-panel-sdk/windows.md §4"
+   ]
+  },
+  "raiz_dos_discos": {
+   "categoria": "arquivos",
+   "windows": "letras C:–Z:",
+   "macos": "/Volumes/* (e /Volumes/Macintosh HD → /)",
+   "armadilha": "/Volumes é a pasta DOS volumes; deduplicar por realpath",
+   "confianca": "confirmado",
+   "fontes": [
+    "_CICLO ASSIST/CLAUDE.md (seção macOS, 2026-09-14)"
+   ],
+   "busca": "ascii_uppercase|GetLogicalDrives|\\{letra\\}:|[\\\"']/Volumes[\\\"']|[\\\"'][A-Za-z]:[\\\\/]+Avid",
+   "tratado": "/Volumes|os\\.name|sys\\.platform"
+  },
+  "maiusculas": {
+   "categoria": "arquivos",
+   "windows": "insensível",
+   "macos": "disco insensível (APFS padrão, exFAT), mas relpath/==/is_relative_to do Python são sensíveis",
+   "armadilha": "/USERS/x contra /Users/x dá ../../../users/… no Mac",
+   "confianca": "confirmado",
+   "fontes": [
+    "_CICLO ASSIST/CLAUDE.md (seção macOS, 2026-09-14)"
+   ],
+   "busca": "relpath|is_relative_to|relative_to",
+   "tratado": "casefold|normcase|unicodedata"
+  },
+  "unicode_do_nome": {
+   "categoria": "arquivos",
+   "windows": "NFC como escrito",
+   "macos": "exFAT e HFS+ listam em NFD; URL do Finder vem NFD; MC do Mac grava NFD em parte dos locators",
+   "armadilha": "set/dict/permissão por caminho: o mesmo arquivo vira duas chaves. Normalizar em NFC",
+   "confianca": "confirmado",
+   "fontes": [
+    "_CICLO ASSIST/CLAUDE.md (seção macOS, 2026-09-14)"
+   ],
+   "regra": "comparar unicodedata.normalize('NFC', p).casefold()"
+  },
+  "appledouble": {
+   "categoria": "arquivos",
+   "windows": "._nome chega como arquivo comum de 4 KB",
+   "macos": "em exFAT/FAT/SMB todo arquivo gravado ganha ._ na hora (xattr com.apple.provenance)",
+   "armadilha": "contagem dobrada, ffprobe falhando em 1/5 da varredura, pyavb 'not a avb file', AMA autodetect envenenado; renomear/mover no Mac (exFAT) leva o ._ junto: quem lista e depois move acha a sombra sumida (zelador do SSD, 2026-10-06)",
+   "confianca": "confirmado",
+   "fontes": [
+    "_CICLO ASSIST/CLAUDE.md (seção macOS, 2026-09-14)",
+    "bancodedadosnles/transversal/ambiente-media-composer-windows.md §3"
+   ],
+   "busca": "rglob\\(|\\.glob\\(|iterdir\\(|listdir\\(|os\\.walk",
+   "tratado": "\\._|startswith\\(\\\"\\.\\\"\\)"
+  },
+  "pastas_ocultas": {
+   "categoria": "arquivos",
+   "windows": "atributo HIDDEN",
+   "macos": "nome com ponto: .sync, .Trashes, .fseventsd, .Spotlight-V100, .TemporaryItems",
+   "armadilha": "rglob desce nelas: .sync/Archive com 955 .mxf de conflito com o mesmo UMID",
+   "confianca": "confirmado",
+   "fontes": [
+    "_CICLO ASSIST/CLAUDE.md (seção macOS, 2026-09-14)"
+   ],
+   "busca": "rglob\\(",
+   "tratado": "startswith\\(\\\"\\.\\\"\\)"
+  },
+  "dotfile_atravessando": {
+   "categoria": "arquivos",
+   "windows": "criado no Mac chega com HIDDEN; truncar oculto dá PermissionError",
+   "macos": "—",
+   "armadilha": "write_text falha onde acrescentar funciona",
+   "confianca": "confirmado",
+   "fontes": [
+    "bancodedadosnles/transversal/desenvolvimento-cross-platform.md 4ª passada"
+   ]
+  },
+  "symlink_em_exfat": {
+   "categoria": "arquivos",
+   "windows": "vira arquivo XSym de 1067 bytes com o alvo em texto",
+   "macos": "atalho",
+   "armadilha": "cache de modelos 'presente' e inútil (mordeu dois apps); conferir tamanho",
+   "confianca": "confirmado",
+   "fontes": [
+    "bancodedadosnles/transversal/desenvolvimento-cross-platform.md 4ª e 5ª passadas"
+   ]
+  },
+  "espaco_ou_ponto_no_fim": {
+   "categoria": "arquivos",
+   "windows": "ilegível: o Mac grava U+F028/U+F029",
+   "macos": "aceito",
+   "armadilha": "trim() não remove; vaza para a UI",
+   "confianca": "confirmado",
+   "fontes": [
+    "bancodedadosnles/transversal/desenvolvimento-cross-platform.md §5b"
+   ]
+  },
+  "caracteres_proibidos": {
+   "categoria": "arquivos",
+   "windows": ":*?\"<>|",
+   "macos": ": proibido no Finder",
+   "armadilha": "nome derivado de metadado precisa ser limpo para os dois",
+   "confianca": "confirmado",
+   "fontes": [
+    "_CICLO ASSIST/CLAUDE.md (seção macOS, 2026-09-14)"
+   ]
+  },
+  "data_de_criacao": {
+   "categoria": "arquivos",
+   "windows": "st_ctime",
+   "macos": "st_birthtime (st_ctime é mudança de inode)",
+   "armadilha": "pasta batizada com a data da última escrita",
+   "confianca": "confirmado",
+   "fontes": [
+    "_CICLO ASSIST/CLAUDE.md (seção macOS, 2026-09-14)"
+   ],
+   "busca": "st_ctime",
+   "tratado": "st_birthtime"
+  },
+  "atributos_estendidos": {
+   "categoria": "arquivos",
+   "windows": "streams ADS (raros)",
+   "macos": "os.replace APAGA; shutil.copy2 não copia (sem os.listxattr); usar copyfile(3) COPYFILE_XATTR",
+   "armadilha": "bins do MC do Mac: BINSTATE_RSRC (colunas/vista) e com.apple.FinderInfo ATob/ATve",
+   "confianca": {
+    "presenca": "confirmado",
+    "efeito_no_mc": "pendente"
+   },
+   "fontes": [
+    "_CICLO ASSIST/CLAUDE.md (seção macOS, 2026-09-14)"
+   ],
+   "busca": "os\\.replace|copy2",
+   "tratado": "copiar_atributos|COPYFILE_XATTR|copiar_bin"
+  },
+  "troca_atomica": {
+   "categoria": "arquivos",
+   "windows": "os.replace só no mesmo volume",
+   "macos": "idem",
+   "armadilha": "temporário na pasta de destino",
+   "confianca": "confirmado",
+   "fontes": [
+    "_CICLO ASSIST/CLAUDE.md (seção macOS, 2026-09-14)"
+   ]
+  },
+  "pyc_no_disco_compartilhado": {
+   "categoria": "arquivos",
+   "windows": "co_filename D:\\…",
+   "macos": "reaproveitado: traceback com D:\\… e ???",
+   "armadilha": "PYTHONPYCACHEPREFIX fora do SSD",
+   "confianca": "confirmado",
+   "fontes": [
+    "_CICLO ASSIST/CLAUDE.md (seção macOS, 2026-09-14)"
+   ]
+  },
+  "localhost": {
+   "categoria": "rede",
+   "windows": "cliente IPv4 primeiro; Node escuta ::1; pacote DESCARTADO = segundos por pedido",
+   "macos": "sem o custo",
+   "armadilha": "127.0.0.1 literal",
+   "confianca": "confirmado",
+   "fontes": [
+    "bancodedadosnles/transversal/desenvolvimento-cross-platform.md §1"
+   ],
+   "busca": "localhost"
+  },
+  "so_reuseaddr": {
+   "categoria": "rede",
+   "windows": "deixa um SEGUNDO processo bindar a porta viva",
+   "macos": "não deixa dois ouvintes; só reaproveita TIME_WAIT (desligado: ~30 s de porta ocupada após SSE)",
+   "armadilha": "a mesma flag é certa num SO e errada no outro: allow_reuse_address = os.name != 'nt'",
+   "confianca": "confirmado",
+   "fontes": [
+    "_CICLO ASSIST/CLAUDE.md (seção macOS, 2026-09-14)",
+    "_CICLO ASSIST/cicloassist/servico/http.py"
+   ],
+   "busca": "allow_reuse_address|SO_REUSEADDR",
+   "tratado": "os\\.name|sys\\.platform"
+  },
+  "servidor_na_lan": {
+   "categoria": "rede",
+   "windows": "firewall pergunta na primeira escuta",
+   "macos": "firewall de aplicativo (desligado no Mac mini medido)",
+   "armadilha": "testar pelo IP da rede, nunca localhost",
+   "confianca": "confirmado",
+   "fontes": [
+    "bancodedadosnles/transversal/cli-do-modelo-como-motor.md §10"
+   ]
+  },
+  "console": {
+   "categoria": "texto",
+   "windows": "cp1252: acento derruba no meio",
+   "macos": "UTF-8",
+   "armadilha": "sys.stdout.reconfigure(encoding='utf-8')",
+   "confianca": "confirmado",
+   "fontes": [
+    "_CICLO ASSIST/CLAUDE.md (seção macOS, 2026-09-14)"
+   ]
+  },
+  "ps1_sem_bom": {
+   "categoria": "texto",
+   "windows": "lido como ANSI: acento vira aspas",
+   "macos": "—",
+   "armadilha": "salvar com BOM",
+   "confianca": "confirmado",
+   "fontes": [
+    "bancodedadosnles/transversal/desenvolvimento-cross-platform.md §8"
+   ]
+  },
+  "requirements_ascii": {
+   "categoria": "texto",
+   "windows": "pip decodifica pela codepage: 0x8F = nenhuma instalação",
+   "macos": "UTF-8",
+   "armadilha": "ASCII puro",
+   "confianca": "confirmado",
+   "fontes": [
+    "_CICLO ASSIST/CLAUDE.md (seção macOS, 2026-09-14)"
+   ]
+  },
+  "lock_com_hash": {
+   "categoria": "texto",
+   "windows": "pip freeze lista colorama",
+   "macos": "não lista",
+   "armadilha": "lock gerado no Mac não instala no Windows (--require-hashes)",
+   "confianca": "inferido",
+   "fontes": [
+    "_CICLO ASSIST/CLAUDE.md (seção macOS, 2026-09-14)"
+   ]
+  },
+  "fim_de_linha": {
+   "categoria": "texto",
+   "windows": "CRLF no checkout",
+   "macos": "LF",
+   "armadilha": "newline='' ao reescrever arquivo do outro lado",
+   "confianca": "confirmado",
+   "fontes": [
+    "_CICLO ASSIST/CLAUDE.md (seção macOS, 2026-09-14)"
+   ]
+  },
+  "escolher_pasta": {
+   "categoria": "interface",
+   "windows": "FolderBrowserDialog via PowerShell -STA com form TopMost; ou IFileOpenDialog por ctypes",
+   "macos": "osascript 'choose folder' com activate; pasta inicial por argv",
+   "armadilha": "cancelar no Mac = erro -128 com frase TRADUZIDA: decidir pelo número; POSIX path termina em /",
+   "confianca": {
+    "windows": "confirmado",
+    "macos_script": "confirmado",
+    "macos_a_frente_do_mc": "pendente"
+   },
+   "fontes": [
+    "_CICLO ASSIST/CLAUDE.md (seção macOS, 2026-09-14)",
+    "bancodedadosnles/transversal/desenvolvimento-cross-platform.md diálogos nativos"
+   ],
+   "busca": "powershell|osascript",
+   "tratado": "osascript|darwin"
+  },
+  "abrir_pasta": {
+   "categoria": "interface",
+   "windows": "os.startfile",
+   "macos": "open <pasta>",
+   "armadilha": "xdg-open não existe no Mac",
+   "confianca": "confirmado",
+   "fontes": [
+    "_CICLO ASSIST/CLAUDE.md (seção macOS, 2026-09-14)"
+   ],
+   "busca": "startfile|xdg-open",
+   "tratado": "darwin|\\\"open\\\""
+  },
+  "arrastar_arquivo": {
+   "categoria": "interface",
+   "windows": "text/uri-list file:///C:/…",
+   "macos": "file:///Users/…, file:///Volumes/Nome%20X/…, file://localhost/…; nome NFD",
+   "armadilha": "tirar só file:// (+localhost): a 3ª barra é a raiz; rede no Windows file://host/x → \\\\host\\x",
+   "confianca": {
+    "windows": "confirmado",
+    "macos_parse": "confirmado",
+    "macos_drop_no_mc": "pendente"
+   },
+   "fontes": [
+    "_CICLO ASSIST/CLAUDE.md (seção macOS, 2026-09-14)"
+   ],
+   "busca": "file:/",
+   "tratado": "localhost|\\[A-Za-z\\]:"
+  },
+  "dialogo_nativo_em_painel": {
+   "categoria": "interface",
+   "windows": "trava a página",
+   "macos": "idem",
+   "armadilha": "nunca confirm()/alert() em painel",
+   "confianca": "confirmado",
+   "fontes": [
+    "_CICLO ASSIST/CLAUDE.md (seção macOS, 2026-09-14)"
+   ]
+  },
+  "mc_plugins_panel_sdk": {
+   "categoria": "media_composer",
+   "windows": "%PROGRAMDATA%\\Avid\\PanelSDKPlugins",
+   "macos": "/Library/Application Support/Avid/PanelSDKPlugins",
+   "armadilha": "pasta de sistema nos dois; sem elevação nos medidos",
+   "confianca": "confirmado",
+   "fontes": [
+    "bancodedadosnles/plugins/avid-panel-sdk/windows.md §1"
+   ],
+   "busca": "PanelSDKPlugins"
+  },
+  "mc_gateway_config": {
+   "categoria": "media_composer",
+   "windows": "C:\\ProgramData\\Avid\\APIGateway\\config.json · …\\Avid Media Composer\\PanelSDK.json",
+   "macos": "/Library/Application Support/Avid/APIGateway/config.json · …/Avid Media Composer/PanelSDK.json",
+   "armadilha": "conteúdo idêntico (4920/4930, 9100-9110)",
+   "confianca": "confirmado",
+   "fontes": [
+    "bancodedadosnles/plugins/avid-panel-sdk/windows.md §1"
+   ]
+  },
+  "mc_menu_do_painel": {
+   "categoria": "media_composer",
+   "windows": "Tools (MC 25.6; menuName NÃO decide)",
+   "macos": "Extensions (MC 25.12)",
+   "armadilha": "é VERSÃO, não SO: dizer 'Tools ou Extensions'",
+   "confianca": "confirmado",
+   "fontes": [
+    "bancodedadosnles/plugins/avid-panel-sdk/windows.md §2"
+   ],
+   "versao_do_fato": "CORRIGE 2026-08-17"
+  },
+  "mc_api": {
+   "categoria": "media_composer",
+   "windows": "[::1]:9100 sem token",
+   "macos": "idem",
+   "armadilha": "—",
+   "confianca": "confirmado",
+   "fontes": [
+    "bancodedadosnles/plugins/avid-panel-sdk/fontes.md"
+   ]
+  },
+  "mc_avid_mediafiles": {
+   "categoria": "media_composer",
+   "windows": "<letra>:\\Avid MediaFiles\\MXF\\<n>",
+   "macos": [
+    "/Volumes/<vol>/Avid MediaFiles",
+    "/Users/Shared/AvidMediaComposer/Avid MediaFiles",
+    "/Users/Shared/Avid Media Composer/Avid MediaFiles"
+   ],
+   "armadilha": "varrer letras no Mac = zero mídia",
+   "confianca": "confirmado",
+   "fontes": [
+    "_CICLO ASSIST/CLAUDE.md (seção macOS, 2026-09-14)",
+    "bancodedadosnles/protocolos/mxf/README.md"
+   ],
+   "busca": "Avid MediaFiles",
+   "tratado": "/Volumes|/Users/Shared|pastas_de_midia"
+  },
+  "mc_usuarios_settings": {
+   "categoria": "media_composer",
+   "windows": "C:\\Users\\Public\\Documents\\Avid Media Composer\\",
+   "macos": "/Users/Shared/AvidMediaComposer/",
+   "armadilha": "—",
+   "confianca": {
+    "windows": "confirmado",
+    "macos": "inferido"
+   },
+   "fontes": [
+    "bancodedadosnles/transversal/ambiente-media-composer-windows.md §5",
+    "_CICLO ASSIST/CLAUDE.md (seção macOS, 2026-09-14)"
+   ]
+  },
+  "mc_relatorio_de_queda": {
+   "categoria": "media_composer",
+   "windows": "…\\Public\\Documents\\Avid Media Composer\\Avid FatalErrorReports\\EVENTLOG.LOG; dump em %LOCALAPPDATA%\\Avid\\Crashlog",
+   "macos": "/Users/Shared/AvidMediaComposer/Avid FatalErrorReports/EVENTLOG.LOG",
+   "armadilha": "a API não conta que o MC caiu",
+   "confianca": {
+    "windows": "confirmado",
+    "macos": "inferido"
+   },
+   "fontes": [
+    "_CICLO ASSIST/CLAUDE.md (seção macOS, 2026-09-14)"
+   ]
+  },
+  "mc_estado_dos_paineis": {
+   "categoria": "media_composer",
+   "windows": "%APPDATA%\\AvidMediaComposer\\QtWebEngine\\<panel-id>",
+   "macos": null,
+   "armadilha": "—",
+   "confianca": {
+    "windows": "confirmado",
+    "macos": "pendente"
+   },
+   "fontes": [
+    "bancodedadosnles/transversal/ambiente-media-composer-windows.md §5"
+   ]
+  },
+  "mc_locator_de_midia": {
+   "categoria": "media_composer",
+   "windows": "WinFileLocator, D//pasta/x.mov",
+   "macos": "MacFileLocator, path_posix/path_utf8",
+   "armadilha": "a classe não diz o SO: bins do Mac trazem D//… e E:\\… em MacFileLocator; traduzir só se existir em UM volume",
+   "confianca": "confirmado",
+   "fontes": [
+    "_CICLO ASSIST/CLAUDE.md (seção macOS, 2026-09-14)",
+    "bancodedadosnles/protocolos/avb/estruturas.md"
+   ],
+   "busca": "WinFileLocator|MacFileLocator",
+   "tratado": "path_utf8|path_posix"
+  },
+  "mc_caminho_de_bin_para_api": {
+   "categoria": "media_composer",
+   "windows": "relativo à pasta do projeto",
+   "macos": "idem; projeto e locators podem vir NFD",
+   "armadilha": "relativo por string sai absoluto → 'Bin is not open'",
+   "confianca": {
+    "windows": "confirmado",
+    "macos": "inferido"
+   },
+   "fontes": [
+    "_CICLO ASSIST/CLAUDE.md (seção macOS, 2026-09-14)"
+   ]
+  },
+  "mc_coluna_drive": {
+   "categoria": "media_composer",
+   "windows": "RÓTULO (LETRA:)",
+   "macos": null,
+   "armadilha": "—",
+   "confianca": {
+    "windows": "confirmado",
+    "macos": "pendente"
+   },
+   "fontes": [
+    "bancodedadosnles/plugins/avid-panel-sdk/windows.md §6"
+   ]
+  },
+  "node_modules": {
+   "categoria": "artefatos",
+   "windows": "binários nativos por SO",
+   "macos": "idem",
+   "armadilha": "reinstalar em cada SO",
+   "confianca": "confirmado",
+   "fontes": [
+    "bancodedadosnles/transversal/desenvolvimento-cross-platform.md §2"
+   ]
+  },
+  "dll_duplicada": {
+   "categoria": "artefatos",
+   "windows": "whisper.cpp e llama.cpp trazem ggml.dll de versões diferentes",
+   "macos": "—",
+   "armadilha": "cada binário na sua subpasta",
+   "confianca": "confirmado",
+   "fontes": [
+    "bancodedadosnles/transversal/desenvolvimento-cross-platform.md 4ª passada"
+   ]
+  },
+  "pip_self_upgrade": {
+   "categoria": "artefatos",
+   "windows": "falha e deixa ~ip-*.dist-info",
+   "macos": "—",
+   "armadilha": "não fazer --upgrade pip no setup",
+   "confianca": "confirmado",
+   "fontes": [
+    "bancodedadosnles/transversal/desenvolvimento-cross-platform.md §4"
+   ]
+  },
+  "executavel_x_versionado": {
+   "categoria": "artefatos",
+   "windows": "—",
+   "macos": "exFAT não guarda +x",
+   "armadilha": "git update-index --chmod=+x",
+   "confianca": "inferido",
+   "fontes": [
+    "_CICLO ASSIST/CLAUDE.md (seção macOS, 2026-09-14)"
+   ]
+  },
+  "skill_compartilhada_entre_maquinas": {
+   "categoria": "artefatos",
+   "windows": "junction em %USERPROFILE%\\.claude\\skills\\<skill> (mklink /J, sem administrador)",
+   "macos": "symlink em ~/.claude/skills/<skill>",
+   "armadilha": "atalho no SSD exFAT vira XSym no Windows; skill de projeto só é procurada até a raiz do repositório. Regra comum a todos os apps: CLAUDE.md na pasta-mãe, lido em qualquer sessão abaixo dela",
+   "confianca": {
+    "macos": "confirmado",
+    "windows": "pendente"
+   },
+   "fontes": [
+    "bancodedadosnles/skills/instalar.py",
+    "https://code.claude.com/docs/en/skills",
+    "https://code.claude.com/docs/en/memory"
+   ],
+   "regra": "rodar bancodedadosnles/skills/instalar.py em cada máquina"
+  },
+  "servidor_ollama_na_lan": {
+   "categoria": "rede",
+   "windows": "pendente: OLLAMA_HOST=0.0.0.0 como variável de SISTEMA + reiniciar o app da bandeja; regra de firewall para 11434; suspensão desligada; IP fixo",
+   "macos": "o app da barra ignora variáveis do shell: rodar `ollama serve` por script com as variáveis e tirar o app dos itens de login",
+   "armadilha": "o padrão escuta 127.0.0.1: funciona na própria máquina e some da rede; conferir de outro computador pelo IP e o contexto carregado no /api/ps (padrão 4096)",
+   "confianca": {
+    "macos": "inferido",
+    "windows": "pendente"
+   },
+   "fontes": [
+    "_CICLO ASSIST/docs/spec/2026-09-13-servidor-de-percepcao-mac.md",
+    "bancodedadosnles/transversal/cli-do-modelo-como-motor.md#10.6"
+   ]
+  },
+  "caminho_de_outro_so_em_dado": {
+   "categoria": "caminhos",
+   "windows": "os.path aceita / e \\; caminho POSIX vindo do Mac é raro",
+   "macos": "os.path.abspath(r'F:\\x') devolve <cwd>/F:\\x; basename/Path.parts/relpath tratam o caminho inteiro como UM nome, sem exceção",
+   "armadilha": "bin/AAF/Carta do Windows lida no Mac gera caminho inexistente em silêncio (DRT apontando para <cwd>/F:\\…)",
+   "regra": "decidir pela FORMA (^[A-Za-z]:[\\\\/] ou \\\\\\\\) e usar ntpath/PureWindowsPath; nunca stat (UNC → SMB)",
+   "confianca": "confirmado",
+   "confianca_windows": "confirmado 2026-10-03 (caminho POSIX /Volumes/<rótulo>/… no Windows: o HD do Mac monta com o MESMO rótulo; traduzir pela letra de mesmo rótulo, senão só se UM disco tem o arquivo)",
+   "fontes": [
+    "De Lá Pra Cá — revisão no macOS 15.6.1, 2026-10-01",
+    "_DeLaPraCa/motor/drp/writer.py (_abs/_nome/_pasta)",
+    "De Lá Pra Cá — validação no Windows 11, 2026-10-03: _DeLaPraCa/motor/avb_bin/segmentos.py (_no_volume_desta_maquina)"
+   ]
+  },
+  "python_do_lock": {
+   "categoria": "dependencias",
+   "windows": "o lock é gerado aqui (Python 3.12.5)",
+   "macos": "venv 3.11 não instala numpy 2.5.2 / scipy 1.18.0 (pedem 3.12+); o venv segue com o numpy velho",
+   "armadilha": "setup que aceita versão menor que a do lock falha em silêncio quando o carimbo de dependências é mais novo",
+   "regra": "mesma versão MENOR do Python nos dois SOs; mínimo do dev.sh/dev.ps1 = o do lock",
+   "confianca": "confirmado",
+   "fontes": [
+    "De Lá Pra Cá — revisão no macOS 15.6.1, 2026-10-01"
+   ]
+  },
+  "resolve_electron": {
+   "categoria": "nle",
+   "windows": "Electron 8.0.1 / Node 12.13 / Chrome 80 (Studio 19.0.0b.59)",
+   "macos": "Electron 36.3.2 / Chrome 136.0.7103.115 (Studio 21.1.0)",
+   "armadilha": "eixo VERSÃO, não SO; Electron 36 tem contextIsolation true e nodeIntegration false por padrão, e os exemplos do 21 usam preload.js",
+   "regra": "painel escrito para o Chrome 80 (o piso); a casca conferida no 19 e no 21",
+   "confianca": "confirmado",
+   "fontes": [
+    "De Lá Pra Cá — revisão no macOS 15.6.1, 2026-10-01"
+   ]
+  },
+  "resolve_workflow_integration_node": {
+   "categoria": "nle",
+   "windows": "%PROGRAMDATA%\\Blackmagic Design\\DaVinci Resolve\\Support\\Developer\\Workflow Integrations\\Examples\\SamplePlugin\\WorkflowIntegration.node",
+   "macos": "/Library/Application Support/Blackmagic Design/DaVinci Resolve/Developer/Workflow Integrations/Examples/SamplePlugin/WorkflowIntegration.node (Studio 21.1.0)",
+   "armadilha": "não redistribuir: copiar da instalação",
+   "confianca": "confirmado",
+   "fontes": [
+    "De Lá Pra Cá — revisão no macOS 15.6.1, 2026-10-01"
+   ]
+  },
+  "text_metricas_da_fonte": {
+   "categoria": "nle",
+   "windows": "métricas do DirectWrite: ascendente = usWinAscent; com USE_TYPO_METRICS (fsSelection bit 7), sTypoAscender; linha natural na mesma regra — medido pela imagem no Resolve 19 (Palatino Linotype base 426 px = win; Gabriola/Sitka = typo)",
+   "macos": "hhea (ascendente; linha = asc − desc + gap) — medido pela imagem no Resolve 21.1 (Monaco 1,0; Optima 0,92)",
+   "armadilha": "DRT gerado num sistema e aberto no outro desloca a linha de base em (win − hhea) × corpo nas fontes em que divergem",
+   "confianca": "confirmado",
+   "fontes": [
+    "De Lá Pra Cá — sessão no Windows 11 (Resolve Studio 19.0.0b.59), 2026-10-04/05"
+   ]
+  },
+  "pastas_de_fontes": {
+   "categoria": "caminho",
+   "windows": "%WINDIR%\\Fonts + %LOCALAPPDATA%\\Microsoft\\Windows\\Fonts; Adobe Fonts em %APPDATA%\\Adobe\\CoreSync\\plugins\\livetype\\r\\ (nomes numéricos SEM extensão)",
+   "macos": "/System/Library/Fonts(/Supplemental), /Library/Fonts, ~/Library/Fonts, AssetsV2 sob demanda; Adobe Fonts em ~/Library/Application Support/Adobe/CoreSync/plugins/livetype/.r/ (.NNNN.otf)",
+   "armadilha": "a fonte tem de estar na máquina que ABRE o Resolve; Adobe Fonts não se copia — ativar no CC",
+   "confianca": "confirmado",
+   "fontes": [
+    "De Lá Pra Cá — sessão no Windows 11 (Resolve Studio 19.0.0b.59), 2026-10-04/05"
+   ]
+  },
+  "venv_lancador_windows": {
+   "categoria": "processo",
+   "windows": ".venv\\Scripts\\python.exe é um LANÇADOR que abre o Python base como FILHO: matar o processo spawnado não mata o Python; o filho deve vigiar o pai (handle aberto no arranque: OpenProcess + WaitForSingleObject)",
+   "macos": "bin/python é link: o processo spawnado é o próprio Python; órfão vai ao launchd (getppid() == 1)",
+   "armadilha": "motor órfão com o app fechado — o painel seguia conectado",
+   "confianca": "confirmado",
+   "fontes": [
+    "De Lá Pra Cá — sessão no Windows 11 (Resolve Studio 19.0.0b.59), 2026-10-04/05"
+   ]
+  },
+  "esvaziar_cache_de_arquivos": {
+   "categoria": "medicao",
+   "windows": "RAMMap (Sysinternals) como administrador: RAMMap64 -accepteula -Ew, -Es, -Et — equivale a ejetar e replugar o HD (análise fria 267 s nos dois)",
+   "macos": "sudo purge — pendente",
+   "armadilha": "sem esvaziar, a 2ª rodada mede a RAM, não o disco (301 s frio × 56 s logo depois)",
+   "confianca": "confirmado",
+   "fontes": [
+    "De Lá Pra Cá — sessão no Windows 11 (Resolve Studio 19.0.0b.59), 2026-10-04/05"
+   ]
+  },
+  "gatekeeper_sem_certificado": {
+   "categoria": "instalacao",
+   "windows": "SmartScreen: Mais informações › Executar assim mesmo",
+   "macos": "assinatura ad-hoc válida (signingIdentity \"-\") → Não Foi Aberto + Privacidade e Segurança › Abrir Mesmo Assim; assinatura só do linker → 'está danificado', só com xattr -cr",
+   "armadilha": "conferir codesign --strict dentro do .dmg montado; nome com acento: productName em NFD no build do Mac (o .icns sela NFC, o HFS+ grava NFD)",
+   "confianca": "confirmado",
+   "fontes": [
+    "De Lá Pra Cá 0.1.81 — fase 4 do instalador no macOS 15.6.1 (Mac mini M4), 2026-10-05"
+   ],
+   "busca": "signingIdentity|productName",
+   "tratado": "NFD|normalize"
+  },
+  "apagar_nome_acentuado_exfat": {
+   "categoria": "arquivos",
+   "windows": null,
+   "macos": "exFAT lista em NFD, mas o arquivo gravado em NFC só se apaga pelo nome NFC: rm -rf / remove_dir_all → os error 66",
+   "armadilha": "cargo tauri build com target no SSD exFAT falha ao limpar o .app → CARGO_TARGET_DIR no disco interno; shutil.rmtree do Python também falha, e em silêncio se FileNotFoundError for lido como 'já não existe' (Limpar do cache dizia que liberou e não apagava) → apagar tentando nome listado, NFC e NFD",
+   "confianca": "confirmado",
+   "fontes": [
+    "De Lá Pra Cá 0.1.81 — fase 4 do instalador no macOS 15.6.1 (Mac mini M4), 2026-10-05"
+   ],
+   "busca": "rmtree|remove_dir_all|CARGO_TARGET_DIR|\\.unlink\\(",
+   "tratado": "normalize|CARGO_TARGET_DIR|apagar_arvore|apagar_arquivo"
+  },
+  "pywebview_soltar_arquivo": {
+   "categoria": "interface",
+   "windows": "impossível: pywebview sem evento de drop de arquivo; o File do WebView2 não traz caminho → argv (arrastar sobre o .exe / Abrir com)",
+   "macos": "pendente",
+   "armadilha": "a UI deve dizer que não funciona; não é bug",
+   "confianca": "confirmado (Windows)",
+   "fontes": [
+    "SANITIZADOR_DE_AAF/CLAUDE.md (2026-08-20)",
+    "Registrado pelo zelador do SSD em 2026-10-06, ao arquivar o projeto"
+   ]
+  },
+  "target_rust_depois_de_mover": {
+   "categoria": "artefatos",
+   "windows": "inferido: mesmo comportamento",
+   "macos": "cache do Rust/Tauri grava caminhos absolutos; depois de mover a pasta o build falha (failed to read plugin permissions … No such file) → apagar target/ e recompilar",
+   "armadilha": "o erro aponta o caminho ANTIGO, não diz 'cache'",
+   "confianca": "confirmado (macOS)",
+   "fontes": [
+    "FLATFILE-MULTCAM 2026-07-03",
+    "VP9WAVDCP (memória do projeto)",
+    "Registrado pelo zelador do SSD em 2026-10-06, ao arquivar o projeto"
+   ],
+   "busca": "src-tauri/target"
+  },
+  "dmg_no_exfat": {
+   "categoria": "instalacao",
+   "windows": null,
+   "macos": "hdiutil não cria/monta a imagem no exFAT: o .app sai, o .dmg falha → só .app localmente, ou CARGO_TARGET_DIR no disco interno; .dmg de release pelo CI",
+   "armadilha": "targets: all no tauri.conf.json quebra o build local no SSD",
+   "confianca": "confirmado",
+   "fontes": [
+    "FLATFILE-MULTCAM 2026-07-03 (MULTICAM_TAURI_BUNDLES=app)",
+    "Registrado pelo zelador do SSD em 2026-10-06, ao arquivar o projeto"
+   ],
+   "busca": "\"targets\"\\s*:\\s*\"all\""
+  },
+  "ffmpeg_filtros_da_build": {
+   "categoria": "processo",
+   "windows": "pendente (builds full do gyan.dev/BtbN trazem drawtext — inferido)",
+   "macos": "Homebrew ffmpeg 8.1.1 sem drawtext ('Unknown filter'); o completo é ffmpeg-full",
+   "armadilha": "filtro que existe numa máquina e não na outra: o erro só aparece ao gerar; freetype de cada build desenha diferente",
+   "confianca": "confirmado (Mac) · pendente (Windows)",
+   "fontes": [
+    "laboratorio-de-midia/lab/fonte_pixel.py (2026-10-06)"
+   ],
+   "busca": "drawtext",
+   "tratado": "fonte_pixel",
+   "regra": "texto queimado por drawbox (fonte de pixels própria) ou perguntar ao `ffmpeg -filters` antes e dizer qual filtro faltou"
+  },
+  "mouse_sintetico": {
+   "categoria": "interface",
+   "windows": "SendInput com MOUSEEVENTF_ABSOLUTE|VIRTUALDESK e processo ciente de DPI por monitor (SetProcessDpiAwareness(2))",
+   "macos": "pendente (Quartz CGEventCreateMouseEvent + CGEventPost; pontos × pixels no Retina; permissão de Acessibilidade)",
+   "armadilha": "a roda do mouse sobre controle deslizante Qt muda o valor; sem ciência de DPI, a 125 % o clique cai fora do lugar",
+   "confianca": "Win confirmado · Mac pendente",
+   "fontes": [
+    "piloto/piloto/maos_windows.py (2026-10-12)",
+    "laboratorio-de-midia AniMatte/Effect Editor (2026-10-11/12)"
+   ],
+   "regra": "usar o piloto (maos.clicar/arrastar), nunca SendInput solto"
+  },
+  "foto_de_janela": {
+   "categoria": "interface",
+   "windows": "PrintWindow(hwnd, PW_RENDERFULLCONTENT); tela: PIL.ImageGrab.grab(all_screens=True)",
+   "macos": "pendente (screencapture -l <windowid>; permissão de Gravação de Tela)",
+   "armadilha": "janela de progresso fotografada cedo sai uniforme (preta): é cedo, não é diálogo desconhecido",
+   "confianca": "Win confirmado · Mac pendente",
+   "fontes": [
+    "piloto/piloto/olhos_windows.py (2026-10-12)"
+   ],
+   "regra": "olhos.fotografar / olhos.foto_da_tela"
+  },
+  "dialogo_de_outro_app": {
+   "categoria": "interface",
+   "windows": "Qt (MC, Resolve) e #32770 (Premiere) sem texto para a UIA: reconhecer pela FOTO (catálogo do piloto)",
+   "macos": "Premiere: título do AXDialog pela acessibilidade, Return no diálogo em foco; MC/Resolve pendente",
+   "armadilha": "diálogo desconhecido nunca leva clique: foto e parar",
+   "confianca": "Win confirmado · Mac: Premiere confirmado, resto pendente",
+   "fontes": [
+    "piloto/piloto/vigia_windows.py",
+    "laboratorio-de-midia/lab/bancadas/vigia_dialogos.py"
+   ],
+   "regra": "vigia.varrer / vigia.com_prazo com piloto/catalogos/<app>"
+  },
+  "caminho_para_extendscript": {
+   "categoria": "premiere",
+   "windows": "exportAsFinalCutProXML só aceita barra invertida; com / devolve false sem gravar (23.2, 2026-10-12); exportAAF aceita /",
+   "macos": "/ nativo (inferido)",
+   "armadilha": "retorno false calado; conferir o arquivo",
+   "confianca": "Win confirmado · Mac pendente",
+   "fontes": [
+    "bancodedadosnles/transversal/assinatura-de-origem.md"
+   ],
+   "regra": "os.path.normpath no caminho antes da ponte"
+  },
+  "arrasto_privado_de_nle": {
+   "categoria": "interface",
+   "windows": "janela nativa IDropTarget vê os formatos privados; janela que surge no meio do arrasto recebe o soltar (Resolve 19, 2026-10-12)",
+   "macos": "pendente (NSPasteboard)",
+   "armadilha": "o DOM do painel descarta formatos privados: vazio no painel não é arrasto vazio",
+   "confianca": "Win confirmado · Mac pendente",
+   "fontes": [
+    "bancodedadosnles/plugins/resolve-scripting/api-scripting.md",
+    "piloto/sondas/arrasto_nativo.py"
+   ],
+   "regra": "alvo nativo que surge sobre a área de soltar"
+  },
+  "socket_herdado_por_filho": {
+   "categoria": "rede",
+   "windows": "pendente (socket do Winsock nasce herdável: WSA_FLAG_NO_HANDLE_INHERIT / SetHandleInformation — não medido)",
+   "macos": "sem FD_CLOEXEC o filho herda a escuta e o arquivo; o \"e\" do fopen NÃO vale",
+   "armadilha": "código nosso dentro de outro processo (dylib/dll, servidor embutido): o filho dele (o avid-api-gateway do MC) herdou a porta 17890 e o log, ficou órfão e segurou a porta por dias sem aceitar",
+   "confianca": "confirmado",
+   "fontes": [
+    "_DeLaPraCa/tools/aro/aro_servidor.c (revisão 2026-10-28, MC 25.12 Mac; lsof do gateway + hospedeiro de teste com fork)"
+   ],
+   "busca": "\\bsocket\\(\\s*AF_INET",
+   "tratado": "FD_CLOEXEC",
+   "regra": "fcntl(fd, F_SETFD, FD_CLOEXEC) no socket, em cada accept e no FILE* do log; conferir com lsof -a -p <filho> -d 0-30"
+  },
+  "so_reuseport_em_loopback": {
+   "categoria": "rede",
+   "windows": "n/a (não existe; ver SO_EXCLUSIVEADDRUSE)",
+   "macos": "deixa qualquer processo local abrir a mesma porta depois, e o ÚLTIMO a abrir leva TODAS as conexões (6/6 medido)",
+   "armadilha": "sequestro calado do canal local (respostas falsas a quem pergunta)",
+   "confianca": "confirmado",
+   "fontes": [
+    "_DeLaPraCa/tools/aro/aro_servidor.c (revisão 2026-10-28, Mac)"
+   ],
+   "busca": "SO_REUSEPORT",
+   "tratado": "SO_EXCLUSIVEADDRUSE",
+   "regra": "só SO_REUSEADDR (basta para o TIME_WAIT); um ouvinte antigo COM SO_REUSEPORT vivo impede o novo SEM ele — encerrar o antigo"
+  },
+  "janela_do_terminal_da_sessao": {
+   "categoria": "interface",
+   "windows": "o console de um processo de CIMA (AttachConsole no pai/avô → GetConsoleWindow): no Windows Terminal é uma PseudoConsoleWindow cujo dono (GetAncestor GA_ROOTOWNER) é a janela CASCADIA_HOSTING_WINDOW_CLASS com o título da sessão; no console clássico, a própria janela",
+   "macos": "pendente: subir pelos pais até um processo de janela (System Events, background only = false) e pô-lo na frente",
+   "armadilha": "o console do NOSSO processo (sob a ferramenta Bash/PowerShell do Claude) é oculto ou nenhum, e a cadeia de pais NÃO passa pelo WindowsTerminal.exe (cmd ← explorer): procurar pelo nome do terminal não acha. Com várias abas, vem a aba ativa, não necessariamente a da sessão",
+   "confianca": "confirmado",
+   "fontes": [
+    "piloto/piloto/maos_windows.py devolver_ao_terminal (2026-10-29, Win11, Windows Terminal + PowerShell: Bloco de Notas na frente → terminal de volta, conferido pelo GetForegroundWindow)"
+   ],
+   "busca": "devolver_ao_terminal",
+   "tratado": "piloto maos.devolver_ao_terminal()",
+   "regra": "fim de toda tarefa pilotada devolve o foco ao terminal (skill piloto, autor 2026-10-29)"
+  }
+ }
+}

@@ -1,0 +1,28 @@
+{
+ "caso": "D02_GRAVADOR_50PPM",
+ "pergunta": "Gravador barato (50 ppm): uma hora → 180 ms (4,5 quadros a 25) no fim. O caso em que o editor vê a boca fora.",
+ "cena": {
+  "segundos": 3600,
+  "relogio": "10:00:00:00",
+  "semente": 22,
+  "data": "2026-10-30"
+ },
+ "raster": [
+  640,
+  360
+ ],
+ "fps": "25",
+ "camera": {
+  "inicio_s": 5,
+  "fim_s": 3595,
+  "atraso_ms": 3,
+  "relogio_ppm": 0,
+  "canais": 2
+ },
+ "som": {
+  "inicio_s": 2,
+  "fim_s": 3598,
+  "relogio_ppm": 50,
+  "canais": 1
+ }
+}

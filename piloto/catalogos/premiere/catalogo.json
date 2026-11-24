@@ -1,0 +1,26 @@
+[
+ {
+  "nome": "AAF Export Log",
+  "foto": "aaf_export_log.png",
+  "texto": "The AAF file \"…\" could not be exported completely and/or accurately, as logged below: Cannot export variable rate video clip … [OK]",
+  "quando": "ao exportar AAF (app.project.exportAAF) de sequência com time remapping/rampa; o AAF É gravado mesmo assim — aviso informativo (Premiere 23.2, Windows, 2026-10-12). ENTER não fecha; só o clique no OK",
+  "clique": [
+   375,
+   281
+  ],
+  "limite": 20,
+  "acao_em_palavras": "OK"
+ },
+ {
+  "nome": "Convert Project",
+  "foto": "convert_project.png",
+  "texto": "This project was saved from a previous version of Adobe Premiere Pro and must be converted. The original project file will not be modified. Location … Name <projeto>_1 [OK] [Cancel]",
+  "quando": "ao abrir um .prproj de versão anterior (Premiere 26.5.2, Windows, 2026-10-31: o destino do lab B110). OK grava a cópia convertida <nome>_1.prproj na mesma pasta e a abre; o original fica intacto. Autorizado pelo autor (2026-10-31)",
+  "clique": [
+   615,
+   211
+  ],
+  "limite": 20,
+  "acao_em_palavras": "OK"
+ }
+]

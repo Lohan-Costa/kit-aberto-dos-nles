@@ -1,0 +1,30 @@
+{
+ "caso": "B12_RELINK_MAIS",
+ "pergunta": "Relink do convertido para o original, as variáveis da lista do autor (2026-10-09) e as do RELINKER: proporções fora de 16:9, deformação sem tarja, rotação e flip por metadado, canais de áudio, convertido recortado no tempo e noutra taxa.",
+ "segundos": 4,
+ "fps": "24",
+ "tc_inicio": "10:00:00:00",
+ "camera": 1,
+ "take": 1,
+ "fonte": 1,
+ "canais": 2,
+ "perfis": [
+  "mov-prores"
+ ],
+ "pasta_original": "ORIGINAIS",
+ "variantes": [
+  {"rotulo": "SCOPE_TARJA", "raster": [4096, 1716], "convertido": {"raster": [1920, 1080], "modo": "fit"}},
+  {"rotulo": "SCOPE_STRETCH", "raster": [4096, 1716], "convertido": {"raster": [1920, 1080], "modo": "stretch"}},
+  {"rotulo": "QUATRO3_PILAR", "raster": [1440, 1080], "convertido": {"raster": [1920, 1080], "modo": "fit"}},
+  {"rotulo": "QUATRO3_STRETCH", "raster": [1440, 1080], "convertido": {"raster": [1920, 1080], "modo": "stretch"}},
+  {"rotulo": "QUADRADO", "raster": [1080, 1080], "convertido": {"raster": [1920, 1080], "modo": "fit"}},
+  {"rotulo": "ROT90_ASSADO", "raster": [2880, 1620], "camera": 3, "rotacao_metadado": 90, "convertido": {"raster": [1920, 1080], "modo": "fit"}},
+  {"rotulo": "ROT90_METADADO", "raster": [2880, 1620], "camera": 3, "rotacao_metadado": 90, "convertido": {"raster": [1920, 1080], "modo": "fit", "rotacao": "metadado"}},
+  {"rotulo": "FLIP_H", "raster": [3840, 2160], "flip_metadado": "h", "convertido": {"raster": [1920, 1080], "modo": "fit"}},
+  {"rotulo": "CANAIS6_PARA2", "raster": [3840, 2160], "canais": 6, "convertido": {"raster": [1920, 1080], "modo": "fit", "canais": 2}},
+  {"rotulo": "MONO6_PARA2", "raster": [3840, 2160], "canais": 6, "perfis": ["mov-prores-mono"], "convertido": {"raster": [1920, 1080], "modo": "fit", "canais": 2}},
+  {"rotulo": "TRECHO", "raster": [3840, 2160], "segundos": 6, "convertido": {"raster": [1920, 1080], "modo": "fit", "trecho": [1.5, 3]}},
+  {"rotulo": "TRECHO_TC_ZERADO", "raster": [3840, 2160], "segundos": 6, "convertido": {"raster": [1920, 1080], "modo": "fit", "trecho": [1.5, 3], "tc_zerado": true}},
+  {"rotulo": "TAXA_2997", "raster": [3840, 2160], "fps": "23.976", "convertido": {"raster": [1920, 1080], "modo": "fit", "fps": "29.97"}}
+ ]
+}

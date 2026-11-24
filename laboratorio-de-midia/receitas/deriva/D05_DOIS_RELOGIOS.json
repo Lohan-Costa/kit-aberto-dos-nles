@@ -1,0 +1,28 @@
+{
+ "caso": "D05_DOIS_RELOGIOS",
+ "pergunta": "Os dois aparelhos erram: a câmera −20 ppm e o gravador +15 ppm (35 ppm entre eles). A correção é RELATIVA à câmera, e o vídeo continua intocado.",
+ "cena": {
+  "segundos": 1800,
+  "relogio": "10:00:00:00",
+  "semente": 25,
+  "data": "2026-10-30"
+ },
+ "raster": [
+  640,
+  360
+ ],
+ "fps": "25",
+ "camera": {
+  "inicio_s": 5,
+  "fim_s": 1795,
+  "atraso_ms": 3,
+  "relogio_ppm": -20,
+  "canais": 2
+ },
+ "som": {
+  "inicio_s": 2,
+  "fim_s": 1798,
+  "relogio_ppm": 15,
+  "canais": 1
+ }
+}

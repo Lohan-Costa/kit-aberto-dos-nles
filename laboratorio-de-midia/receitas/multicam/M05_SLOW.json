@@ -1,0 +1,64 @@
+{
+ "caso": "M05_SLOW",
+ "pergunta": "Uma câmera grava a 100 quadros e o arquivo se declara 25 (câmera lenta 4×, sem som): o sync a põe no instante certo pelo TC e não tenta casar som que ela não tem?",
+ "cena": {
+  "segundos": 90,
+  "relogio": "16:00:00:00",
+  "semente": 19
+ },
+ "raster": [
+  1280,
+  720
+ ],
+ "perfil_video": "mov-h264",
+ "fontes": [
+  {
+   "nome": "CAM 1",
+   "camera": 1,
+   "fps": "25",
+   "tc": "relogio",
+   "atraso_ms": 4,
+   "ganho_db": -4,
+   "filtro": "lowpass=f=7000",
+   "tomadas": [
+    [
+     5,
+     80
+    ]
+   ]
+  },
+  {
+   "nome": "CAM 2",
+   "camera": 2,
+   "fps": "25",
+   "tc": "relogio",
+   "atraso_ms": 0,
+   "ganho_db": 0,
+   "tomadas": [
+    [
+     20,
+     30
+    ],
+    [
+     50,
+     58
+    ]
+   ],
+   "fps_captura": "100",
+   "audio": false
+  },
+  {
+   "nome": "SOM DIRETO",
+   "som": true,
+   "canais": 2,
+   "tc": "relogio",
+   "ganho_db": 0,
+   "tomadas": [
+    [
+     3,
+     85
+    ]
+   ]
+  }
+ ]
+}

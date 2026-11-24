@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  PONTE DO LABORATÓRIO — extensão CEP INVISÍVEL que deixa o laboratório operar o Premiere de fora:
+  um servidor HTTP em 127.0.0.1 (porta aleatória) recebe ExtendScript e devolve o resultado.
+  Instrumento de bancada, não produto: instalada só durante a rodada e removida no fim
+  (lab/bancadas/premiere.py). Autorizada pelo autor em 2026-10-06 ("ponte livre").
+  Arranque automático sem janela: banco, plugins/premiere-cep/painel-servido-e-identidade.md §1.
+-->
+<ExtensionManifest Version="7.0" ExtensionBundleId="com.usuario.lab.ponte"
+    ExtensionBundleVersion="0.1.0" ExtensionBundleName="Laboratorio Ponte"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ExtensionList>
+    <Extension Id="com.usuario.lab.ponte.invisivel" Version="0.1.0" />
+  </ExtensionList>
+  <ExecutionEnvironment>
+    <HostList>
+      <Host Name="PPRO" Version="[23.0,99.9]" />
+    </HostList>
+    <LocaleList>
+      <Locale Code="All" />
+    </LocaleList>
+    <RequiredRuntimeList>
+      <RequiredRuntime Name="CSXS" Version="9.0" />
+    </RequiredRuntimeList>
+  </ExecutionEnvironment>
+  <DispatchInfoList>
+    <Extension Id="com.usuario.lab.ponte.invisivel">
+      <DispatchInfo>
+        <Resources>
+          <MainPath>./index.html</MainPath>
+          <ScriptPath>./jsx/ponte.jsx</ScriptPath>
+          <CEFCommandLine>
+            <Parameter>--enable-nodejs</Parameter>
+            <Parameter>--mixed-context</Parameter>
+          </CEFCommandLine>
+        </Resources>
+        <Lifecycle>
+          <AutoVisible>false</AutoVisible>
+          <StartOn>
+            <Event>com.adobe.csxs.events.ApplicationActivate</Event>
+            <Event>applicationActivate</Event>
+          </StartOn>
+        </Lifecycle>
+        <UI>
+          <Type>Custom</Type>
+          <Geometry>
+            <Size><Height>10</Height><Width>10</Width></Size>
+          </Geometry>
+        </UI>
+      </DispatchInfo>
+    </Extension>
+  </DispatchInfoList>
+</ExtensionManifest>

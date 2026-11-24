@@ -1,0 +1,114 @@
+{
+  "_meta": {
+    "protocolo": "transversal",
+    "titulo": "Banco de midias compartilhado — cache de casamento entre apps e entre pessoas",
+    "confianca": "confirmado",
+    "atualizado": "2026-08-16",
+    "fontes": [
+      "De La Pra Ca, sessao de 2026-08-16 — implementacao e medicao (MC 25.6 / Windows 11)",
+      "_DeLaPraCa/docs/adr/0014-banco-de-midias-compartilhado.md",
+      "_PRODUCAO-V/decupador de material bruto/decupador/sidecar.py (padrao de escrita em pasta de rede)"
+    ],
+    "nle": "nao se aplica — vale para qualquer app que case timeline com acervo",
+    "notas": "Narrativa em banco-de-midias-compartilhado.md. Este banco nao tinha nada sobre indice compartilhado, escrita concorrente ou invalidacao de cache em rede."
+  },
+  "entries": {
+    "chave_nao_pode_ser_mob_id": {
+      "confianca": "confirmado",
+      "severidade": "alta",
+      "achado": "Em midia AMA o mob_id do master e' gerado fresco a cada link: 83 de 118 masters ganharam mob_id novo depois de um relink. Um cache chaveado por mob_id tem 0% de acerto na segunda vez.",
+      "por_que_e_pior_que_parece": "Nao produz erro nenhum — so' nunca serve para nada. Falha silenciosa pura.",
+      "chave_correta": "O NOME NORMALIZADO do master (sufixos do Avid removidos, caixa e acento normalizados). Atravessa projetos e episodios.",
+      "secundarias": "mob_id e material_package_umid valem para midia GERENCIADA, onde o UMID e' a identidade de verdade.",
+      "ressalva_2026_08_20": {
+        "confianca": "confirmado",
+        "achado": "O mob_id nao e' gerado fresco SEMPRE — e' gerado quando o ARQUIVO nao tem UMID para copiar. Num MXF profissional (Sony VENICE, ProRes 4444) linkado pelo MESMO arquivo por DOIS motores diferentes do Avid (MSP_MXF e UME), os tres MobIDs sairam BYTE-IDENTICOS: o Avid copia material_package_umid -> MasterMob.mob_id e file_package_umid -> SourceMob.mob_id.",
+        "estavel_para": ["MXF profissional com UMID SMPTE (Sony, ARRI, XDCAM, X-OCN)", "midia gerenciada Op-Atom"],
+        "instavel_para": ["BRAW", "WAV", "MOV/QuickTime", "sequencias de imagem"],
+        "hipotese_sobre_a_medicao_antiga": "os 83 de 118 que trocaram eram provavelmente os do segundo grupo; vale reconferir na amostra original separando BRAW de MXF",
+        "o_que_muda": "A chave primaria continua sendo o nome normalizado (cobre os dois grupos). Mas para acervo majoritariamente MXF de camera o mob_id vira DESEMPATE FORTE, melhor que a duracao.",
+        "ver": "../protocolos/mxf/dados/xocn-sony.json (mobid_vem_do_arquivo)"
+      }
+    },
+    "nome_colide_desempate_por_duracao": {
+      "confianca": "confirmado",
+      "achado": "Nome de midia colide (cartao reaproveitado entre diarias, 'Take 1.wav', clipe reexportado). Guardar UMA entrada por nome faz a ultima gravada apagar a anterior, e o master do outro episodio herda o arquivo errado, calado.",
+      "correcao": "Guardar TODAS as entradas de um nome e desempatar pela duracao, com a MESMA regua do matcher.",
+      "cascata": [
+        "especie (audio x video)",
+        "duracao tri-estado (True aprova, False reprova, None neutro)",
+        "revalidacao 1:1 do arquivo (tamanho + mtime)"
+      ],
+      "regra_do_tri_estado": "Havendo algum candidato com prova (True), os neutros sao descartados: palpite nao compete com medicao.",
+      "sobrando_mais_de_um": "O cache tem de SE CALAR (ambiguo) e deixar a varredura decidir. Um acelerador que chuta deixa de ser acelerador.",
+      "duas_perguntas_diferentes": {
+        "matcher": "master x ARQUIVO — uma diferenca pode ser midia consolidada (normal). Regua assimetrica: arquivo nunca mais curto que o master.",
+        "cache": "master x master guardado — uma diferenca e' prova de que e' OUTRO master. Regua simetrica."
+      }
+    },
+    "como_medir_o_ganho": {
+      "confianca": "confirmado",
+      "severidade": "alta",
+      "achado": "A medicao obvia MENTE. Duas rodadas no mesmo processo: o cache saiu 15% MAIS LENTO. Cada rodada em processo novo: 21% mais rapido.",
+      "causa": "O cache de metadado do indexer (_META_CACHE: path -> (mtime, size, metadata)) vive no PROCESSO. index.meta custou 7957 ms na 1a rodada e 1 ms na 2a.",
+      "consequencia": "Como o servico e' um processo longo, o SEGUNDO relink da mesma sessao ja' era rapido antes de qualquer cache persistente existir.",
+      "regra": "'Rodei duas vezes e ficou mais rapido' NAO mede o cache — mede o processo.",
+      "protocolo_honesto": [
+        "1. rodada de aquecimento descartada (cache do sistema de arquivos quente para todos)",
+        "2. cada rodada num PROCESSO NOVO (cache em memoria nasce frio)",
+        "3. a rodada SEM o cache por ULTIMO — a posicao mais favoravel a ela",
+        "4. conferir que o cache nao resolveu MENOS: ganho as custas de acerto nao e' ganho"
+      ],
+      "numeros": {
+        "sem_banco_ms": 2729,
+        "com_banco_ms": 2150,
+        "ganho_pct": 21,
+        "resolvidos": "98/118 nos dois — sem perder acerto",
+        "custo_com_cache_quente_ms": 230,
+        "custo_por_arquivo_de_metadado_ms": 61,
+        "nota": "Acervo pequeno. A economia cresce com o numero de arquivos, porque o que se corta e' metadado por arquivo."
+      }
+    },
+    "escrita_concorrente_sem_trava": {
+      "confianca": "inferido do confirmado",
+      "contexto": "Em SMB lock nao e' confiavel. Padrao vindo do _PRODUCAO-V/decupador, aqui aplicado e exercitado.",
+      "layout": {
+        "banco.json": "cabecalho: esquema, producao, raizes",
+        "fragmentos/<host>-<user>.jsonl": "cada maquina escreve SO' o seu, append-only",
+        "mapa.json": "consolidado de leitura, regravado a partir dos fragmentos"
+      },
+      "regras": [
+        "Um escritor por arquivo — ninguem escreve no arquivo de outra maquina, entao nao ha' o que travar. O carimbo mais novo vence.",
+        "Leitura defensiva: linha de JSONL que nao parseia e' PULADA (a ultima pode estar sendo escrita agora; fragmento de rede e' entrada nao confiavel).",
+        "Consolidar NUNCA apaga fragmento. Se a troca falhar, nada se perde.",
+        "os.replace so' e' atomico DENTRO DO MESMO VOLUME: o temporario vai na pasta do banco, com o PID no nome."
+      ],
+      "mtime_em_segundos_inteiros": "exFAT e SMB divergem no sub-segundo; comparar nanossegundo entre maquinas invalidaria o cache inteiro a cada leitura.",
+      "versionar_o_esquema": "E bumpar tambem ao consertar um EXTRATOR — senao o metadado errado sobrevive ao conserto e o defeito volta calado."
+    },
+    "caminhos_entre_maquinas": {
+      "confianca": "confirmado",
+      "regra": "Guardar as DUAS formas: raiz+relativo (portatil) e o absoluto observado.",
+      "raiz": "O ROTULO DO VOLUME — a mesma identidade da coluna Drive do Avid, e a que sobrevive a montar o acervo com outra letra.",
+      "seguranca": "Caminho vindo do banco e' ENTRADA DE REDE. Uma URL disfarcada de caminho chegando ao ffmpeg ou ao MediaInfo e' SSRF — validar antes de qualquer uso."
+    },
+    "onde_a_configuracao_vive": {
+      "confianca": "confirmado",
+      "decisao": "Na pasta do PROJETO (so' o CAMINHO do banco, nunca o banco), e nao na maquina.",
+      "de_graca": [
+        "abrir o projeto ja' traz o banco conectado",
+        "trocar de projeto DESCONECTA — sem uma linha de codigo para isso",
+        "a equipe que compartilha a pasta do projeto compartilha o banco"
+      ],
+      "por_que_nao_na_maquina": "O banco de uma producao seguiria o EDITOR para dentro do projeto de outro cliente."
+    },
+    "a_regra_que_atravessa_tudo": {
+      "confianca": "confirmado",
+      "regra": "O cache e' GUIA, nunca regra. Entrega um candidato ja' confirmado por um humano, que passa por revalidacao antes de valer; o que ele nao souber segue o caminho completo.",
+      "invariantes": [
+        "Nao pode haver rota em que o cache IMPECA uma descoberta.",
+        "Falhar ao ler ou gravar o cache jamais pode derrubar o trabalho."
+      ]
+    }
+  }
+}

@@ -1,0 +1,11 @@
+from comum import *
+r = resolve(); p = r.GetProjectManager().GetCurrentProject(); tl = p.GetCurrentTimeline()
+print(p.GetName(), tl.GetName())
+r.OpenPage("color")
+st = tl.GrabStill()
+g = p.GetGallery(); al = g.GetCurrentStillAlbum()
+print("still", st, "album", al)
+os.makedirs(AQUI + "/drx", exist_ok=True)
+print("export", al.ExportStills([st], AQUI + "/drx", "lab", "drx"))
+print(os.listdir(AQUI + "/drx"))
+r.OpenPage("edit")

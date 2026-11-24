@@ -1,0 +1,18 @@
+{
+ "caso": "DEMO_4CAMERAS",
+ "pergunta": "A demo de 23/10: quatro câmeras e um gravador, cada um começando e parando numa hora; três com TC de relógio e a CAM 4 SEM TC nenhum. O Órbita põe tudo no lugar, inclusive a câmera que só tem o som para se achar?",
+ "cena": {"segundos": 80, "relogio": "14:00:00:00", "semente": 23},
+ "raster": [1280, 720],
+ "perfil_video": "mov-h264",
+ "fontes": [
+  {"nome": "CAM 1", "camera": 1, "fps": "25", "tc": "relogio", "atraso_ms": 3, "ganho_db": -3,
+   "filtro": "lowpass=f=8000", "tomadas": [[3, 38], [45, 76]]},
+  {"nome": "CAM 2", "camera": 2, "fps": "25", "tc": "relogio", "atraso_ms": 9, "ganho_db": -8,
+   "filtro": "highpass=f=200,lowpass=f=6000", "tomadas": [[5, 36], [42, 78]]},
+  {"nome": "CAM 3", "camera": 3, "fps": "25", "tc": "relogio", "atraso_ms": 15, "ganho_db": -10,
+   "filtro": "lowpass=f=5000", "tomadas": [[8, 40], [47, 74]]},
+  {"nome": "CAM 4", "camera": 4, "fps": "25", "tc": "nenhum", "atraso_ms": 6, "ganho_db": -6,
+   "filtro": "highpass=f=300", "tomadas": [[2, 33], [44, 79]]},
+  {"nome": "SOM DIRETO", "som": true, "canais": 2, "tc": "relogio", "ganho_db": 0, "tomadas": [[1, 39], [41, 79.5]]}
+ ]
+}

@@ -1,0 +1,19 @@
+{
+ "caso": "BL01_CONFORM",
+ "pergunta": "A sequência do MC/Premiere chega ao Baselight conformada nos originais (AAF religado, XML, FLE)? Cada plano no arquivo e no TC de fonte certos, quadro a quadro.",
+ "segundos": 20,
+ "raster": [1920, 1080],
+ "fonte": 1,
+ "canais": 2,
+ "take": 1,
+ "perfis": ["mov-prores"],
+ "variantes": [
+  {"rotulo": "A1", "nome": "A001C001_251121_R1AB", "pasta_original": "ORIGINAIS_2398/DIA01/A001", "camera": 1, "fps": "23.976", "tc_inicio": "10:00:00:00", "raster": [3840, 2160]},
+  {"rotulo": "A2", "nome": "A001C002_251121_R1AB", "pasta_original": "ORIGINAIS_2398/DIA01/A001", "camera": 1, "fps": "23.976", "tc_inicio": "10:05:00:00"},
+  {"rotulo": "B1", "nome": "B001C001_251121_R2CD", "pasta_original": "ORIGINAIS_2398/DIA01/B001", "camera": 2, "fps": "23.976", "tc_inicio": "10:00:10:00"},
+  {"rotulo": "C1", "nome": "C001C001_251121_R3EF", "pasta_original": "ORIGINAIS_2398/DIA01/C001", "camera": 3, "fps": "23.976", "tc_inicio": "11:30:00:00"},
+  {"rotulo": "D1", "nome": "A002C001_251121_R1AB", "pasta_original": "ORIGINAIS_2997DF/DIA02/A002", "camera": 1, "fps": "29.97", "drop_frame": true, "tc_inicio": "14:59:50;00"},
+  {"rotulo": "D2", "nome": "B002C001_251121_R2CD", "pasta_original": "ORIGINAIS_2997DF/DIA02/B002", "camera": 2, "fps": "29.97", "drop_frame": true, "tc_inicio": "15:09:55;00"},
+  {"rotulo": "D3", "nome": "C002C001_251121_R3EF", "pasta_original": "ORIGINAIS_2997DF/DIA02/C002", "camera": 3, "fps": "29.97", "drop_frame": true, "tc_inicio": "15:00:50;00"}
+ ]
+}

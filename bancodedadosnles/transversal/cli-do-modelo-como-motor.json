@@ -1,0 +1,454 @@
+{
+  "_meta": {
+    "protocolo": "transversal",
+    "titulo": "O CLI do modelo como motor do plugin — flags, eventos do stream, limites e custo",
+    "confianca": "confirmado",
+    "atualizado": "2026-09-16",
+    "fontes": [
+      "_CICLO ASSIST/docs/adr/0001-backend-do-modelo.md",
+      "_CICLO ASSIST/docs/adr/0003-modelo-de-permissao.md",
+      "_CICLO ASSIST/docs/adr/0004-identidade-de-sessao.md",
+      "_CICLO ASSIST/docs/adr/0005-superficie-de-seguranca.md",
+      "_CICLO ASSIST/docs/adr/0008-aprovacao-sem-relogio.md",
+      "_CICLO ASSIST/docs/adr/0010-o-metodo-do-oficio.md",
+      "_CICLO ASSIST/spikes/o_que_o_cli_conta.py",
+      "_CICLO ASSIST/spikes/o_que_e_a_janela.py",
+      "_CICLO ASSIST/spikes/o_cli_carrega_skill.py",
+      "_CICLO ASSIST/spikes/o_que_enche_a_janela.py",
+      "_CICLO ASSIST/cicloassist/motor/claude.py",
+      "_CICLO ASSIST/cicloassist/motor/sessao.py",
+      "_CICLO ASSIST/spikes/o_modelo_local_decupa.py",
+      "_CICLO ASSIST/docs/spec/2026-09-13-servidor-de-percepcao-mac.md",
+      "_CICLO ASSIST/spikes/o_ollama_como_motor.py"
+    ],
+    "nle": "independente de NLE — medido com Media Composer 25.6 ao lado",
+    "motor": "Claude Code CLI 2.1.267 → 2.1.269, Windows 11",
+    "impressao_digital": {
+      "flag_effort_existe": "2.1.269",
+      "perTurnEffort_padrao": null
+    },
+    "notas": "Medido no Ciclo Assist entre 2026-09-10 e 2026-09-12 sobre material real de set. Narrativa em cli-do-modelo-como-motor.md."
+  },
+  "flags_obrigatorias": {
+    "--strict-mcp-config": {
+      "confianca": "confirmado",
+      "porque": "sem ela a sessão herda os MCP da conta pessoal do editor",
+      "medido": "3 servidores e 35 ferramentas (Gmail, Drive, Adobe) entrando numa sessão de projeto"
+    },
+    "--restricted": {
+      "confianca": "confirmado",
+      "porque": "sem ela a caixa de chat é um shell na estação do cliente",
+      "remove": [
+        "Bash",
+        "PowerShell",
+        "REPL",
+        "WebFetch"
+      ],
+      "efeito_colateral": "bloqueia TAMBÉM as skills do próprio CLI (medido em 3 variantes, 2026-09-12)"
+    },
+    "--permission-prompts host": {
+      "confianca": "confirmado",
+      "porque": "par obrigatório do --permission-prompt-tool; sem os dois não há portão"
+    },
+    "--permission-prompt-tool": {
+      "confianca": "confirmado",
+      "valor": "o nome mcp__<servidor>__<ferramenta> da ferramenta que decide",
+      "porque": "é o que permite responder deny na hora e executar depois, no clique do editor"
+    },
+    "--output-format stream-json": {
+      "confianca": "confirmado",
+      "exige": "--verbose junto, senão o CLI recusa"
+    },
+    "--include-partial-messages": {
+      "confianca": "confirmado",
+      "porque": "sem ela não há token ao vivo; a tela fica em reticências até a resposta inteira"
+    },
+    "stdin=DEVNULL": {
+      "confianca": "confirmado",
+      "escopo": "no Popen, quando não se usa stdin",
+      "porque": "sem isso o CLI espera 3 s por stdin ANTES de começar o turno",
+      "sintoma": "parece lentidão do modelo; o aviso só sai no stderr"
+    }
+  },
+  "flags_de_custo_e_esforco": {
+    "--effort": {
+      "confianca": "confirmado",
+      "valores": [
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "padrao": "não passado = perTurnEffort null",
+      "nota": "NÃO é alavanca de custo: ~70% da SAÍDA é pensamento, mas a saída é 0,3% dos tokens totais"
+    },
+    "--max-budget-usd": {
+      "confianca": "confirmado",
+      "restricao": "só funciona com --print",
+      "pendente": "o que conta numa conta de assinatura, onde não há cobrança por token"
+    },
+    "--autocompact": {
+      "confianca": "confirmado",
+      "valores": "auto, ou 100k–1M tokens",
+      "nota": "prevenção possível para o compact_boundary; não medido"
+    },
+    "--fallback-model": {
+      "confianca": "confirmado"
+    },
+    "--fork-session": {
+      "confianca": "confirmado",
+      "nota": "com --resume, cria id novo em vez de reusar"
+    }
+  },
+  "ambiente": {
+    "MCP_TOOL_TIMEOUT": {
+      "confianca": "confirmado",
+      "unidade": "milissegundos",
+      "padrao_de_fabrica": 60000,
+      "usado_por_nos": 600000,
+      "armadilha": "é do ambiente do SUBPROCESSO; um Popen que esqueça env= roda com o padrão"
+    }
+  },
+  "eventos_do_stream": {
+    "rate_limit_event": {
+      "confianca": "confirmado",
+      "quando": "antes do primeiro token E antes do system/init",
+      "campos": [
+        "rate_limit_info.unifiedWindows.<janela>.utilization",
+        ".resetsAt"
+      ],
+      "nota": "utilization já vem normalizado 0–1 pelo CLI; pode não vir quando o uso é baixo"
+    },
+    "system/init": {
+      "confianca": "confirmado",
+      "campos": [
+        "session_id",
+        "model",
+        "tools",
+        "mcp_servers",
+        "apiKeySource",
+        "permissionMode",
+        "slash_commands",
+        "output_style"
+      ],
+      "NAO_traz": "contextWindow"
+    },
+    "stream_event/message_start|message_delta": {
+      "confianca": "confirmado",
+      "campos": [
+        "usage.input_tokens",
+        "usage.cache_read_input_tokens",
+        "usage.cache_creation_input_tokens",
+        "usage.output_tokens"
+      ],
+      "nota": "é daqui que sai a ocupação REAL da janela — a soma das três entradas da ÚLTIMA requisição"
+    },
+    "system/compact_boundary": {
+      "confianca": "confirmado",
+      "campos": [
+        "compactMetadata.trigger",
+        ".preTokens",
+        ".postTokens",
+        ".cumulativeDroppedTokens",
+        ".durationMs",
+        ".preCompactDiscoveredTools"
+      ],
+      "medido": {
+        "preTokens": 582570,
+        "postTokens": 108239,
+        "cumulativeDroppedTokens": 474331,
+        "durationMs": 70184
+      },
+      "nota": "70 segundos SEM UMA PALAVRA de saída. Traduza para a tela ou o produto fica mudo."
+    },
+    "result": {
+      "confianca": "confirmado",
+      "campos": [
+        "modelUsage.<modelo>.contextWindow",
+        ".inputTokens",
+        ".cacheReadInputTokens",
+        ".cacheCreationInputTokens",
+        ".outputTokens",
+        ".costUSD",
+        "total_cost_usd",
+        "is_error"
+      ],
+      "nota": "ÚNICO lugar onde a janela de contexto aparece — e ele chega no FIM do turno"
+    }
+  },
+  "armadilhas": {
+    "soma_do_result_nao_e_ocupacao": {
+      "confianca": "confirmado",
+      "medido": {
+        "soma_do_result": 267873,
+        "ocupacao_real": 23360,
+        "razao": 11
+      },
+      "porque": "cada chamada de ferramenta reenvia a conversa inteira; o result soma o turno todo",
+      "sintoma": "a barra mostra 186%, 284%, 200% — impossível por definição"
+    },
+    "janela_por_modelo": {
+      "confianca": "confirmado",
+      "medido": {
+        "claude-haiku-4-5": 200000,
+        "claude-sonnet-5": 1000000
+      },
+      "nota": "os dois aparecem no MESMO modelUsage de um turno; guardar 'a última janela que vi' mistura as duas"
+    },
+    "teto_de_saida_da_ferramenta": {
+      "confianca": "confirmado",
+      "erro": "Error: result (N characters across M lines) exceeds maximum allowed tokens.",
+      "bracketing": {
+        "passou_inteiro_chars": 20201,
+        "estourou_chars": 55844
+      },
+      "variante": "<persisted-output> com prévia de 2 KB mais o caminho",
+      "armadilha": "o nome do arquivo carrega timestamp, NÃO a identidade da chamada — com chamadas paralelas o modelo perde o mapeamento",
+      "medido_em_campo": "12 de 14 transcrições estouraram; a recuperação por grep custou 118 KB, mais que as próprias transcrições"
+    },
+    "session_id_em_id_existente_nao_da_erro": {
+      "confianca": "confirmado",
+      "nota": "--session-id num id que existe começa conversa nova e descarta o fio em SILÊNCIO; --resume num id inexistente falha limpo com 'No conversation found with session ID'",
+      "regra": "--resume primeiro, sempre, com queda para --session-id"
+    },
+    "id_do_fio_tem_de_ser_persistido": {
+      "confianca": "confirmado",
+      "nota": "derivar o id do caminho do projeto + limpar só na memória = o 'limpar' vira no-op depois de reiniciar o serviço, e o turno seguinte retoma o fio com --resume",
+      "medido_em_campo": "uma conversa de 582.570 tokens voltou assim, debaixo de um modelo de janela 200 mil"
+    },
+    "transcript_grava_a_mesma_mensagem_varias_vezes": {
+      "confianca": "confirmado",
+      "medido": "2,6x a 3,2x — uma linha por bloco de conteúdo, repetindo o usage inteiro",
+      "regra": "deduplicar por message.id, senão a conta triplica"
+    },
+    "transcript_nao_tem_custo": {
+      "confianca": "confirmado",
+      "nota": "sem campo de custo e sem evento result; os dois só existem no stream ao vivo"
+    },
+    "mesmo_id_em_mais_de_uma_pasta": {
+      "confianca": "confirmado",
+      "nota": "o CLI indexa por cwd; escolher por ordem alfabética pega a errada em silêncio"
+    }
+  },
+  "custo": {
+    "o_que_custa_e_o_contexto": {
+      "confianca": "confirmado",
+      "medido": {
+        "mesma_tarefa_conversa_velha": {
+          "contexto_inicial": 505397,
+          "chamadas": 12,
+          "tokens_totais": 6574840
+        },
+        "mesma_tarefa_conversa_limpa": {
+          "contexto_inicial": 13833,
+          "chamadas": 13,
+          "tokens_totais": 690727
+        },
+        "razao": 10.8
+      },
+      "saida_de_ferramenta_no_total": "0,5% do que foi lido",
+      "regra": "otimizar payload de ferramenta rende pouco; encurtar a conversa rende uma ordem de grandeza"
+    },
+    "dolar_engana_em_assinatura": {
+      "confianca": "confirmado",
+      "nota": "total_cost_usd aparece mesmo onde não há cobrança por token; a moeda real é rate_limit_event.utilization"
+    }
+  },
+  "transcript_em_disco": {
+    "caminho": "~/.claude/projects/<cwd-com-barras-trocadas>/<session-id>.jsonl",
+    "saidas_que_estouraram": "<session-id>/tool-results/",
+    "confianca": "confirmado",
+    "para_que_serve": "responder 'qual ferramenta encheu a janela?' sem instrumentar nada — pergunta que o servidor MCP normalmente não responde, porque tools/call costuma não medir bytes nem duração"
+  },
+  "modelo_local_ollama": {
+    "_escopo": "Ollama 0.33.3, Windows 11, RTX 4050 Laptop 6 GB, 16 GB RAM, Media Composer 2025.6 aberto; 2026-09-12/13. Ver §10 do .md.",
+    "estacao_de_edicao_nao_hospeda": {
+      "confianca": "confirmado",
+      "medido": {
+        "modelo": "qwen2.5vl:7b",
+        "tamanho_gb": 6.7,
+        "processor": "51%/49% CPU/GPU",
+        "primeira_midia": "estourou 600 s"
+      },
+      "telas_azuis": "repetidas com modelo local ao lado do MC; a última em 2026-09-13 com gemma3:4b carregando",
+      "regra": "inferência local em máquina separada na rede; a estação é do NLE"
+    },
+    "protocolo_anthropic": {
+      "confianca": "confirmado",
+      "endpoint": "POST /v1/messages",
+      "evidencia": "erro no formato Anthropic: {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\"},\"request_id\":\"req_...\"}",
+      "tambem": [
+        "POST /v1/chat/completions (OpenAI)",
+        "POST /api/chat (nativa)"
+      ],
+      "claude_cli_por_cima": {
+        "confianca": "confirmado",
+        "medido_em": "2026-09-16",
+        "versoes": {
+          "claude_code": "2.1.273",
+          "ollama": "0.33.3"
+        },
+        "modelo": "qwen3-vl:8b-instruct",
+        "ambiente": {
+          "ANTHROPIC_BASE_URL": "http://<mac>:11434",
+          "ANTHROPIC_API_KEY": "qualquer — sem ela o token OAuth vai ao servidor",
+          "remover": [
+            "ANTHROPIC_AUTH_TOKEN",
+            "CLAUDE_CODE_OAUTH_TOKEN"
+          ],
+          "apelidos": [
+            "ANTHROPIC_DEFAULT_OPUS_MODEL",
+            "ANTHROPIC_DEFAULT_SONNET_MODEL",
+            "ANTHROPIC_DEFAULT_HAIKU_MODEL",
+            "ANTHROPIC_SMALL_FAST_MODEL"
+          ],
+          "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1"
+        },
+        "tool_call": "confirmado",
+        "portao_deny_respeitado": "confirmado (3 rodadas)",
+        "piso_tokens": {
+          "sem_mcp": 955,
+          "com_23_ferramentas_ciclo_assist": 10900
+        },
+        "tempo_s": {
+          "frio": 135,
+          "morno": 40,
+          "quente": "9-10"
+        },
+        "texto_apos_deny": "o 8B afirma a escrita que não aconteceu (n=3)"
+      },
+      "contexto_do_servidor": {
+        "confianca": "confirmado",
+        "context_length_carregado": 40960,
+        "teto_do_modelo": 262144,
+        "como_ler": "GET /api/ps → models[].context_length",
+        "nota": "CORRIGE 2026-09-16: o piso de ~40 mil era o prompt padrão com ferramentas nativas; com --tools \"\" é ~11 mil"
+      },
+      "perde_no_host": {
+        "confianca": "confirmado",
+        "modelUsage_inventado": {
+          "contextWindow": 200000,
+          "costUSD": "preço de tabela",
+          "costBasis": "unknown"
+        },
+        "inputTokens": "só o que não veio do cache do Ollama",
+        "sem": [
+          "rate_limit_event"
+        ]
+      }
+    },
+    "contexto_padrao": {
+      "confianca": "confirmado",
+      "num_ctx_padrao": 4096,
+      "medido": {
+        "modelo": "qwen2.5vl:7b",
+        "quadros": 6,
+        "jpeg_kb_cada": 18,
+        "base64_kb_total": 237,
+        "tokens_de_prompt": 6229
+      },
+      "erro": "400 exceed_context_size_error",
+      "conserto_na_api_nativa": {
+        "options.num_ctx": 12288
+      }
+    },
+    "capacidades": {
+      "confianca": "confirmado",
+      "como_conferir": "POST /api/show {\"model\": ...} -> capabilities",
+      "medido": {
+        "qwen2.5vl:7b": [
+          "completion",
+          "vision"
+        ],
+        "gemma3:4b": [
+          "completion",
+          "vision"
+        ],
+        "llama3.1:8b": [
+          "completion",
+          "tools"
+        ],
+        "mistral:latest": [
+          "completion",
+          "tools"
+        ],
+        "gemma4:latest": [
+          "completion",
+          "tools",
+          "thinking"
+        ],
+        "gemma2:9b": [
+          "completion"
+        ],
+        "llama3.2:3b": [
+          "completion",
+          "tools"
+        ]
+      },
+      "consequencia": "nenhum dos listados tem vision E tools: um decupa, outro seria motor do CLI",
+      "imagem_para_modelo_sem_vision": {
+        "confianca": "hipotese",
+        "nao_medido": "o spike recusa antes; suposição: aceita calado e inventa"
+      }
+    },
+    "vlm_pequeno_vs_claude": {
+      "confianca": "confirmado",
+      "n": 1,
+      "modelo": "qwen2.5vl:7b",
+      "temperature": 0,
+      "falhas": [
+        "copiou a chave placeholder \"<chave da mídia>\" do envelope por chave",
+        "com resposta plana, devolveu ARRAY com uma decupagem por quadro apesar do cabeçalho \"6 quadros da mídia X, em ordem\""
+      ],
+      "conserto": "uma mídia por pedido, resposta plana, e \"os quadros são do MESMO plano; responda UM único objeto\" explícito",
+      "porque_o_envelope_existia": "juntar mídias por turno para amortizar o piso de ~40 mil tokens do CLI; modelo local não tem piso",
+      "placar_parcial": {
+        "campos_iguais": 4,
+        "de": 5,
+        "fora_do_vocabulario": 0,
+        "aviso": "n = 1, não é resultado"
+      },
+      "segundos": {
+        "frio": 151,
+        "quente": 45,
+        "haiku_3_por_turno": 10
+      }
+    },
+    "servidor_compartilhado": {
+      "medido": {
+        "confianca": "confirmado",
+        "fila_com_1_vaga_s": 286,
+        "cache_de_prompt": {
+          "primeira_s": 187,
+          "repetida_s": 5,
+          "tokens": 13606
+        },
+        "sem_autenticacao": true,
+        "lote_e_chat_na_mesma_fila": true
+      },
+      "deduzido": {
+        "confianca": "inferido",
+        "OLLAMA_NUM_PARALLEL": "vagas; contexto reservado por vaga (num_ctx x vagas)",
+        "OLLAMA_MAX_QUEUE": 512,
+        "gpu_16gb_8b_q4_ctx40k": "~2 vagas (3 com q8_0 ou contexto menor)",
+        "cache_erra_mais_com_revezamento": true,
+        "escalar_para": "vLLM (Linux/WSL2)"
+      },
+      "estimativa": {
+        "confianca": "hipotese",
+        "time": "3-5 editores, chat intermitente, RTX 5060 Ti 16 GB, 2 vagas"
+      },
+      "regras": [
+        "firewall so para as estacoes; proxy com senha se crescer",
+        "nunca fora da LAN",
+        "lote fora do horario ou vaga reservada",
+        "dimensionar por pedidos simultaneos"
+      ],
+      "pendente": [
+        "medir leitura/geracao na GPU",
+        "dois pedidos simultaneos: tempo de cada e /api/ps"
+      ]
+    }
+  }
+}

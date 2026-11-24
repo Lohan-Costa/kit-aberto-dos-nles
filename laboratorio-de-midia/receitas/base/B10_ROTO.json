@@ -1,0 +1,43 @@
+{
+  "caso": "B10_ROTO",
+  "pergunta": "Máscara e tracking (rotoscopia): uma 'pessoa' andando de um canto ao outro, com movimento NÃO linear, sobre fundo com textura fixa. A máscara perfeita e a posição de cada quadro vêm junto, para medir a rotoscopia do NLE (Premiere 2025+/2026, Resolve) por pixel.",
+  "pedido_por": "autor, 2026-10-07 (para o teste de máscara/tracking do Premiere e um teste futuro no Resolve)",
+  "largura": 1920,
+  "altura": 1080,
+  "fps": 25,
+  "segundos": 12,
+  "tc_inicio": "01:00:00:00",
+  "pessoa": {
+    "altura_px_perto": 620,
+    "escala_longe": 0.5,
+    "passada_px": 150,
+    "trajeto_bezier": [
+      [
+        -180,
+        1180
+      ],
+      [
+        560,
+        1060
+      ],
+      [
+        1180,
+        470
+      ],
+      [
+        2180,
+        330
+      ]
+    ],
+    "pausa_no_meio": {
+      "em": 0.45,
+      "largura": 0.09,
+      "velocidade_minima": 0.12
+    },
+    "balanco_px": 10
+  },
+  "saidas": {
+    "imagem": "B10_ROTO_MOV-PRORES.mov",
+    "mascara": "B10_ROTO_MASCARA_MOV-PRORES.mov"
+  }
+}

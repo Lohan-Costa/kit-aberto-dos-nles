@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>*{box-sizing:border-box}body{margin:0}</style>
+<title>Piloto e autonomia nos testes</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: uma régua de timeline no topo; seções em coluna única de leitura, com faixas de "trilhas" para os papéis */
+:root{
+  --bg:#eef1f4; --surface:#ffffff; --ink:#18212b; --muted:#56616d; --line:#cdd5dd;
+  --opus:#5b3fc4; --sonnet:#0f7c86; --piloto:#b45a12; --ok:#1f7a3f; --alerta:#a3261f; --tc:#127a55;
+  --display:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#11161c; --surface:#19212a; --ink:#e4e9ee; --muted:#9aa6b2; --line:#2c3743;
+  --opus:#a993ff; --sonnet:#4cc6cf; --piloto:#f0a35c; --ok:#5fd18a; --alerta:#ff7b72; --tc:#3fe0a0; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#11161c; --surface:#19212a; --ink:#e4e9ee; --muted:#9aa6b2; --line:#2c3743;
+  --opus:#a993ff; --sonnet:#4cc6cf; --piloto:#f0a35c; --ok:#5fd18a; --alerta:#ff7b72; --tc:#3fe0a0; color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;padding-inline:16px;padding-block:24px 56px}
+main{max-width:920px;margin:0 auto;display:flex;flex-direction:column;gap:40px}
+h1,h2,h3{font-family:var(--display);font-weight:600;letter-spacing:.01em;text-wrap:balance;margin:0}
+h1{font-size:clamp(2.2rem,6vw,3.4rem);line-height:1.02}
+h2{font-size:1.75rem;line-height:1.1}
+h3{font-size:1.25rem}
+p{margin:0;max-width:68ch}
+.regua{font-family:var(--mono);font-size:.78rem;color:var(--tc);display:flex;justify-content:space-between;border-bottom:2px solid var(--tc);padding-bottom:6px;margin-bottom:14px;overflow:hidden;white-space:nowrap;gap:12px}
+.lead{font-size:1.1rem;color:var(--muted)}
+.etiqueta{font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+section{display:flex;flex-direction:column;gap:14px}
+.trilhas{display:flex;flex-direction:column;gap:10px}
+.trilha{display:grid;grid-template-columns:150px 1fr;gap:16px;background:var(--surface);border:1px solid var(--line);border-left:6px solid var(--c);border-radius:4px;padding:14px 16px}
+.trilha .nome{font-family:var(--display);font-size:1.35rem;font-weight:700;color:var(--c);line-height:1.1}
+.trilha .nome small{display:block;font-family:var(--mono);font-size:.7rem;font-weight:400;color:var(--muted);letter-spacing:.04em;margin-top:4px}
+.trilha ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px;min-width:0}
+@media (max-width:560px){.trilha{grid-template-columns:1fr;gap:8px}}
+.fluxo{background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:16px;overflow-x:auto}
+.fluxo ol{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:10px}
+.fluxo li b{font-weight:600}
+.pecas{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.peca{background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:12px 14px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.peca code{font-family:var(--mono);font-size:.8rem;color:var(--piloto);word-break:break-word}
+.aviso{border:1px solid var(--alerta);border-left:6px solid var(--alerta);background:var(--surface);border-radius:4px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.aviso h2{color:var(--alerta)}
+.duas{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:640px){.duas{grid-template-columns:1fr}}
+.duas>div{background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:12px 14px;min-width:0}
+.duas ul{margin:6px 0 0;padding-left:18px}
+.tabela{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.92rem;min-width:520px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:500}
+td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.sim{color:var(--ok);font-weight:600}.nao{color:var(--alerta);font-weight:600}
+.frase{font-family:var(--display);font-size:1.6rem;font-weight:600;color:var(--piloto)}
+code{font-family:var(--mono);font-size:.88em}
+footer{color:var(--muted);font-size:.85rem;border-top:1px solid var(--line);padding-top:12px}
+</style>
+
+</head>
+<body>
+<main>
+  <header>
+    <div class="regua" aria-hidden="true"><span>01:00:00:00</span><span>descobrir</span><span>virar função</span><span>rodar em lote</span><span>ler números</span><span>decidir</span></div>
+    <h1>Piloto e autonomia nos testes</h1>
+    <p class="lead" style="margin-top:12px">Como o Claude opera o computador para testar o De Lá Pra Cá e os NLEs sem a mão do editor: quem pensa, quem lê, quem opera, e por que tudo depende de um ambiente calibrado. Combinado com o autor em 12 de outubro de 2026.</p>
+  </header>
+
+  <section>
+    <span class="etiqueta">Quem faz o quê</span>
+    <h2>Três papéis</h2>
+    <div class="trilhas">
+      <div class="trilha" style="--c:var(--opus)">
+        <div class="nome">Opus<small>motor de decisão</small></div>
+        <ul>
+          <li>Pensa, diagnostica e decide: o que testar, o que um resultado quer dizer, quando algo deu errado.</li>
+          <li>Descobre os caminhos novos passo a passo, olhando a tela antes e depois de cada ação.</li>
+          <li>Mede o render e julga pixel. Escreve no banco o que foi aprendido.</li>
+        </ul>
+      </div>
+      <div class="trilha" style="--c:var(--sonnet)">
+        <div class="nome">Sonnet<small>subagente de leitura</small></div>
+        <ul>
+          <li>Lê imagens de um tipo que o Opus já validou: transcrever telas, rodar baterias prontas e relatar números.</li>
+          <li>Só entra depois de passar num teste com gabarito do Opus. Um tipo novo de leitura começa de novo pelo teste.</li>
+          <li>Não decide e não diagnostica. É ajuda barata para trabalho mecânico.</li>
+        </ul>
+      </div>
+      <div class="trilha" style="--c:var(--piloto)">
+        <div class="nome">Piloto<small>automação que opera</small></div>
+        <ul>
+          <li>Opera o computador: mouse, teclado, janelas, fotos da tela, diálogos conhecidos.</li>
+          <li>Coleta tudo de que a análise precisa e devolve números, não imagens: centenas de cliques numa só chamada.</li>
+          <li>É a peça-chave da autonomia: o que foi descoberto uma vez vira função e roda sozinho.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <span class="etiqueta">O ciclo de um teste</span>
+    <h2>De descoberta cara a lote barato</h2>
+    <div class="fluxo">
+      <ol>
+        <li><b>Consultar o banco.</b> Muito do que parece precisar de clique a API do app já faz. API primeiro; o piloto entra onde ela não alcança.</li>
+        <li><b>Descobrir passo a passo</b> (Opus + piloto): uma ação, uma foto, uma conferência. É a fase cara, e é onde aparecem as armadilhas.</li>
+        <li><b>Transformar em função</b> no laboratório: o caminho descoberto vira código, com prazo e cão de guarda.</li>
+        <li><b>Rodar em lote</b> (piloto): o mesmo caminho para dezenas de casos, devolvendo só o que importa.</li>
+        <li><b>Ler</b>: o Opus lê números e julga o render; o Sonnet transcreve as telas de um tipo já validado.</li>
+        <li><b>Registrar</b> no banco e na skill <code>/piloto</code>, para a próxima sessão não redescobrir.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section>
+    <span class="etiqueta">Como pedir</span>
+    <p class="frase">"Pode pilotar"</p>
+    <p>Com essa frase (ou parecida), o Claude executa a tarefa sozinho operando a máquina e avisa em uma linha que vai começar. Sem ela, propõe antes de operar. Enquanto o piloto trabalha, o editor não mexe no mouse nem no teclado.</p>
+  </section>
+
+  <section>
+    <span class="etiqueta">As peças do piloto</span>
+    <h2>Dentro de <code>PROGRAMAS COM CLAUDE/piloto</code></h2>
+    <div class="pecas">
+      <div class="peca"><h3>Mãos</h3><p>Clicar, arrastar, teclar, digitar, trazer a janela certa para a frente e conferir antes de agir.</p><code>maos_windows.py</code></div>
+      <div class="peca"><h3>Olhos</h3><p>Achar janelas, fotografar uma janela ou a tela, saber se o programa responde.</p><code>olhos_windows.py</code></div>
+      <div class="peca"><h3>Vigia</h3><p>Prazo em toda espera, queda, programa fora do projeto e diálogos conhecidos resolvidos pela foto.</p><code>vigia_windows.py</code></div>
+      <div class="peca"><h3>Pontes</h3><p>A API de cada app: o MC pelo cliente do De Lá Pra Cá; Premiere e Resolve pelas bancadas.</p><code>pontes.py · apps.py</code></div>
+    </div>
+  </section>
+
+  <section>
+    <span class="etiqueta">Segurança</span>
+    <h2>Regras que não mudam</h2>
+    <div class="duas">
+      <div><h3>Parar</h3><ul>
+        <li><b>F12</b> ou o arquivo <code>piloto/PARAR</code> param tudo, em qualquer clique ou tecla.</li>
+        <li>Diálogo desconhecido: foto e parada. Nunca um clique às cegas.</li>
+      </ul></div>
+      <div><h3>Vigiar</h3><ul>
+        <li>Tudo o que espera o app roda sob o cão de guarda, que confere a cada 2 s se ele está vivo e no projeto.</li>
+        <li>Em 12/10 o MC caiu e voltou à tela de projetos; o guarda agora para em cerca de 3 s.</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <section class="aviso">
+    <span class="etiqueta">Limite importante</span>
+    <h2>Calibrado para um ambiente</h2>
+    <p>As leituras de tela foram medidas num ambiente só: o notebook Windows a 1920×1080, escala de 125 %, Media Composer 25.6 maximizado no layout padrão. Posições, cores e desenho das janelas valem para ele. Outro monitor, outra escala, outro arranjo de janelas, outra versão do app ou outra máquina, como o Mac, pedem recalibração antes de operar: fotografar, medir de novo e registrar.</p>
+    <div class="duas">
+      <div><h3>Atravessa ambientes</h3><ul>
+        <li>A API do app e a leitura da bin</li>
+        <li>A medição do render</li>
+        <li>Diálogos reconhecidos pela foto (tolera escala)</li>
+      </ul></div>
+      <div><h3>Precisa recalibrar</h3><ul>
+        <li>Tudo o que lê a tela por coordenada</li>
+        <li>A janela fora do tamanho (aconteceu depois da queda)</li>
+        <li>Mudança de layout (a coluna da fonte empurra os seletores de trilha)</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <section>
+    <span class="etiqueta">Medido nesta sessão</span>
+    <h2>O que os números dizem</h2>
+    <div class="tabela"><table>
+      <thead><tr><th>Medida</th><th>Resultado</th><th>O que fazer com isso</th></tr></thead>
+      <tbody>
+        <tr><td>Custo da tarefa da taxa mista (pilotada, com 2 subagentes), pelo <code>/cost</code></td><td class="num">US$ 6,08</td><td>Medir assim as próximas, separando descoberta e lote.</td></tr>
+        <tr><td>Sonnet transcrevendo 8 painéis do Effect Editor (cerca de 130 valores)</td><td class="sim">igual ao Opus</td><td>Usar em telas limpas de tipo já validado.</td></tr>
+        <tr><td>Haiku na mesma tarefa</td><td class="nao">números certos, 3 erros de estrutura</td><td>Não usar quando a estrutura importa.</td></tr>
+        <tr><td>Fotografar o Effect Editor de 201 efeitos</td><td class="num">1 rodada em lote</td><td>Passo a passo seriam cerca de 3.000 idas e voltas.</td></tr>
+      </tbody>
+    </table></div>
+    <p style="color:var(--muted)">O teste dos modelos menores foi feito com telas nítidas e uma amostra pequena. Casos difíceis, como número cortado na borda ou julgamento de pixel no render, continuam com o Opus.</p>
+  </section>
+
+  <footer>Fontes: <code>piloto/CLAUDE.md</code>, skill <code>/piloto</code>, <code>bancodedadosnles/plugins/avid-panel-sdk/windows.md</code> e o handoff do De Lá Pra Cá de 12/10/2026.</footer>
+</main>
+
+</body>
+</html>

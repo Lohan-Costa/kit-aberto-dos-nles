@@ -1,0 +1,59 @@
+{
+ "caso": "B05_RASTERS",
+ "pergunta": "Escala e posição se mantêm entre rasters?",
+ "segundos": 4,
+ "fps": "25",
+ "tc_inicio": "01:00:00:00",
+ "camera": 1,
+ "take": 1,
+ "fonte": 1,
+ "canais": 2,
+ "perfis": [
+  "mov-prores"
+ ],
+ "variantes": [
+  {
+   "rotulo": "HD",
+   "raster": [
+    1920,
+    1080
+   ]
+  },
+  {
+   "rotulo": "UHD",
+   "raster": [
+    3840,
+    2160
+   ]
+  },
+  {
+   "rotulo": "4KDCI",
+   "raster": [
+    4096,
+    2160
+   ]
+  },
+  {
+   "rotulo": "2KSCOPE",
+   "raster": [
+    2048,
+    858
+   ]
+  },
+  {
+   "rotulo": "VERTICAL",
+   "raster": [
+    1080,
+    1920
+   ]
+  },
+  {
+   "rotulo": "ANAMORFICO",
+   "raster": [
+    1440,
+    1080
+   ],
+   "sar": "2:1"
+  }
+ ]
+}

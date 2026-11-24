@@ -1,0 +1,26 @@
+# o que o gerador faz: refaz-se a partir das receitas
+saida/
+
+# ambientes e caches
+.venv/
+.venv-win/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# lixo do sistema (exFAT no Mac grava sombras ._)
+._*
+.DS_Store
+Thumbs.db
+
+# mídia nunca entra aqui (a coleta mora em MIDIAS DE TESTES)
+*.mov
+*.mp4
+*.mxf
+*.wav
+*.braw
+*.r3d
+*.ari
+
+# o Premiere grava cópias automáticas ao lado do projeto
+Adobe Premiere Pro Auto-Save/

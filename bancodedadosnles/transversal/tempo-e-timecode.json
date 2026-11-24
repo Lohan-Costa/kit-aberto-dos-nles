@@ -1,0 +1,47 @@
+{
+  "_meta": {
+    "protocolo": "transversal",
+    "titulo": "Unidades de tempo por formato e conversoes",
+    "confianca": "confirmado",
+    "atualizado": "2026-06-27",
+    "fontes": [
+      "DRAMASYNC/docs/reverse-engineering/premiere-multicam-prproj.md",
+      "RELINKER/docs/aaf-structures.md",
+      "RELINKER/docs/resolve-otio-drp-roadmap.md"
+    ]
+  },
+  "unidade_por_formato": {
+    "aaf": {
+      "unidade": "frames (edit_rate como Fraction)",
+      "fps_tipico": "24000/1001 (23.976)",
+      "acesso": "float(slot.edit_rate)",
+      "nota": "SourceClip.start = offset em frames; cuidado com Selector (offset em reconstructed.N)"
+    },
+    "prproj": {
+      "unidade": "ticks",
+      "ticks_por_segundo": 254016000000,
+      "ticks_por_frame_23976": 10594584000,
+      "ticks_por_amostra_audio_48k": 5292000
+    },
+    "drt-drp": {
+      "unidade": "segundos (nos blobs MediaTimemapBA) e frames NOMINAIS (timeline)",
+      "convencao_timeline": "NOMINAL = round(fps), non-drop"
+    },
+    "otio": {
+      "unidade": "RationalTime (valor + rate)",
+      "convencao": "frames nominais"
+    }
+  },
+  "conversoes": {
+    "frames_para_segundos": "secs = frames / fps",
+    "segundos_para_ticks": "ticks = round(secs * 254016000000)",
+    "ticks_para_frames": "frames = ticks / ticks_por_frame",
+    "aaf_offset_map_para_drt_timemap": "X = tl_frame/fps; Y = (source_start + src_frame)/fps (segundos)"
+  },
+  "velocidade_e_rampa": {
+    "aaf": "speed_ratio (tl/src) + source_offset_map [(tl_frame, src_frame)] + motion_effect_type (constant|ramp|freeze|reverse)",
+    "drt": "MediaTimemapBA: curva Bezier 2D (X=saida_seg, Y=fonte_seg), slope = velocidade. Ver protocolos/drt-drp/dados/timemap.json",
+    "otio": "LinearTimeWarp (so constante fiel); rampa = bake/metadata",
+    "traducao_recomendada": "amostrar o source_offset_map e emitir keyframes lineares densos (interp=0) no DRT — frame-exato, a prova de freeze/reverse"
+  }
+}

@@ -1,0 +1,48 @@
+{
+ "caso": "B04_TIMECODE",
+ "pergunta": "O TC de início é respeitado nos casos difíceis?",
+ "segundos": 10,
+ "fps": "25",
+ "raster": [
+  1920,
+  1080
+ ],
+ "camera": 1,
+ "take": 1,
+ "fonte": 1,
+ "canais": 2,
+ "perfis": [
+  "mov-prores",
+  "mxf-op1a"
+ ],
+ "variantes": [
+  {
+   "rotulo": "RECRUN",
+   "tc_inicio": "01:00:00:00"
+  },
+  {
+   "rotulo": "HORADODIA",
+   "tc_inicio": "14:23:47:12"
+  },
+  {
+   "rotulo": "MEIANOITE",
+   "tc_inicio": "23:59:55:00"
+  },
+  {
+   "rotulo": "ZERO",
+   "tc_inicio": "00:00:00:00"
+  },
+  {
+   "rotulo": "DF10MIN",
+   "fps": "29.97",
+   "drop_frame": true,
+   "tc_inicio": "00:09:59;15"
+  },
+  {
+   "rotulo": "DFMEIANOITE",
+   "fps": "29.97",
+   "drop_frame": true,
+   "tc_inicio": "23:59:55;00"
+  }
+ ]
+}

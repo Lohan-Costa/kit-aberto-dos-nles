@@ -1,0 +1,28 @@
+{
+ "caso": "D01_CRISTAL_6PPM",
+ "pergunta": "A deriva de cristal que o Órbita mediu numa diária real (~6 ppm): uma hora de take. Invisível no começo, ~0,5 quadro no fim. O NLE mostra? A correção por velocidade devolve o sync?",
+ "cena": {
+  "segundos": 3600,
+  "relogio": "10:00:00:00",
+  "semente": 21,
+  "data": "2026-10-30"
+ },
+ "raster": [
+  640,
+  360
+ ],
+ "fps": "25",
+ "camera": {
+  "inicio_s": 5,
+  "fim_s": 3595,
+  "atraso_ms": 3,
+  "relogio_ppm": 0,
+  "canais": 2
+ },
+ "som": {
+  "inicio_s": 2,
+  "fim_s": 3598,
+  "relogio_ppm": 6,
+  "canais": 1
+ }
+}

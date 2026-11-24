@@ -1,0 +1,25 @@
+# O portão de cada pull request: a varredura de segurança e, para contribuições de fora, a quarentena
+# (só arquivos em contribuicoes/). O dono do repositório promove ao banco pelo próprio ramo principal.
+name: portao
+on:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  varredura:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: varredura e quarentena
+        if: github.event.pull_request.user.login != github.repository_owner
+        run: python3 ferramentas/varredura.py --pr "origin/${{ github.base_ref }}"
+      - name: varredura (mantenedor)
+        if: github.event.pull_request.user.login == github.repository_owner
+        run: |
+          git diff --name-only --diff-filter=ACMR "origin/${{ github.base_ref }}...HEAD" > /tmp/mudados.txt
+          python3 ferramentas/varredura.py $(cat /tmp/mudados.txt)

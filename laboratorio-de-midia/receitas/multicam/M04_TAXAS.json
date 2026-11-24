@@ -1,0 +1,89 @@
+{
+ "caso": "M04_TAXAS",
+ "pergunta": "Uma multicam com taxas diferentes (23,976 / 25 / 29,97 / 50) e o som a 48 kHz: cada câmera cai no lugar pelo TC da SUA taxa?",
+ "cena": {
+  "segundos": 90,
+  "relogio": "14:00:00:00",
+  "semente": 17
+ },
+ "raster": [
+  1280,
+  720
+ ],
+ "perfil_video": "mov-h264",
+ "fontes": [
+  {
+   "nome": "CAM 1",
+   "camera": 1,
+   "fps": "23.976",
+   "tc": "relogio",
+   "atraso_ms": 3,
+   "ganho_db": -3,
+   "filtro": "lowpass=f=8000",
+   "tomadas": [
+    [
+     5,
+     70
+    ]
+   ]
+  },
+  {
+   "nome": "CAM 2",
+   "camera": 2,
+   "fps": "25",
+   "tc": "relogio",
+   "atraso_ms": 9,
+   "ganho_db": -7,
+   "filtro": "highpass=f=200",
+   "tomadas": [
+    [
+     8,
+     75
+    ]
+   ]
+  },
+  {
+   "nome": "CAM 3",
+   "camera": 3,
+   "fps": "29.97",
+   "tc": "relogio",
+   "atraso_ms": 14,
+   "ganho_db": -9,
+   "filtro": "lowpass=f=5000",
+   "tomadas": [
+    [
+     10,
+     80
+    ]
+   ]
+  },
+  {
+   "nome": "CAM 4",
+   "camera": 4,
+   "fps": "50",
+   "tc": "relogio",
+   "atraso_ms": 20,
+   "ganho_db": -6,
+   "filtro": "highpass=f=300",
+   "tomadas": [
+    [
+     4,
+     60
+    ]
+   ]
+  },
+  {
+   "nome": "SOM DIRETO",
+   "som": true,
+   "canais": 2,
+   "tc": "relogio",
+   "ganho_db": 0,
+   "tomadas": [
+    [
+     2,
+     88
+    ]
+   ]
+  }
+ ]
+}

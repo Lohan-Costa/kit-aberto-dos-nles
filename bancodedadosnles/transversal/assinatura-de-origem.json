@@ -1,0 +1,95 @@
+{
+  "_meta": {
+    "protocolo": "transversal",
+    "titulo": "Assinatura de origem de AAF, xmeml, FCPXML e OTIO",
+    "confianca": "confirmado",
+    "atualizado": "2026-10-12",
+    "nle": "Media Composer 25.6 (Win) e 25.12 (Mac); Premiere Pro 23.2.0 (Win); DaVinci Resolve Studio 19.0.0b (Win)",
+    "fontes": [
+      "MIDIAS DE TESTES/3 CONJUNTOS DOS APPS/_DeLaPraCa/03 CASOS/ATUALIZAR/O01 ASSINATURA DE ORIGEM/"
+    ],
+    "notas": "Ver assinatura-de-origem.md. Um export de cada; Mac só para o AAF do MC 25.12."
+  },
+  "entries": {
+    "aaf": {
+      "campo": "Header.IdentificationList (última = quem gravou por último; primeira = quem criou)",
+      "avid": {
+        "CompanyName": "Avid Technology, Inc.",
+        "ProductName_prefixo": "Avid Media Composer",
+        "Platform": [
+          "AAFSDK (Win64)",
+          "AAFSDK (MacOS X)"
+        ],
+        "toolkit": {
+          "25.6": "2.0.9",
+          "25.12": "2.0.10"
+        }
+      },
+      "premiere": {
+        "CompanyName": "Adobe",
+        "ProductName": "Premiere Pro",
+        "ProductVersionString": "23.2.0",
+        "Platform": "AAFSDK (Win64)",
+        "toolkit": "1.2.0 VersionBeta"
+      },
+      "resolve": {
+        "CompanyName": "Blackmagic Design",
+        "ProductName": "DaVinci Resolve",
+        "Platform": "AAFSDK (Win32)",
+        "toolkit": "1.1.6"
+      },
+      "armadilha": "pyaaf2 em rw não acrescenta Identification: o AAF tratado pelo app continuava 'Avid'; decisão do autor: o app acrescenta a dele",
+      "Date": "UTC"
+    },
+    "xmeml": {
+      "premiere": {
+        "version": "4",
+        "marcas": [
+          "authoringApp=\"PremierePro\"",
+          "TL.SQ",
+          "MZ.",
+          "premiereTrackType"
+        ],
+        "bom": "não decide"
+      },
+      "resolve": {
+        "version": "5",
+        "marcas": [],
+        "fim_de_linha": "CRLF",
+        "nome_da_sequencia_sufixo": " (Resolve)",
+        "sufixo_e_pista": true
+      },
+      "avid": "não exporta"
+    },
+    "fcpxml": {
+      "resolve": {
+        "versoes": {
+          "1.8": "arquivo",
+          "1.10": "pasta com Info.fcpxml"
+        },
+        "marcas": [
+          "sufixo ' (Resolve)' no nome"
+        ]
+      },
+      "avid": "não exporta",
+      "premiere": "não exporta"
+    },
+    "otio": {
+      "resolve": {
+        "chave_metadata": "Resolve_OTIO",
+        "timeline": {
+          "Resolve OTIO Meta Version": "1.0"
+        }
+      },
+      "premiere": {
+        "2023": "não exporta",
+        "2025+": "pendente"
+      },
+      "avid": "pendente"
+    },
+    "edl": {
+      "marcas": [],
+      "origem": "desconhecida"
+    }
+  }
+}

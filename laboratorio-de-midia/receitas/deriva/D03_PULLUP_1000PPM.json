@@ -1,0 +1,28 @@
+{
+ "caso": "D03_PULLUP_1000PPM",
+ "pergunta": "O 0,1 % do NTSC: o gravador a 48 048 Hz rotulado 48 000 (ou a câmera a 29,97 contra um som em 30). 10 min → 0,6 s no fim.",
+ "cena": {
+  "segundos": 600,
+  "relogio": "10:00:00:00",
+  "semente": 23,
+  "data": "2026-10-30"
+ },
+ "raster": [
+  640,
+  360
+ ],
+ "fps": "29.97",
+ "camera": {
+  "inicio_s": 5,
+  "fim_s": 595,
+  "atraso_ms": 3,
+  "relogio_ppm": 0,
+  "canais": 2
+ },
+ "som": {
+  "inicio_s": 2,
+  "fim_s": 598,
+  "relogio_ppm": 1000,
+  "canais": 1
+ }
+}

@@ -1,0 +1,115 @@
+{
+  "_meta": {
+    "protocolo": "transversal",
+    "titulo": "Publicar repositorio privado como publico — allowlist, sanitizacao de material e purga",
+    "confianca": "confirmado",
+    "atualizado": "2026-08-24",
+    "fontes": [
+      "Orbita, sessao de 2026-08-23/24 — auditoria completa, vazamento medido no repo publico real, purga e recriacao do repositorio",
+      "DRAMASYNC/.dev/AUDITORIA-2026-08-23.md",
+      "DRAMASYNC/.dev/SECURITY-NOTES.md (secao REGRA DE CLASSE)",
+      "DRAMASYNC/publish.py (run_material_scan)"
+    ],
+    "nle": "nao se aplica — vale para qualquer app desenvolvido contra material real de producao",
+    "notas": "Narrativa em publicar-repo-privado-e-sanitizar.md. O banco nao cobria canal de publicacao, sanitizacao de fixture nem purga de historico. Cada item foi medido no repositorio publico real, antes e depois da correcao."
+  },
+  "entries": {
+    "allowlist_nunca_denylist": {
+      "confianca": "confirmado",
+      "severidade": "alta",
+      "regra": "O repositorio publico e GERADO por allowlist de caminhos, nunca editado a mao.",
+      "porque": "Arquivo novo na raiz nasce invisivel para o publico. Esquecer de publicar e chato; esquecer de excluir e o risco. A allowlist inverte o custo do esquecimento.",
+      "cuidado": "O .gitignore do privado NAO pode ser copiado — ele anuncia o esquema interno. Gere um limpo."
+    },
+    "checklist_de_itens_nao_basta": {
+      "confianca": "confirmado",
+      "severidade": "critica",
+      "achado": "Um checklist de seguranca com TRES itens nomeados foi seguido corretamente e mesmo assim 22 identificadores reais de infraestrutura foram publicados — nenhum deles era um dos tres.",
+      "regra": "Regra de CLASSE, nao de item: nenhum nome de servidor/share/workspace, projeto, arquivo de midia, caminho absoluto, usuario do SO, UMID real ou caminho de documento interno.",
+      "licao": "Um checklist de itens so pega o que ja aconteceu uma vez."
+    },
+    "guarda_de_material_automatica": {
+      "confianca": "confirmado",
+      "severidade": "alta",
+      "regra": "Um passo no gerador varre o artefato inteiro procurando termos proibidos e ABORTA o publish.",
+      "prova": "Na primeira execucao pegou 2 ocorrencias que uma varredura manual cuidadosa, minutos antes, tinha deixado passar.",
+      "cuidado": "A lista de termos proibidos e ela propria sigilosa (e um indice do que existe) — mantenha no gerador, que nao esta na allowlist."
+    },
+    "anonimizar_fixture_lista_branca": {
+      "confianca": "confirmado",
+      "severidade": "alta",
+      "achado": "Anonimizar fixture por texto cru falha de dois jeitos opostos: renomeia as CHAVES do esquema, ou renomeia os VALORES DE FORMATO (operational_pattern_ul virou hash e 12 testes cairam).",
+      "regra": "Lista BRANCA de campos que carregam material. O que nao esta na lista passa intacto por construcao.",
+      "licao": "Num fixture, 'nome' e 'formato' moram no mesmo tipo (string) — so o esquema sabe a diferenca."
+    },
+    "anonimizar_preserva_prefixo": {
+      "confianca": "confirmado",
+      "severidade": "media",
+      "regra": "Substituicao por TOKEN, nao por string inteira; e no UMID preserve o rotulo SMPTE, troque os 16 bytes finais.",
+      "porque": "O motor de sync ordena a fila de busca por prefixo comum entre nome de master e nome de arquivo — nomes aleatorios quebram os testes por construcao.",
+      "cuidado": "null existe nos gabaritos ('sem par'); e o talisman confunde UMID (64 hex) com numero de cartao de credito."
+    },
+    "teste_que_le_disco_nao_nomeia": {
+      "confianca": "confirmado",
+      "severidade": "media",
+      "regra": "Teste que abre pasta de midia real DESCOBRE o nome (read_dir + find) em vez de crava-lo; e assercao verifica PROPRIEDADE (ordem natural) em vez de nome literal.",
+      "porque": "O codigo do teste e publicado. Alem disso, nome cravado em teste que le disco e fragil de qualquer jeito."
+    },
+    "apagar_tag_nao_apaga_do_servidor": {
+      "confianca": "confirmado",
+      "severidade": "alta",
+      "achado": "push --delete de tag e push --force em main tornam o objeto INALCANCAVEL, nao o apagam — continua recuperavel por SHA.",
+      "regra": "A purga completa e apagar e RECRIAR o repositorio (ou chamado no suporte). Meca forks/stars/watchers/downloads antes de propor: com fork e impossivel.",
+      "medido": "No caso real: 0 forks, 0 stars, 0 watchers, 111 downloads — o que tornou a recriacao barata."
+    },
+    "ordem_da_purga": {
+      "confianca": "confirmado",
+      "severidade": "alta",
+      "regra": "Publicar a versao limpa e VERIFICAR que esta no ar com os artefatos; so entao apagar o velho. O script de purga deve ter trava que recusa apagar sem isso.",
+      "prova": "A trava salvou tres vezes — o release falhou tres vezes antes de subir."
+    },
+    "recriar_repo_mata_a_deploy_key": {
+      "confianca": "confirmado",
+      "severidade": "alta",
+      "achado": "A metade publica da deploy key esta registrada NO REPOSITORIO e morre com ele; a privada vive como secret e nao se le de volta, entao nao da para rederivar a publica.",
+      "regra": "Gere um par novo ANTES de apagar. Publica vira deploy key COM ESCRITA no repo novo; privada vira o secret.",
+      "cuidado": "A caixa 'Allow write access' e o erro mais facil de cometer."
+    },
+    "armadilha_de_verificacao": {
+      "confianca": "confirmado",
+      "severidade": "critica",
+      "achado": "Quatro erros caros na mesma sessao, todos DEPOIS de 'verificar': rodei o comando sem a flag nova; rodei pip --dry-run no interpretador de desenvolvimento e nao no do CI; validei o YAML e nao o comando; medi o vazamento so onde a auditoria ja apontava.",
+      "licao": "Verifiquei o lugar que CONFIRMAVA, nunca o que poderia desmentir. Uma verificacao que nao pode falhar nao esta verificando.",
+      "teste": "Antes de aceitar um 'passou', pergunte o que aconteceria se o defeito existisse. Se a resposta for 'o mesmo resultado', a verificacao e decorativa."
+    },
+    "invoke_restmethod_parseia_json": {
+      "confianca": "confirmado",
+      "severidade": "alta",
+      "achado": "Conferir conteudo publicado com Invoke-RestMethod sobre um .json PARSEIA o JSON em objeto; o regex depois roda no objeto e devolve '0 ocorrencias' sem ter lido texto nenhum.",
+      "regra": "Leitura autoritativa: API de contents (base64) ou Invoke-WebRequest -UseBasicParsing."
+    },
+    "mudanca_de_ci_uma_de_cada_vez": {
+      "confianca": "confirmado",
+      "severidade": "alta",
+      "achado": "Quatro mudancas de pipeline mandadas juntas quebraram o release TRES vezes em sequencia, cada uma escondendo a seguinte, a 20 min de build por ciclo.",
+      "regra": "Rode o comando exato no ambiente de destino, ou mande uma de cada vez.",
+      "exemplos": [
+        "--locked com o lockfile em versao antiga (bump de versao exige regenerar o lock)",
+        "--locked passado ao tauri build, sendo flag do cargo — use um passo `cargo metadata --locked` separado",
+        "pin de scipy que exige Python 3.12 num CI que roda 3.11"
+      ]
+    },
+    "log_do_privado_exige_credencial": {
+      "confianca": "confirmado",
+      "severidade": "media",
+      "achado": "Sem CLI autenticada nao se le log de workflow de repositorio PRIVADO — ve-se QUE falhou, nao POR QUE.",
+      "contorno": "O repositorio PUBLICO expoe /actions/runs/<id>/jobs sem credencial, e isso ja diz qual PASSO falhou (o conteudo do log continua exigindo auth). Pipeline de duas pernas da metade do diagnostico de graca."
+    },
+    "conferir_resultado_nao_status": {
+      "confianca": "confirmado",
+      "severidade": "alta",
+      "regra": "Status e intencao; artefato com state=uploaded e fato. Confira: release existe e nao e rascunho; TODOS os instaladores; CHANGELOG do publico abre com a versao nova; pastas privadas dao 404; a guarda de material passa.",
+      "cuidado": "Os artefatos aparecem DEPOIS do release existir — medido: release com 1 de 2 instaladores por ~4 minutos. Conferir cedo demais e o mesmo erro de conferir o status."
+    }
+  }
+}

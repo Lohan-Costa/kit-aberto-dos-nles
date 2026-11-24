@@ -1,0 +1,34 @@
+{
+ "caso": "B06_SOM_DIRETO",
+ "pergunta": "O BWF casa com o vídeo pelo TC?",
+ "fps": "25",
+ "raster": [
+  1920,
+  1080
+ ],
+ "camera": 1,
+ "take": 1,
+ "variantes": [
+  {
+   "rotulo": "CAM",
+   "perfis": [
+    "mov-prores"
+   ],
+   "tc_inicio": "01:00:10:00",
+   "segundos": 10,
+   "fonte": 1,
+   "canais": 2
+  },
+  {
+   "rotulo": "SOM",
+   "perfis": [
+    "wav-bwf"
+   ],
+   "tc_inicio": "01:00:08:00",
+   "segundos": 8,
+   "fonte": 4,
+   "canais": 4
+  }
+ ],
+ "nota": "O som direto (8 s, de 01:00:08:00 a 01:00:16:00) começa 2 s ANTES da câmera (10 s, de 01:00:10:00) e acaba 6 s depois do início dela: no render sincronizado, o tom da fonte 4 tem de acabar aos 6,0 s. A claque de cada segundo não serve sozinha (erro de segundos inteiros a esconderia); o FIM do som direto, sim."
+}

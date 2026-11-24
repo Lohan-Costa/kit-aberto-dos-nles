@@ -1,0 +1,68 @@
+{
+ "caso": "M03_MEIANOITE",
+ "pergunta": "A cena atravessa a meia-noite (relógio 23:59:00:00, meia-noite aos 60 s): tomadas que começam antes e terminam depois continuam inteiras e no lugar?",
+ "cena": {
+  "segundos": 120,
+  "relogio": "23:59:00:00",
+  "semente": 13,
+  "data": "2026-10-20"
+ },
+ "raster": [
+  1280,
+  720
+ ],
+ "perfil_video": "mov-h264",
+ "fontes": [
+  {
+   "nome": "CAM 1",
+   "camera": 1,
+   "fps": "25",
+   "tc": "relogio",
+   "atraso_ms": 4,
+   "ganho_db": -4,
+   "filtro": "lowpass=f=7000",
+   "tomadas": [
+    [
+     40,
+     100
+    ]
+   ]
+  },
+  {
+   "nome": "CAM 2",
+   "camera": 2,
+   "fps": "25",
+   "tc": "relogio",
+   "atraso_ms": 12,
+   "ganho_db": -8,
+   "filtro": "highpass=f=250",
+   "tomadas": [
+    [
+     45,
+     95
+    ],
+    [
+     98,
+     115
+    ]
+   ]
+  },
+  {
+   "nome": "SOM DIRETO",
+   "som": true,
+   "canais": 2,
+   "tc": "relogio",
+   "ganho_db": 0,
+   "tomadas": [
+    [
+     35,
+     96
+    ],
+    [
+     97,
+     118
+    ]
+   ]
+  }
+ ]
+}

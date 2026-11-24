@@ -1,0 +1,6 @@
+saida/
+PARAR
+__pycache__/
+.pytest_cache/
+*.pyc
+.venv/

@@ -1,0 +1,294 @@
+{
+ "caso": "BL08_CASAMENTO",
+ "pergunta": "Com mídia que engana de propósito (P1–P10), quem põe o arquivo certo em cada plano no Baselight: o Baselight sozinho (A), o Ciclo decidindo (B) ou B + a conferência pela FLAPI (C)? Plano: 2 ATIVOS/_CICLO ASSIST/docs/plano/2026-11-22-lab-casamento-baselight.md",
+ "nota": "Identidade de cada original no quadro: a COR da câmera (1 azul, 2 âmbar, 3 verde, 4 magenta) + o TC queimado/código + o TAKE em texto. Em todo par que pode ser confundido, os dois originais têm câmeras DIFERENTES — o render do Baselight denuncia a troca pela cor. O reel de cada original é o nome do clipe (como ARRI/RED).",
+ "raster": [
+  1920,
+  1080
+ ],
+ "fonte": 1,
+ "canais": 2,
+ "daily": {
+  "raster": [
+   960,
+   540
+  ],
+  "modo": "fit"
+ },
+ "originais": [
+  {
+   "rotulo": "O01",
+   "pegadinha": "P1",
+   "arquivo": "ORIGINAIS/DIA01/CARTAO_A/A001C003.mov",
+   "fps": "23.976",
+   "segundos": 20,
+   "tc_inicio": "00:00:00:00",
+   "camera": 1,
+   "take": 1
+  },
+  {
+   "rotulo": "O02",
+   "pegadinha": "P1",
+   "arquivo": "ORIGINAIS/DIA01/CARTAO_B/A001C003.mov",
+   "fps": "23.976",
+   "segundos": 12,
+   "tc_inicio": "00:00:00:00",
+   "camera": 2,
+   "take": 2
+  },
+  {
+   "rotulo": "O03",
+   "pegadinha": "P2",
+   "arquivo": "ORIGINAIS/DIA01/A002/A001C004.mov",
+   "fps": "23.976",
+   "segundos": 15,
+   "tc_inicio": "11:00:00:00",
+   "camera": 1,
+   "take": 3
+  },
+  {
+   "rotulo": "O04",
+   "pegadinha": "P2",
+   "arquivo": "ORIGINAIS/DIA02/A002/A001C004.mov",
+   "fps": "23.976",
+   "segundos": 15,
+   "tc_inicio": "11:00:00:00",
+   "camera": 3,
+   "take": 4
+  },
+  {
+   "rotulo": "O05",
+   "pegadinha": "P3",
+   "arquivo": "ORIGINAIS/DIA01/B001/B001C005.mov",
+   "fps": "59.94",
+   "segundos": 10,
+   "tc_inicio": "12:00:00:00",
+   "camera": 2,
+   "take": 5
+  },
+  {
+   "rotulo": "O06",
+   "pegadinha": "P4",
+   "arquivo": "ORIGINAIS/DIA01/B001/B001C007.mov",
+   "fps": "23.976",
+   "segundos": 12,
+   "tc_inicio": "13:00:00:00",
+   "camera": 2,
+   "take": 7
+  },
+  {
+   "rotulo": "O07",
+   "pegadinha": "P4",
+   "arquivo": "ORIGINAIS/DIA01/B001/B001C008.mov",
+   "fps": "23.976",
+   "segundos": 12,
+   "tc_inicio": "13:10:00:00",
+   "camera": 4,
+   "take": 8
+  },
+  {
+   "rotulo": "O08",
+   "pegadinha": "P5",
+   "arquivo": "ORIGINAIS/DIA01/A003/A001C008.mov",
+   "fps": "23.976",
+   "segundos": 10,
+   "tc_inicio": "14:00:00:00",
+   "camera": 1,
+   "take": 9
+  },
+  {
+   "rotulo": "O09",
+   "pegadinha": "P5",
+   "arquivo": "ORIGINAIS/DIA01/A003/CORAÇÃO_01.mov",
+   "fps": "23.976",
+   "segundos": 10,
+   "tc_inicio": "14:10:00:00",
+   "camera": 3,
+   "take": 10
+  },
+  {
+   "rotulo": "O10",
+   "pegadinha": "P6",
+   "arquivo": "ORIGINAIS/DIA01/GRAFICOS/PLACA_298.mov",
+   "fps": "23.976",
+   "segundos": 8,
+   "tc_inicio": "15:00:00:00",
+   "camera": 4,
+   "take": 11
+  },
+  {
+   "rotulo": "O11",
+   "pegadinha": "P6",
+   "arquivo": "ORIGINAIS/DIA01/GRAFICOS/PLACA_297.mov",
+   "fps": "23.976",
+   "segundos": 8,
+   "tc_inicio": "15:00:00:00",
+   "camera": 2,
+   "take": 12
+  },
+  {
+   "rotulo": "O12",
+   "pegadinha": "P7",
+   "arquivo": "ORIGINAIS/DIA02/A004/A002C001.mov",
+   "fps": "29.97",
+   "drop_frame": true,
+   "segundos": 20,
+   "tc_inicio": "16:58:50;00",
+   "camera": 1,
+   "take": 13
+  },
+  {
+   "rotulo": "O13",
+   "pegadinha": "P8",
+   "arquivo": "ORIGINAIS/DIA02/C001/C001C003.mov",
+   "fps": "23.976",
+   "segundos": 10,
+   "tc_inicio": "17:00:00:00",
+   "camera": 3,
+   "take": 14
+  },
+  {
+   "rotulo": "O14",
+   "pegadinha": "P8",
+   "arquivo": "ORIGINAIS/DIA02/C001/C001C004.mov",
+   "fps": "23.976",
+   "segundos": 10,
+   "tc_inicio": "17:10:00:00",
+   "camera": 4,
+   "take": 15
+  },
+  {
+   "rotulo": "O15",
+   "pegadinha": "P9",
+   "arquivo": "ORIGINAIS/DIA01/C002/C001C002.mov",
+   "fps": "23.976",
+   "segundos": 10,
+   "tc_inicio": "18:00:00:00",
+   "camera": 3,
+   "take": 16,
+   "copias": [
+    "ORIGINAIS/BACKUP/DIA01/C002/C001C002.mov"
+   ]
+  },
+  {
+   "rotulo": "O16",
+   "pegadinha": "P10",
+   "arquivo": "ORIGINAIS/DIA02/A005/A003C001/A003C001.%07d.dpx",
+   "sequencia": "dpx",
+   "fps": "23.976",
+   "segundos": 6,
+   "tc_inicio": "19:00:00:00",
+   "camera": 2,
+   "take": 17
+  },
+  {
+   "rotulo": "O17",
+   "pegadinha": "P11",
+   "arquivo": "ORIGINAIS/DIA02/A006/A006C001.mov",
+   "fps": "23.976",
+   "segundos": 12,
+   "tc_inicio": "20:00:00:00",
+   "camera": 3,
+   "take": 18
+  },
+  {
+   "rotulo": "O18",
+   "pegadinha": "P12",
+   "arquivo": "ORIGINAIS/DIA02/A006/A006C002.mov",
+   "fps": "23.976",
+   "segundos": 12,
+   "tc_inicio": "00:00:00:00",
+   "camera": 4,
+   "take": 19
+  }
+ ],
+ "dailies": [
+  {
+   "de": "O01",
+   "arquivo": "DAILIES/DIA01/CARTAO_A/A001C003.mov"
+  },
+  {
+   "de": "O02",
+   "arquivo": "DAILIES/DIA01/CARTAO_B/A001C003.mov"
+  },
+  {
+   "de": "O03",
+   "arquivo": "DAILIES/DIA01/A002/A001C004.mov"
+  },
+  {
+   "de": "O04",
+   "arquivo": "DAILIES/DIA02/A002/A001C004.mov"
+  },
+  {
+   "de": "O05",
+   "arquivo": "DAILIES/DIA01/B001/B001C005.mov",
+   "fps": "23.976",
+   "nota": "P3: o proxy em 23,976 de um original 59,94"
+  },
+  {
+   "de": "O06",
+   "arquivo": "DAILIES/DIA01/B001/CENA12_T3.mov",
+   "nota": "P4: renomeado"
+  },
+  {
+   "de": "O07",
+   "arquivo": "DAILIES/DIA01/B001/B001C008.mov"
+  },
+  {
+   "de": "O08",
+   "arquivo": "DAILIES/DIA01/A003/a001c008.MOV",
+   "nota": "P5: caixa e extensão"
+  },
+  {
+   "de": "O09",
+   "arquivo": "DAILIES/DIA01/A003/CORAÇÃO_01.mov",
+   "nota": "P5: acento (o exFAT do Mac lista em NFD)"
+  },
+  {
+   "de": "O10",
+   "arquivo": "DAILIES/DIA01/GRAFICOS/PLACA_298.mov"
+  },
+  {
+   "de": "O11",
+   "arquivo": "DAILIES/DIA01/GRAFICOS/PLACA_297.mov"
+  },
+  {
+   "de": "O12",
+   "arquivo": "DAILIES/DIA02/A004/A002C001.mov",
+   "tc_ndf": true,
+   "nota": "P7: o mesmo rótulo de início, gravado NDF (diverge depois do minuto)"
+  },
+  {
+   "de": "O13",
+   "arquivo": "DAILIES/DIA02/C001/C001C003.mov",
+   "reel": "",
+   "nota": "P8: reel vazio"
+  },
+  {
+   "de": "O14",
+   "arquivo": "DAILIES/DIA02/C001/C001C004.mov",
+   "reel": "C001C003",
+   "nota": "P8: o reel de OUTRO clipe"
+  },
+  {
+   "de": "O15",
+   "arquivo": "DAILIES/DIA01/C002/C001C002.mov"
+  },
+  {
+   "de": "O16",
+   "arquivo": "DAILIES/DIA02/A005/A003C001.mov"
+  },
+  {
+   "de": "O17",
+   "arquivo": "DAILIES/DIA02/A006/A006C001.mov",
+   "tc": "00:00:00:00",
+   "nota": "P11: original com TC, a conversão com TC ZERADO"
+  },
+  {
+   "de": "O18",
+   "arquivo": "DAILIES/DIA02/A006/A006C002.mov",
+   "tc": "21:00:00:00",
+   "nota": "P12: original com TC zerado, a conversão com um TC (21:00:00:00)"
+  }
+ ]
+}

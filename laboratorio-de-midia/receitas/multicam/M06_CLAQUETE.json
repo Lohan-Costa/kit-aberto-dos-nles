@@ -1,0 +1,47 @@
+{
+ "caso": "M06_CLAQUETE",
+ "pergunta": "O som direto da M06 (a MESMA cena, semente e tomadas) com a claquete no NOME do WAV, como o gravador escreve: o Órbita lê cena/plano/take e organiza os subclipes por cena? (o vídeo é o da M06_4TOMADAS)",
+ "cena": {
+  "segundos": 120,
+  "relogio": "10:00:00:00",
+  "semente": 11
+ },
+ "raster": [
+  1920,
+  1080
+ ],
+ "perfil_video": "mov-prores",
+ "fontes": [
+  {
+   "nome": "SOM DIRETO",
+   "som": true,
+   "canais": 2,
+   "tc": "relogio",
+   "ganho_db": 0,
+   "tomadas": [
+    [
+     3,
+     27
+    ],
+    [
+     30,
+     52
+    ],
+    [
+     58,
+     84
+    ],
+    [
+     90,
+     114
+    ]
+   ],
+   "nomes": [
+    "M06 C1 P1-T001",
+    "M06 C1 P1-T002",
+    "M06 C1 P2-T001",
+    "M06 C2 P1-T001"
+   ]
+  }
+ ]
+}

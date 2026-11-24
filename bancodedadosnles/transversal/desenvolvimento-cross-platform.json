@@ -1,0 +1,260 @@
+{
+  "_meta": {
+    "protocolo": "transversal",
+    "titulo": "Armadilhas de desenvolver o mesmo projeto em macOS e Windows",
+    "confianca": "confirmado",
+    "atualizado": "2026-08-16",
+    "fontes": [
+      "DRAMASYNC/.dev/DECISIONS.md",
+      "DRAMASYNC/vite.config.ts",
+      "DRAMASYNC/dev.bat",
+      "sessão de portabilidade do Órbita para Windows 11 23H2 (2026-08-15)",
+      "sessão de portabilidade do De Lá Pra Cá (plugin do Media Composer) para Windows 11 23H2 (2026-08-15) — 2ª passada, outro app, mesma máquina",
+      "sessao do De La Pra Ca (2026-08-16): seletor de pasta moderno alcancado por ctypes, corrigindo a conclusao de 2026-08-15"
+    ],
+    "nle": "não se aplica — vale para qualquer app com dev server, sidecar ou binário nativo",
+    "notas": "Todas medidas numa sessão real. O modo de falha dominante é SILÊNCIO: o artefato existe e está errado, nada levanta exceção, e o sintoma aparece longe da causa. Narrativa em desenvolvimento-cross-platform.md. ATUALIZAÇÃO 2026-08-15 (2ª passada, app de arquitetura diferente na mesma máquina): acrescentadas ps1_sem_bom_lido_como_ansi, erroactionpreference_stop_mata_na_sondagem e enumerar_processos_no_windows_sem_powershell; e CORRIGIDA a entrada do venv compartilhado, que estava errada. O que apareceu nos DOIS apps é da plataforma, não do app."
+  },
+  "entries": {
+    "localhost_ipv6_vs_ipv4": {
+      "confianca": "confirmado",
+      "severidade": "alta",
+      "sintoma": "Janela/app em branco por minutos; nada falha, nada loga. Parece travamento, é lentidão.",
+      "mecanismo": [
+        "Node moderno resolve 'localhost' para ::1 ao ESCUTAR — o servidor fica só em IPv6",
+        "O cliente pede http://localhost:<porta> e o Windows tenta IPv4 primeiro",
+        "Ninguém em 127.0.0.1, e a máquina DESCARTA o pacote em vez de recusá-lo → timeout (recusa seria instantânea)",
+        "Só após o timeout o cliente cai para IPv6"
+      ],
+      "medicoes": {
+        "[::1]": "0,012–0,18 s por requisição",
+        "127.0.0.1 (sem listener)": "2,03 s fixos",
+        "localhost": "2,98 → 5,03 → 15,7 s (piorando)",
+        "depois_da_correcao": "0,198–0,263 s",
+        "impacto": "58 módulos em dev × 3–15 s = 5+ minutos de tela em branco"
+      },
+      "por_que_so_no_windows": "No macOS o IPv4 é recusado na hora (sem timeout), então o fallback para IPv6 é instantâneo e o problema é invisível na máquina de quem desenvolveu.",
+      "correcao": "Fixar a família dos dois lados, explicitamente: servidor com host '127.0.0.1' E cliente com URL '127.0.0.1'. Mudar só um inverte o problema.",
+      "regra_geral": "Em IPC local (dev server, sidecar, painel de plugin), usar literal de IP e nunca o nome 'localhost'. Se o alvo escuta em IPv6, usar [::1] explicitamente.",
+      "diagnostico": "Get-NetTCPConnection -LocalPort <porta> -State Listen | Select LocalAddress — e comparar os três endereços com curl -w '%{time_total}'"
+    },
+    "node_modules_nao_atravessa_so": {
+      "confianca": "confirmado",
+      "sintoma": "Cannot find native binding / Cannot find module '@scope/pkg-win32-x64-msvc'",
+      "causa": "node_modules copiado do outro SO existe e está errado: pacotes com binário nativo vieram só para a plataforma que instalou. npm não baixa a dependência opcional faltante depois (npm/cli#4828).",
+      "correcao": "Apagar node_modules e reinstalar com npm ci (determinístico, respeita lockfile).",
+      "checagem_errada": "if (exists node_modules)",
+      "checagem_certa": "Procurar o pacote nativo da PLATAFORMA ATUAL, ex.: node_modules/@scope/pkg-win32-x64-msvc",
+      "vale_tambem_para": [
+        "target/ do Rust",
+        ".venv/ do Python",
+        "binários de sidecar"
+      ]
+    },
+    "venv_compartilhado_entre_sos": {
+      "confianca": "confirmado (CORRIGIDO 2026-08-15)",
+      "possivel_porque": "Em FS que distingue maiúsculas (exFAT distingue), Scripts/+Lib/ (Windows) e bin/+lib/ (macOS) coexistem sem colidir.",
+      "armadilha": "O pyvenv.cfg é UM SÓ e guarda o interpretador de quem rodou 'python -m venv' por último. Se foi o macOS, o Scripts\\python.exe do Windows continua existindo mas falha ao rodar: \"No Python at '/opt/homebrew/...'\"",
+      "correcao": "Recriar só o lado do SO atual (py -3.x -m venv <caminho>): sobrescreve pyvenv.cfg e repovoa Scripts/, sem tocar em bin/+lib/.",
+      "cuidado_com_a_versao": "Os pacotes em Lib/site-packages têm extensões C de uma versão específica (*.cp312-win_amd64.pyd). Recriar com 3.11 sobre wheels cp312 dá ModuleNotFoundError: numpy._core._multiarray_umath — pasta cheia, nada importa. Conferir a versão dos wheels antes.",
+      "correcao_de_fato_anterior": "Esta entrada afirmava que um mesmo .venv carrega os dois SOs lado a lado porque o exFAT distingue maiúsculas. NÃO é o que se mede a partir do Windows: a camada Win32 é INSENSÍVEL à caixa, e a distinção do sistema de arquivos não a atravessa. `Test-Path .venv\\lib` e `.venv\\Lib` respondem AMBOS True — é a MESMA pasta — e um `python -m venv` escreve o site-packages do Windows dentro da árvore do macOS. Uma propriedade do FS não é uma propriedade da API que fala com ele.",
+      "recomendacao": "UM VENV POR SISTEMA OPERACIONAL (.venv + .venv-win), o segundo no .gitignore. Custa ~1 GB duplicado e elimina a classe inteira — inclusive a armadilha do pyvenv.cfg único, que passa a não existir."
+    },
+    "pip_self_upgrade_falha_no_windows": {
+      "confianca": "confirmado",
+      "erro": "[WinError 145] The directory is not empty: '...site-packages\\pip-XX.dist-info\\licenses\\src'",
+      "causa": "O pip não substitui os próprios arquivos enquanto está rodando.",
+      "efeito_colateral": "Deixa pasta ~ip-XX.dist-info; a partir daí TODA chamada futura de pip imprime 'WARNING: Ignoring invalid distribution ~ip', inclusive as que funcionam.",
+      "correcao": "Tirar '--upgrade pip' dos scripts de setup — não é necessário para instalar as dependências do projeto. Se já ocorreu, apagar ~ip-*.dist-info."
+    },
+    "armadilhas_menores": {
+      "confianca": "confirmado",
+      "subprocesso_pisca_console": {
+        "efeito": "Todo Command/subprocess no Windows abre janela preta; num laço de polling, pisca sem parar",
+        "correcao": "CREATE_NO_WINDOW (0x08000000) na criação do processo"
+      },
+      "teste_crava_separador_posix": {
+        "efeito": "assert caminho == 'a/b' falha contra os.path/Path, que devolvem 'a\\b'",
+        "nota": "O código de produção estava certo; o TESTE é que assumia POSIX",
+        "correcao": "Comparar com os.path.join(...) / str(Path(...)), nunca string crua"
+      },
+      "file_uri_com_letra_de_unidade": {
+        "efeito": "assert uri.startswith('file:/') falha — no Windows o absoluto começa pela letra (file:D:\\...)",
+        "correcao": "Verificar só startswith('file:')",
+        "medido": "ffmpeg lê file:D:\\...\\-report.mov normalmente: ele separa protocolo no PRIMEIRO ':', então a letra de unidade não confunde o parser"
+      },
+      "dependencia_de_tabela": {
+        "efeito": "Pacote importado pelo código mas ausente do requirements.txt, presente na máquina original por efeito colateral de outra instalação. Funciona por anos e quebra no primeiro ambiente limpo.",
+        "correcao": "Criar o ambiente do zero periodicamente — é o único jeito de descobrir"
+      }
+    },
+    "nome_de_arquivo_muda_entre_sos": {
+      "confianca": "confirmado",
+      "achado": "Num volume compartilhado, um nome criado no macOS com espaço (ou ponto) NO FIM é gravado com esses caracteres mapeados para a área de uso privado do Unicode — convenção antiga de Services for Macintosh.",
+      "mapeamento": {
+        "espaço final": "U+F028",
+        "ponto final": "U+F029"
+      },
+      "medicao": "ls | cat -A mostrou os bytes EF 80 A8 (= U+F028) no lugar do espaço final",
+      "consequencias": [
+        "Um literal de caminho com espaço no fim só funciona num dos SOs — descubra o nome (read_dir + starts_with) em vez de cravá-lo",
+        "trim() NÃO resolve: U+F028 não é whitespace para as bibliotecas padrão, então o caractere sobrevive e vaza para rótulos de interface como símbolo invisível",
+        "NÃO desfaça o mapeamento cegamente: traduzir U+F028->espaço em todo nome lido é decisão de produto, não higiene — quem escrever o nome de volta pode gerar um arquivo diferente do que existe"
+      ]
+    },
+    "regra_unificadora": {
+      "confianca": "confirmado",
+      "enunciado": "Cheque se FUNCIONA, não se EXISTE.",
+      "por_que": "Nas armadilhas acima o artefato EXISTE e está ERRADO. Checagem de presença dá falso 'tudo pronto' e empurra a falha para longe da causa.",
+      "exemplos": [
+        {
+          "ingenua": "if exists node_modules/",
+          "falha": "existe, é do outro SO",
+          "certa": "procurar o pacote nativo desta plataforma"
+        },
+        {
+          "ingenua": "if exists .venv/Scripts/pip.exe",
+          "falha": "existe, aponta para o Python do outro SO",
+          "certa": "executar python.exe -c 'import sys' e olhar o exit code"
+        },
+        {
+          "ingenua": "if exists <pasta montada com rótulo de volume>",
+          "falha": "no Windows o caminho é sintaticamente válido e nunca existe",
+          "certa": "resolver o caminho de verdade antes de usar"
+        }
+      ]
+    },
+    "discos_externos_exfat": {
+      "confianca": "inferido",
+      "varredura_de_arvore_grande": "src-tauri/target tinha 99.536 arquivos / 43,7 GB; qualquer ferramenta que faça glob a partir da raiz do projeto paga por isso",
+      "pipeline_css": "~5 s num módulo que importa CSS mesmo com cache quente, contra ~2 ms nos demais — não investigado a fundo",
+      "permissoes": "exFAT não guarda permissão POSIX: chmod/0600 não têm efeito. Segredo que dependa de permissão de arquivo não pode morar no disco compartilhado — usar %APPDATA%/~, cuja ACL é privada ao perfil",
+      "ressalva": "Parte da lentidão pode ser antivírus em tempo real (estava ligado) somado ao USB. Não foi isolado."
+    },
+    "ps1_sem_bom_lido_como_ansi": {
+      "confianca": "confirmado",
+      "severidade": "alta",
+      "sintoma": "O script morre com \"Missing closing '}' in statement block or type definition\" apontando para uma chave que ESTÁ lá, dezenas de linhas depois do caractere que causou o problema.",
+      "mecanismo": [
+        "O Windows PowerShell 5.1 lê um .ps1 SEM BOM como ANSI/cp1252, não como UTF-8",
+        "Um traço longo '—' (E2 80 94 em UTF-8) chega ao parser como 'â€\"'",
+        "O 0x94 do cp1252 é '”', e o PowerShell ACEITA aspas curvas como delimitador de string",
+        "A string fecha onde não devia, o resto da linha vira código, e as chaves deixam de fechar"
+      ],
+      "onde_aparece": "Qualquer .ps1 com acento ou traço longo, inclusive só em COMENTÁRIO.",
+      "correcao": "Gravar o .ps1 em UTF-8 COM BOM (EF BB BF). Alternativa igualmente válida: manter o .ps1 em ASCII puro, mais robusto contra edições futuras ao custo da legibilidade.",
+      "receita_regravar": "$t = [IO.File]::ReadAllText($p, [Text.UTF8Encoding]::new($false)); [IO.File]::WriteAllText($p, $t, [Text.UTF8Encoding]::new($true))",
+      "receita_conferir": "$e = $null; [System.Management.Automation.Language.Parser]::ParseFile($p, [ref]$null, [ref]$e); $e",
+      "aviso": "Muitas ferramentas de edição (inclusive de agente) gravam UTF-8 SEM BOM e desfazem a correção em silêncio. Confira o parse depois de editar, não confie.",
+      "medido_em": "dev.ps1 do De Lá Pra Cá, Windows 11 23H2, 2026-08-15"
+    },
+    "erroactionpreference_stop_mata_na_sondagem": {
+      "confianca": "confirmado",
+      "severidade": "média-alta",
+      "sintoma": "Script de setup morre na PRIMEIRA sondagem — justamente na que existe para descobrir o que a máquina tem.",
+      "mecanismo": "Com $ErrorActionPreference = 'Stop', no Windows PowerShell 5.1 qualquer linha que um EXECUTÁVEL escreva em stderr vira NativeCommandError TERMINANTE — mesmo com código de saída 0, e mesmo quando escrever ali é o comportamento correto do programa.",
+      "caso_medido": "`py -3.13` numa máquina sem o 3.13 imprime 'No suitable Python runtime found' em stderr; o laço que sonda 3.13/3.12/3.11 morre na primeira iteração. O `2>$null` não salva: o processo pai pode remesclar.",
+      "correcao": "$ErrorActionPreference = 'Continue' + verificação EXPLÍCITA de $LASTEXITCODE (ou do artefato que o comando deveria ter produzido) depois de cada comando externo que importa.",
+      "familia": "Mesma do aviso conhecido sobre 2>&1 em executável nativo — só que aqui a armadilha aparece SEM ninguém escrever redirecionamento.",
+      "corolario_python": "No Windows um cliente que fecha conexão keep-alive faz o socketserver levantar ConnectionResetError [WinError 10054] e despejar traceback completo, onde o POSIX devolve leitura vazia e segue calado. Com um painel batendo /health de 4 em 4 s o log vira parede de tracebacks, e um erro DE VERDADE passa despercebido. Sobrescrever handle_error para engolir ConnectionResetError/BrokenPipeError/ConnectionAbortedError.",
+      "medido_em": "dev.ps1 e serviço do De Lá Pra Cá, 2026-08-15"
+    },
+    "enumerar_processos_no_windows_sem_powershell": {
+      "confianca": "confirmado",
+      "severidade": "média",
+      "problema": "Um zelador de processo precisa de PID + PPID + nome do executável, e as três rotas óbvias falham: tasklist NÃO traz PPID; wmic está deprecado desde o Windows 10 21H1; Get-CimInstance Win32_Process custa ~300 ms, gasta um processo de PowerShell por consulta e pisca janela preta num serviço de fundo.",
+      "correcao": "CreateToolhelp32Snapshot por ctypes — sem subprocesso, sem janela, sem dependência nova. Medido: 309 processos numa varredura, instantânea.",
+      "armadilha_ctypes": "Sem declarar CreateToolhelp32Snapshot.restype = wintypes.HANDLE, o ctypes trata o HANDLE de 64 bits como int de 32 e o TRUNCA: a comparação com INVALID_HANDLE_VALUE passa a ser sobre outro número e o CloseHandle não fecha nada — vazamento de handle por consulta, sem erro.",
+      "implementacao": "_DeLaPraCa/plugins/media-composer/servico/plataforma.py",
+      "medido_em": "2026-08-15"
+    },
+    "seletor_de_pasta_moderno_no_windows": {
+      "confianca": "confirmado",
+      "severidade": "media",
+      "corrige": "A afirmacao anterior desta pagina de que 'um servico Python puro nao tem equivalente' ao rfd/pick_folder do Tauri. Estava errada: a limitacao era do PowerShell, nao da interface COM.",
+      "sintoma": "O seletor de pasta abre como a arvore antiga do SHBrowseForFolder — sem barra de endereco, sem Acesso rapido, sem onde colar um caminho. Chegar a uma pasta funda na rede exige abrir pasta por pasta.",
+      "mecanismo": [
+        "System.Windows.Forms.FolderBrowserDialog e' SHBrowseForFolder, e no .NET Framework nunca vira o dialogo moderno",
+        "O dialogo do Explorer e' IFileOpenDialog com a opcao FOS_PICKFOLDERS",
+        "Em PowerShell 5.1 declarar IFileOpenDialog a mao estoura NullReferenceException ao ler os resultados",
+        "Em Python o mesmo COM se alcanca com ctypes: a vtable se indexa direto e o marshalling e' explicito"
+      ],
+      "correcao": "Chamar IFileOpenDialog por ctypes, num PROCESSO A PARTE (um modal dentro de um servidor HTTP trava o servidor).",
+      "clsid_fileopendialog": "{DC1C5A9C-E88A-4DDE-A5A1-60F82A20AEF7}",
+      "iid_ifileopendialog": "{D57C7288-D4AD-4768-BE02-9D969532D960}",
+      "vtable": {
+        "nota": "Ordem por heranca acumulada. Errar um indice NAO da erro de escrita: chama outro metodo, com outra assinatura, e o processo morre com violacao de acesso ou devolve lixo.",
+        "IUnknown": {
+          "QueryInterface": 0,
+          "AddRef": 1,
+          "Release": 2
+        },
+        "IModalWindow": {
+          "Show": 3
+        },
+        "IFileDialog": {
+          "SetOptions": 9,
+          "GetOptions": 10,
+          "SetTitle": 17,
+          "SetOkButtonLabel": 18,
+          "GetResult": 20
+        },
+        "IFileOpenDialog": {
+          "GetResults": 27,
+          "GetSelectedItems": 28
+        },
+        "IShellItem": {
+          "GetDisplayName": 5
+        },
+        "IShellItemArray": {
+          "GetCount": 7,
+          "GetItemAt": 8
+        }
+      },
+      "flags": {
+        "FOS_PICKFOLDERS": "0x00000020",
+        "FOS_FORCEFILESYSTEM": "0x00000040",
+        "FOS_ALLOWMULTISELECT": "0x00000200",
+        "FOS_PATHMUSTEXIST": "0x00000800",
+        "SIGDN_FILESYSPATH": "0x80058000",
+        "HRESULT_CANCELADO": "0x800704C7"
+      },
+      "opcoes_medidas": {
+        "padrao_do_dialogo": "0x1808",
+        "depois_do_setoptions": "0x1a68",
+        "nota": "Somar as opcoes que ja vieram em vez de substituir. E ler de volta com GetOptions e' o que torna isto testavel SEM abrir janela — foi o custo por ciclo (um humano clicando) que tornou a tentativa em PowerShell cara."
+      },
+      "armadilhas": [
+        "FOS_FORCEFILESYSTEM: sem ele da' para escolher pasta VIRTUAL da shell (biblioteca, 'Este Computador') — existe na tela e nao existe para o os.scandir",
+        "A string do GetDisplayName e' liberada com CoTaskMemFree, nao pelo alocador da linguagem",
+        "O dialogo nasce ATRAS da janela do app dono do fluxo: precisa de uma janela 1x1 WS_EX_TOPMOST como owner",
+        "Empacotado (PyInstaller) sys.executable e' o proprio app, nao um Python: chamar com um .py subiria outra instancia do app"
+      ],
+      "de_brinde": "FOS_ALLOWMULTISELECT deixa escolher VARIAS pastas de uma vez, o que o SHBrowseForFolder nao faz.",
+      "alternativa_por_stack": "Tauri/Rust ganha o mesmo dialogo de graca com o crate rfd (AsyncFileDialog::pick_folder) — ver RELINKER/src-tauri/src/lib.rs.",
+      "licao_de_calibracao": "'Tentei X em A e falhou' nao e' 'X e' impossivel'. Antes da conclusao ampla, pergunte qual eixo falhou: a capacidade, ou a linguagem em que voce a pediu.",
+      "medido_em": "De La Pra Ca, plugins/media-composer/servico/dialogo_win.py, Windows 11 23H2 + Python 3.11, 2026-08-16. CONFIRMADO na tela nos dois cenarios: aberto do terminal e aberto pelo SERVICO rodando sob o Media Composer, vindo para a frente da janela do MC.",
+      "regressao": "_DeLaPraCa/tests/test_dialogo_win.py — 10 casos, nenhum abre janela.",
+      "janela_dona": {
+        "por_que": "Sem owner o dialogo nasce ATRAS da janela do app e o usuario conclui que o botao nao fez nada.",
+        "receita": "CreateWindowExW(WS_EX_TOPMOST|WS_EX_TOOLWINDOW, 'STATIC', None, WS_POPUP, 0,0,1,1, ...) + ShowWindow(SW_SHOWNA) + SetForegroundWindow, e passar o HWND como owner no Show.",
+        "equivalente_macos": "o 'activate' do System Events antes do 'choose folder' do osascript"
+      }
+    },
+    "a_superficie_do_gesto_e_parte_do_requisito": {
+      "confianca": "confirmado",
+      "severidade": "alta",
+      "resumo": "Ao ouvir 'preciso colar um caminho', foi construido um campo de texto NA NOSSA interface. O usuario estava descrevendo o que o Explorer faz e o dialogo velho nao fazia — pedia a superficie DELE, nao uma nova nossa.",
+      "corrige": "A licao anterior desta pagina ('confirme qual gesto esta sendo impedido'), que parou na metade: falta perguntar EM QUE SUPERFICIE o gesto deveria acontecer.",
+      "por_que_passa_despercebido": "O contorno FUNCIONAVA. Resolvia o sintoma, o usuario conseguia seguir, e por isso o problema real (a janela errada) ficou parado ate' alguem reclamar de novo. Um contorno que funciona e' o melhor esconderijo de um requisito mal lido.",
+      "regua": [
+        "1. Qual GESTO esta sendo impedido?",
+        "2. Em que SUPERFICIE ele deveria acontecer — na janela que a pessoa usa todo dia, ou numa que ela teria de aprender?"
+      ],
+      "sinal_de_alerta": "Estar reimplementando algo que a superficie nativa ja' tem: colar caminho, historico, favoritos, busca. Se voce esta recriando um pedaco do Explorer, provavelmente devia estar ABRINDO o Explorer.",
+      "custo_de_errar": "Cobra duas vezes: uma interface a mais para o usuario aprender, e a original continua faltando.",
+      "ligacao_com_a_parte_tecnica": "O campo so' existiu porque a janela certa parecia inalcancavel (ver seletor_de_pasta_moderno_no_windows). Conclusao tecnica errada gera requisito mal resolvido: aceitar 'nao da' cedo demais custa a funcionalidade E uma interface inventada para compensa-la.",
+      "medido_em": "De La Pra Ca, painel do Media Composer, 2026-08-16 — campo removido a pedido do usuario, que explicou a leitura errada."
+    }
+  }
+}

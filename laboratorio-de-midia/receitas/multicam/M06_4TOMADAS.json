@@ -1,0 +1,44 @@
+{
+ "caso": "M06_4TOMADAS",
+ "pergunta": "Uma câmera e um gravador, quatro tomadas (o som começa antes e acaba depois de cada uma), TC de relógio nos dois: o fluxo Resolve → OP-Atom → Media Composer → sync casa cada vídeo com o seu WAV no lugar certo?",
+ "cena": {
+  "segundos": 120,
+  "relogio": "10:00:00:00",
+  "semente": 11
+ },
+ "raster": [
+  1920,
+  1080
+ ],
+ "perfil_video": "mov-prores",
+ "fontes": [
+  {
+   "nome": "CAM 1",
+   "camera": 1,
+   "fps": "25",
+   "tc": "relogio",
+   "atraso_ms": 6,
+   "ganho_db": -6,
+   "filtro": "lowpass=f=7000",
+   "tomadas": [
+    [5, 25],
+    [32, 50],
+    [60, 82],
+    [92, 112]
+   ]
+  },
+  {
+   "nome": "SOM DIRETO",
+   "som": true,
+   "canais": 2,
+   "tc": "relogio",
+   "ganho_db": 0,
+   "tomadas": [
+    [3, 27],
+    [30, 52],
+    [58, 84],
+    [90, 114]
+   ]
+  }
+ ]
+}

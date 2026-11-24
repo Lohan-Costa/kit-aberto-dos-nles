@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<MoldeOpacidade23>
+	<VideoFilterComponent ObjectID="3524" ClassID="d10da199-beea-4dd1-b941-ed3a78766d50" Version="8">
+		<Component Version="6">
+			<Params Version="1">
+				<Param Index="0" ObjectRef="4085"/>
+				<Param Index="1" ObjectRef="4086"/>
+				<Param Index="2" ObjectRef="4087"/>
+			</Params>
+			<ID>2</ID>
+			<DisplayName>Opacity</DisplayName>
+			<Bypass>false</Bypass>
+			<Intrinsic>true</Intrinsic>
+			<ArchivedType>0</ArchivedType>
+		</Component>
+		<MatchName>AE.ADBE Opacity</MatchName>
+		<VideoFilterType>2</VideoFilterType>
+	</VideoFilterComponent>
+	<VideoComponentParam ObjectID="4085" ClassID="fe47129e-6c94-4fc0-95d5-c056a517aaf3" Version="9">
+		<Name>Opacity</Name>
+		<IsTimeVarying>false</IsTimeVarying>
+		<ParameterControlType>2</ParameterControlType>
+		<StartKeyframe>-91445760000000000,100.,0,0,0,0,0,0</StartKeyframe>
+		<LowerBound>0</LowerBound>
+		<UpperBound>100</UpperBound>
+		<ParameterID>1</ParameterID>
+	</VideoComponentParam>
+	<VideoComponentParam ObjectID="4086" ClassID="6e02e8bb-2569-46b2-8ab1-4ab11c43e9c8" Version="9">
+		<Name>Blend Mode</Name>
+		<IsTimeVarying>false</IsTimeVarying>
+		<DiscontinuousInterpolate>true</DiscontinuousInterpolate>
+		<ParameterControlType>10</ParameterControlType>
+		<StartKeyframe>-91445760000000000,18,0,0,0,0,0,0</StartKeyframe>
+		<LowerBound>0</LowerBound>
+		<UpperBound>26</UpperBound>
+		<ParameterID>2</ParameterID>
+	</VideoComponentParam>
+	<VideoComponentParam ObjectID="4087" ClassID="6e02e8bb-2569-46b2-8ab1-4ab11c43e9c8" Version="9">
+		<Name>Blend Mode</Name>
+		<IsTimeVarying>false</IsTimeVarying>
+		<DiscontinuousInterpolate>true</DiscontinuousInterpolate>
+		<ParameterControlType>7</ParameterControlType>
+		<StartKeyframe>-91445760000000000,0,0,0,0,0,0,0</StartKeyframe>
+		<LowerBound>0</LowerBound>
+		<UpperBound>31</UpperBound>
+		<ParameterID>3</ParameterID>
+	</VideoComponentParam>
+</MoldeOpacidade23>
