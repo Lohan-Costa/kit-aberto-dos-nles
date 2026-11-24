@@ -1,7 +1,9 @@
 # KIT ABERTO DOS NLEs
 
-> 🚧 **Em preparação.** O conteúdo está sendo anonimizado e revisado antes da primeira publicação. Acompanhe este
-> repositório (Watch → Releases) para saber quando ele chegar.
+> 🚧 **Em preparação.** Já estão aqui a **página do kit** (https://lohan-costa.github.io/kit-aberto-dos-nles/) e a
+> porta de entrada para o seu Claude (`COMECE-AQUI.md`). O banco, o piloto, o laboratório e as skills estão sendo
+> anonimizados e revisados antes de chegar. Acompanhe este repositório (Watch → Releases) ou as "Últimas atualizações"
+> da página.
 
 Um kit aberto para que o Claude — ou outra IA — aprenda a lidar com os programas de edição (Avid Media Composer,
 Adobe Premiere Pro, DaVinci Resolve, Baselight) e a acelerar a pós-produção: **scripts e apps que rodam sem IA para o
@@ -30,6 +32,11 @@ Cada pessoa tem fluxos e particularidades que nenhum mapeamento cobre. O kit nã
 cada um o método, as ferramentas e o que já se sabe, para que ele se aprimore no ambiente de quem usa. Se a pessoa
 quiser, o Claude dela devolve o que aprendeu — sempre anonimizado e com a concordância dela — numa área de
 contribuições que é testada antes de entrar no banco principal.
+
+## Como as mudanças são anotadas
+
+A seção "Últimas atualizações" da página lê o histórico deste repositório. Cada envio começa pelo tipo:
+`adicionado:`, `corrigido:` ou `mudado:` (aceitos também `feat:` e `fix:`), seguido de uma frase para quem edita.
 
 ## Licença
 
