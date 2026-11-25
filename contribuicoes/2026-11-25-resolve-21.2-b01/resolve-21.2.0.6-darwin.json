@@ -1,0 +1,1061 @@
+{
+ "caso": "B01_FORMATOS",
+ "variante": null,
+ "projeto": "LAB B01 FORMATOS",
+ "ajustes_do_projeto": {
+  "timelineFrameRate": true,
+  "timelineResolutionWidth": true,
+  "timelineResolutionHeight": true,
+  "timelineDropFrameTimecode": true,
+  "lidos": {
+   "timelineFrameRate": 25.0,
+   "timelineDropFrameTimecode": "0"
+  }
+ },
+ "nle": "DaVinci Resolve Studio",
+ "versao": "21.2.0.6",
+ "recusados": [],
+ "preferencias": null,
+ "plataforma": "darwin",
+ "ffmpeg": "9.1",
+ "pool": [
+  {
+   "clipe": "B01_MXF-XDCAM50.mxf",
+   "tipo": "Video + Audio",
+   "codec": "XDCAM MPEG2",
+   "formato": "MXF OP1A",
+   "conferencias": [
+    {
+     "campo": "Start TC",
+     "esperado": "01:00:00:00",
+     "nle": "01:00:00:00",
+     "ok": true
+    },
+    {
+     "campo": "Frames",
+     "esperado": "250",
+     "nle": "250",
+     "ok": true
+    },
+    {
+     "campo": "FPS",
+     "esperado": 25.0,
+     "nle": 25.0,
+     "ok": true
+    },
+    {
+     "campo": "Resolution",
+     "esperado": "1920x1080",
+     "nle": "1920x1080",
+     "ok": true
+    },
+    {
+     "campo": "Audio Ch",
+     "esperado": "8",
+     "nle": "8",
+     "ok": true
+    },
+    {
+     "campo": "Drop frame",
+     "esperado": "0",
+     "nle": "0",
+     "ok": true
+    }
+   ]
+  },
+  {
+   "clipe": "B01_MXF-OP1A.mxf",
+   "tipo": "Video + Audio",
+   "codec": "Avid DNxHD 120 1080p",
+   "formato": "MXF OP1A",
+   "conferencias": [
+    {
+     "campo": "Start TC",
+     "esperado": "01:00:00:00",
+     "nle": "01:00:00:00",
+     "ok": true
+    },
+    {
+     "campo": "Frames",
+     "esperado": "250",
+     "nle": "250",
+     "ok": true
+    },
+    {
+     "campo": "FPS",
+     "esperado": 25.0,
+     "nle": 25.0,
+     "ok": true
+    },
+    {
+     "campo": "Resolution",
+     "esperado": "1920x1080",
+     "nle": "1920x1080",
+     "ok": true
+    },
+    {
+     "campo": "Audio Ch",
+     "esperado": "2",
+     "nle": "2",
+     "ok": true
+    },
+    {
+     "campo": "Drop frame",
+     "esperado": "0",
+     "nle": "0",
+     "ok": true
+    }
+   ]
+  },
+  {
+   "clipe": "B01_MP4-H264.mp4",
+   "tipo": "Video + Audio",
+   "codec": "H.264 High L4.0",
+   "formato": "QuickTime",
+   "conferencias": [
+    {
+     "campo": "Start TC",
+     "esperado": "01:00:00:00",
+     "nle": "01:00:00:00",
+     "ok": true
+    },
+    {
+     "campo": "Frames",
+     "esperado": "250",
+     "nle": "250",
+     "ok": true
+    },
+    {
+     "campo": "FPS",
+     "esperado": 25.0,
+     "nle": 25.0,
+     "ok": true
+    },
+    {
+     "campo": "Resolution",
+     "esperado": "1920x1080",
+     "nle": "1920x1080",
+     "ok": true
+    },
+    {
+     "campo": "Audio Ch",
+     "esperado": "2",
+     "nle": "2",
+     "ok": true
+    },
+    {
+     "campo": "Drop frame",
+     "esperado": "0",
+     "nle": "0",
+     "ok": true
+    }
+   ]
+  },
+  {
+   "clipe": "B01_MOV-PRORES.mov",
+   "tipo": "Video + Audio",
+   "codec": "Apple ProRes 422",
+   "formato": "QuickTime",
+   "conferencias": [
+    {
+     "campo": "Start TC",
+     "esperado": "01:00:00:00",
+     "nle": "01:00:00:00",
+     "ok": true
+    },
+    {
+     "campo": "Frames",
+     "esperado": "250",
+     "nle": "250",
+     "ok": true
+    },
+    {
+     "campo": "FPS",
+     "esperado": 25.0,
+     "nle": 25.0,
+     "ok": true
+    },
+    {
+     "campo": "Resolution",
+     "esperado": "1920x1080",
+     "nle": "1920x1080",
+     "ok": true
+    },
+    {
+     "campo": "Audio Ch",
+     "esperado": "2",
+     "nle": "2",
+     "ok": true
+    },
+    {
+     "campo": "Drop frame",
+     "esperado": "0",
+     "nle": "0",
+     "ok": true
+    }
+   ]
+  },
+  {
+   "clipe": "B01_V01.mxf",
+   "tipo": "Video + Audio",
+   "codec": "Avid DNxHD 120 1080p",
+   "formato": "MXF OP-Atom",
+   "conferencias": [
+    {
+     "campo": "Start TC",
+     "esperado": "01:00:00:00",
+     "nle": "01:00:00:00",
+     "ok": true
+    },
+    {
+     "campo": "Frames",
+     "esperado": "250",
+     "nle": "250",
+     "ok": true
+    },
+    {
+     "campo": "FPS",
+     "esperado": 25.0,
+     "nle": 25.0,
+     "ok": true
+    },
+    {
+     "campo": "Resolution",
+     "esperado": "1920x1080",
+     "nle": "1920x1080",
+     "ok": true
+    },
+    {
+     "campo": "Audio Ch",
+     "esperado": "0",
+     "nle": "2",
+     "ok": false
+    },
+    {
+     "campo": "Drop frame",
+     "esperado": "0",
+     "nle": "0",
+     "ok": true
+    }
+   ]
+  },
+  {
+   "clipe": "B01_WAV-BWF.wav",
+   "tipo": "Audio",
+   "codec": "",
+   "formato": "Wave",
+   "conferencias": [
+    {
+     "campo": "Start TC",
+     "esperado": "01:00:00:00",
+     "nle": "01:00:00:00",
+     "ok": true
+    },
+    {
+     "campo": "Frames",
+     "esperado": "",
+     "nle": "",
+     "ok": true
+    },
+    {
+     "campo": "FPS",
+     "esperado": 25.0,
+     "nle": 25.0,
+     "ok": true
+    },
+    {
+     "campo": "Resolution",
+     "esperado": "",
+     "nle": "",
+     "ok": true
+    },
+    {
+     "campo": "Audio Ch",
+     "esperado": "2",
+     "nle": "2",
+     "ok": true
+    }
+   ]
+  }
+ ],
+ "timelines": [
+  {
+   "timeline": "TL B01_MXF-XDCAM50.mxf",
+   "inicio_tc": "01:00:00:00",
+   "modo": null,
+   "stills": [
+    {
+     "posicao_na_timeline": 0,
+     "tc_na_agulha": "01:00:00:00",
+     "esperado_quadro_e_tc": [
+      0,
+      90000
+     ],
+     "lido_quadro_e_tc": [
+      0,
+      90000
+     ],
+     "ok": true
+    },
+    {
+     "posicao_na_timeline": 24,
+     "tc_na_agulha": "01:00:00:24",
+     "esperado_quadro_e_tc": [
+      24,
+      90024
+     ],
+     "lido_quadro_e_tc": [
+      24,
+      90024
+     ],
+     "ok": true
+    },
+    {
+     "posicao_na_timeline": 25,
+     "tc_na_agulha": "01:00:01:00",
+     "esperado_quadro_e_tc": [
+      25,
+      90025
+     ],
+     "lido_quadro_e_tc": [
+      25,
+      90025
+     ],
+     "ok": true
+    },
+    {
+     "posicao_na_timeline": 124,
+     "tc_na_agulha": "01:00:04:24",
+     "esperado_quadro_e_tc": [
+      124,
+      90124
+     ],
+     "lido_quadro_e_tc": [
+      124,
+      90124
+     ],
+     "ok": true
+    },
+    {
+     "posicao_na_timeline": 249,
+     "tc_na_agulha": "01:00:09:24",
+     "esperado_quadro_e_tc": [
+      249,
+      90249
+     ],
+     "lido_quadro_e_tc": [
+      249,
+      90249
+     ],
+     "ok": true
+    }
+   ],
+   "render": {
+    "arquivo": "renders/RENDER B01_MXF-XDCAM50.mov",
+    "quadros": 250,
+    "codigos": {
+     "0": [
+      0,
+      90000
+     ],
+     "124": [
+      124,
+      90124
+     ],
+     "249": [
+      249,
+      90249
+     ]
+    },
+    "codigos_ok": true,
+    "tc_do_render": "01:00:00:00",
+    "audio": [
+     {
+      "trilha": 1,
+      "canais": 2,
+      "tons_por_canal": [
+       [
+        300,
+        400
+       ],
+       [
+        300,
+        400
+       ]
+      ],
+      "claques_por_canal": [
+       [
+        0.0004,
+        1.0,
+        2.0
+       ],
+       [
+        0.0004,
+        1.0,
+        2.0
+       ]
+      ]
+     }
+    ],
+    "tc_ok": true,
+    "claques_ok": true,
+    "canais_ok": null
+   },
+   "trilhas_de_audio": [
+    {
+     "trilha": 1,
+     "subtipo": "stereo",
+     "itens": [
+      "B01_MXF-XDCAM50.mxf"
+     ],
+     "canais_da_fonte": [
+      [
+       1
+      ]
+     ]
+    },
+    {
+     "trilha": 2,
+     "subtipo": "stereo",
+     "itens": [
+      "B01_MXF-XDCAM50.mxf"
+     ],
+     "canais_da_fonte": [
+      [
+       2
+      ]
+     ]
+    },
+    {
+     "trilha": 3,
+     "subtipo": "stereo",
+     "itens": [
+      "B01_MXF-XDCAM50.mxf"
+     ],
+     "canais_da_fonte": [
+      [
+       3
+      ]
+     ]
+    },
+    {
+     "trilha": 4,
+     "subtipo": "stereo",
+     "itens": [
+      "B01_MXF-XDCAM50.mxf"
+     ],
+     "canais_da_fonte": [
+      [
+       4
+      ]
+     ]
+    },
+    {
+     "trilha": 5,
+     "subtipo": "stereo",
+     "itens": [
+      "B01_MXF-XDCAM50.mxf"
+     ],
+     "canais_da_fonte": [
+      [
+       5
+      ]
+     ]
+    },
+    {
+     "trilha": 6,
+     "subtipo": "stereo",
+     "itens": [
+      "B01_MXF-XDCAM50.mxf"
+     ],
+     "canais_da_fonte": [
+      [
+       6
+      ]
+     ]
+    },
+    {
+     "trilha": 7,
+     "subtipo": "stereo",
+     "itens": [
+      "B01_MXF-XDCAM50.mxf"
+     ],
+     "canais_da_fonte": [
+      [
+       7
+      ]
+     ]
+    },
+    {
+     "trilha": 8,
+     "subtipo": "stereo",
+     "itens": [
+      "B01_MXF-XDCAM50.mxf"
+     ],
+     "canais_da_fonte": [
+      [
+       8
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "timeline": "TL B01_MXF-OP1A.mxf",
+   "inicio_tc": "01:00:00:00",
+   "modo": null,
+   "stills": [
+    {
+     "posicao_na_timeline": 0,
+     "tc_na_agulha": "01:00:00:00",
+     "esperado_quadro_e_tc": [
+      0,
+      90000
+     ],
+     "lido_quadro_e_tc": [
+      0,
+      90000
+     ],
+     "ok": true
+    },
+    {
+     "posicao_na_timeline": 24,
+     "tc_na_agulha": "01:00:00:24",
+     "esperado_quadro_e_tc": [
+      24,
+      90024
+     ],
+     "lido_quadro_e_tc": [
+      24,
+      90024
+     ],
+     "ok": true
+    },
+    {
+     "posicao_na_timeline": 25,
+     "tc_na_agulha": "01:00:01:00",
+     "esperado_quadro_e_tc": [
+      25,
+      90025
+     ],
+     "lido_quadro_e_tc": [
+      25,
+      90025
+     ],
+     "ok": true
+    },
+    {
+     "posicao_na_timeline": 124,
+     "tc_na_agulha": "01:00:04:24",
+     "esperado_quadro_e_tc": [
+      124,
+      90124
+     ],
+     "lido_quadro_e_tc": [
+      124,
+      90124
+     ],
+     "ok": true
+    },
+    {
+     "posicao_na_timeline": 249,
+     "tc_na_agulha": "01:00:09:24",
+     "esperado_quadro_e_tc": [
+      249,
+      90249
+     ],
+     "lido_quadro_e_tc": [
+      249,
+      90249
+     ],
+     "ok": true
+    }
+   ],
+   "render": {
+    "arquivo": "renders/RENDER B01_MXF-OP1A.mov",
+    "quadros": 250,
+    "codigos": {
+     "0": [
+      0,
+      90000
+     ],
+     "124": [
+      124,
+      90124
+     ],
+     "249": [
+      249,
+      90249
+     ]
+    },
+    "codigos_ok": true,
+    "tc_do_render": "01:00:00:00",
+    "audio": [
+     {
+      "trilha": 1,
+      "canais": 2,
+      "tons_por_canal": [
+       [
+        300
+       ],
+       [
+        400
+       ]
+      ],
+      "claques_por_canal": [
+       [
+        0.0009,
+        1.0,
+        2.0
+       ],
+       [
+        0.0009,
+        1.0,
+        2.0
+       ]
+      ]
+     }
+    ],
+    "tc_ok": true,
+    "claques_ok": true,
+    "canais_ok": true
+   },
+   "trilhas_de_audio": [
+    {
+     "trilha": 1,
+     "subtipo": "stereo",
+     "itens": [
+      "B01_MXF-OP1A.mxf"
+     ],
+     "canais_da_fonte": [
+      [
+       1,
+       2
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "timeline": "TL B01_MP4-H264.mp4",
+   "inicio_tc": "01:00:00:00",
+   "modo": null,
+   "stills": [
+    {
+     "posicao_na_timeline": 0,
+     "tc_na_agulha": "01:00:00:00",
+     "esperado_quadro_e_tc": [
+      0,
+      90000
+     ],
+     "lido_quadro_e_tc": [
+      0,
+      90000
+     ],
+     "ok": true
+    },
+    {
+     "posicao_na_timeline": 24,
+     "tc_na_agulha": "01:00:00:24",
+     "esperado_quadro_e_tc": [
+      24,
+      90024
+     ],
+     "lido_quadro_e_tc": [
+      24,
+      90024
+     ],
+     "ok": true
+    },
+    {
+     "posicao_na_timeline": 25,
+     "tc_na_agulha": "01:00:01:00",
+     "esperado_quadro_e_tc": [
+      25,
+      90025
+     ],
+     "lido_quadro_e_tc": [
+      25,
+      90025
+     ],
+     "ok": true
+    },
+    {
+     "posicao_na_timeline": 124,
+     "tc_na_agulha": "01:00:04:24",
+     "esperado_quadro_e_tc": [
+      124,
+      90124
+     ],
+     "lido_quadro_e_tc": [
+      124,
+      90124
+     ],
+     "ok": true
+    },
+    {
+     "posicao_na_timeline": 249,
+     "tc_na_agulha": "01:00:09:24",
+     "esperado_quadro_e_tc": [
+      249,
+      90249
+     ],
+     "lido_quadro_e_tc": [
+      249,
+      90249
+     ],
+     "ok": true
+    }
+   ],
+   "render": {
+    "arquivo": "renders/RENDER B01_MP4-H264.mov",
+    "quadros": 250,
+    "codigos": {
+     "0": [
+      0,
+      90000
+     ],
+     "124": [
+      124,
+      90124
+     ],
+     "249": [
+      249,
+      90249
+     ]
+    },
+    "codigos_ok": true,
+    "tc_do_render": "01:00:00:00",
+    "audio": [
+     {
+      "trilha": 1,
+      "canais": 2,
+      "tons_por_canal": [
+       [
+        300
+       ],
+       [
+        400
+       ]
+      ],
+      "claques_por_canal": [
+       [
+        0.0008,
+        1.0,
+        2.0
+       ],
+       [
+        0.0008,
+        1.0,
+        2.0
+       ]
+      ]
+     }
+    ],
+    "tc_ok": true,
+    "claques_ok": true,
+    "canais_ok": true
+   },
+   "trilhas_de_audio": [
+    {
+     "trilha": 1,
+     "subtipo": "stereo",
+     "itens": [
+      "B01_MP4-H264.mp4"
+     ],
+     "canais_da_fonte": [
+      [
+       1,
+       2
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "timeline": "TL B01_MOV-PRORES.mov",
+   "inicio_tc": "01:00:00:00",
+   "modo": null,
+   "stills": [
+    {
+     "posicao_na_timeline": 0,
+     "tc_na_agulha": "01:00:00:00",
+     "esperado_quadro_e_tc": [
+      0,
+      90000
+     ],
+     "lido_quadro_e_tc": [
+      0,
+      90000
+     ],
+     "ok": true
+    },
+    {
+     "posicao_na_timeline": 24,
+     "tc_na_agulha": "01:00:00:24",
+     "esperado_quadro_e_tc": [
+      24,
+      90024
+     ],
+     "lido_quadro_e_tc": [
+      24,
+      90024
+     ],
+     "ok": true
+    },
+    {
+     "posicao_na_timeline": 25,
+     "tc_na_agulha": "01:00:01:00",
+     "esperado_quadro_e_tc": [
+      25,
+      90025
+     ],
+     "lido_quadro_e_tc": [
+      25,
+      90025
+     ],
+     "ok": true
+    },
+    {
+     "posicao_na_timeline": 124,
+     "tc_na_agulha": "01:00:04:24",
+     "esperado_quadro_e_tc": [
+      124,
+      90124
+     ],
+     "lido_quadro_e_tc": [
+      124,
+      90124
+     ],
+     "ok": true
+    },
+    {
+     "posicao_na_timeline": 249,
+     "tc_na_agulha": "01:00:09:24",
+     "esperado_quadro_e_tc": [
+      249,
+      90249
+     ],
+     "lido_quadro_e_tc": [
+      249,
+      90249
+     ],
+     "ok": true
+    }
+   ],
+   "render": {
+    "arquivo": "renders/RENDER B01_MOV-PRORES.mov",
+    "quadros": 250,
+    "codigos": {
+     "0": [
+      0,
+      90000
+     ],
+     "124": [
+      124,
+      90124
+     ],
+     "249": [
+      249,
+      90249
+     ]
+    },
+    "codigos_ok": true,
+    "tc_do_render": "01:00:00:00",
+    "audio": [
+     {
+      "trilha": 1,
+      "canais": 2,
+      "tons_por_canal": [
+       [
+        300
+       ],
+       [
+        400
+       ]
+      ],
+      "claques_por_canal": [
+       [
+        0.0009,
+        1.0,
+        2.0
+       ],
+       [
+        0.0009,
+        1.0,
+        2.0
+       ]
+      ]
+     }
+    ],
+    "tc_ok": true,
+    "claques_ok": true,
+    "canais_ok": true
+   },
+   "trilhas_de_audio": [
+    {
+     "trilha": 1,
+     "subtipo": "stereo",
+     "itens": [
+      "B01_MOV-PRORES.mov"
+     ],
+     "canais_da_fonte": [
+      [
+       1,
+       2
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "timeline": "TL B01_V01.mxf",
+   "inicio_tc": "01:00:00:00",
+   "modo": null,
+   "stills": [
+    {
+     "posicao_na_timeline": 0,
+     "tc_na_agulha": "01:00:00:00",
+     "esperado_quadro_e_tc": [
+      0,
+      90000
+     ],
+     "lido_quadro_e_tc": [
+      0,
+      90000
+     ],
+     "ok": true
+    },
+    {
+     "posicao_na_timeline": 24,
+     "tc_na_agulha": "01:00:00:24",
+     "esperado_quadro_e_tc": [
+      24,
+      90024
+     ],
+     "lido_quadro_e_tc": [
+      24,
+      90024
+     ],
+     "ok": true
+    },
+    {
+     "posicao_na_timeline": 25,
+     "tc_na_agulha": "01:00:01:00",
+     "esperado_quadro_e_tc": [
+      25,
+      90025
+     ],
+     "lido_quadro_e_tc": [
+      25,
+      90025
+     ],
+     "ok": true
+    },
+    {
+     "posicao_na_timeline": 124,
+     "tc_na_agulha": "01:00:04:24",
+     "esperado_quadro_e_tc": [
+      124,
+      90124
+     ],
+     "lido_quadro_e_tc": [
+      124,
+      90124
+     ],
+     "ok": true
+    },
+    {
+     "posicao_na_timeline": 249,
+     "tc_na_agulha": "01:00:09:24",
+     "esperado_quadro_e_tc": [
+      249,
+      90249
+     ],
+     "lido_quadro_e_tc": [
+      249,
+      90249
+     ],
+     "ok": true
+    }
+   ],
+   "render": {
+    "arquivo": "renders/RENDER B01_V01.mov",
+    "quadros": 250,
+    "codigos": {
+     "0": [
+      0,
+      90000
+     ],
+     "124": [
+      124,
+      90124
+     ],
+     "249": [
+      249,
+      90249
+     ]
+    },
+    "codigos_ok": true,
+    "tc_do_render": "01:00:00:00",
+    "audio": [
+     {
+      "trilha": 1,
+      "canais": 2,
+      "tons_por_canal": [
+       [
+        300,
+        400
+       ],
+       [
+        300,
+        400
+       ]
+      ],
+      "claques_por_canal": [
+       [
+        0.0004,
+        1.0,
+        2.0
+       ],
+       [
+        0.0004,
+        1.0,
+        2.0
+       ]
+      ]
+     }
+    ],
+    "tc_ok": true,
+    "claques_ok": true,
+    "canais_ok": null
+   },
+   "trilhas_de_audio": [
+    {
+     "trilha": 1,
+     "subtipo": "stereo",
+     "itens": [
+      "B01_V01.mxf"
+     ],
+     "canais_da_fonte": [
+      [
+       1
+      ]
+     ]
+    },
+    {
+     "trilha": 2,
+     "subtipo": "stereo",
+     "itens": [
+      "B01_V01.mxf"
+     ],
+     "canais_da_fonte": [
+      [
+       2
+      ]
+     ]
+    }
+   ]
+  }
+ ]
+}
