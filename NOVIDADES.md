@@ -14,6 +14,10 @@ começa por `adicionado:`, `corrigido:` ou `mudado:`) e na seção "Últimas atu
 - **Adicionado:** crédito para quem colabora. Antes de enviar uma contribuição, o seu Claude pergunta se você quer
   aparecer (o @ do GitHub ou um nome) ou ficar anônimo; quando ela entra no kit, a página mostra "com a colaboração
   de…" ao lado da mudança.
+- **Adicionado:** o robô da máquina limpa — a cada envio (e toda segunda), um Mac e um Windows recém-criados pelo
+  GitHub instalam o ffmpeg, ligam as skills, geram e conferem a mídia sintética e rodam os testes do zero, com o
+  Python 3.9 e o 3.12. Pega instrução quebrada antes de uma pessoa tropeçar nela.
+- **Corrigido:** na página, a data das últimas atualizações invadia a etiqueta ao lado (agora "25 nov. 2026").
 - **Mudado:** o README diz em que máquinas o kit é testado. Mac Intel: não temos máquina — o que se sabe dele vem da
   comunidade.
 - Os testes do laboratório que falhavam sem os arquivos de referência (relato de 24/11) já tinham sido resolvidos no

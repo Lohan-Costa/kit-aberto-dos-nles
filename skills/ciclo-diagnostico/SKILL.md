@@ -35,6 +35,10 @@ dela será aberto. Pergunte se algum programa de edição está aberto com traba
   (Windows: `.venv\Scripts\python`). Nenhum deve FALHAR; vários PULAM e dizem por quê — dado de produção real que
   não vem no kit, ou recurso só do outro sistema. Conte os que pulam e diga à pessoa o motivo de cada grupo.
 - Gere uma amostra sintética (skill `ciclo-laboratorio`) e confira com `ffprobe` que o arquivo diz o que é.
+- **Sem `ffmpeg`/`ffprobe`** (com o ok da pessoa): macOS com Homebrew → `brew install ffmpeg`; Windows → `winget install
+  Gyan.FFmpeg` (ou `choco install ffmpeg`) e abrir um terminal novo; Mac Intel → o Homebrew não serve mais: os binários
+  estáticos em `~/Library/Application Support/laboratorio-de-midia/ffmpeg/` (relato da comunidade; não temos Mac Intel).
+  Esses caminhos são os que o robô `maquina-limpa` do GitHub refaz do zero a cada envio (Mac e Windows novos).
 
 ## 4. Propor a bateria
 

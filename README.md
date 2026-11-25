@@ -38,7 +38,8 @@ laboratório.
 
 ## Em que máquinas foi testado
 
-O kit é medido em **Windows 11** e em **Mac com Apple Silicon**. **Mac Intel: não temos máquina para testar** — o que se
+O kit é medido em **Windows 11** e em **Mac com Apple Silicon**, e a cada envio um robô refaz a instalação do zero num
+Mac e num Windows recém-criados pelo GitHub (`.github/workflows/maquina-limpa.yml`). **Mac Intel: não temos máquina para testar** — o que se
 sabe dele vem da comunidade, pela pasta `contribuicoes/`. O primeiro relato (novembro de 2026): o Homebrew não instala
 mais o ffmpeg num Mac Intel; o ffmpeg estático na pasta do laboratório
 (`~/Library/Application Support/laboratorio-de-midia/ffmpeg/`) funciona, e o laboratório procura lá primeiro. Se você usa

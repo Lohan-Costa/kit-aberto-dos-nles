@@ -1,0 +1,75 @@
+# A MÁQUINA LIMPA: o caminho de quem acabou de receber o link do kit, num Mac e num Windows recém-criados pelo GitHub
+# (nada da máquina de quem desenvolve: sem as skills, a memória, o ffmpeg, o Python nem os apps de lá). Pega instrução
+# quebrada e dependência esquecida ANTES de uma pessoa tropeçar nelas. Não testa os programas de edição nem o Claude —
+# isso é da "Leia" numa máquina virtual ou numa conta nova (proposta de 2026-11-25).
+# Roda a cada envio ao ramo principal, toda segunda (versão nova de ffmpeg, Python ou sistema) e quando alguém pedir.
+name: maquina-limpa
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "0 9 * * 1"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  do-zero:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, windows-latest]
+        python: ["3.9", "3.12"]          # o 3.9 é o que vem no macOS; o kit diz que basta
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    defaults:
+      run:
+        shell: bash
+    env:
+      PYTHONIOENCODING: utf-8
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: ${{ matrix.python }}
+
+      - name: ffmpeg (como uma pessoa instalaria)
+        run: |
+          if [ "$RUNNER_OS" = "macOS" ]; then brew install ffmpeg >/dev/null; else choco install ffmpeg -y --no-progress >/dev/null; fi
+          ffmpeg -version | head -1
+          ffprobe -version | head -1
+
+      - name: as skills do kit (instalar.py)
+        run: |
+          python instalar.py
+          python instalar.py --conferir
+
+      - name: o ambiente de testes (a skill ciclo-diagnostico)
+        run: |
+          python -m venv .venv
+          if [ "$RUNNER_OS" = "Windows" ]; then echo "PY=.venv/Scripts/python" >> "$GITHUB_ENV"; else echo "PY=.venv/bin/python" >> "$GITHUB_ENV"; fi
+          if [ "$RUNNER_OS" = "Windows" ]; then .venv/Scripts/python -m pip install -q pytest pillow; else .venv/bin/python -m pip install -q pytest pillow; fi
+
+      - name: a verificação de plataforma
+        run: python bancodedadosnles/verificar_plataforma.py laboratorio-de-midia --sem-testes --so-pendentes
+
+      - name: o laboratório gera e confere a mídia sintética (B01)
+        working-directory: laboratorio-de-midia
+        run: python -m lab.gerar receitas/base/B01.json --verificar
+
+      - name: os testes que não precisam de programa aberto
+        run: $PY -m pytest laboratorio-de-midia/tests piloto/tests -q -rs
+
+      - name: o app aberto dentro do kit (a bancada do MC o acha)
+        run: |
+          git clone -q --depth 1 https://github.com/Lohan-Costa/ciclo-assist-kit-nle.git ciclo-assist-kit-nle
+          cd laboratorio-de-midia
+          python -c "from lab.bancadas import avid as A; import os; assert os.path.isdir(os.path.join(A.ASSIST, 'cicloassist')), A.ASSIST; print('app achado:', os.path.basename(A.ASSIST))"
+
+      - name: resumo
+        if: always()
+        run: |
+          {
+            echo "### Máquina limpa — ${{ matrix.os }}, Python ${{ matrix.python }}"
+            echo "- ffmpeg: $(ffmpeg -version 2>/dev/null | head -1 | cut -d' ' -f3)"
+            echo "- resultado deste job: ${{ job.status }}"
+          } >> "$GITHUB_STEP_SUMMARY"
