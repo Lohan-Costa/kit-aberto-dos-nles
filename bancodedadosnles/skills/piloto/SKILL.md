@@ -396,6 +396,11 @@ o Claude numa tarefa) — e morrem junto. Nunca um processo de fundo que sobrevi
   multicâmera na bin → o Origem abre o mosaico (1 trilha = 1 ângulo, 2–4 = 4, 5–9 = 9), borda AMARELA = ativo; um
   clique no ângulo troca; Arquivo › Salvar (menu pelo nome) grava o `TrackIndex`. ⚠️ Com DOIS projetos abertos a aba
   "Compartimento" pode ser do OUTRO projeto (o título da janela muda): confira o título antes de agir.
+- ⛔ **Diálogo MODAL do Premiere (Mac): o `digitar_em(hwnd)` recusa** (2026-11-25, 26.0.2, "Arquivo offline"): a janela de
+  teclado que o macOS informa continua a PRINCIPAL, e o `ForaDeFoco` sai sem digitar nada. As teclas chegam ao diálogo:
+  conferir o APP da frente por `lsappinfo front` e usar `digitar`. Campo de TC (o valor azul) vira texto num clique; dígitos
+  + Tab (o Enter aciona o OK). ⚠️ Item de menu do Premiere depende do PAINEL em foco: o "Arquivo offline…" vem
+  DESABILITADO com o foco nos Controles de efeitos — clique na aba do painel Projeto e confira `enabled of menu item`.
 - O diálogo "Selecionar uma Pasta" (osascript `choose folder`, dono "Eventos do Sistema"): `frente` + Cmd+Shift+G +
   `digitar(caminho)` + Enter entra na pasta; **Escolher** escolhe a pasta ATUAL (sem nada selecionado).
 - MC: o nome de item novo na bin (sequência criada por Splice) nasce em MODO DE RENOMEAR — clicar no vazio da bin antes

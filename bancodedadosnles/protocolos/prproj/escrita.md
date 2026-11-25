@@ -1003,6 +1003,96 @@ o editor de volta à frente, fechar a cópia; 4. a timeline escrita numa segunda
 - ⛔ `openDocument` de um projeto aberto às vezes deixa o `app.project` no antigo logo depois (1 em ~10, com o Premiere
   recém-ocupado): conferir e repetir (`cicloFrente`); fechar a cópia recebe EXPLICITAMENTE para quem voltar.
 
+### 11o. ⭐⭐ MÍDIA OFFLINE escrita por fora: o "Arquivo offline" do Premiere é um molde pequeno, e o enxerto dele abre e religa (2026-11-25, 26.0.2 Mac) — `confirmado` (1 rodada)
+
+O plano sem mídia não pode sumir da timeline (regra do autor). Hoje o Conformar põe só um marcador "OFFLINE" no lugar e a
+Carta deixa o clipe de fora. A ideia do autor (28/10): o recurso da bin **Arquivo ▸ Novo ▸ Arquivo offline…** com os
+dados que temos. Medido (projetos em `MIDIAS DE TESTES/1 PRODUCOES/PRODUCAO-A/SAIDAS/LAB OFFLINE PREMIERE/`, DIARIO.md):
+- **Nem o ExtendScript nem o QE criam arquivo offline** (`qe.project`: newBarsAndTone, newBlackVideo… nenhum offline;
+  `app.project` também não). O item do menu só se HABILITA com o painel Projeto em foco.
+- **O que o Premiere escreve** (plano de câmera: 1920×1080, 23,976, estéreo, TC 04:53:47:11, 14578 q):
+  `ClipProjectItem` → `MasterClip` com `MZ.offlineclip.{VideoFrameRate, AudioFrameRate, VideoFrameRect.Width/Height,
+  VideoPAR.num/den}` nas Properties → `ClipLoggingInfo` (TapeName, ClipName, TimecodeFormat 110, MediaIn/OutPoint em
+  ticks, MediaFrameRate) + VideoClip/AudioClip + Video/AudioMediaSource (OriginalDuration) → **`<Media>` só com
+  `Start` (o TC em ticks), `TapeName`, `ImplementationID` zerado, `Title` (o nome do ARQUIVO) e `OfflineReason 5`** +
+  Audio/VideoStream (Duration, FrameRect, FrameRate, o layout dos canais). **Sem caminho, sem `FileKey`, sem
+  `ImporterPrefs`** (o `getMediaPath()` devolve ""). O nome do item é o nome do arquivo digitado.
+- **Religa:** `projectItem.changeMediaPath(<o original>, true)` → online, e o clipe da sequência mantém entrada, saída,
+  duração e TC de início (o arquivo real tem o mesmo TC).
+- **Escrito por fora (o enxerto):** os mesmos objetos copiados para uma cópia de OUTRO projeto (ids novos, `ObjectID`
+  no fim e em ordem crescente §0.1, o item na `<Items>` da bin raiz, gzip com o cabeçalho do Premiere §0) → o
+  `openDocument(c, true, true, true)` abriu sem diálogo, o item offline com o TC e a fita; `changeMediaPath` religou
+  igual. ⇒ o app pode pôr o plano offline NO LUGAR (Conformar Avid → Premiere e a Carta), com o que o protocolo de
+  origem diz da mídia.
+- **Medido depois (o mesmo dia):** o só de som que o diálogo grava (Contém: Áudio) não tem vídeo e o `ClipLoggingInfo`
+  leva `CaptureMode 1` e a taxa do ÁUDIO (`5292000`); sem TC nem fita, `Start`/`TapeName` não são gravados. Mono =
+  `channellabel 0` + `ChannelType 0` (o dos sons importados); estéreo = 100/101 + `ChannelType 1`. Gerador:
+  `Ciclo Assist modulos/conformar/motor/prproj/offline.py` (o texto sai IGUAL ao do Premiere, conferido linha a linha).
+  - `importFiles([aux.prproj], true, bin, false)` traz os itens offline DIRETO na bin, sem diálogo; o item com o MESMO
+    nome de um offline que já está no projeto NÃO entra de novo (o Premiere descarta a duplicata).
+  - Subclipe + `overwriteClip` de item offline funcionam (trechos do meio, no lugar). ⛔ O SUBCLIPE leva a própria cópia
+    da mídia: religar o item-pai NÃO religa a sequência — religue os subclipes também.
+  - ⭐ **O TC declarado não decide o trecho:** o mesmo plano declarado com TC 0 e religado ao arquivo de TC 04:53:47:11
+    manteve a entrada contada do INÍCIO DO ARQUIVO (2000 q). O TC é para mostrar e para religar por TC.
+  - ⛔⛔ **No som OFFLINE a entrada do subclipe cai numa grade de 1/25 s** (0,959 q a 23,976 — pedidos de 500 a 500,6
+    deram 499,66; de 500,75, 500,62) e o clipe na sequência fica no quadro de BAIXO: 500 virava 499 e CONTINUAVA 499
+    depois de religar. Conserto: a entrada no 1º ponto da grade >= o quadro (lendo de volta) → 500, 777, 1234 exatos,
+    antes e depois de religar. O vídeo offline não tem isso (2000 exato).
+  - ⬜ Pendentes: Premiere mais antigo que o molde vazio (26.0.2) importando o auxiliar.
+- ⭐⭐ **Som de MAIS DE 2 CANAIS (o som direto polifônico) — `confirmado` (26.0.2 Mac, 2026-11-25):** o Premiere guarda
+  o WAV de 5 canais importado (`PRODUCAO-A - 05-04 C4 P1-T001.WAV`, `LAB OFFLINE MULTICANAL v01`) como **N canais
+  MONO**: N `AudioComponentChain`, N `AudioClip` mono (um `SecondaryContent`, `ChannelIndex 0`), N `AudioMediaSource`,
+  e **um `<Media>` POR CANAL** (o mesmo arquivo; `StreamNumber` 1…N−1 do 2º em diante, ausente no 1º), cada um com o
+  seu `AudioStream` mono; N vetores de canal com `ClipChannelSerializer` `SourceClipIndex` k / `mSourceChannelIndex 0`
+  (§6, "MÍDIA multicanal"). O offline de N canais escrito NESSA forma (cada `<Media>` com `Title`, `Start`,
+  `StreamNumber` e `OfflineReason 5`) abriu, e o `changeMediaPath` ao WAV real religou o item inteiro: 10/10 clipes
+  online, mesmas posições e entradas ao tick, o TC igual, e **cada trilha no SEU canal** (o clipe do canal 3 aponta a
+  `Media` de `StreamNumber 2`; lido no `.prproj` regravado pelo Premiere — `LAB OFFLINE MULTICANAL v04` — e no selo
+  do canal na timeline). ⛔ `projectItem.setOffline()` (ExtendScript) não tornou offline o item importado (voltou
+  `isOffline() == false`): o molde veio do arquivo online + a regra do diálogo.
+- ⭐⭐ **A MATRIZ de layouts (mídia sintética do laboratório, B03: 1/2/4/5/8/16 canais × MOV ProRes polifônico, MOV
+  um mono por trilha e WAV BWF; 26.0.2 Mac, 2026-11-25; `Ciclo Assist spikes/offline_premiere_matriz.py`) — `confirmado`.**
+  O offline escrito pelo app, religado por `changeMediaPath`, conferido contra o MESMO arquivo importado online
+  (o par `StreamNumber` da mídia + `ChannelIndex` de cada canal):
+  - com os canais CONHECIDOS (um clipe por canal, A1…AN): **18/18**, 120/120 clipes no mesmo lugar ao tick, vídeo online
+    (vídeo com 4, 5, 8 e 16 canais incluso). O offline ESTÉREO religado a "2 mono" (MOV de 2 trilhas) é REMAPEADO
+    pelo Premiere para o layout do arquivo — certo.
+  - ⛔⛔ com os canais DESCONHECIDOS e a timeline usando só alguns (o caso da referência do Avid): o offline sai com o
+    maior canal usado; **ESTÉREO religado a um arquivo de MAIS de 2 canais deixa o canal 2 SEM FONTE** (o
+    `SecondaryContent` sem `Content` e `ChannelIndex` 18446744073709551615 = −1: mudo) — 3/3 nos de 8 canais. Em **N
+    MONO** com menos canais que o arquivo (5 canais usando o 3; 16 usando 1, 2, 9, 16) religa certo, e 2 MONO religado a
+    arquivo estéreo de verdade também. ⇒ **regra: offline estéreo SÓ com a certeza de uma trilha de 2 canais; sem ela, N
+    mono** → 18/18 nas duas variantes.
+  - ⛔ O ExtendScript do Premiere é ES3: não há `JSON` (`ReferenceError: JSON is undefined`).
+- ⭐ **A Carta (Avid → Premiere) com o offline no lugar, medida no projeto do editor** (`importSequences`): a
+  `PRODA_CORTE.00.2` com 95 clipes de 23 sons sem arquivo nesta máquina → 867 clipes, 95 offline no lugar, os 23
+  itens entraram com a sequência, os merged não duplicaram; religados 4 sons (53 clipes) → online, no mesmo lugar ao
+  tick; o PATÃO DRONE com o TC 06:14:11:13 exato.
+- ⛔⛔ **O nome do PARÂMETRO de efeito é gravado NO IDIOMA do Premiere** (26.0.2 Mac em português, 2026-11-25): o
+  `AE.ADBE Text` do gráfico tem "Texto de origem" e "Posição" (no 26.5 Windows em inglês: "Source Text", "Position").
+  Código que acha parâmetro pelo `Name` quebra noutro idioma — achar pela forma (o `ArbVideoComponentParam` com
+  `StartKeyframeValue` é o texto; o 1º `PointComponentParam`, a posição) ou aceitar os nomes medidos. ⬜ O mesmo vale
+  para o Motion ("Scale Width"…) — sem molde em português medido.
+
+### 11p. ⭐⭐ ARQUIVO COM MAIS DE UM FLUXO DE SOM (o MOV de pares estéreo): o canal do arquivo é a SOMA dos fluxos anteriores (2026-11-25, 26.0.2 Mac) — `confirmado`
+
+Medido com a mídia sintética do laboratório (`B03_PARES_2398`: MOV com 2 pares L/R; 2 pares + 1 mono; 3 pares; um tom por
+canal), `.prproj` em `MIDIAS DE TESTES/3 CONJUNTOS…/conformar/04 SINTETICOS/CANAIS IDA E VOLTA/` (`PREMIERE PARES`,
+`VOLTA PARES DO AVID`):
+- **Uma `Media` por FLUXO de som** do arquivo (o 1º sem `StreamNumber`, depois 1, 2…), todas com o mesmo `FileKey`; os
+  canais do fluxo estão em `AudioStream › AudioChannelLayout` (`[{"channellabel":100},{"channellabel":101}]` = estéreo,
+  `[{"channellabel":0}]` = mono). O clipe aponta (`SecondaryContent › Content › … › Media`) o fluxo e o `ChannelIndex`
+  DENTRO dele. ⇒ **canal do arquivo = Σ canais dos fluxos anteriores + `ChannelIndex` + 1**. Somar só o `StreamNumber`
+  (que basta no "N Mono", um canal por fluxo) dava 1, 2, 2, 3 num MOV de 2 pares.
+- O Premiere abre cada par numa trilha (clipe ESTÉREO). O mono que sobra (2 pares + 1 mono) vira clipe de 2 canais com
+  o 2º **MUDO**: `ChannelIndex` 18446744073709551615 (2⁶⁴−1). O canal mudo não toca nada e não vira trilha na leitura.
+- **Religar um offline "N Mono" (o que o Conformar escreve) a um arquivo de pares:** com fluxos IGUAIS (2 pares, 3 pares)
+  religa CERTO (1…N); com fluxos DESIGUAIS (2 pares + 1 mono) o Premiere põe o canal k no FLUXO k: saem 1, 3, 5 e dois
+  mudos. Pelo Avid não se sabe o arranjo do arquivo ausente (o master do AMA é só N trilhas mono) ⇒ limite conhecido;
+  o comum na câmera (só mono, ou só pares) religa certo. Prova: `Ciclo Assist spikes/offline_pares_premiere.py`.
+- Leitor: Conformar `prproj/leitura.py` (`Leitor._canais` + `_inicio_do_fluxo`); teste
+  `modulos/conformar/tests/test_canais_ida_e_volta.py`.
+
 ## 12. Pendências conhecidas (`pendente`)
 
 - **`MZ.Sequence.VideoTimeDisplayFormat`** está fixo em `110` (23,976 non-drop). O enum para os

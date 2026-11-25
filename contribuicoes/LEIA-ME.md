@@ -10,6 +10,7 @@ um script daqui sem lê-lo inteiro.
 
 1. Um mantenedor (e o Claude dele) reproduz o caso no laboratório, com mídia sintética (skill `ciclo-laboratorio`).
 2. Confirmou → o fato entra no banco com a confiança, a versão e o sistema, citando a contribuição; a pasta daqui sai.
+   O envio que faz isso leva a linha `Crédito:` do relato (se a pessoa quis), e a página mostra quem colaborou.
 3. Não confirmou → fica aqui como investigação aberta, com o que se mediu anotado no relato.
 
 ## Uma pasta por contribuição
@@ -21,6 +22,7 @@ um script daqui sem lê-lo inteiro.
 
 - Programa e versão:            - Sistema:
 - Confiança: confirmado | inferido | hipotese
+- Crédito: @usuario | um nome | anônimo
 - Como reproduzir: <a receita do laboratório, ou os passos>
 
 ## O que se viu

@@ -1,0 +1,17 @@
+{
+ "caso": "B03_LAYOUTS_DE_AUDIO_2398",
+ "pergunta": "B03 a 23,976 (o projeto de laboratório do MC no Mac é 23,976): mono, estéreo e 5 canais, para a ida e volta Premiere ⇄ Avid (tudo mono no Avid — autor, 2026-11-25).",
+ "segundos": 10,
+ "fps": "23.976",
+ "raster": [1920, 1080],
+ "tc_inicio": "01:00:00:00",
+ "camera": 1,
+ "take": 1,
+ "fonte": 1,
+ "perfis": ["mov-prores", "wav-bwf"],
+ "variantes": [
+  {"rotulo": "1CH", "canais": 1},
+  {"rotulo": "2CH", "canais": 2},
+  {"rotulo": "5CH", "canais": 5}
+ ]
+}

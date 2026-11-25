@@ -24,16 +24,27 @@ when_to_use: Quando se descobriu algo que vale para outras pessoas (uma versão 
   Uma verificação automática recusa o pull request que mexer fora dessa pasta.
 - **Relato sem arquivo, ou uma dúvida aberta** → uma issue com o modelo "relato de campo" ou "investigação aberta".
 
-## 3. Mostrar e conferir
+## 3. Perguntar sobre o crédito
+
+Pergunte à pessoa, com estas opções, e anote a resposta na linha `Crédito:` do `RELATO.md` e do pull request:
+- **Com o @ do GitHub** (`Crédito: @usuario`) — aparece nas "Últimas atualizações" da página e no `NOVIDADES.md`, com
+  link para o perfil, quando a contribuição entrar no kit;
+- **Com um nome** que ela escolher (`Crédito: Nome Sobrenome`, ou um apelido);
+- **Anônima** (`Crédito: anônimo`) — não é citada nos créditos.
+
+Seja honesto sobre o limite: o pull request (ou a issue) sempre mostra a conta do GitHub que o abriu. Quem não quer nem
+isso pode mandar o relato a alguém que já contribui, ou esperar uma forma de envio sem conta.
+
+## 4. Mostrar e conferir
 
 1. Rode `python3 ferramentas/varredura.py contribuicoes/<pasta>` (segredos, caminhos pessoais, e-mails, mídia,
    tamanho) e resolva TODO apontamento.
 2. Mostre à pessoa o conteúdo final, arquivo por arquivo (não um resumo), e pergunte se pode enviar.
 
-## 4. Enviar (com o "pode enviar")
+## 5. Enviar (com o "pode enviar")
 
 - Precisa de uma conta no GitHub (a pessoa cria; você não cria contas). Com o `gh` instalado e logado: fork do kit,
   um ramo, o commit SÓ da pasta da contribuição (mensagem começando por `adicionado:`), o pull request com o modelo.
 - Sem o `gh`: prepare a pasta e o texto e guie a pessoa no site do GitHub, passo a passo.
 - Diga onde ficou (o endereço do pull request ou da issue) e que um mantenedor vai reproduzir no laboratório antes de
-  entrar no banco.
+  entrar no banco — e, se ela quis crédito, que o nome aparece quando entrar.

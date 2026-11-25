@@ -754,6 +754,33 @@ para montar nas versões sem MCP e DEVOLVER as marcas do editor.
 ⬜ L/J (som só numa trilha): fora — decisão do autor (fica com o editor). ⬜ Não medido: o Windows (23.x do
 notebook). `trackItem.move` e `sequence.clone()`: medidos em 2026-11-07, abaixo.
 
+## ⭐⭐ UM CANAL de um item polifônico numa trilha: o subclipe REMAPEADO (2026-11-25, Premiere 26.0.2 Mac) — `confirmado`
+
+O item de N canais mono (o WAV/MOV de 3+ canais — "N Mono") vai INTEIRO no `overwriteClip`: os canais espalham para as
+trilhas de baixo e a trilha k toca o canal 1. Para pôr o canal c na trilha t (o que a timeline do Avid pede):
+- `projectItem.setAudioChannelMapping(m)` EXISTE, mas o `reflect.methods` NÃO o lista (`typeof` = function). O
+  `getAudioChannelMapping` é PROPRIEDADE; `audioChannelsType` e `audioClipsNumber` são SÓ LEITURA ("Cannot set
+  property"); `new AudioChannelMapping()` não tem construtor ⇒ **não há como reduzir o item a 1 clipe**.
+- ⭐ **O que funciona:** subclipe só de som do item → `m = s.getAudioChannelMapping; m.setMappingForChannel(0, c−1);
+  s.setAudioChannelMapping(m)` → `overwriteClip(s, t)`: a trilha t recebe o canal c (`StreamNumber c−1`); os outros
+  N−1 clipes ainda espalham para t+1… — apague-os na hora (`remove(false, false)`) e monte o som em ordem CRESCENTE de
+  trilha (o que espalha só cai onde ainda não há nada). As trilhas criadas depois da última usada saem por QE
+  `getActiveSequence().removeAudioTrack(i)`.
+- **Sobrevive ao religar:** item OFFLINE de 8 canais, subclipes remapeados (1, 4, 8, 2 em A1–A4), `changeMediaPath` do
+  item e dos subclipes ao WAV real → os 4 online tocando 1, 4, 8, 2, mesma entrada.
+- Produto: De Lá Pra Cá/Conformar `dlpcMontar` (o canal vem do `canal_arquivo` do Avid); prova
+  `Ciclo Assist spikes/conformar_canais_premiere.py` (V1 + 8 canais offline + 5 online + estéreo + mono: 7/7 trilhas
+  certas, 8 trilhas na sequência, entrada e duração exatas). Mono e estéreo seguem inteiros numa trilha.
+
+- ⛔⛔ **Item de clipes ESTÉREO** (o MOV de pares L/R: `audioChannelsType` 1 com 2+ clipes — B03_PARES, 2026-11-25): o
+  subclipe remapeado leva DOIS canais, e remapear só o 0 deixa o lado R no canal padrão (a trilha tocava c e 2). O
+  `setMappingForChannel(1, x)` resolve: **`x = −1` = MUDO** (vira `ChannelIndex` 2⁶⁴−1), e o índice é o canal do
+  ARQUIVO inteiro, mesmo cruzando fluxos (`(0,1),(1,2)` = canais 2 e 3, do 1º e do 2º par). O `reflect` do mapeamento só
+  mostra `audioChannelsType`, `audioClipsNumber` e `setMappingForChannel`. Produto (`dlpcMontar`): o par do Avid em
+  trilhas vizinhas (c, c+1) vira UM clipe estéreo na 1ª, a do R fica vazia (a regra da ida e volta); o sozinho, [c, mudo].
+  Ida e volta Avid → Premiere → Avid com 2 pares e 2 pares + 1 mono: bins idênticas (MC 25.12).
+- ⛔ `changeMediaPath` do ITEM não leva os subclipes: cada subclipe é religado por si (a ordem não muda o resultado).
+
 ## ⭐⭐ EDITAR a timeline pelo ExtendScript nas versões sem MCP (2026-11-07, Premiere 26.0.2 e 25.6.5, Mac) — `confirmado`
 
 (O 25.6.5 repetiu tudo: 100/100 quadros na imagem; lá a cópia do `clone()` vem com nome em INGLÊS — ache pelo
@@ -782,6 +809,12 @@ mostra o quadro ANTERIOR à entrada em todo pedaço movido. Ler de volta arredon
 próprio (13:04:19,012), pedido em 10 s → 9,968 s; numa sequência de 25 fps o trecho entrou UM QUADRO antes (3 de 4
 trechos só de som do `cicloMontar` da F6, que a prova pegou). Conserto: depois do `overwriteClip`, `inPoint`/`outPoint`
 atribuídos no ITEM da timeline (slip) → 20/20 trilhas no quadro.
+
+⛔ **E no SUBCLIPE do `dlpcMontar` (Conformar, 26.0.2, 2026-11-25) — `confirmado` de ouvido:** o WAV com TC de OUTRA
+taxa (25 numa sequência 23,976) pedido no quadro 24 (1,001 s) com a folga de 0,6 q entrou a 0,959 s = quadro 23 (as
+claques do lab 1 quadro atrasadas no export do MC). A folga não basta quando a grade do clipe é mais grossa (1/25 s =
+0,959 q). Conserto: ler o `getInPoint` de volta e, abaixo do pedido, subir +0,8/+0,95/+0,99 q até passar → 1,04 s
+(o 1º ponto da grade ≥ 1,001), o leitor do `.prproj` relê 24, e o MC toca as claques no tempo exato (0,999/3,001 s).
 
 ## 🆕 2026-11-13 — XML de timeline (FCP7 `xmeml` 4) por `importFiles`, apontando OP-Atom do Avid (Premiere 26.0.2 Mac) — `observado` (1 rodada)
 

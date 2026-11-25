@@ -108,6 +108,7 @@ html{scroll-padding-top:24px}
 .novidades .txt{margin:0;max-width:none}
 .novidades a{font-size:14px;white-space:nowrap}
 .nov-rodape{margin:0;font-size:14px;color:var(--ink-muted)}
+.nov-credito{color:var(--ink-muted);font-size:14px;white-space:nowrap}
 @media(max-width:600px){.novidades li{grid-template-columns:auto minmax(0,1fr)}.novidades .txt{grid-column:1/-1}.novidades li>a{grid-column:1/-1}}
 </style>
 </head><body>
@@ -380,12 +381,16 @@ const TIPOS={adicionado:'Adicionado',corrigido:'Corrigido',mudado:'Mudado'};
 const CONV={feat:'adicionado',add:'adicionado',adiciona:'adicionado',novo:'adicionado',fix:'corrigido',corrige:'corrigido',conserto:'corrigido'};
 const dataBR=s=>{const d=new Date(s);return isNaN(d)?esc(s):d.toLocaleDateString('pt-BR',{day:'2-digit',month:'short',year:'numeric'});};
 const lista=document.getElementById('listaNovidades');
-const desenhar=itens=>{lista.innerHTML=itens.map(n=>`<li><time datetime="${esc(n.data)}">${dataBR(n.data)}</time><span class="nov-tipo ${esc(n.tipo)}">${esc(TIPOS[n.tipo]||'Mudado')}</span><p class="txt">${esc(n.texto)}</p>${n.url?`<a href="${esc(n.url)}">ver no GitHub</a>`:'<span></span>'}</li>`).join('');};
+const desenhar=itens=>{lista.innerHTML=itens.map(n=>`<li><time datetime="${esc(n.data)}">${dataBR(n.data)}</time><span class="nov-tipo ${esc(n.tipo)}">${esc(TIPOS[n.tipo]||'Mudado')}</span><p class="txt">${esc(n.texto)}${n.credito?` <span class="nov-credito">— com a colaboração de ${n.credito}</span>`:''}</p>${n.url?`<a href="${esc(n.url)}">ver no GitHub</a>`:'<span></span>'}</li>`).join('');};
 const doCommit=c=>{const l=(c.commit&&c.commit.message||'').split('\n')[0].trim();
   const m=l.match(/^([A-Za-zÀ-ÿ]+)(?:\([^)]*\))?\s*:\s*(.+)$/);let tipo='mudado',texto=l;
   if(m){const k=m[1].toLowerCase();if(TIPOS[k])tipo=k;else if(CONV[k])tipo=CONV[k];texto=m[2];}
   texto=texto.charAt(0).toUpperCase()+texto.slice(1);
-  return {data:(c.commit.committer||c.commit.author||{}).date||'',tipo,texto,url:c.html_url||''};};
+  // o crédito de quem colaborou (só se a pessoa quis): linhas "Crédito: @usuario" ou "Crédito: Nome" no corpo do envio
+  const cred=(c.commit&&c.commit.message||'').split('\n').map(x=>x.match(/^Cr[ée]dito:\s*(.+)$/i)).filter(Boolean)
+    .map(x=>x[1].trim()).filter(x=>x&&!/^an[ôo]nim/i.test(x))
+    .map(x=>/^@[A-Za-z0-9-]{1,39}$/.test(x)?`<a href="https://github.com/${esc(x.slice(1))}">${esc(x)}</a>`:esc(x));
+  return {data:(c.commit.committer||c.commit.author||{}).date||'',tipo,texto,url:c.html_url||'',credito:cred.join(', ')};};
 desenhar(GUARDADAS);
 const fonte=document.getElementById('novFonte');
 fetch('https://api.github.com/repos/Lohan-Costa/kit-aberto-dos-nles/commits?sha=main&per_page=30',{headers:{Accept:'application/vnd.github+json'}})

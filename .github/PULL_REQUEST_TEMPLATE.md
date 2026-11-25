@@ -10,6 +10,7 @@
 - Sistema (Windows/macOS e versão):
 - Como foi medido (a receita do laboratório, o número, o quadro):
 - Confiança: `confirmado` / `inferido` / `hipotese`
+- Crédito: `@usuario` / um nome / `anônimo` (aparece nas "Últimas atualizações" quando entrar)
 
 ## Conferido antes de enviar
 

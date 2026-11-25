@@ -1,5 +1,12 @@
-"""Bancada do MEDIA COMPOSER no Windows — a ponte (gRPC do próprio MC em [::1]:9100, pelo cliente do De Lá Pra Cá), o
-abrir/fechar, o perfil e o projeto do laboratório. Desenho aprovado pelo autor em 2026-10-11
+"""Bancada do MEDIA COMPOSER — a ponte (gRPC do próprio MC em [::1]:9100, pelo cliente DIRETO do Ciclo Assist), o
+abrir/fechar, o perfil e o projeto do laboratório.
+
+⭐ Dois andares (2026-11-25, retorno do kit aberto: no Mac a bancada nem carregava). A API (`mc`, `comando`,
+`instalar_preset`, `exportar`, `importar`, `montar_sequencia`, `montar_camadas`, `drt_*`) roda no Windows e no Mac: o
+cliente é o `cicloassist/avid/mcapi.py` do app (clonado DENTRO do kit como `ciclo-assist-kit-nle/`, ou o
+`2 ATIVOS/_CICLO ASSIST` da família, ou `CICLO_ASSIST=<pasta>`), com o Python que tenha `grpcio` e `protobuf` (o do
+app serve). A INTERFACE (abrir o MC, a Select Project, criar projeto pelo piloto) é só do Windows; fora dele, sem o cão
+de guarda: a API tem prazo próprio, mas um diálogo do MC aberto a deixa muda — olhe a tela. Desenho aprovado pelo autor em 2026-10-11
 (https://claude.ai/artifact/MzPuChcFZEEuKbWcRe7G6B).
 
 Regras (CLAUDE.md do laboratório): toda ação passa pelo cão de guarda (`vigia_windows.com_prazo`: prazo + MC vivo +
@@ -14,8 +21,9 @@ import subprocess
 import sys
 import time
 
-from . import interface_win as I
-from . import vigia_windows as V
+if sys.platform == "win32":
+    from . import interface_win as I
+    from . import vigia_windows as V
 
 EXE = r"C:\Program Files\Avid\Avid Media Composer\AvidMediaComposer.exe"
 PERFIL = "DLPC_LAB"
@@ -27,7 +35,72 @@ from piloto import apps as _apps  # noqa: E402
 #: os diálogos conhecidos do MC moram no PILOTO desde 2026-10-12 (um catálogo só para a família)
 CATALOGO = _apps.catalogo("avid")
 FOTOS = os.path.join(os.path.dirname(os.path.dirname(_AQUI)), "saida", "bancadas", "avid", "vigia")
-DLPC = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(_AQUI))), "2 ATIVOS", "_DeLaPraCa")
+_RAIZ = os.path.dirname(os.path.dirname(os.path.dirname(_AQUI)))   # o kit (público) ou a PROGRAMAS COM CLAUDE
+
+
+def _achar_app() -> str:
+    """A pasta do Ciclo Assist: `CICLO_ASSIST`, o clone dentro do kit, ou o da família."""
+    for c in (os.environ.get("CICLO_ASSIST"), os.path.join(_RAIZ, "ciclo-assist-kit-nle"),
+              os.path.join(_RAIZ, "2 ATIVOS", "_CICLO ASSIST")):
+        if c and os.path.isdir(os.path.join(c, "cicloassist")):
+            return c
+    return os.path.join(_RAIZ, "ciclo-assist-kit-nle")
+
+
+ASSIST = _achar_app()
+#: o De Lá Pra Cá virou o módulo Conformar do app (2026-11-07): o servico/ e o motor/ dele moram aqui
+DLPC = os.path.join(ASSIST, "modulos", "conformar")
+
+if sys.platform != "win32":
+    class _SoWindows:
+        def __getattr__(self, nome):
+            raise RuntimeError(f"interface do MC pelo piloto ({nome}) é só do Windows nesta bancada — no "
+                               f"{sys.platform} use a API (mc, exportar, importar, montar_sequencia…) com o MC aberto")
+
+    class _SoAPI:
+        """O `vigia_windows` fora do Windows: nenhum diálogo é visto nem resolvido (olhe a tela)."""
+        AVID = "AvidMediaComposer"
+
+        class Travado(RuntimeError):
+            def __init__(self, msg: str, foto=None):
+                super().__init__(msg)
+                self.foto = foto
+        DialogoAberto = Travado
+
+        @staticmethod
+        def carregar_catalogo(_):
+            return []
+
+        @staticmethod
+        def varrer(*_a, **_k):
+            return []
+
+        @staticmethod
+        def dialogos(*_a, **_k):
+            return []
+
+        @staticmethod
+        def com_prazo(acao, _prazo, *_a, **_k):
+            return acao()
+
+        @staticmethod
+        def foto_da_tela(pasta, nome):
+            try:
+                from piloto import olhos
+                return olhos.foto_da_tela(pasta, nome)
+            except Exception:                                # noqa: BLE001 — a foto é só evidência
+                return None
+
+        @staticmethod
+        def pids_do_premiere(_exe):                          # (o nome é do vigia do Windows: serve a qualquer app)
+            r = subprocess.run(["pgrep", "-x", "AvidMediaComposer"], capture_output=True, text=True)
+            return [int(x) for x in r.stdout.split()]
+
+        @staticmethod
+        def _janela_principal(_exe):
+            return None
+
+    I, V = _SoWindows(), _SoAPI()
 
 # DoCommand (banco, plugins/avid-panel-sdk/dados/docommand-commands.json)
 CMD_SAIR, CMD_FECHAR_PROJETO = 1010, 1172
@@ -39,17 +112,51 @@ NAO_MODAIS = ("Settings", "Select Project", "Motion Effect Editor", "Effect Edit
               "Promo Entrega", "Ciclo Assist") + tuple(f"Bins.{n}" for n in range(1, 10))
 
 
+def _so_no_windows(nome: str) -> None:
+    """A interface do MC pelo piloto (abrir o programa, a Select Project, criar projeto) é só do Windows aqui."""
+    if sys.platform != "win32":
+        raise RuntimeError(f"{nome}: a interface do MC pelo piloto é só do Windows nesta bancada — no "
+                           f"{sys.platform}, abra o MC e o projeto à mão e use a API (mc, exportar, importar…)")
+
+
 def _catalogo() -> list[dict]:
     return V.carregar_catalogo(CATALOGO)
 
 
 def mc():
-    """O cliente da API do MC (o do De Lá Pra Cá: `servico/avid/mcapi.py`)."""
-    for p in (os.path.join(DLPC, "plugins", "media-composer", "servico"), os.path.join(DLPC, "motor")):
-        if p not in sys.path:
-            sys.path.insert(0, p)
-    from avid.mcapi import MediaComposer
-    return MediaComposer()
+    """O cliente da API do MC: o DIRETO do Ciclo Assist (`cicloassist/avid/mcapi.py`, gRPC no 9100, sem o serviço no
+    ar), com os nomes que esta bancada usa (`projeto()["path"/"type"]`, `abrir_bin`, `fechar_bin`, `itens_de`)."""
+    if not os.path.isdir(os.path.join(ASSIST, "cicloassist")):
+        raise RuntimeError(f"o cliente do MC vem do Ciclo Assist, que não está em {ASSIST}: clone "
+                           "https://github.com/Lohan-Costa/ciclo-assist-kit-nle dentro do kit (ou CICLO_ASSIST=<pasta>)")
+    if ASSIST not in sys.path:
+        sys.path.insert(0, ASSIST)
+    from types import SimpleNamespace
+    from cicloassist.avid.mcapi import MediaComposer as _Cliente
+
+    class _ClienteDaBancada(_Cliente):
+        def projeto(self, recarregar: bool = False) -> dict:
+            p = dict(super().projeto(recarregar))
+            p.setdefault("path", p.get("caminho"))
+            p.setdefault("type", p.get("tipo"))
+            return p
+
+        def abrir_bin(self, caminho: str) -> None:          # absoluto ou só o nome com .avb (banco)
+            self._chamar("OpenBin", _timeout=120, bin_path=caminho)
+
+        def fechar_bin(self, caminho: str) -> None:         # fechar SALVA: o teto é o de arquivo
+            self._chamar("CloseBin", _timeout=120, bin_path=caminho)
+
+        def itens_de(self, caminho: str, flags=("masterClips",)) -> list:
+            rel = self.caminho_relativo_da_bin(caminho)
+            try:
+                itens = self.itens_da_bin(rel, tuple(flags))
+            except Exception:                                # noqa: BLE001 — bin fechada: abre e repete
+                self.abrir_bin(caminho)
+                itens = self.itens_da_bin(rel, tuple(flags))
+            return [SimpleNamespace(name=i.nome, mob_id=i.mob_id, selected=i.selecionado) for i in itens]
+
+    return _ClienteDaBancada()
 
 
 def rodando() -> bool:
@@ -133,6 +240,7 @@ def fechar(prazo: float = 120) -> None:
 
 def abrir_ate_select_project(prazo: float = 180) -> int:
     """Abre o MC e espera a janela "Select Project" (a abertura dispara "Application ready for user" no EVENTLOG)."""
+    _so_no_windows("abrir_ate_select_project")
     if not rodando():
         subprocess.Popen([EXE], creationflags=0x08000000)
     fim = time.time() + prazo
@@ -166,6 +274,7 @@ def abrir_projeto(nome: str, prazo: float = 180, parado: float = 30) -> dict:
     a Select Project para a frente faz o MC soltar a janela do layout de teclado — então frente → esperar → varrer, e só
     depois clicar (2026-10-11: o 1º Open caiu na hora da janela e o projeto não abriu). Select Project parada 15 s depois
     do Open → Open de novo; nada muda por `parado` s → `Travado` com foto (nada de esperar o prazo inteiro)."""
+    _so_no_windows("abrir_projeto")
     import ctypes
     h = abrir_ate_select_project()
     ignorar = ("Select Project", "Settings")
@@ -233,6 +342,7 @@ _FORMATOS_HD1080 = {"1080i/50": 0, "1080i/59.94": 1, "1080p/23.976": 2, "1080p/2
 
 def voltar_a_select_project(prazo: float = 120) -> int:
     """Fecha o projeto aberto (DoCommand Close Project) e devolve a "Select Project" (com o cão de guarda)."""
+    _so_no_windows("voltar_a_select_project")
     if not any(d["titulo"] == "Select Project" for d in V.dialogos(V.AVID)):
         with mc() as m:
             try:
@@ -253,6 +363,7 @@ def criar_projeto(nome: str, formato: str, confirmar=None) -> dict:
     """Um projeto do laboratório em `PROJETOS` (a Location que a Select Project lembra): aba New Project → nome →
     Format (abre a lista e DIGITA o formato, ex. "1080i/59.94") → Create; depois abre como `abrir_projeto`. `confirmar`
     (opcional) recebe a foto da janela antes do Create e devolve se segue."""
+    _so_no_windows("criar_projeto")
     h = voltar_a_select_project()
     if not I.frente(h):
         raise V.Travado("a Select Project não veio para a frente", V.foto_da_tela(FOTOS, "sp_sem_foco"))
@@ -379,9 +490,6 @@ def exportar(mob_id: str, destino: str, nome_arquivo: str, preset: str = PRESET_
             return agora[0][0]
         time.sleep(3)
     raise V.Travado(f"o export de {nome_arquivo!r} não terminou em {prazo:.0f} s", V.foto_da_tela(FOTOS, "export"))
-
-
-ASSIST = os.path.join(os.path.dirname(DLPC), "_CICLO ASSIST")
 
 
 def _timeline():

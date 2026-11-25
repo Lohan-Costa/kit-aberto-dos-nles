@@ -3,6 +3,7 @@
 nativo (2026-10-08, pela ponte) — aqui se confere a estrutura."""
 import collections
 import gzip
+import json
 import os
 import shutil
 import subprocess
@@ -69,10 +70,14 @@ class TestMascaraDeObjeto(unittest.TestCase):
         pasta = os.path.splitext(self.destino)[0] + " MATTES"
         arqs = os.listdir(pasta)
         self.assertEqual(len(arqs), 1)
+        # ⚠️ JSON, não CSV: o ffprobe 9.0.2 (Homebrew) repete a linha do stream no CSV quando se pede `stream_tags`
+        # (o stream sem a tag, uma vazia, o stream com a tag) — retorno do kit aberto, 2026-11-25; o 9.1 não repete
         r = subprocess.run([ffmpeg.achar("ffprobe"), "-v", "error", "-select_streams", "v:0", "-show_entries",
-                            "stream=nb_frames,width,height,r_frame_rate:stream_tags=timecode", "-of", "csv=p=0",
-                            os.path.join(pasta, arqs[0])], capture_output=True, text=True).stdout.strip()
-        self.assertEqual(r, "1920,1080,25/1,300,01:00:00:00")
+                            "stream=nb_frames,width,height,r_frame_rate:stream_tags=timecode", "-of", "json",
+                            os.path.join(pasta, arqs[0])], capture_output=True, text=True).stdout
+        s = json.loads(r)["streams"][0]
+        self.assertEqual((s["width"], s["height"], s["r_frame_rate"], s["nb_frames"], s["tags"]["timecode"]),
+                         (1920, 1080, "25/1", "300", "01:00:00:00"))
 
 
 if __name__ == "__main__":

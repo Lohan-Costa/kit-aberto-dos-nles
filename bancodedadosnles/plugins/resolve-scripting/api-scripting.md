@@ -1029,3 +1029,20 @@ religados à pasta onde estão os WAVs. Rótulo SEM extensão (`…/Glass And Wo
 a subpastas: chamar uma vez por pasta. ⚠️ Importar um segundo DRT no MESMO projeto reaproveita os clipes do pool que já
 existem (o mesmo identificador) em vez de criar os novos — teste de religação num projeto limpo. Confiança: `confirmado`.
 
+
+## ⭐ `AppendToTimeline` aceita um item OFFLINE do pool — o plano sem mídia entra no lugar (2026-11-25)
+
+Medido no Studio 21.1 (Mac), projetos de laboratório "LAB RELINK WAV PRODA 3" e "LAB ATUALIZAR OFFLINE U03":
+- um `MediaPoolItem` offline (o rótulo que um DRT escreveu para um arquivo que não existe) entra pelo
+  `MediaPool.AppendToTimeline([{mediaPoolItem, startFrame, endFrame, mediaType, trackIndex, recordFrame}])` como um
+  online: A3, `recordFrame` 100, `startFrame` 10 → `endFrame` 58 deu o item no quadro 100, 48 quadros, início de fonte
+  10. A API **não cria** item offline (o `ImportMedia` de um arquivo ausente não devolve nada): o caminho é escrever os
+  rótulos num DRT AUXILIAR, importá-lo (os itens nascem no pool) e apagar a timeline auxiliar — `DeleteTimelines`
+  tira só a timeline; os itens offline ficam.
+- **Ponta a ponta** (o Atualizar do Conformar pela API externa, caso U03 da PRODUCAO-A, a mídia isolada nas pastas
+  do caso): 8 de 8 planos novos, 2 deles o room tone OFFLINE nas A6/A7 (94056, 427 quadros); `RelinkClips` na pasta
+  do original → online, a mesma duração e o mesmo início de fonte (8170).
+- ⛔ O nome do rótulo de um master GERENCIADO vindo de AAF: o caminho que o AAF dá é o do MXF do `Avid MediaFiles`
+  (`123456__xxA01.1A2B3C4D5E6F7.mxf` — nome truncado + hash, `protocolos/mxf/README.md` armadilha 4), e o rótulo saía
+  `…mxf.wav`: o religar por nome nunca acharia. Essência gerenciada não dá nome de original; o nome vem do reel ou do
+  clipe. Confiança: `confirmado` (1 caso).

@@ -12,6 +12,9 @@ Plano completo (aprovado pelo autor em 2026-10-06): [`docs/organograma-2026-10-0
 - Na mão: `python3 -m lab.gerar receitas/base/B01.json --verificar` (no Windows, `py -3`).
 - Testes: `python3 -m unittest discover -s tests -t .` (com `PYTHONPYCACHEPREFIX` fora do SSD).
 - Precisa só do Python 3.9+ e do ffmpeg/ffprobe — nenhuma biblioteca a instalar, nenhuma venv.
+- **Mac Intel** (sem máquina para testar aqui; relato da comunidade, 2026-11): o Homebrew não instala mais o ffmpeg no
+  Intel. Ponha o `ffmpeg` e o `ffprobe` estáticos em `~/Library/Application Support/laboratorio-de-midia/ffmpeg/` — o
+  `lab/ffmpeg.py` procura lá primeiro (ou `LAB_FFMPEG_DIR=<pasta>`).
 
 ## O que mudou do organograma (2026-10-06, ao construir o B01)
 

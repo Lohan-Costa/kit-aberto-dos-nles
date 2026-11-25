@@ -1596,3 +1596,51 @@ clipe só.
   `LAB_ANIMATTE` (B14_FUNDO na V1, B14_FRENTE na V2, 144 f) apareceu na bin, carregou e mostrou a V2
   por cima. Não há como fazer isso pela API: o `DoCommand` não escolhe trilha de destino (patching).
   Confiança: **confirmado** (carregada e vista na tela; sem efeito, sem som).
+
+
+## ⭐⭐ PREMIERE → AVID: os canais, "tudo mono", e a IDA E VOLTA (2026-11-25, MC 25.12 Mac + Premiere 26.0.2) — `confirmado`
+
+Decisão do autor: **tudo MONO no Avid** (nada de trilha estéreo: o Avid não mistura mono e estéreo numa trilha, e o
+estéreo numa trilha mono derruba o MC — B065). Medido com a mídia sintética do laboratório (B03 a 23,976, um tom por
+canal), pela rota do Conformar (`prproj.leitura` → `do_prproj` → `translate.build_avb`), aberto no MC sem queda:
+- Cada trilha do Premiere vira tantas trilhas MONO quanto o clipe mais largo dela: o estéreo → L e R em trilhas vizinhas;
+  o mono na mesma trilha fica na 1ª (a 2ª vazia naquele trecho); o WAV de 5 canais → 5 trilhas, canais 1…5.
+- ⛔⛔ **Três defeitos achados e consertados**: (1) o leitor do `.prproj` ignorava o `StreamNumber` (o "N Mono" é uma mídia
+  por canal, todas com `ChannelIndex 0`): os 5 canais liam o 1; (2) o `translate._chan` aplicava a regra do AAF ("slot
+  − 1", o slot 1 do AAF costuma ser vídeo/TC) a quem não vem de AAF — o R do estéreo tocava o L e os 5 canais saíam
+  1, 1, 2, 3, 4 (agora, `origem="premiere"`: canal = a trilha de som do master); (3) o som que está NO caminho do
+  projeto entrava OFFLINE (só o "fora do lugar" era aproveitado).
+- **A ida e volta Avid → Premiere → Avid** dá a MESMA bin (trilhas, arquivos e canais): o par A1/A2 vira um estéreo na
+  A1 do Premiere com a A2 vazia (o lugar do R); na volta, a trilha inteiramente vazia logo abaixo de uma trilha larga
+  é esse lugar e não ganha outra (antes: +1 trilha por estéreo). Efeito no projeto NATIVO do Premiere: uma trilha vazia
+  logo abaixo de um estéreo também é absorvida (vazia não tem conteúdo; só a numeração das de baixo sobe uma).
+- ⛔ A leitura da BIN numera o som 1000 + trilha (A1 = 1000, a convenção do DRT); quem usava "≥ 1000" para achar a
+  trilha de REFERÊNCIA (a montagem do Premiere) tratava todo o som de uma bin como referência e sumia com a trilha vazia
+  — a referência é pela marca `referencia`, não pelo número.
+Provas: `Ciclo Assist spikes/ida_e_volta_canais.py` (+ a bancada `tools/bancada_avid/e2e_prproj_avid.py`); teste
+`modulos/conformar/tests/test_canais_ida_e_volta.py` (os `.prproj` em `3 CONJUNTOS…/conformar/04 SINTETICOS/CANAIS IDA E VOLTA`).
+
+- ⭐ **MOV com mais de um fluxo de som (pares estéreo), 2026-11-25, MC 25.12 Mac** — `confirmado`: o master do link
+  (AMA) do MOV de 2 pares tem as trilhas de som MONO 1…4 (2 pares + 1 mono: 1…5) — a trilha N do master é o canal N do
+  arquivo, e o `CHANMAP {i: i}` da rota do Premiere vale. Dois consertos da rota (Conformar `do_prproj`/`media_bin`):
+  (1) o MOV/MXF usado SÓ como som ia ao molde de WAV e entrava OFFLINE estando no disco — vai pelo LINK, como o vídeo;
+  (2) o master OFFLINE de som era sempre o molde de 2 canais: a sequência que usa o canal 3+ de um som ausente dava
+  "Sequence refers to non-existent track in clip" ao abrir — o molde agora tem trilhas para o maior canal usado (há
+  moldes de 1 a 5, 8 e 16 canais a 24 bits; acima de 16, o de 16).
+- ⭐ **Moldes de som de 8 e 16 canais, 2026-11-25, MC 25.12 Mac** — `confirmado`: o WAV BWF de 8 e o de 16 canais
+  (lab `B03_LAYOUTS_DE_AUDIO`, PCM 24 bits) linkados pelo `LinkFile` numa bin do projeto de lab ("Audio Start-Time
+  Options" respondido com a taxa do projeto, 23.98, e OK) dão o master com 8 e 16 trilhas mono e o PCMA (1, 24, 8/16);
+  neutralizados pelo `main_mac` do `tools/neutralizar_modelo_audio.py` (locator `FILE` → `/AVB_TEMPLATES/…`, volume →
+  `AVB-MEDIA`, projeto/bin/`_USER` pelo mesmo tamanho). Provado nas DUAS pontas da rota Premiere → Avid, numa sequência
+  que usa os canais 1 e 8 e 1 e 16: **online** — os dois WAV injetados pelo molde (antes: `sem_template` → offline),
+  3/3 masters online; **offline** — masters de 8 e 16 trilhas, a sequência abre sem "non-existent track". O molde de
+  16 serve a qualquer som de 9 a 16 canais (o offline só precisa de trilhas BASTANTES).
+- ⛔⛔ **`filler_proxy` é SÓ da trilha de IMAGEM — na de SOM, o vazio TOCA outra trilha** (2026-11-25, MC 25.12 Mac,
+  `confirmado` de ouvido). O writer do Conformar (`translate.build`) punha em TODA trilha o `TrackRef(relative_scope 0,
+  relative_track −1)` — o "vazio mostra a de baixo" do vídeo. O MC não grava `filler_proxy` em trilha de som (0 de 390
+  trilhas de som nas bins reais dos conjuntos de teste). Com ele, no export (e na reprodução) o VAZIO de uma trilha de
+  som tocava a trilha de índice menor, em cadeia: o tom saía 3×, 6×, 9× mais alto (uma cópia por trilha vazia) e, no
+  MOV de pares de 5 canais, as trilhas do L tocavam o R (o canal 1 e o 3 sumiam) — com o proxy tirado, as 9 trilhas
+  certas e a −23 dB cada. Os masters estavam certos o tempo todo (exportados sozinhos, trilha a trilha). Método de
+  OUVIR no MC (o export do preset do lab sai como a MISTURA em 2 trilhas mono iguais; uma trilha por vez = cópia da bin
+  com só ela em `_ENBLSTATE 1`, o preset com `iUseEnabledTracks`): Ciclo Assist `spikes/ouvido_mc/`.

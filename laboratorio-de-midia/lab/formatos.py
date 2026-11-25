@@ -51,6 +51,12 @@ def arquivos(perfil: str, prefixo: str, w: int, h: int, fps_nome: str, canais: i
         return [Arquivo(f"{prefixo}_MOV-PRORES-MONO.mov", True, [[c] for c in todos], "yuv422p10le",
                         ["-c:v", "prores_ks", "-profile:v", "2", "-vendor", "apl0"], AUDIO_PCM, tcarg,
                         "prores", "pcm_s24le")]
+    if perfil == "mov-prores-pares":
+        # pares ESTÉREO, cada par na sua trilha; o canal que sobra (número ímpar) fica mono na última — como a câmera
+        # que grava o mix L/R e os pares de lapela (2026-11-25: o Premiere abre cada par como um clipe estéreo)
+        return [Arquivo(f"{prefixo}_MOV-PRORES-PARES.mov", True, [todos[i:i + 2] for i in range(0, canais, 2)],
+                        "yuv422p10le", ["-c:v", "prores_ks", "-profile:v", "2", "-vendor", "apl0"], AUDIO_PCM, tcarg,
+                        "prores", "pcm_s24le")]
     if perfil == "mxf-op1a":
         args, pix = _dnx(w, h, fps_nome)
         return [Arquivo(f"{prefixo}_MXF-OP1A.mxf", True, [todos], pix, args, AUDIO_PCM, tcarg,
@@ -88,7 +94,7 @@ def _taxa_ffmpeg(fps_nome: str) -> str:
     return {"23.976": "24000/1001", "29.97": "30000/1001", "59.94": "60000/1001"}.get(fps_nome, fps_nome)
 
 
-PERFIS = ("mp4-h264", "mov-prores", "mov-prores-mono", "mxf-op1a", "mxf-xdcam50", "mxf-opatom", "wav-bwf")
+PERFIS = ("mp4-h264", "mov-prores", "mov-prores-mono", "mov-prores-pares", "mxf-op1a", "mxf-xdcam50", "mxf-opatom", "wav-bwf")
 
 
 # O OP-Atom do ffmpeg 8.1.1 grava a essência CLIP-wrapped (um KLV só) mas a ROTULA como frame-wrapped no

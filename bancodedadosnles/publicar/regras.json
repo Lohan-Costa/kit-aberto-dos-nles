@@ -337,6 +337,10 @@
      "cicloassist/carta/moldes/*.prproj"
     ],
     [
+     "prproj",
+     "modulos/conformar/motor/prproj/moldes/*.prproj"
+    ],
+    [
      "binario",
      "*/templates/*.avb"
     ],

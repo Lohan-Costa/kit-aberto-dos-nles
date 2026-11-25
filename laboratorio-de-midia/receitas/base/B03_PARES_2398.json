@@ -1,0 +1,31 @@
+{
+ "caso": "B03_PARES_2398",
+ "pergunta": "Arquivo com MAIS DE UMA trilha estéreo dentro (MOV com pares L/R, e um mono que sobra): Premiere -> Avid tudo mono, cada trilha no seu canal, e o offline no Premiere religado (2026-11-25).",
+ "segundos": 10,
+ "fps": "23.976",
+ "raster": [
+  1920,
+  1080
+ ],
+ "tc_inicio": "01:00:00:00",
+ "camera": 1,
+ "take": 1,
+ "fonte": 1,
+ "perfis": [
+  "mov-prores-pares"
+ ],
+ "variantes": [
+  {
+   "rotulo": "4CH",
+   "canais": 4
+  },
+  {
+   "rotulo": "5CH",
+   "canais": 5
+  },
+  {
+   "rotulo": "6CH",
+   "canais": 6
+  }
+ ]
+}

@@ -36,6 +36,14 @@ O app **Ciclo Assist** (sincronizar, conformar, assistir) é aberto e vem em rep
 https://github.com/Lohan-Costa/ciclo-assist-kit-nle — clone-o DENTRO desta pasta, para ele achar o banco, o piloto e o
 laboratório.
 
+## Em que máquinas foi testado
+
+O kit é medido em **Windows 11** e em **Mac com Apple Silicon**. **Mac Intel: não temos máquina para testar** — o que se
+sabe dele vem da comunidade, pela pasta `contribuicoes/`. O primeiro relato (novembro de 2026): o Homebrew não instala
+mais o ffmpeg num Mac Intel; o ffmpeg estático na pasta do laboratório
+(`~/Library/Application Support/laboratorio-de-midia/ffmpeg/`) funciona, e o laboratório procura lá primeiro. Se você usa
+um Mac Intel, o diagnóstico da sua máquina é das contribuições mais úteis.
+
 ## O método
 
 O diferencial é **como se investiga**: consultar o banco antes; medir antes de afirmar (um render, um número, um
@@ -53,6 +61,11 @@ produções, clientes e pessoas aparecem com apelidos (PRODUCAO-A, casa-pos-1…
 A seção "Últimas atualizações" da página lê o histórico deste repositório. Cada envio começa pelo tipo — `adicionado:`,
 `corrigido:` ou `mudado:` (aceitos também `feat:` e `fix:`) — seguido de uma frase para quem edita. O resumo por versão
 fica em `NOVIDADES.md`.
+
+**Quem colabora é creditado, se quiser.** Quando uma contribuição de fora entra no kit, o envio leva uma linha
+`Crédito: @usuario` (ou o nome que a pessoa escolheu) e a página mostra "com a colaboração de…" ao lado da mudança; o
+`NOVIDADES.md` cita também. Quem preferir fica anônimo — o Claude de cada pessoa pergunta antes de enviar (skill
+`ciclo-contribuir`).
 
 ## Licença
 
