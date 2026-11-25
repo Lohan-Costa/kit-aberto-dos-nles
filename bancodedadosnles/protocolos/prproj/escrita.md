@@ -395,8 +395,8 @@ salvo no 23.6.0) aberto no Premiere 26.5.2 e salvo de novo (`WSP-DLPC_2.prproj`;
   no 26 apareceram +88 `Media` e 183 `PreviewMediaSerializer` (Version 1, ligados às trilhas de vídeo da sequência).
   ⛔ **CORRIGE (2026-10-22, mesmo dia): NÃO é novidade do 26.** O autor renderizou a timeline no 26 de propósito (para não
   travar); o 23.6 não tinha porque não houve render nele. Varredura de 746 `.prproj` do SSD: 18 têm `PreviewMediaSerializer`,
-  em **22.4** (Project 40, PRODUCAO_C_Trailer: 111), **23.2** (41, cópias relinkadas do R04: 48), **24.6** (42, PRODB: 448)
-  e **25.6.5** (43, PRODB: 304) — a estrutura existe pelo menos desde o 22. Regra: render de pré-visualização POLUI a lista
+  em **22.4** (Project 40, PRODUCAO_C_Trailer: 111), **23.2** (41, cópias relinkadas do R04: 48), **24.6** (42, PRODUCAO_B: 448)
+  e **25.6.5** (43, PRODUCAO_B: 304) — a estrutura existe pelo menos desde o 22. Regra: render de pré-visualização POLUI a lista
   de `Media`/`ActualMediaFilePath` com arquivos que não são do editor; leitor que varre `Media` sem passar pela sequência os
   contaria (e o relink os procuraria). O De Lá Pra Cá não conta: segue a cadeia TrackItem → SubClip → MasterClip (48 arquivos
   nos dois). O indexador de mídia do RELINKER já pula a pasta `.PRV` (`motor/media/indexer.py`).

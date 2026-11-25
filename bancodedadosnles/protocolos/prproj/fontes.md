@@ -61,14 +61,14 @@
   em [projeto-multicam.md](projeto-multicam.md), falta o mapa de objetos (instâncias da multicam +
   cortes). Quando o DRAMASYNC/MULTCAM-PREMIERE gerar e validar, consolidar aqui.
 
-- 2026-10-02 — `PRODB_FINALIZACAO.prproj` (Premiere 26.0.2), leitura para o relink proxy→ARRIRAW no Resolve: `ScaleToFramePolicy`, `PlaybackSpeed`, multicam de uma câmera como subclipe (relink-e-geometria.md §10).
-- 2026-10-03 — `03 CASOS/DU exemplos especificos.prproj` (autor: recortes do PRODB para isolar
+- 2026-10-02 — `PRODUCAO_B_FINALIZACAO.prproj` (Premiere 26.0.2), leitura para o relink proxy→ARRIRAW no Resolve: `ScaleToFramePolicy`, `PlaybackSpeed`, multicam de uma câmera como subclipe (relink-e-geometria.md §10).
+- 2026-10-03 — `03 CASOS/DU exemplos especificos.prproj` (autor: recortes do PRODUCAO_B para isolar
   casos) — máscara `AEMask2` (contorno, invertida), crop em take aninhado, Basic 3D (Swivel/Tilt 20
   para calibrar — aguarda export do Premiere). §10.5–10.6.
-- 2026-10-03 — PRODB inteiro: levantamento das máscaras (3 usos, todos fixos) e Gaussian Blur com máscara calibrado pela imagem no Resolve 21.1 (relink-e-geometria.md §10.7).
-- 2026-10-03 — caso `03 CASOS/REAL/R02 PRODB EXEMPLOS` (cópia organizada do projeto de casos do autor + export do Basic 3D 20/20): Basic 3D medido por homografia, traduzido por CornerPositioner (relink-e-geometria.md §10.8).
-- 2026-10-04 — áudio do PRODB: canal por SecondaryContentItem, Level linear com 1,0 = +15 dB, campos escapados (audio-adaptativo.md).
-- 2026-10-03 — keyframes do Level (formato, contagem no filme), PlaybackSpeed do áudio (só constantes) e caminhos com `..` no FilePath (audio-adaptativo.md), PRODB lido no Windows.
+- 2026-10-03 — PRODUCAO_B inteiro: levantamento das máscaras (3 usos, todos fixos) e Gaussian Blur com máscara calibrado pela imagem no Resolve 21.1 (relink-e-geometria.md §10.7).
+- 2026-10-03 — caso `03 CASOS/REAL/R02 PRODUCAO_B EXEMPLOS` (cópia organizada do projeto de casos do autor + export do Basic 3D 20/20): Basic 3D medido por homografia, traduzido por CornerPositioner (relink-e-geometria.md §10.8).
+- 2026-10-04 — áudio do PRODUCAO_B: canal por SecondaryContentItem, Level linear com 1,0 = +15 dB, campos escapados (audio-adaptativo.md).
+- 2026-10-03 — keyframes do Level (formato, contagem no filme), PlaybackSpeed do áudio (só constantes) e caminhos com `..` no FilePath (audio-adaptativo.md), PRODUCAO_B lido no Windows.
 - 2026-10-04 — título do Premiere conferido pela imagem: corpo padrão 100 px, entrelinha 120%, corpo ≠ padrão no FlatBuffers do Source Text, Graphic Group em volta da própria âncora (relink-e-geometria.md §10.5).
 - 2026-10-06 — acrescentar trilha de áudio num `.prproj` existente (escrita.md §11e), da memória do Claude do `BRINGBACKMIC` (2026-06-07, validado no Premiere pelo autor); e o `xmeml` v4 como mapa de cortes (projeto-multicam.md), do `FLATFILE-MULTCAM/src/multicam_rebuild/cutmap/`. Registrados pelo zelador do SSD ao arquivar os projetos.
 - 2026-10-09 — relink com montagens (nest, adjustment layer, Transform, Motion, Crop) e a adjustment layer no arquivo (relink-e-geometria.md §6.2): laboratório B13_MONTAGENS no Premiere 23.2.0 Windows, `laboratorio-de-midia/lab/bancadas/premiere_montagens.py`, quadros pelo `exportFramePNG` e correlação após desfoque de 2 px.

@@ -17,7 +17,7 @@ desl = sorted({t for t, _ in cobre})
 for t in desl: tl.SetTrackEnable("video", t, False)
 r.OpenPage("color")
 J0, N = int(sys.argv[3]), int(sys.argv[4])
-pasta = AQUI + f"/cruz_V{TR}"; os.makedirs(pasta, exist_ok=True)
+pasta = AQUI + f"/proda_V{TR}"; os.makedirs(pasta, exist_ok=True)
 fps = 24
 for j in range(J0, J0 + N):
     f = a + j

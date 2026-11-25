@@ -203,7 +203,7 @@ armadilhas para quem consome:
 ## ARRIRAW em MXF: o raster sai do cabeçalho sem MediaInfo — 2026-10-02
 
 `confirmado` em ALEXA Mini ARRIRAW (`A0xxC0xx_2407xx_R1X0.mxf` e `M00xC0xx_2505xx_M3OV.mxf`,
-projeto PRODB). O `ffprobe` falha igual ao X-OCN (`unknown`, 0×0, *strong ref*), e sem
+projeto PRODUCAO_B). O `ffprobe` falha igual ao X-OCN (`unknown`, 0×0, *strong ref*), e sem
 MediaInfo na máquina o raster sai dos **local tags** do descritor, nos primeiros 200 KB:
 `32 03 00 04` = StoredWidth, `32 02 00 04` = StoredHeight (UInt32 big-endian), `32 0E 00 08` =
 AspectRatio (dois Int32). Medido: 2880×1620, 16:9, e a string `ALEXA Mini` no cabeçalho.
@@ -212,7 +212,7 @@ SMPTE 377, não para tag dinâmico.
 
 ## Download interrompido: o MXF sem o Random Index Pack — 2026-10-02
 
-`confirmado` (PRODB, Frame.io abortado por falta de espaço): o arquivo fica do tamanho do que
+`confirmado` (PRODUCAO_B, Frame.io abortado por falta de espaço): o arquivo fica do tamanho do que
 chegou, mas o CABEÇALHO declara a duração e o TC do clipe inteiro — `ffprobe` dá duração e TC
 certos e o Resolve mostra Media Offline. Teste barato e sem SDK: o MXF termina no RIP (chave
 `06 0e 2b 34 02 05 01 01 0d 01 02 01 01 11 01 00`, os 4 últimos bytes = tamanho do RIP). Sem ele,
@@ -221,8 +221,8 @@ incompleto. Medido: 55 de 236 (53 de 0 byte + 2 parciais); os completos, inclusi
 
 ## ARRIRAW em HD USB frio: o ffprobe pode passar de 60 s — lento NÃO é ilegível — 2026-10-04
 
-`confirmado` (Windows 11, De Lá Pra Cá, filme PRODB: originais ARRIRAW no HD USB `PROJ-X_D`, proxies
-no `PRODB`; disco esfriado ejetando e replugando os HDs entre rodadas).
+`confirmado` (Windows 11, De Lá Pra Cá, filme PRODUCAO_B: originais ARRIRAW no HD USB `PROJ-X_D`, proxies
+no `PRODUCAO_B`; disco esfriado ejetando e replugando os HDs entre rodadas).
 
 | rodada (disco frio) | casamento (análise) | montar o DRT | no original |
 |---|---|---|---|

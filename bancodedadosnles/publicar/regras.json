@@ -309,6 +309,10 @@
      "modulos/conformar/motor/drp/fairlight_r19_mesa99.bin"
     ],
     [
+     "binario",
+     "modulos/conformar/motor/drp/estabilizador_r21.bin"
+    ],
+    [
      "vai",
      "modulos/conformar/tests/dados/baselight/plano_limpo_C011.blg.txt"
     ],
@@ -318,7 +322,7 @@
     ],
     [
      "vai",
-     "tests/dados/titler_legacy_cruz_estilo.json"
+     "tests/dados/titler_legacy_proda_estilo.json"
     ],
     [
      "vai",

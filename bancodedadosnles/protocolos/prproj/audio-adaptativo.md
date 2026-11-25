@@ -113,7 +113,7 @@ diffar: mesma mídia, mesmo espaço de OIDs → diff limpo, cada diferença apar
 Foi o que separou master/inlet/master-clip/props uma a uma. Muito melhor que diffar dois
 arquivos distintos (OIDs e durações diferentes viram ruído).
 
-## 🆕 Medido no Premiere 26.0.2 (PRODB, 2026-10-04) — `confirmado` no projeto real
+## 🆕 Medido no Premiere 26.0.2 (PRODUCAO_B, 2026-10-04) — `confirmado` no projeto real
 
 - O canal que um clipe da TIMELINE toca: `AudioClip › SecondaryContents › SecondaryContentItem
   Index="k" ObjectRef → SecondaryContent { Content, ChannelIndex }` (ChannelIndex 0-based). O nome do
@@ -124,7 +124,7 @@ arquivos distintos (OIDs e durações diferentes viram ruído).
 - **Volume do clipe:** componente `Volume`, parâmetro `Level` = amplitude LINEAR com **1,0 = +15 dB**
   (o máximo do Premiere): o padrão 0,177828 = 10^(−15/20) = 0 dB (6.150 parâmetros de Channel Volume
   nesse valor no filme). **dB = 20·log10(v) + 15.** Keyframes: `Keyframes` = `tempo,valor,…;`.
-  Formato medido (2026-10-03, PRODB): cada keyframe = `ticks,valor,0,0,<alça in>,0.1666…,<alça out>,0.1666…;`
+  Formato medido (2026-10-03, PRODUCAO_B): cada keyframe = `ticks,valor,0,0,<alça in>,0.1666…,<alça out>,0.1666…;`
   (ticks de 254.016.000.000/s; valor linear). No filme: 20 clipes com keyframes — **3 com UM só** (vale
   o clipe todo = volume fixo, já traduzido), 4 com dois, 13 com quatro (rampas: forma no DRT `pendente`).
 - **Velocidade do clipe de áudio:** `AudioClip › PlaybackSpeed` — no projeto, só CONSTANTES (0,5; 1,05;

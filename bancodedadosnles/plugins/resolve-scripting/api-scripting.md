@@ -445,7 +445,7 @@ Caso `03 CASOS/ATUALIZAR/U03` (AAF v01 → v02 da PRODA), DRTs do nosso writer g
   trecho) e devolve o TimelineItem; o `MediaPoolItem` dele tem `Type` = `"Compound"`. ⛔ A API **não
   alcança** o que está DENTRO: `MediaPoolItem.GetTimeline()` do compound devolve None — composição do
   Fusion num clipe de dentro não se monta depois. ✅ Mas a composição montada ANTES sobrevive ao
-  `CreateCompoundClip` (still antes × depois: correlação 1,0; e o interfone do PRODB, máscara + Basic
+  `CreateCompoundClip` (still antes × depois: correlação 1,0; e o interfone do PRODUCAO_B, máscara + Basic
   3D, 0,96 contra a referência dentro do compound). Por isso o De Lá Pra Cá importa o nest aberto, monta o
   Fusion e só então junta (`drp/compostos.py`, casca `aplicarCompostos`). No **19** (Electron 8):
   `pendente`. No 19 pelo scripting EXTERNO em Python (2026-10-09, 19.0.0b.59, Win11): `CreateCompoundClip`
@@ -476,7 +476,7 @@ Caso `03 CASOS/ATUALIZAR/U03` (AAF v01 → v02 da PRODA), DRTs do nosso writer g
 
 - **"Bypass Color Grades and Fusion Effects"** (o ícone riscado no canto do monitor, vermelho quando ligado;
   Shift+D; menu Playback) desliga as composições do Fusion **no monitor E no `ExportCurrentFrameAsStill`**:
-  medido com a composição do insert do PRODB (máscara + CornerPositioner) e com um Blur de 80 px
+  medido com a composição do insert do PRODUCAO_B (máscara + CornerPositioner) e com um Blur de 80 px
   montado por script — o JPEG/PNG exportado saiu idêntico byte a byte ao sem composição. O autor achou que
   o código tinha regredido ("perdemos o crop"); uma conferência pela imagem condenaria o plano certo.
 - **Sem leitura pela API** (`search_scripting_api "bypass"`: nada; também não está nas preferências em
@@ -490,7 +490,7 @@ Caso `03 CASOS/ATUALIZAR/U03` (AAF v01 → v02 da PRODA), DRTs do nosso writer g
   foi tentado só com o bypass LIGADO (nada mudou, como esperado): se reflete no export com ele desligado é
   `pendente`. A prova acima troca a composição ATIVA, que é o caminho medido nos dois estados.
 - ✅ **Resolve 19: a prova funciona** (`confirmado` 2026-10-09, Studio 19.0.0b.59, Win11, a lógica da casca
-  portada para o scripting externo em Python, PRODB `…ROLO03_COM_REF`, referência desligada, página Color):
+  portada para o scripting externo em Python, PRODUCAO_B `…ROLO03_COM_REF`, referência desligada, página Color):
   bypass desligado → o 1º clipe já difere ("desligado"); Shift+D → os 3 clipes provados saem iguais ("LIGADO");
   Shift+D de novo → "desligado". Nos três estados as composições voltaram a 1 por clipe (a vazia saiu).
   O Shift+D foi mandado à janela do Resolve por `WScript.Shell.AppActivate` + `SendKeys("+d")` com a página
@@ -511,7 +511,7 @@ Caso `03 CASOS/ATUALIZAR/U03` (AAF v01 → v02 da PRODA), DRTs do nosso writer g
   timeline fica no último ponto da Color (01:21:46:06 × 00:00:00:00); qualquer mexida na timeline os
   junta. O `GetCurrentTimecode` não denuncia (ele já devolve o novo). Saída usada na casca do De Lá Pra
   Cá: esperar ~0,4 s depois do `OpenPage` e mexer — outro TC, depois o início. ⏳ ver no gesto.
-- No 19, pela conferência do PRODB (1.144 pontos, todos ≥ 0,917): `ExportCurrentFrameAsStill` .jpg e
+- No 19, pela conferência do PRODUCAO_B (1.144 pontos, todos ≥ 0,917): `ExportCurrentFrameAsStill` .jpg e
   `SetCurrentTimecode` com conferência funcionam pela ponte do Electron 8. ✅ `AddMarker` Purple +
   `customData` e `DeleteMarkerByCustomData` pela ponte do 19: conferidos pelo autor no gesto
   (2026-10-04 — clipe desligado → marcador Purple; religado e conferido de novo → o marcador sumiu, sem erro).
@@ -692,7 +692,7 @@ Resultados completos em `laboratorio-de-midia/resultados/B0{3,4,5,6}_*/RESOLVE.m
 
 Origem: dica de um colega ("no Text+, botão direito → Expression → `Text(MediaIn1.Output.Metadata.TimeCode)`
 mostra o TC da fonte"). O autor tentou e a tela ficou preta. Medido pelo scripting externo (`fuscript`), no
-PRODB. Manual que vem instalado com o 19: é a edição do **18.6** (`Documents/DaVinci Resolve.pdf`, Fusion
+PRODUCAO_B. Manual que vem instalado com o 19: é a edição do **18.6** (`Documents/DaVinci Resolve.pdf`, Fusion
 Fundamentals, cap. 74 "Using SimpleExpressions"): uma linha de **Lua** ao lado do parâmetro; `Nó.Entrada.Metadata.X`
 lê o metadado da IMAGEM que chega naquela entrada; `time` = quadro atual; `iif()`, `Text()`, `Point()`, `os.date`,
 `os.getenv`, `comp.Filename`. O manual NÃO lista as chaves de metadado — dependem do formato (abaixo).

@@ -34,7 +34,7 @@
   "B001": {
    "titulo": "Áudio longo vai ficando mais lento: a taxa do clipe veio do molde",
    "data": "2026-10-08",
-   "onde": "De Lá Pra Cá › Resolve 21.1 (Mac), PRODB: o som do vídeo de referência (88 min) que o DRT pôs na timeline",
+   "onde": "De Lá Pra Cá › Resolve 21.1 (Mac), PRODUCAO_B: o som do vídeo de referência (88 min) que o DRT pôs na timeline",
    "sintoma": "Começa junto (o bipe inicial bate) e vai se desencontrando; no fim não chega ao bipe final (~5 s em 88 min = 0,1%). O vídeo está perfeito. Nada no Inspector indica velocidade; o MESMO arquivo posto à mão está certo.",
    "causa": "O clipe de áudio do DRT herdava `MediaFrameRate` = 23,976 do clipe-molde; o arquivo é 24. O Resolve TOCA o áudio por essa taxa. Em clipe curto 0,1% não se ouve — só um clipe longo mostra.",
    "regra": "Todo campo que o MOLDE traz e que diz taxa, duração, tamanho ou tempo tem de ser ESCRITO a partir do arquivo — nunca herdado. Ao escrever um formato por molde (DRT, AAF, AVB, PRPROJ, XML), listar os campos do molde e conferir quem sobrescreve cada um.",
@@ -105,7 +105,7 @@
   "B002": {
    "titulo": "Um valor corrigido depois deixou para trás o que vive no mesmo domínio",
    "data": "2026-10-08",
-   "onde": "De Lá Pra Cá › Resolve 21.1 (Mac), PRODB 01:22:49: insert de celular (taxa variável) com rastreamento de posição",
+   "onde": "De Lá Pra Cá › Resolve 21.1 (Mac), PRODUCAO_B 01:22:49: insert de celular (taxa variável) com rastreamento de posição",
    "sintoma": "O insert fica parado por 27 quadros enquanto a imagem de baixo anda; aparece a borda da tela do interfone. Só no fim do plano ele passa a acompanhar.",
    "causa": "A correção de taxa variável mudou o `In` do clipe (677 → 650), mas os 47 keyframes, contados no domínio do `In`, ficaram em 677.",
    "regra": "Quando um valor de base (entrada, início, taxa, offset) é corrigido DEPOIS de os derivados serem calculados, tudo o que vive no mesmo domínio anda junto: keyframes, marcadores, volume animado, transições. Uma correção de entrada sem os derivados é meio conserto.",
@@ -120,7 +120,7 @@
     },
     "De Lá Pra Cá › Premiere": {
      "estado": "conferir",
-     "nota": "taxa variável: o Premiere conta o arquivo pela média e o Resolve pelo cabeçalho (27 quadros no PRODB). O lado do Premiere com os sintéticos de código de barras está pendente; ao corrigir a entrada, mover junto keyframes e marcadores · 2026-10-29: parcial: na montagem Avid → Premiere nada viaja no domínio da fonte — keyframes e efeitos não vão (viram marcador) e os marcadores ficam no tempo da TIMELINE —, então a correção de entrada (source_offset_correction do casamento) não deixa derivado para trás (premiere_montagem.plano). ⏳ Falta só a medição de taxa variável no Premiere com os sintéticos de código de barras · 2026-10-29: a medição pendente pede um Avid com o arquivo de taxa variável LIGADO (AMA/bin) para montar no Premiere — laboratório próprio (os sintéticos estão em 04 SINTETICOS/GERADORES/gerar_taxas.py); não há bin assim hoje"
+     "nota": "taxa variável: o Premiere conta o arquivo pela média e o Resolve pelo cabeçalho (27 quadros no PRODUCAO_B). O lado do Premiere com os sintéticos de código de barras está pendente; ao corrigir a entrada, mover junto keyframes e marcadores · 2026-10-29: parcial: na montagem Avid → Premiere nada viaja no domínio da fonte — keyframes e efeitos não vão (viram marcador) e os marcadores ficam no tempo da TIMELINE —, então a correção de entrada (source_offset_correction do casamento) não deixa derivado para trás (premiere_montagem.plano). ⏳ Falta só a medição de taxa variável no Premiere com os sintéticos de código de barras · 2026-10-29: a medição pendente pede um Avid com o arquivo de taxa variável LIGADO (AMA/bin) para montar no Premiere — laboratório próprio (os sintéticos estão em 04 SINTETICOS/GERADORES/gerar_taxas.py); não há bin assim hoje"
     },
     "De Lá Pra Cá › Media Composer": {
      "estado": "nao_se_aplica",
@@ -154,7 +154,7 @@
     "Assist anterior (2026-08-30): a correção da fronteira de fala valia só para a tomada ESCOLHIDA, não para as alternativas ('- TAKES'). 3 das 4 tomadas que o autor aparou eram alternativas. Corrigido para todas.",
     "De Lá Pra Cá › Resolve 19 (2026-09-26): o writer corrigia o MediaExtents só da 1ª das 5 trilhas da forma de áudio do esqueleto; as outras 4 ficavam com a duração do molde e o áudio duplicava no pool (54 → 17 duplicatas). Depois passou à forma nativa de WAV/AIF, conferida pelo autor.",
     "Órbita (2026-09-06 e 2026-09-21): consertos que não chegaram à cópia do mesmo código. Os canais do merged (_make_extra_wav_ams, cópia de _make_wav_media que nunca recebeu a regra; conserto: apagar a cópia), a prévia × aplicar do Subclipar e a coluna V/A que contava trechos em vez de trilhas.",
-    "De Lá Pra Cá › Resolve (Premiere → Resolve, PRODB, 2026-10-05): num vídeo de celular com taxa variável, o mesmo In mostra quadros diferentes no Resolve (conta pelo cabeçalho) e no Premiere (conta pela média), 27 quadros. Detectado por avg_frame_rate abaixo de r_frame_rate; entrada pela regra do Resolve e marcador 'Taxa variável — conferir'.",
+    "De Lá Pra Cá › Resolve (Premiere → Resolve, PRODUCAO_B, 2026-10-05): num vídeo de celular com taxa variável, o mesmo In mostra quadros diferentes no Resolve (conta pelo cabeçalho) e no Premiere (conta pela média), 27 quadros. Detectado por avg_frame_rate abaixo de r_frame_rate; entrada pela regra do Resolve e marcador 'Taxa variável — conferir'.",
     "RELINKER › Media Composer (arquivado), quatro vezes: corrigia a duração do master e não a do PCMADescriptor; mexia na trilha de vídeo e não na MPGA; o length da dissolve e não a curva aninhada; trim fino e clamp só conheciam 'clip' (29dc305). Ficou SEM conserto: os SourceClips de dentro dos subclipes continuaram nos masters antigos.",
     "Órbita (2026-07-12/13): reverter e confirmar só olhavam as câmeras; o botão aparecia na trilha do som e não fazia nada. Corrigido em bef1587 e cba621e ('e o som?' a cada mutador).",
     "eng-rev › Media Composer (arquivado): na troca de MobID, o MSMLocator.mob_id ficou esquecido e o clipe abria offline; conserto com remapeamento genérico de todo campo de MobID. Mesmo padrão nos sub-descriptors do MultiDescriptor do BRAW."
@@ -178,7 +178,7 @@
   "B003": {
    "titulo": "O NLE estava escondendo os efeitos — e a revisão pela imagem condenaria o plano certo",
    "data": "2026-10-08",
-   "onde": "De Lá Pra Cá › Resolve 21.1 (Mac), PRODB: máscara + Basic 3D do insert do interfone",
+   "onde": "De Lá Pra Cá › Resolve 21.1 (Mac), PRODUCAO_B: máscara + Basic 3D do insert do interfone",
    "sintoma": "O insert aparece inteiro, sem a máscara; o autor achou que o código tinha regredido. Era o 'Bypass Color Grades and Fusion Effects' ligado (Shift+D), que some com o Fusion do monitor E do quadro exportado.",
    "causa": "Estado de visualização do NLE, não do projeto; a API não o lê.",
    "regra": "Toda conferência pela imagem (do app ou do editor) tem de provar ANTES que o NLE está mostrando os efeitos. Se a API não diz, provar pela imagem: o quadro com o efeito × sem ele têm de diferir.",
@@ -1304,7 +1304,7 @@
      "estado": "corrigido",
      "data": "2026-10-04",
      "onde": "plugins/media-composer/servico/plataforma.py::completar_path chamado em servico/main.py na partida (977f197, v0.1.62)",
-     "nota": "a timeline ruim que ficou no projeto prodb_COR-CASA-POS-1 foi apagada e importada de novo pelo autor"
+     "nota": "a timeline ruim que ficou no projeto PRODUCAO-B_COR-CASA-POS-1 foi apagada e importada de novo pelo autor"
     },
     "De Lá Pra Cá › Premiere": {
      "estado": "corrigido",
@@ -1624,7 +1624,7 @@
   "B023": {
    "titulo": "Trilha de áudio a mais aparece, mostra forma de onda e não chega ao master",
    "data": "2026-10-03",
-   "onde": "De Lá Pra Cá › Resolve 19/21.1 (PRODB, 36 trilhas); BRINGBACKMIC › Premiere",
+   "onde": "De Lá Pra Cá › Resolve 19/21.1 (PRODUCAO_B, 36 trilhas); BRINGBACKMIC › Premiere",
    "sintoma": "No Resolve, de 36 trilhas só as 16 primeiras tocavam, e no Bus Assign as demais não tinham saída. No Premiere, a trilha nova aparece, mostra a forma de onda, mas o medidor fica parado e nada chega ao master. Arrastar o mesmo clipe para uma trilha antiga toca.",
    "causa": "O roteamento vive numa estrutura separada da lista de trilhas. No Resolve, a mesa do Fairlight (FLStudioModelBA) do esqueleto tinha 16 trilhas, e as trilhas além dela ficam sem saída. No Premiere, o AudioTrackInlet/Sources do master precisa de uma Source por trilha.",
    "regra": "Ao gerar uma trilha de áudio, registre-a também no mixer do NLE: uma estrutura própria por trilha, e uma mesa pelo menos do tamanho da timeline, colhida na versão-piso. Nunca compartilhe chain/panner entre trilhas. A prova é solar uma trilha acima da 16ª e ver o master andar.",
@@ -3362,7 +3362,7 @@
   "B051": {
    "titulo": "Trilha vazia não vai para o arquivo gerado, e as de cima descem um número",
    "data": "2026-10-05",
-   "onde": "De Lá Pra Cá › Resolve 19 (Premiere → Resolve, PRODB, Windows), 2026-10-05, commit 1bf6138",
+   "onde": "De Lá Pra Cá › Resolve 19 (Premiere → Resolve, PRODUCAO_B, Windows), 2026-10-05, commit 1bf6138",
    "sintoma": "A referência que estava na V8 chegou na V7 do Resolve. A conferência, o Fusion e os compounds com um buraco embaixo apontavam para a trilha errada, sem erro nenhum.",
    "causa": "O writer do DRT só escrevia trilhas com clipe. Ao pular a vazia, as de cima eram renumeradas, e todo índice guardado pela origem passava a apontar para a trilha vizinha.",
    "regra": "A numeração das trilhas da origem é identidade. Trilha vazia entra vazia no arquivo gerado (DRT, AAF, XML, bin). Quem guarda 'trilha N' (referência, notas, efeitos) confere, depois de importar, que a trilha N tem o que se espera.",
@@ -4187,11 +4187,11 @@
   "B065": {
    "titulo": "Clipe estéreo (multicanal) numa trilha que não declara quantos canais tem: o Media Composer cai",
    "data": "2026-06-29",
-   "onde": "RELINKER / eng-rev-bin-e-mdb (tradutor AAF → .avb), Media Composer 25.12 (Mac): gabarito ESTÉREO/DUAL MONO e o edit real do producao-a; o motor passou ao De Lá Pra Cá (e à cópia dele no Assist anterior)",
-   "sintoma": "Ao abrir a sequência gerada, o Media Composer para com erro fatal 'Assertion failed: numChannelsWanted == m_outputNumChannels' (AudioChannelCombiner.cpp), ou avisa 'sequence contains possibly corrupt data: Multichannel audio tracks'. Os clipes estéreo não tocam; no edit real do producao-a aconteceu o mesmo.",
+   "onde": "RELINKER / eng-rev-bin-e-mdb (tradutor AAF → .avb), Media Composer 25.12 (Mac): gabarito ESTÉREO/DUAL MONO e o edit real do PRODUCAO-A; o motor passou ao De Lá Pra Cá (e à cópia dele no Assist anterior)",
+   "sintoma": "Ao abrir a sequência gerada, o Media Composer para com erro fatal 'Assertion failed: numChannelsWanted == m_outputNumChannels' (AudioChannelCombiner.cpp), ou avisa 'sequence contains possibly corrupt data: Multichannel audio tracks'. Os clipes estéreo não tocam; no edit real do PRODUCAO-A aconteceu o mesmo.",
    "causa": "O clipe estéreo entra por um combinador de canais que entrega 2 canais, mas a trilha que o recebe foi gravada sem atributos (attributes=None = mono). Faltou declarar na trilha _TRACK_FORMAT = N.",
    "regra": "Quando um clipe tem mais de 1 canal, a TRILHA que o recebe declara o mesmo formato: no .avb, _TRACK_FORMAT = o máximo de canais entre os clipes dela; no DRT e no .prproj, o tipo/layout da trilha de áudio (mono, estéreo, adaptativa). Conferir trilha × clipes antes de gravar.",
-   "como_conferir": "Caso: um edit pequeno com um clipe estéreo (2 canais num clipe só), um par dual mono e, se houver, um poly de 6+ canais (o gabarito ESTÉREO/DUAL MONO do eng-rev ou um trecho do producao-a). (1) Automático: gerar a timeline pelo app, reabrir o arquivo e, para cada trilha de áudio, comparar o nº de canais que a trilha declara (no .avb, Track.attributes._TRACK_FORMAT; no DRT, o tipo da trilha; no .prproj, o channel type da trilha) com o máximo de canais dos clipes dela: tem de bater, e trilha mono só com clipes de 1 canal. (2) No NLE: abrir a sequência sem erro nem aviso, tocar o trecho estéreo e ver os dois canais nos medidores; no MC, salvar, fechar e reabrir a bin.",
+   "como_conferir": "Caso: um edit pequeno com um clipe estéreo (2 canais num clipe só), um par dual mono e, se houver, um poly de 6+ canais (o gabarito ESTÉREO/DUAL MONO do eng-rev ou um trecho do PRODUCAO-A). (1) Automático: gerar a timeline pelo app, reabrir o arquivo e, para cada trilha de áudio, comparar o nº de canais que a trilha declara (no .avb, Track.attributes._TRACK_FORMAT; no DRT, o tipo da trilha; no .prproj, o channel type da trilha) com o máximo de canais dos clipes dela: tem de bater, e trilha mono só com clipes de 1 canal. (2) No NLE: abrir a sequência sem erro nem aviso, tocar o trecho estéreo e ver os dois canais nos medidores; no MC, salvar, fechar e reabrir a bin.",
    "confianca": "confirmado",
    "alvos": {
     "De Lá Pra Cá › Media Composer": {
@@ -5161,7 +5161,7 @@
    "sintoma": "Na busca, o TC da fala errava por 8 h e meia (câmera em 03:14:14:17, gravador em 11:42:00:00), e é um número que o editor digita no Avid. Conferir a fala contra o offset da imagem desencontrava em 9 a 10 s, sem aviso. No Premiere, o canal recuperado de um merged clip entrava adiantado ~1 s.",
    "causa": "Um subclipe, take sincronizado ou merged clip junta dois (ou mais) masters, cada um com o seu TC de fonte e o seu in-point (imagem em 0, som em 214 ou 234 quadros). A linha fundida usava a chave da IMAGEM, certa para a miniatura, e tirava dela também o TC das falas, que vêm do SOM. Medido em 59 de 59 pares. No merged do Premiere, cada arquivo tem o seu baseline_in.",
    "regra": "Num clipe sincronizado, todo metadado de tempo é lido da metade que gerou o dado: fala e onda do master de som; quadro e miniatura do master de imagem. Não existe 'offset do take': cada item carrega a chave do master de onde veio e o in-point daquele master.",
-   "como_conferir": "Pegar um subclipe/take sincronizado (ou merged clip) em que a câmera e o gravador tenham TC de fonte diferentes por horas (TC de rolo × hora do dia; o _Assist anterior tem 59 pares assim) e in-points diferentes (som com 200+ quadros de entrada). Pelo app, ler uma fala do meio do take: o TC mostrado tem de ser o do gravador e, digitado no Avid/Premiere sobre o master de som, tem de cair na mesma sílaba (erro ≤ 1 quadro). Repetir com o recorte da imagem: a miniatura tem de ser o quadro da câmera. Um app que só leia o master de imagem erra por horas — é fácil de ver.",
+   "como_conferir": "Pegar um subclipe/take sincronizado (ou merged clip) em que a câmera e o gravador tenham TC de fonte diferentes por horas (TC de rolo × hora do dia; o _ASSIST ANTERIOR tem 59 pares assim) e in-points diferentes (som com 200+ quadros de entrada). Pelo app, ler uma fala do meio do take: o TC mostrado tem de ser o do gravador e, digitado no Avid/Premiere sobre o master de som, tem de cair na mesma sílaba (erro ≤ 1 quadro). Repetir com o recorte da imagem: a miniatura tem de ser o quadro da câmera. Um app que só leia o master de imagem erra por horas — é fácil de ver.",
    "confianca": "confirmado",
    "alvos": {
     "De Lá Pra Cá › Resolve": {
@@ -6147,7 +6147,7 @@
   "B099": {
    "titulo": "Segmento cujo arquivo falta é descartado: a timeline perde o plano (ou sai vazia)",
    "data": "2026-10-06",
-   "onde": "De Lá Pra Cá › Resolve (Premiere 26.0.2 → Resolve 19/21): .prproj importado sem nenhuma mídia no disco gerou uma timeline VAZIA (2026-10-06); antes, caminho com '..' dentro do projeto fazia o clipe sumir sem aviso (PRODB, 2026-10-03)",
+   "onde": "De Lá Pra Cá › Resolve (Premiere 26.0.2 → Resolve 19/21): .prproj importado sem nenhuma mídia no disco gerou uma timeline VAZIA (2026-10-06); antes, caminho com '..' dentro do projeto fazia o clipe sumir sem aviso (PRODUCAO_B, 2026-10-03)",
    "sintoma": "O editor importa a montagem e a timeline chega sem os planos cuja mídia não está plugada — no caso extremo, vazia. Não há erro: falta informação da montagem, e o HD conectado depois não tem onde reconectar.",
    "causa": "O importador pulava (continue) o segmento quando não achava o arquivo, ou quando o caminho não resolvia ('..' no meio). Um marcador avisando não substitui o segmento: a posição, o In e a duração se perdiam.",
    "regra": "Todo segmento com mídia entra na timeline: online se o arquivo existe, OFFLINE se não — no mesmo quadro, com In e duração certos, apontando para o caminho que o protocolo declara e com o item no pool/bin. O aviso é complemento, nunca substituto. Vale para todo protocolo (Carta, AAF, bin, prproj, DRT, XML/OTIO) e para a ida e a volta.",
@@ -6595,13 +6595,13 @@
    "alvos": {
     "De Lá Pra Cá › Resolve": {
      "estado": "corrigido",
-     "nota": "⚠️ estava (visto 2026-10-09, caso R02 do PRODB): no casamento proxy → original do .prproj, as provas (cópia do proxy, duração, TC) só rodavam se o PROXY abrisse; sem o HD dos proxies (o caso do colorista), o arquivo de mesmo nome virava original só pelo nome — o insert extra e os 2 packs de VFX: 'original' sem o HD, 'sem original' com ele; um DJI_0001 de outro drone (14 s × 10 s) entrava calado. Agora a prova vem do PROJETO (Duration, Start/AlternateStart — 56048,25 s × 24 = 15:34:08:06, o TC do original —, FrameRect, CodecType); com e sem os proxies o R02 dá o mesmo resultado. casar_masters (relink do Avid e receber AAF/AVB/Carta) medido 2026-10-09: DJI_0001 só do outro drone → não resolvido com a duração no motivo; dois com durações diferentes → o certo; dois de mesma duração → ambíguo, nas duas ordens",
+     "nota": "⚠️ estava (visto 2026-10-09, caso R02 do PRODUCAO_B): no casamento proxy → original do .prproj, as provas (cópia do proxy, duração, TC) só rodavam se o PROXY abrisse; sem o HD dos proxies (o caso do colorista), o arquivo de mesmo nome virava original só pelo nome — o insert extra e os 2 packs de VFX: 'original' sem o HD, 'sem original' com ele; um DJI_0001 de outro drone (14 s × 10 s) entrava calado. Agora a prova vem do PROJETO (Duration, Start/AlternateStart — 56048,25 s × 24 = 15:34:08:06, o TC do original —, FrameRect, CodecType); com e sem os proxies o R02 dá o mesmo resultado. casar_masters (relink do Avid e receber AAF/AVB/Carta) medido 2026-10-09: DJI_0001 só do outro drone → não resolvido com a duração no motivo; dois com durações diferentes → o certo; dois de mesma duração → ambíguo, nas duas ordens",
      "data": "2026-10-09",
      "onde": "motor/prproj/originais.py::casar_um + leitura._midia_no_projeto; tests/test_casamento_sem_proxy.py; media/matcher_masters._decidir"
     },
     "De Lá Pra Cá › Premiere": {
      "estado": "corrigido",
-     "nota": "⚠️ estava (visto 2026-10-09, caso R02 do PRODB): no casamento proxy → original do .prproj, as provas (cópia do proxy, duração, TC) só rodavam se o PROXY abrisse; sem o HD dos proxies (o caso do colorista), o arquivo de mesmo nome virava original só pelo nome — o insert extra e os 2 packs de VFX: 'original' sem o HD, 'sem original' com ele; um DJI_0001 de outro drone (14 s × 10 s) entrava calado. Agora a prova vem do PROJETO (Duration, Start/AlternateStart — 56048,25 s × 24 = 15:34:08:06, o TC do original —, FrameRect, CodecType); com e sem os proxies o R02 dá o mesmo resultado (o .prproj é a fonte; a montagem é no Resolve)",
+     "nota": "⚠️ estava (visto 2026-10-09, caso R02 do PRODUCAO_B): no casamento proxy → original do .prproj, as provas (cópia do proxy, duração, TC) só rodavam se o PROXY abrisse; sem o HD dos proxies (o caso do colorista), o arquivo de mesmo nome virava original só pelo nome — o insert extra e os 2 packs de VFX: 'original' sem o HD, 'sem original' com ele; um DJI_0001 de outro drone (14 s × 10 s) entrava calado. Agora a prova vem do PROJETO (Duration, Start/AlternateStart — 56048,25 s × 24 = 15:34:08:06, o TC do original —, FrameRect, CodecType); com e sem os proxies o R02 dá o mesmo resultado (o .prproj é a fonte; a montagem é no Resolve)",
      "data": "2026-10-09",
      "onde": "motor/prproj/originais.py::casar_um + leitura._midia_no_projeto; tests/test_casamento_sem_proxy.py"
     },
@@ -6642,7 +6642,7 @@
    "titulo": "Efeito desligado no NLE lido como ativo: a máscara de uma Opacidade apagada abriu a trilha de baixo",
    "data": "2026-10-10",
    "onde": "De Lá Pra Cá (leitor do .prproj, caso R04 PRODUCAO-C, Premiere 23.2 → Resolve 19)",
-   "sintoma": "Na transição da perna, a escadaria deixa a borda direita descoberta por 3 quadros e aparece a cidade da trilha de baixo; no Premiere a escadaria cobre a tela inteira. Parecia erro de tempo da máscara.",
+   "sintoma": "Na transição da perna, a local-3 deixa a borda direita descoberta por 3 quadros e aparece a cidade da trilha de baixo; no Premiere a local-3 cobre a tela inteira. Parecia erro de tempo da máscara.",
    "causa": "O editor desligou o efeito (o 'fx' apagado) e o Premiere grava só <Bypass>true</Bypass> no componente — parâmetros, keyframes e a máscara continuam no XML, a máscara com o SEU Bypass false. O leitor traduzia tudo que estava escrito.",
    "regra": "Antes de traduzir um efeito, pergunte se ele está LIGADO no NLE de origem (Bypass do componente dono no Premiere, efeito desabilitado no Avid, nó/clipe desligado no Resolve). Desligado não existe na imagem nem no som: não vai, nem vira aviso de 'sem tradução'.",
    "como_conferir": "Num projeto de teste, desligue um efeito com parâmetros não padrão (uma máscara de opacidade animada, uma cor, um EQ de áudio, o Volume) e converta: o destino tem de sair igual ao render do NLE de origem com o efeito desligado — sem a máscara, sem o ganho, sem marcador de 'não traduzido'. No código, procure onde a lista de efeitos é lida e confira que há o teste do estado ligado.",
@@ -6709,7 +6709,7 @@
      "estado": "corrigido",
      "data": "2026-10-28",
      "onde": "motor/avb_export/do_prproj.py (de_outra_midia); prproj_avid.py + ui/painel.js",
-     "nota": "a taxa (a análise relê pela taxa do arquivo apontado) e o encaixe (fonte_px = o tamanho do arquivo apontado) já saíam do arquivo; faltava a escala órfã: no Resolve ela é oferecida e marcada, no Avid ia calada. Agora o resultado conta os planos com escala que parece digitada para outra mídia e com arquivo de outra proporção, e a tela pede para conferir — nada é ajustado (070b485). ⏳ oferecer o ajuste no Avid (como no Resolve) é decisão do autor; o projeto de 2023 do R04 (o caso real) não está neste Mac (era: .prproj → MC (PRODC.py, motor): o LinkFile usa a taxa do arquivo; conferir a geometria e a escala órfã)"
+     "nota": "a taxa (a análise relê pela taxa do arquivo apontado) e o encaixe (fonte_px = o tamanho do arquivo apontado) já saíam do arquivo; faltava a escala órfã: no Resolve ela é oferecida e marcada, no Avid ia calada. Agora o resultado conta os planos com escala que parece digitada para outra mídia e com arquivo de outra proporção, e a tela pede para conferir — nada é ajustado (070b485). ⏳ oferecer o ajuste no Avid (como no Resolve) é decisão do autor; o projeto de 2023 do R04 (o caso real) não está neste Mac (era: .prproj → MC (prodc.py, motor): o LinkFile usa a taxa do arquivo; conferir a geometria e a escala órfã)"
     },
     "Órbita": {
      "estado": "conferir"

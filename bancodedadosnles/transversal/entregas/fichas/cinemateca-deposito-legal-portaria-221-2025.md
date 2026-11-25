@@ -15,4 +15,4 @@ editais de fomento (MP 2.228-1/2001, art. 26).
   (2) sequência TIFF/EXR/DPX + WAV; acessibilidade em arquivos separados; LTO-9 ou HD externo.
 - O Anexo I define "preservação audiovisual" e "materiais correlatos" (roteiros, fotos, documentos de pós…), que a
   portaria também quer preservados (art. 4º).
-- Para o PRODB (filme com recurso público, se for o caso): o master de preservação é OUTRA entrega além da cor.
+- Para o PRODUCAO_B (filme com recurso público, se for o caso): o master de preservação é OUTRA entrega além da cor.

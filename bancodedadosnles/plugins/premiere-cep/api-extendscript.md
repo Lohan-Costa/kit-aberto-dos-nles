@@ -594,7 +594,7 @@ caminho → arquivo veio do casamento do De Lá Pra Cá (`/receber/prproj/analis
 - O ponto que não confere nos dois: 1º quadro do LOU_7310 na V2 (00:00:01:03, 0,72–0,73), plano com zoom/posição em
   keyframe num corte rápido; o quadro do Premiere é o da referência com um leve deslocamento de enquadramento.
 - ⚠️ Para o desenho do app: o casamento classifica o arquivo achado pelo nome fora do lugar declarado como `realocado` =
-  "sem original" (regra do PRODB: cópia de proxy). Num relink de mídia que só MUDOU DE LUGAR isso marcaria 47 planos
+  "sem original" (regra do PRODUCAO_B: cópia de proxy). Num relink de mídia que só MUDOU DE LUGAR isso marcaria 47 planos
   como "sem original" — decisão do autor (organograma).
   ✅ DECIDIDO (mesma noite): provar e aceitar — ver abaixo.
 - 🆕 ⭐⭐ **NO PRODUTO (De Lá Pra Cá `5421693`, mesma noite, 26.5.2 Windows, pilotado pela janela do app):** o caminho A virou
@@ -623,7 +623,7 @@ caminho → arquivo veio do casamento do De Lá Pra Cá (`/receber/prproj/analis
   - o arrasto de uma sequência do painel Project do 26.5.2 para o app traz o `dynamiclinksourcelist` (o mesmo do 23.6);
   - a sequência ativa depois de importar NÃO muda sozinha: `openSequence(id)` no fim deixa a cópia à vista.
   - `pendente`: o Mac inteiro; a escala corrigida pela API depois do import num caso real (o R04 não muda de raster); o
-    PRODB com a regra "mudou de lugar" (o HD dos proxies não estava aqui).
+    PRODUCAO_B com a regra "mudou de lugar" (o HD dos proxies não estava aqui).
 
 ## 🆕 ⭐⭐⭐ RELINK PARA OS ORIGINAIS NUMA CÓPIA — `importSequences` de um `.prproj` relinkado (23.2.0 Windows, 2026-10-09)
 

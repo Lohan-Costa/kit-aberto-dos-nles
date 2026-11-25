@@ -778,7 +778,7 @@ Escrito de propósito, porque é o que dirige a exploração:
 ### Conferência pela imagem com burn-in na referência (2026-10-04, De Lá Pra Cá)
 O vídeo de referência do editor costuma ter **burn-in** (TC num canto, nome do clipe no outro). Numa cena
 escura, esse texto branco vira a parte mais forte da imagem e a correlação de forma desaba (0,08 numa
-cena idêntica): 5 falsos "não confere" e 2 quadros pretos no PRODB. Comparar **sem as bordas** (5% de
+cena idêntica): 5 falsos "não confere" e 2 quadros pretos no PRODUCAO_B. Comparar **sem as bordas** (5% de
 cada lado: 8 de 160 colunas, 8 de 90 linhas) zerou os falsos (1.158/1.158, pior 0,92) e ainda acusa
 80% dos pontos com a referência deslocada 1 s (59% com 6 quadros, 48% com 2 — o que escapa é plano
 parado, onde o escorregão não se vê). Imagem parada SOBRE outro plano (máscara 1.85, logo) não é plano:

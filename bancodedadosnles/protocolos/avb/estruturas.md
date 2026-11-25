@@ -611,7 +611,7 @@ Medido pela rota Premiere → Avid do De Lá Pra Cá (`_DeLaPraCa/motor/avb_expo
 
 Medido na bin do autor (ele linkou pelo Source Browser três WAV do PRODC gravados num Sound Devices MixPre-6;
 `LAB_ARRASTO_MAC 2_SEQ.avb`). Código: `_DeLaPraCa/motor/media/bwf.py` (`como_o_avid`), confere campo a campo.
-- ✅ **O master se chama `sSCENE/sTAKE`** (`FAIXA-W-C4/002`, `LOCAL-3/001`): o MC NÃO "troca o `-` por `/`"
+- ✅ **O master se chama `sSCENE/sTAKE`** (`faixa-w-C4/002`, `LOCAL-3/001`): o MC NÃO "troca o `-` por `/`"
   nem "tira a extensão" — ele monta o nome com a CENA e o TAKE que o gravador escreveu no bext/iXML. É o que fazia o
   nome do clipe no Avid nunca bater com o nome do arquivo em parte dos áudios (e bater em outros).
 - ✅ `_USER` do master: `UBITS`, `TapeID` (= `sFILENAME`, o arquivo com extensão), `Shoot Date` (data + hora do bext,

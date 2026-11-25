@@ -61,7 +61,7 @@ LONG vs SHORT por heurística — "os 2 bytes em `fname_len` decodificam como um
 plausível seguido de bytes ASCII imprimíveis?") contra 4 `.pmr` de origens bem diferentes:
 
 - `msmMMOB`/vídeo Avid nativo (5 `.mxf`, tape `"PRODUCAO-A"`).
-- `amaFMID` de áudio (`.wav`/`.aif`, 11 e 3 mídias, tape `"producao-a"` — note o hífen, difere do
+- `amaFMID` de áudio (`.wav`/`.aif`, 11 e 3 mídias, tape `"PRODUCAO-A"` — note o hífen, difere do
   nativo).
 - `amaFMID` de vídeo AMA (`.mov` do DJI/Panasonic, tape `"PORJETO LINK REPLICAR"` — inclui erro de
   digitação do usuário, prova que o tape é *texto livre*, não normalizado pelo MC).

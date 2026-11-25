@@ -64,7 +64,7 @@ def decidir(rel: str, regras: list[list[str]], binario: bool) -> tuple[bool, str
 
 
 # ── os apelidos ──────────────────────────────────────────────────────────────────────────────────────────────────────
-#: fronteira de nome: letra ou dígito do lado = parte de outra palavra; o "_" SEPARA (prova_produto_PRODC)
+#: fronteira de nome: letra ou dígito do lado = parte de outra palavra; o "_" SEPARA (prova_produto_prodc)
 #: ⚠️ o "\n" escrito no código ("…\nPERSONAGEM-F\n…") é fronteira: o "n" da barra não é parte do nome (5º ensaio, 2026-11-24)
 _ANTES, _DEPOIS = r"(?:(?<![A-Za-z0-9À-ÿ])|(?<=\\[nrt]))", r"(?![A-Za-z0-9À-ÿ])"
 
@@ -89,12 +89,90 @@ def compilar(apelidos: list[dict]) -> list[tuple[re.Pattern, str, str]]:
     return out
 
 
-def trocar(texto: str, regras: list, contagem: dict) -> str:
+def _na_caixa(achado: str, para: str) -> str:
+    """O apelido na caixa do que foi achado (regra sem `maiusculas`): "prodc" → "prodc", "PRODC" → "PRODC". Sem isso, o
+    código que compara em minúsculas deixava de casar ("producao a" × "PRODUCAO-A", 2026-11-25)."""
+    if achado.islower():
+        return para.lower()
+    if achado.isupper():
+        return para.upper()
+    return para
+
+
+def trocar(texto: str, regras: list, contagem: dict, identificador: bool = False) -> str:
     for rx, para, de in regras:
-        texto, n = rx.subn(lambda _m, p=para: p, texto)   # a troca é LITERAL (o apelido pode ter "\\")
+        if identificador:   # dentro de um nome do código: "LOCAL-2" quebraria o `def` (o hífen vira operador)
+            para = _so_identificador(para)
+        if rx.flags & re.IGNORECASE:
+            troca = lambda m, p=para: _na_caixa(m.group(0), p)
+        else:
+            troca = lambda _m, p=para: p
+        texto, n = rx.subn(troca, texto)   # a troca é LITERAL (o apelido pode ter "\\")
         if n:
             contagem[de] = contagem.get(de, 0) + n
     return texto
+
+
+def _so_identificador(s: str) -> str:
+    return "".join(c if ("a" + c).isidentifier() else "_" for c in s)
+
+
+def trocar_python(texto: str, regras: list, contagem: dict) -> str:
+    """A troca num `.py` (2026-11-25): os NOMES do código (o token NAME) trocam pelo apelido com o hífen e o espaço
+    virando "_" — `def test_o_caso_<LOCAL>` e `<LOCAL>_001 = …` viravam SyntaxError na cópia pública; o resto (texto,
+    comentário) troca como sempre, no texto inteiro (o nome quebrado entre linhas de comentário segue sendo pego).
+    O código que o tokenize desta versão do Python não lê (f-string do 3.12 no Python do sistema) troca como texto — a
+    conferência pelo `ast.parse` depois diz se quebrou."""
+    import io
+    import tokenize
+    try:
+        toks = list(tokenize.generate_tokens(io.StringIO(texto).readline))
+    except (tokenize.TokenError, SyntaxError, IndentationError):
+        return trocar(texto, regras, contagem)
+    inicio_linha = [0]
+    for linha in texto.splitlines(keepends=True):
+        inicio_linha.append(inicio_linha[-1] + len(linha))
+    partes, pos = [], 0
+    for t in toks:
+        if t.type != tokenize.NAME:
+            continue
+        a = inicio_linha[t.start[0] - 1] + t.start[1]
+        b = inicio_linha[t.end[0] - 1] + t.end[1]
+        partes += [texto[pos:a], trocar(texto[a:b], regras, contagem, identificador=True)]
+        pos = b
+    partes.append(texto[pos:])
+    return trocar("".join(partes), regras, contagem)
+
+
+def quebrou_python(original: str, copia: str) -> str | None:
+    """O erro de sintaxe que a TROCA introduziu (o original lê com este Python e a cópia não), ou None."""
+    import ast
+    try:
+        ast.parse(original)
+    except SyntaxError:
+        return None   # nem o original lê com este Python (ex.: f-string do 3.12 no 3.9): não há o que comparar
+    try:
+        ast.parse(copia)
+    except SyntaxError as e:
+        return f"linha {e.lineno}: {e.msg}"
+    return None
+
+
+def _chave_de_nome(t: str) -> str:
+    """A chave com que o app compara nomes de produção (`memoria_da_producao._chave`): sem acento, sem caixa, e o
+    espaço, o "_" e o "-" iguais."""
+    import unicodedata
+    s = unicodedata.normalize("NFKD", t).encode("ascii", "ignore").decode("ascii")
+    return re.sub(r"[\s_\-]+", " ", s).strip().casefold()
+
+
+def incoerentes(apelidos: list[dict]) -> list[str]:
+    """As grafias de UM nome (iguais pela chave do app) que ganham apelidos DIFERENTES: o código que as tratava como a
+    mesma produção passa a ver duas ("PRODUCAO_B" × "PRODUCAO-B", 2026-11-25 — o teste da memória da produção quebrou)."""
+    por: dict[str, set] = {}
+    for a in apelidos:
+        por.setdefault(_chave_de_nome(a["de"]), set()).add(a["para"])
+    return [f"{k!r} → {sorted(v)}" for k, v in sorted(por.items()) if len({_chave_de_nome(p) for p in v}) > 1]
 
 
 # ── a varredura ──────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -140,6 +218,9 @@ def exportar(saida: str) -> dict:
     bloqueio += [re.compile(p) for p in priv.get("bloqueia_regex", [])]
     revisar = [re.compile(p) for p in priv.get("revisar_regex", [])]
     rel: dict = {"repos": {}, "trocas": {}, "achados": [], "sem_dados": [], "grandes": []}
+    for x in incoerentes(priv["apelidos"]):   # o nome do achado fica só no relatório, que é privado
+        rel["achados"].append({"nivel": "bloqueia", "oque": "apelidos incoerentes para um mesmo nome",
+                               "arquivo": "publicar/PRIVADO-apelidos.json", "linha": 0, "trecho": x})
     for alvo in regras["alvos"]:
         repo = os.path.join(fam, alvo["repo"])
         destino = os.path.join(saida, alvo["destino"])
@@ -191,7 +272,14 @@ def exportar(saida: str) -> dict:
                     texto = bruto.decode("utf-8")
                 except UnicodeDecodeError:
                     texto = bruto.decode("latin1")
-                texto = trocar(texto, trocas, rel["trocas"])
+                if arq.endswith(".py"):
+                    original, texto = texto, trocar_python(texto, trocas, rel["trocas"])
+                    erro = quebrou_python(original, texto)
+                    if erro:   # a cópia pública não pode ter código que não roda
+                        rel["achados"].append({"nivel": "bloqueia", "oque": "a troca quebrou o Python",
+                                               "arquivo": f"{alvo['destino']}/{novo_rel}", "linha": 0, "trecho": erro})
+                else:
+                    texto = trocar(texto, trocas, rel["trocas"])
                 with open(novo, "w", encoding="utf-8", newline="") as fh:
                     fh.write(texto)
                 for nivel, oque, linha, trecho in varrer(texto, bloqueio, revisar):

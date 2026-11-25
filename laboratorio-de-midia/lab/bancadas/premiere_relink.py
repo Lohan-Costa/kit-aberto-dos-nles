@@ -1,6 +1,6 @@
 """Bancada B11_RELINK no Premiere — relink do convertido para o original NUMA CÓPIA (o caminho do De Lá Pra Cá).
 
-Medido primeiro com material real (PRODB, 2026-10-09, banco `premiere-cep/api-extendscript.md`): copiar o
+Medido primeiro com material real (PRODUCAO_B, 2026-10-09, banco `premiere-cep/api-extendscript.md`): copiar o
 .prproj trocando os `Media` dos convertidos pelos originais e `importSequences` dá a sequência nova nos originais; a
 escala se corrige pela API. Aqui a pergunta é QUAL fator: a regra das larguras (PRODUCAO-G) ou o fator do conteúdo
 (`verdade.json` → `convertidos[].fator_relink`), em todo raster, tarja, recorte, stretch, vertical e PAR.

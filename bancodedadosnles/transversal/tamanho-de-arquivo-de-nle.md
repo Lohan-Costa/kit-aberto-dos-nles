@@ -21,8 +21,8 @@ O `.prproj` é XML compactado (gzip). Para lê-lo o app descompacta tudo e index
 
 | projeto real | no disco | descompactado | pico de memória ao abrir (`Projeto()` do De Lá Pra Cá) |
 |---|---|---|---|
-| PRODB edição (Premiere 24) | 48 MB | 812 MB | **2,95 GB** (1,46 mi de objetos, 3,3 s) |
-| PRODB finalização | 12 MB | 230 MB | — |
+| PRODUCAO_B edição (Premiere 24) | 48 MB | 812 MB | **2,95 GB** (1,46 mi de objetos, 3,3 s) |
+| PRODUCAO_B finalização | 12 MB | 230 MB | — |
 | CANAL-K Copa 2026 | 3 MB | 69 MB | — |
 | PRODUCAO-C | 3 MB | 51 MB | — |
 
@@ -32,7 +32,7 @@ O `.prproj` é XML compactado (gzip). Para lê-lo o app descompacta tudo e index
   depende da RAM da máquina (num Mac de 16 GB, ~4 GB descompactados já pediriam ~15 GB).
 - **Bomba de compressão:** um arquivo pequeno que descompacta em dezenas de GB (malicioso ou corrompido). Medir o
   tamanho descompactado SEM guardar (contar no fluxo) antes de abrir.
-- ⏳ O PRODB é grande mas SIMPLES; projeto com muitos efeitos/nests/multicam pode ter outro fator — calibrar com
+- ⏳ O PRODUCAO_B é grande mas SIMPLES; projeto com muitos efeitos/nests/multicam pode ter outro fator — calibrar com
   casos reais. `.drp` e `.avb`: fator `pendente`.
 
 ## A regra proposta (De Lá Pra Cá, aprovação do diálogo pendente)

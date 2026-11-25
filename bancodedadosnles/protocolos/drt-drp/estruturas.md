@@ -183,7 +183,7 @@ Diferenças que ficam, e por quê:
   óbvia (o som direto, com TC a 24, sai 23,976 no nativo) — `pendente`, provavelmente
   informativo para áudio.
   ⛔ CORRIGE (2026-10-08, Resolve 21.1, macOS): **NÃO é informativo — o Resolve TOCA o áudio por ela.**
-  O som da referência do PRODB (mp4 a 24, 88 min) com `MediaFrameRate` 23,976 (herdada do molde) ia
+  O som da referência do PRODUCAO_B (mp4 a 24, 88 min) com `MediaFrameRate` 23,976 (herdada do molde) ia
   0,1% mais lento: começava junto e terminava ~5 s antes do bipe final; o mesmo arquivo posto à mão veio
   com 24 (DRT exportado da timeline, os dois lado a lado). Em clipe curto não se ouve. A regra do import
   do Resolve: a taxa do VÍDEO do arquivo; arquivo só de áudio = a do projeto (um WAV importado num
@@ -311,7 +311,7 @@ reaproveitamento (caminho? caminho + TC?) não foi isolado.
 ### ⚠️ UM marcador de timeline por QUADRO — `confirmado` 2026-10-03 (Resolve Studio 21.1, macOS)
 
 Um DRT com 14 marcadores de timeline em 6 quadros distintos (planos que começam juntos em
-trilhas diferentes, caso R02 do PRODB) importou com **6**: o Resolve guarda um por quadro e
+trilhas diferentes, caso R02 do PRODUCAO_B) importou com **6**: o Resolve guarda um por quadro e
 descarta os outros **em silêncio**, sem aviso. Quem escreve marcador por segmento perde os avisos
 dos planos empilhados. O De Lá Pra Cá junta os do mesmo quadro num só (cor mais forte; as notas
 de todos, com a trilha na frente) — `drp/writer.py` `_sinais`. No 19: `pendente` (o mesmo
@@ -665,7 +665,7 @@ override por-clipe no Inspector. ≠ do Avid (que grava por-clipe via FrameFlex)
 ## 5. Formato da TIMELINE importada: `SequenceSetup`, não `Body` — medido 2026-10-02
 
 `confirmado` no Resolve Studio **21.1.0.14** (macOS 15.6.1), por bissecção em 13 variantes do mesmo
-DRT (caso PRODB, Premiere → Resolve, timeline 2880×1620 a 24). ⚠️ No **19** (piso): `pendente`.
+DRT (caso PRODUCAO_B, Premiere → Resolve, timeline 2880×1620 a 24). ⚠️ No **19** (piso): `pendente`.
 
 - **Sintoma:** todo DRT do nosso writer abria com configuração PRÓPRIA da timeline (`useCustomSettings=1`)
   a **1920×1080 e 23,976**, qualquer que fosse a origem — os valores do esqueleto (`skeleton_r19.drt`).
@@ -709,7 +709,7 @@ DRT (caso PRODB, Premiere → Resolve, timeline 2880×1620 a 24). ⚠️ No **19
 `confirmado` no Resolve 21.1: o item de pool de um ARRIRAW (MXF OP1a, ALEXA Mini 2880×1620) exportado
 pelo próprio Resolve declara `Video Codec ARRIRAW`, `Format MXF OP1A`, `Radiometry` da câmera e
 `EmbeddedAudioVec` (5 canais). Com essa forma (`drp/formas_r21_arriraw.xml`), 388 planos de ARRIRAW
-abriram online no PRODB. Reconhecimento sem SDK: OP1a + "ARRI" no cabeçalho + ffprobe sem
+abriram online no PRODUCAO_B. Reconhecimento sem SDK: OP1a + "ARRI" no cabeçalho + ffprobe sem
 raster; o raster vem dos local tags 3203/3202 (`mxf/codecs-proprietarios.md`). ⚠️ Forma do 21:
 conferir no 19.
 
@@ -743,12 +743,12 @@ com keyframes importado (`ImportTimelineFromFile`) e exportado em DRT; e `SetPro
   arquivo pela taxa do cabeçalho, por CONTAGEM de quadros (1.387 quadros a 25 q/s = 55,5 s, quando o
   arquivo dura 57,8 s), e não garante o quadro: "1 em 25" fica a 0–1 quadro da conta; irregular, até 17.
   O PREMIERE conta o mesmo arquivo pela média dele (24,0118 q/s): o mesmo `In` dá quadros diferentes nos
-  dois (no PRODB, 27 quadros). Detectar: `avg_frame_rate` ABAIXO de `r_frame_rate` (acima, o dobro, é
+  dois (no PRODUCAO_B, 27 quadros). Detectar: `avg_frame_rate` ABAIXO de `r_frame_rate` (acima, o dobro, é
   o MXF de vídeo do Avid — não é buraco). De Lá Pra Cá: `media/sonda.taxa_variavel`, `writer` (entrada
   pela taxa do cabeçalho) e marcador "Taxa variável — conferir". ⏳ O lado do Premiere com os sintéticos
   (contagem × tempo) está `pendente`.
   ⛔ **O keyframe vive no domínio do `In`, não no quadro do arquivo** — `confirmado` 2026-10-08 (Resolve
-  21.1, macOS, PRODB 01:22:49, insert de celular com 47 keyframes de posição de rastreamento): `In`
+  21.1, macOS, PRODUCAO_B 01:22:49, insert de celular com 47 keyframes de posição de rastreamento): `In`
   650 (pela taxa do cabeçalho) e keyframes a partir de 677 (a conta do Premiere) → o insert ficou PARADO
   no 1º valor por 27 quadros e só andou no fim (medido quadro a quadro contra a referência: até 23 px
   fora). Com os keyframes a partir de 650, ≤ 1 px nos 37 quadros. Regra: keyframe = `In` + quadro dentro
@@ -761,12 +761,12 @@ com keyframes importado (`ImportTimelineFromFile`) e exportado em DRT; e `SetPro
 ## 8. Reverso — forma própria, NÃO rampa negativa — 2026-10-02
 
 `confirmado` no Resolve 21.1 (macOS), com gabarito do próprio Resolve (FCP 7 XML com Time Remap
-`reverse` a 70%) e conferência pela imagem (abertura do PRODB, 7 pontos com correlação ≥ 0,995
+`reverse` a 70%) e conferência pela imagem (abertura do PRODUCAO_B, 7 pontos com correlação ≥ 0,995
 contra o export). O 19: ver o CORRIGE abaixo.
 
 - ⛔ **CORRIGE (2026-10-03, Resolve Studio 19.0.0b.59, Windows 11):** a codificação COMPACTA dos keyframes
   (a que o 21 grava, descrita no item ✅ abaixo) **o 19 não lê**: descarta a curva calado e toca o `In`
-  PARA A FRENTE a 100%. Medido pela imagem no filme PRODB (M002C022, V1, 169 q a 70%): quadros da
+  PARA A FRENTE a 100%. Medido pela imagem no filme PRODUCAO_B (M002C022, V1, 169 q a 70%): quadros da
   fonte 102 → 184 → 266, onde deviam ser ~1241 → 1125. **Gabarito do PRÓPRIO 19** (Change Clip Speed 70%
   + Reverse Speed no mesmo take, exportado em DRT): o `MediaTimemapBA` usa o **QHash de sempre** (o molde
   de `build_speed_timemap`: `KeyframesBA` com header `(1, 0x74)`, chaves "1" = (X1, 0) e "0" = (0, Y0),
@@ -775,7 +775,7 @@ contra o export). O 19: ver o CORRIGE abaixo.
   (`100|<f64 LE 0,428571>`); o nosso, inteiro (0,3 quadro de fonte — a conferir se importa). Com o QHash,
   o 19 tocou 1240 → 1182 → 1125 (correlação 0,997/1,000). `tools/inspect_drp.py::build_reverse_timemap`
   agora escreve o QHash; teste `test_drt_formato.py` com o gabarito embutido. ✅ A leitura do QHash
-  reverso no **21**: `confirmado` (2026-10-04, Resolve 21.1.0.14, macOS 15.6.1 — filme PRODB gerado
+  reverso no **21**: `confirmado` (2026-10-04, Resolve 21.1.0.14, macOS 15.6.1 — filme PRODUCAO_B gerado
   pelo writer v0.1.59, importado; o M002C022 da V1 em 6 quadros contra a referência: 0,939–0,950 na
   diagonal, 0,61–0,74 com os quadros vizinhos — a observação que refutaria "tocou para a frente").
 
@@ -791,7 +791,7 @@ contra o export). O 19: ver o CORRIGE abaixo.
 ## 9. Keyframe: cabeçalho e domínio do tempo; flip; modo de composição — 2026-10-02
 
 `confirmado` no Resolve 21.1 por gabaritos do próprio Resolve E pela imagem (conferência quadro a
-quadro contra o export do PRODB).
+quadro contra o export do PRODUCAO_B).
 - **Cabeçalho do bloco de keyframes = −(tamanho do registro × N), int32 BE.** Zoom (64 bytes):
   2 → `FF FF FF 80`, 3 → `FF FF FF 40`, 4 → `FF FF FF 00`; posição (16 bytes), 2 → `FF FF FF E0`.
   ⛔ Gravado fixo em −128, o Resolve IGNORA a animação inteira quando há 3+ keyframes (o zoom
@@ -842,7 +842,7 @@ mono; WAV de 4 canais (302,0107 s) e o som de um take ALEXA (2 canais). Gestos d
   O clipe SEM velocidade usa a forma compacta `02` + double = duração − 1/23,976 (o writer grava a
   duração crua: funciona, mas difere — `inferido` inofensivo).
 - Ao mudar a velocidade de um clipe VINCULADO a outros, o Resolve muda todos (o autor desvinculou).
-- **Ponta a ponta no 19** (filme PRODB gerado pelo writer, importado, 36 trilhas): o volume animado
+- **Ponta a ponta no 19** (filme PRODUCAO_B gerado pelo writer, importado, 36 trilhas): o volume animado
   (6 rampas, payload sem zstd `0x80`) — **conferido pelo autor no Inspector e de ouvido**: `confirmado`.
   A velocidade de áudio (33 segmentos): o mapa é igual byte a byte ao gabarito, mas o ouvido e a volta
   pelo Export ficaram `pendente` (a armadilha do `Export` da timeline aberta, api-scripting.md).
@@ -858,7 +858,7 @@ mono; WAV de 4 canais (302,0107 s) e o som de um take ALEXA (2 canais). Gestos d
 
 ## 🆕 ⭐⭐ O ROTEAMENTO das trilhas de áudio (Bus Assign) mora na mesa do Fairlight — 2026-10-03 (Resolve 21.1, macOS)
 
-**Sintoma (PRODB, 36 trilhas):** só as 16 primeiras trilhas tocavam; no Bus Assign, da 17ª em diante,
+**Sintoma (PRODUCAO_B, 36 trilhas):** só as 16 primeiras trilhas tocavam; no Bus Assign, da 17ª em diante,
 nada (ou "B1s"). "B1s" (send) TAMBÉM é mudo: o medidor da trilha anda, o master não (o autor solou a
 A18). Trilhas criadas dentro do Resolve nascem todas "B1o" (99 de 99).
 
@@ -880,7 +880,7 @@ A18). Trilhas criadas dentro do Resolve nascem todas "B1o" (99 de 99).
 - **CORRIGE (2026-10-03, Resolve 19.0.0b.59, Windows):** a mesa agora é colhida NO 19 (regra do autor:
   formato que muda entre versões = o do 19, que o 21 atualiza ao abrir): timeline vazia + 99 trilhas mono
   pela API (`Timeline.AddTrack("audio","mono")`, 8,5 s), exportada em DRT, `FLStudioModelBA` extraído
-  (`motor/drp/fairlight_r19_mesa99.bin`, 9 KB; 603 KB descomprimida). No filme do PRODB (38 trilhas) o
+  (`motor/drp/fairlight_r19_mesa99.bin`, 9 KB; 603 KB descomprimida). No filme do PRODUCAO_B (38 trilhas) o
   autor conferiu no Bus Assign: **todas em Bus 1 e o som chega ao master** — trilhas criadas pela API
   também nascem B1o. A do 21 também funcionava no 19 (o 19 a regrava no próprio formato ao exportar:
   489 KB), mas saiu do app. No 21: ✅ `confirmado` (2026-10-04, 21.1.0.14, macOS: filme de 36 trilhas, o autor conferiu Bus Assign e som).
@@ -948,7 +948,7 @@ Gabarito do próprio Resolve: `InsertFusionTitleIntoTimeline("Text+")` numa time
 - ⚠️ Mudar por script a composição viva de um clipe (`GetFusionCompByIndex` → `SetInput`) NÃO muda o quadro
   exportado (medido com o bypass desligado): calibrar gerando o DRT de novo.
 - ✅ **No 19 abre e desenha** (`confirmado` 2026-10-09, Resolve Studio 19.0.0b.59, Win11, scripting externo
-  em Python): o DRT do PRODB (`…ROLO03_COM_REF`, 3 Text+ com o cabeçalho "21.1") importou em 2,2 s; nos
+  em Python): o DRT do PRODUCAO_B (`…ROLO03_COM_REF`, 3 Text+ com o cabeçalho "21.1") importou em 2,2 s; nos
   quadros 14400, 119263 e 121560 (canto de baixo) o TC é o da timeline e os dígitos ficam a ≤ 1 px dos da
   referência (melhor encaixe dx/dy 0 ou −1). O traço do Text+ é mais grosso que o da referência (pixels > 200 na
   caixa: Semibold 9.956, referência 8.356, Regular 7.196, Bold 12.590): o Semibold É o achado (não cai no Bold).

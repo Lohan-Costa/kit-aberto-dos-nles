@@ -607,7 +607,7 @@ Clip Start · Clip End · **Timecode** [campo + Ignore Hours] · Clip Marker · 
 
 ### Create Multi-Camera Source Sequence (ID 11592) — `confirmado` por ÁUDIO, 2026-11-04
 Material real com FALA (PRODE: CAM A Sony + CAM B Panasonic + WAV Zoom, trechos em
-`laboratorio-de-midia/referencias/sync-com-fala/PRODE`, ficha `fichas/sync-com-fala.md`). Import dos TRÊS num só diálogo
+`laboratorio-de-midia/referencias/sync-com-fala/prode`, ficha `fichas/sync-com-fala.md`). Import dos TRÊS num só diálogo
 (no campo: `"C:\pasta\a.mov" "C:\pasta\b.mov" "C:\pasta\c.wav"` + `IDOK`) — e o Premiere DEIXA OS IMPORTADOS SELECIONADOS, então o
 `WM_COMMAND 11592` vem logo depois, sem clique. Diálogo **"Create Multi-Camera Source Sequence"** (`#32770`): o NOME é
 `Edit` nativo (o de cima; o outro Edit é "Offset Audio by"); o resto desenhado — In/Out Points · **Timecode** (+ single

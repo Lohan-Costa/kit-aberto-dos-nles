@@ -21,7 +21,7 @@ O original continua lá; se esta pasta sumir, refaça a cópia pelos caminhos ab
 - Origem: `MIDIAS DE TESTES/1 PRODUCOES/PRODUCAO-A/MIDIAS/CONVERTIDOS/D02_230405/` (`01_CAMERAS/CAM_A_Blackmagic-4k/A01/`
   e `02_SOM-DIRETO/SD02/`). Cópias inteiras.
 
-## `PRODE/` — 2 câmeras + som direto (PRODE, 2024-05-31) — o caso MULTICAM
+## `prode/` — 2 câmeras + som direto (PRODE, 2024-05-31) — o caso MULTICAM
 
 | arquivo | o que é |
 |---|---|

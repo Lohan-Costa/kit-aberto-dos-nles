@@ -29,20 +29,20 @@
 | 2026-10-01 | Os marcadores de timeline no DRT do **Resolve 21** têm outra forma: `{2:{2:entrada}}` e o quadro em meio-quadro numa submensagem; o 21 lê a do 19 e exporta a dele — ver `estruturas.md` (CORRIGE) e `dados/marcadores-e-cores.json` §`forma_por_versao` | Atualizar do autor no Mac (U03 v01 → v02, o marcador da velocidade ficou fora do plano); marcadores 7/101/333 postos pela API e exportados |
 | 2026-10-01 | O Text (`Sm2TiGenerator` "Rich") na forma do 19 que o writer escreve é LIDO pelo Resolve 21.1: o título entra, com as transições, e reexportado pelo 21 o texto (UTF-16) continua no `EffectFiltersBA` (o 21 acrescenta poucos campos). Um Text NATIVO do 21 sem edição vem com o `EffectFiltersBA` VAZIO (o padrão não é gravado) — não serve de amostra de formato | `03 CASOS/TITULOS/T01…/resolve/titulo teste dr21.drt` (autor) e `saida/U03 titulo do AAF reexportado pelo dr21.drt` |
 
-- 2026-10-02 — PRODB (Premiere 26.0.2 → Resolve Studio 21.1.0.14, macOS): `gabarito_arriraw_r21.drt`
+- 2026-10-02 — PRODUCAO_B (Premiere 26.0.2 → Resolve Studio 21.1.0.14, macOS): `gabarito_arriraw_r21.drt`
   exportado pelo Resolve; 13 variantes do DRT do `DU_CORTE_06 SIMPLIFICADA` importadas pela API (MCP)
   para isolar `SequenceSetup` e `MediaExtents` (estruturas.md §5, §6).
 - 2026-10-02/03 — mais gabaritos do Resolve 21.1 (FCP 7 XML importado + `SetProperty` e export DRT):
   keyframes (2/3/4, `gab_kf_tempo` com In 200 × keyframes 0–100 / 200–300), reverso (Time Remap
   reverse 70%), PNG, retime, flip, composite mode, Pitch/Yaw, Cropping/Softness. Cada um conferido
-  pela imagem contra o export do PRODB (`ExportCurrentFrameAsStill`). Estruturas §5–10.
+  pela imagem contra o export do PRODUCAO_B (`ExportCurrentFrameAsStill`). Estruturas §5–10.
 - 2026-10-03 — um marcador de timeline por quadro no import do DRT (14 escritos em 6 quadros → 6), Resolve 21.1 Mac, caso R02 (estruturas.md).
 - 2026-10-04 — volume do clipe de áudio no EffectFiltersBA (filtro 0x7c, param 0x5f, dB), Resolve 21.1 Mac; ida e volta confirmada (estruturas.md, Áudio da timeline).
 - 2026-10-03 — roteamento das trilhas (Bus Assign) no FLStudioModelBA da Sm2Sequence; mesa de 16 no esqueleto R19; mesa de 99 (R21) resolve; B1s é mudo. Resolve 21.1 Mac, com o autor conferindo no Bus Assign (estruturas.md).
 - 2026-10-03 — reverso no Resolve 19.0.0b.59 (Windows): a forma compacta do 21 é ignorada (toca para a frente); gabarito do 19 (Change Clip Speed 70% + Reverse) = QHash de 2 keyframes, igual byte a byte ao novo `build_reverse_timemap` (estruturas.md §8).
-- 2026-10-03 — mesa do Fairlight de 99 trilhas colhida no Resolve 19.0.0b.59 (AddTrack pela API); conferida pelo autor no Bus Assign (Bus 1, som no master). Conferência do filme PRODB no 19 pela imagem: 1.141/1.142 pontos ≥ 0,75 (= Mac/21).
+- 2026-10-03 — mesa do Fairlight de 99 trilhas colhida no Resolve 19.0.0b.59 (AddTrack pela API); conferida pelo autor no Bus Assign (Bus 1, som no master). Conferência do filme PRODUCAO_B no 19 pela imagem: 1.141/1.142 pontos ≥ 0,75 (= Mac/21).
 - 2026-10-03 — áudio no Resolve 19.0.0b.59 (gabarito `gabarito_audio_r19`): SubType estéreo/mono, volume com keyframes (forma e domínio da fonte, medido aparando a cabeça) e velocidade constante no áudio (estruturas.md).
-- 2026-10-04 — Text do Resolve 21.1 (Mac) × referência do Premiere (PRODB 2880×1620), pixel a pixel: Size em px de 1080 linhas, face Regular explícita (sem ela = peso 63, negrito na Optima), topo = ascendente da hhea, Transform (Zoom animado) dentro do EffectFiltersBA do gerador (dados/text-gerador.json).
+- 2026-10-04 — Text do Resolve 21.1 (Mac) × referência do Premiere (PRODUCAO_B 2880×1620), pixel a pixel: Size em px de 1080 linhas, face Regular explícita (sem ela = peso 63, negrito na Optima), topo = ascendente da hhea, Transform (Zoom animado) dentro do EffectFiltersBA do gerador (dados/text-gerador.json).
 - 2026-10-04 — gabarito do autor 'gabarito fonte' (Resolve 21.1): Line Spacing (f32 após o alinhamento, bit 9, px de 1080 somados à linha natural) e a tabela do Anchor (3 × vertical + horizontal).
 - 2026-10-04 — gabarito 'Gabaritos finais' do autor (30 Text, Resolve 21.1): texto rico inteiro (tracking, Font Case, Font Style, justificado, contorno), Drop Shadow (cor/blur/opacidade/liga-desliga, +Y para cima), Background (opacidade p34 padrão 50, contorno, raio, centro), Zoom/Rotação da aba Title — dados/text-gerador.json.
 | 2026-10-10 | Adjustment Clip escrito pelo app (forma do U01 sem a correção) importado pelo Resolve 19; LUT por SetLUT depois do import | caso R04 PRODUCAO-C, `motor/drp/ajuste_r19.xml`, `motor/drp/luts.py` | confirmado (Windows) |

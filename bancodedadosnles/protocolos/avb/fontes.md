@@ -32,7 +32,7 @@
 | 2026-07-10 | Ganho de áudio: Audio Gain → PanVolumeEffect | OperationGroup `'Audio Gain'` (AAFRational, `level=num/2^29`, 2^29=0dB) → `PanVolumeEffect` (level_set=True, pan=16384, `_TRK_CLIP_G=1` na track). Unity não embrulha. PRODA 166 PanVolumeEffect, validado no MC (dB certos + sync) | confirmado |
 | 2026-07-10 | **Título Avid Titler+: texto no param `Text Box Text` (blob AVUP)** | V3=sub-seq 2 do NestedScope; op `'Avid Titler+ Legacy'`; texto no blob AVUP (`'PUVA'` após UUID 16B; data UTF-8). Bytes crus via `param['Value'].data` (`.value` devolve `[]`). Extração feita (`RELINKER/aaf/parser.py::_extract_title_params`), `text='PRODUCAO-A'`. Ver `dados/titler-texto.json`. Reconstrução AVB pendente | confirmado (extração) / pendente (reconstrução) |
 
-Amostras: `eng-rev-bin-e-mdb/ARQUIVOS PARA ANALISAR/BIN/`. Bin nativa ground-truth da PRODA: `z ignore o que esta aqui/producao-a/_PROJETO/01_EDICAO/PRODUCAO-A/03_OC_EDIT VALENDO.avb`. Bins de teste geradas: `RELINKER/AAFs-modelos/AVBs/PRODA_AVB_TESTE_NN.avb`.
+Amostras: `eng-rev-bin-e-mdb/ARQUIVOS PARA ANALISAR/BIN/`. Bin nativa ground-truth da PRODA: `z ignore o que esta aqui/PRODUCAO-A/_PROJETO/01_EDICAO/PRODUCAO-A/03_OC_EDIT VALENDO.avb`. Bins de teste geradas: `RELINKER/AAFs-modelos/AVBs/PRODA_AVB_TESTE_NN.avb`.
 Ferramenta: `pyavb` 1.4.0 (PyPI: `pyavb`, import `avb`), autor Mark Reid (markreidvfx/pyavb).
 Ecossistema: descoberta/RE em `eng-rev-bin-e-mdb/` (laboratório) → consolidação em `RELINKER/` (app) → conhecimento no banco. Os dois convergem e se alimentam.
 
@@ -146,7 +146,7 @@ Código: `cicloassist/avid/take.py` (`especie`, `efeito_de_chave`).
 
 Origem: bins `BIN COM MIDIA AMA LINK` e `BIN COM SEQUENCIA AMA LINK` montadas pelo editor
 (BRAW, MOV do RED e WAV linkados), `BIN ORIGEM`, e as diárias gerenciadas de
-`O PRODUCAO-A` — projeto `_Assist anterior`. Código: `cicloassist/avid/take.py`,
+`O PRODUCAO-A` — projeto `_ASSIST ANTERIOR`. Código: `cicloassist/avid/take.py`,
 `cicloassist/avid/avb_fiel.py`, `spikes/a_bin_ama_regravada.py`.
 
 | bloco | confiança |

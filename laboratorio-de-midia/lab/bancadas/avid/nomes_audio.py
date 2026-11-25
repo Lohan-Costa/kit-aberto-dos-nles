@@ -1,6 +1,6 @@
 """O NOME que o Media Composer dá ao master de um WAV no link, conforme os metadados (autor, 2026-10-25).
 
-A pergunta: o MC nomeia o master de um BWF de gravador por CENA/TAKE (medido no PRODC: `FAIXA-W-C4/002`, sem a
+A pergunta: o MC nomeia o master de um BWF de gravador por CENA/TAKE (medido no PRODC: `faixa-w-C4/002`, sem a
 extensão) — e quando NÃO há cena? A extensão vem ou não? O `;` vira `_` (o que o autor viu no PRODUCAO-A)? E na cena?
 
 Cada WAV muda UMA coisa (1 s de tom de 1 kHz, 48 kHz, 24-bit, mono, a mesma essência). Gera em

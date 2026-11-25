@@ -146,7 +146,7 @@ bin de origem e não abre as duas juntas.
 ## ⛔⛔ CORRIGE (2026-09-12): o round-trip do pyavb NÃO é sempre aceito — o `WinFileLocator`
 
 **Confiança:** `confirmado` · **Medido em:** MC **2025.6.58781** / Windows 11, projeto
-`_Assist anterior`, bin de 96 itens montada à mão pelo editor · **Por:** Ciclo Assist
+`_ASSIST ANTERIOR`, bin de 96 itens montada à mão pelo editor · **Por:** Ciclo Assist
 (`spikes/mover_entre_bins.py`)
 
 A seção acima diz que um **round-trip** (abrir e `f.write` sem mudar nada) reabre no MC com
@@ -205,7 +205,7 @@ indica para mob AMA) preserva o `OpenBin` aqui, e se o defeito é do `TapeDescri
 ## ⛔⛔ CORRIGE A SEÇÃO ACIMA (2026-09-13): não é o AMA, é a STRING NULA
 
 **Confiança:** `confirmado` · **Medido em:** MC **2025.6.58781** / Windows 11, pyavb
-**1.4.0**, projeto `_Assist anterior` · **Por:** Ciclo Assist (`spikes/a_bin_ama_regravada.py`)
+**1.4.0**, projeto `_ASSIST ANTERIOR` · **Por:** Ciclo Assist (`spikes/a_bin_ama_regravada.py`)
 
 A bisseção de 2026-09-12 achou os mobs certos e **nomeou a característica errada**. O que
 condena a bin não é `SourceMob` com `WinFileLocator`: é um campo string **nulo** dentro dele.
@@ -482,14 +482,14 @@ também abrem. A causa da recusa naquele projeto segue aberta (estado do projeto
 Problema: o relinker exporta um AAF que, importado no Avid, entra **offline** → exige relink manual.
 Objetivo: o relinker entregar algo que vem **online sozinho**.
 
-**Regra de identidade do automatch do Avid** (confirmado em producao-a, antes/depois do relink):
+**Regra de identidade do automatch do Avid** (confirmado em PRODUCAO-A, antes/depois do relink):
 - **Mídia gerenciada (MXF)**: o Avid casa por **mob_id** (mob_id do clip ↔ MXF no banco
   `Avid MediaFiles/MXF/.../msmMMOB.mdb`). O mob_id É a identidade.
 - **Mídia AMA**: o Avid casa por **arquivo** (path + `_AMA_FILE_DATE_TIME` + handler); o **mob_id é
   gerado fresco** no link e **não** é a chave (por isso clones AMA com mob_id aleatório vêm online).
 - 🆕 ⭐ **E isso atravessa PROJETOS** — `confirmado` (2026-11-12, MC 25.12.0 Mac, Ciclo Assist
   `spikes/carta_aberta_bin_entre_projetos.py`): uma bin NOVA escrita pelo pyavb (UID novo) com os masters VISÍVEIS de uma
-  bin do projeto A (`producao-a-ENSAIO`) + o fecho deles OCULTO (os mobs de arquivo), gravada na pasta do projeto B
+  bin do projeto A (`PRODUCAO-A-ENSAIO`) + o fecho deles OCULTO (os mobs de arquivo), gravada na pasta do projeto B
   (`LAB_ARRASTO_MAC`, que nunca teve esse material — conferido por `grep` nas `.avb`) com o MC FECHADO, aberta com o MC
   recém-iniciado (nenhum mob servido da sessão): 3 masters de vídeo (OP-Atom DNxHD LB do Resolve) e 1 de som
   gerenciado, todos **online** — a coluna `Drive` preenchida (`GetMobInfo`) e, no Source, o quadro certo (CAM 1,
@@ -497,7 +497,7 @@ Objetivo: o relinker entregar algo que vem **online sozinho**.
   cria tem `usage = mastermob`; o que o pyavb escreve do zero pode vir com `usage = None` — filtre master por
   `mob_type == "MasterMob"`.
 
-**A identidade vive na BIN, não no AAF cru.** Diff antes/depois do relink de producao-a: 83 de 118
+**A identidade vive na BIN, não no AAF cru.** Diff antes/depois do relink de PRODUCAO-A: 83 de 118
 masters ganharam mob_id NOVO (o Avid criou masters AMA novos p/ os vídeos). Um AAF "simples" do
 relinker não carrega a identidade que o Avid casa → importa offline.
 
@@ -1186,7 +1186,7 @@ anterior, e nada acusa.
 ## ⭐ CONFIRMADO (2026-09-11): acrescentar uma timeline numa bin ABERTA, com `CloseBin`
 
 **Confiança:** `confirmado` · **Medido em:** Media Composer **2025.6.58781** / Windows 11,
-projeto `_Assist anterior`, bin `CENAS/C07.avb` com 10 subclipes sincronizados ABERTA na
+projeto `_ASSIST ANTERIOR`, bin `CENAS/C07.avb` com 10 subclipes sincronizados ABERTA na
 interface · **Por:** Ciclo Assist (`mcp/ferramentas/corte.py`)
 
 A matriz de 2026-08-16 (abaixo) dizia o que NÃO fazer com a bin aberta. Faltava o caminho

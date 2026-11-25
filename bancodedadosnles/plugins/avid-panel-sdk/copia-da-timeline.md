@@ -1,7 +1,7 @@
 # A cópia do editor (Ctrl+C na timeline) — como um painel lê exatamente o que foi selecionado
 
 > **Medido em:** Media Composer **2025.6.58781** (Perpetual, `PanelSDK_25.6`), Windows 11, 2026-09-24,
-> com o autor operando a timeline. Projeto `_Assist anterior`, sequência `PRODA_CORTE.02.Exported.01.Copy.01`
+> com o autor operando a timeline. Projeto `_ASSIST ANTERIOR`, sequência `PRODA_CORTE.02.Exported.01.Copy.01`
 > (23,976, início 01:00:00:00). Spikes: `_DeLaPraCa/.dev/spike_monitores.py`,
 > `_DeLaPraCa/.dev/spike_createsubclip.py`. macOS: **pendente**.
 

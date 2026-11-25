@@ -7,7 +7,7 @@ import json, subprocess, numpy as np, cv2, glob
 import estabilizacao as E
 from aaf.leitura import ler_timeline_aaf
 TR = sys.argv[1]; IN = int(sys.argv[2]); SEG = int(sys.argv[3])   # trilha, In da mídia (DRT), índice do segmento
-pasta = AQUI + f"/cruz_V{TR}"; info = json.load(open(pasta + "/info.json"))
+pasta = AQUI + f"/proda_V{TR}"; info = json.load(open(pasta + "/info.json"))
 W, H = 960, 540
 def cinza(img): return cv2.resize(cv2.cvtColor(img, cv2.COLOR_BGR2GRAY), (W, H), interpolation=cv2.INTER_AREA).astype(np.float32)
 saida = [cinza(cv2.imread(f)) for f in sorted(glob.glob(pasta + "/0*.png"))]

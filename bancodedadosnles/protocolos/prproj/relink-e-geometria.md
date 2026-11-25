@@ -390,7 +390,7 @@ está em segundos reais (tempo de relógio), e o TC 23,976 corre 0,1% devagar.
 
 ### 6.1 No Premiere 26 o TC vem em `<Start>` — e a prova de identidade dispensa o proxy (2026-10-09)
 
-`confirmado` (Premiere 26.0.2, caso R02 do PRODB, lido no Windows): o `Media` do proxy ALEXA traz
+`confirmado` (Premiere 26.0.2, caso R02 do PRODUCAO_B, lido no Windows): o `Media` do proxy ALEXA traz
 `<Start>14237152272000000</Start>` (+ `<TimeDisplay>100</TimeDisplay>`) e **não** `AlternateStart`.
 `Start` ÷ 254016000000 = 56048,25 s; × 24 (a taxa da mídia, 24,000) = 1.345.158 quadros = **15:34:08:06**,
 exatamente o TC do original ARRIRAW (`A044C013_240725_R1X0.mxf`). O MOV de celular não tem o campo (sem TC).
@@ -469,7 +469,7 @@ sequência B22 pelo `.prproj` e pelo AAF do Premiere. O AAF dava a mídia como "
 e excluía o próprio da busca. Regra agora (`prproj/originais.casar_um(raizes=…)`): o arquivo do projeto, existindo no
 lugar dele e dentro de uma das pastas que o editor indicou, é a mídia apontada → `proprio`. ⛔ A CÓPIA achada noutro
 lugar (`realocado`) continua "sem original": sem o arquivo do projeto nada diz se ela é o original ou uma cópia do proxy
-(PRODB: o ProRes Proxy copiado ao lado do ARRIRAW, `test_casamento_sem_proxy`). Depois: B22 6/6 pelos dois protocolos;
+(PRODUCAO_B: o ProRes Proxy copiado ao lado do ARRIRAW, `test_casamento_sem_proxy`). Depois: B22 6/6 pelos dois protocolos;
 PRODC resgatado 144/144 com as 48 mídias "encontradas" (antes 47 com REFAZER à toa). `confirmado`.
 
 ### 6.2 ⛔ CORRIGE (2026-10-09): a regra das larguras só vale com a MESMA proporção e pixel quadrado
@@ -514,7 +514,7 @@ com o que o editor monta por cima (pares FIT e DCI "crop to fill", fator 0,5), c
   L15 → 17,19 no 4096 → 1,000. Mesma proporção (FIT): nada muda. Lado com Crop 0 → a margem (reproduz o convertido;
   decisão de desenho a confirmar com o autor). `confirmado` (23.2, GPU e CPU — 2 rodadas; 25/26 `pendente`).
 - Adjustment layer no arquivo: um **Black Video** sintético com `<IsAdjustmentLayer>true` no `MasterClip` e
-  `<AdjustmentLayer>true` no `VideoClip` (mestre e os da timeline) — o mesmo no projeto real do PRODB (26.0.2). ⛔ Com
+  `<AdjustmentLayer>true` no `VideoClip` (mestre e os da timeline) — o mesmo no projeto real do PRODUCAO_B (26.0.2). ⛔ Com
   Transparent Video + as marcas o 23.2 diz que é adjustment e o efeito não age.
 
 **Caso real R04 (PRODUCAO-C, 2026-10-09, `MIDIAS DE TESTES/…/_DeLaPraCa/03 CASOS/REAL/R04 PRODUCAO-C/CASO.md`):**
@@ -606,10 +606,10 @@ Ele é invariante por construção, então qualquer erro de fator aparece.
 
 ---
 
-## 10. Escalar ao quadro, velocidade e multicam usado como subclipe — `PRODB`, 2026-10-02
+## 10. Escalar ao quadro, velocidade e multicam usado como subclipe — `PRODUCAO_B`, 2026-10-02
 
-Lido em `PRODB_FINALIZACAO.prproj` (Premiere **26.0.2**, `Modified` 2026-09-20; criado no
-26.0.2 a partir do `__PRODB_edit.prproj`, 24.6.8). 504.581 objetos, 353 sequências, timeline
+Lido em `PRODUCAO_B_FINALIZACAO.prproj` (Premiere **26.0.2**, `Modified` 2026-09-20; criado no
+26.0.2 a partir do `__PRODUCAO_B_edit.prproj`, 24.6.8). 504.581 objetos, 353 sequências, timeline
 2880×1620 a 24 fps. Leitura só, **sem** reescrita nem reabertura: confiança `inferido`, salvo
 onde indicado.
 
@@ -697,7 +697,7 @@ vai mostrar, para conferir enquadramento sem abrir o Premiere).
   fixa 0,79:0,37 e um único keyframe 0,67:0,44 — o Premiere mostra o do keyframe. Ler o fixo deslocou
   o plano.
 - **Crop:** efeito `AE.ADBE AECrop` (Left/Top/Right/Bottom em %, `Zoom`, `Edge Feather`) e os quatro
-  crops do próprio Motion. Os dois inserts do PRODB estão com Left = 100% — INVISÍVEIS no Premiere;
+  crops do próprio Motion. Os dois inserts do PRODUCAO_B estão com Left = 100% — INVISÍVEIS no Premiere;
   sem traduzir o crop eles apareciam no Resolve por cima da imagem.
 - **`TimeInterpolationType`** no `VideoClip`: 35 dos 38 planos com velocidade têm `2`. `hipotese`:
   ausente = Frame Sampling, 1 = Frame Blending, 2 = Optical Flow — confirmar na interface.
@@ -709,7 +709,7 @@ vai mostrar, para conferir enquadramento sem abrir o Premiere).
   🆕 O mapa COMPLETO do blob (cores, contorno, fundo, sombra, tracking… — Premiere 23.6, 2026-11-15):
   [titulo-essential-graphics.md](titulo-essential-graphics.md).
 - 🆕 **Título — corpo, fonte e Graphic Group, conferidos pela IMAGEM (2026-10-04, Premiere 26.0.2 ×
-  export de referência, PRODB 2880×1620).**
+  export de referência, PRODUCAO_B 2880×1620).**
   - **Corpo:** o padrão do Essential Graphics é **100 px do quadro** (claquete em Monaco, `Scale` 100:
     "PRODUCAO-B" mede o que o Monaco de 100 px mede) e a entrelinha automática é **120% do corpo**
     (120 px entre as linhas). Corpo diferente do padrão vem no blob do `Source Text` (FlatBuffers depois
@@ -728,14 +728,14 @@ vai mostrar, para conferir enquadramento sem abrir o Premiere).
     baseline e margem esquerda no pixel).
   - **Graphic Group (Vector Motion)** transforma a camada inteira em volta do PRÓPRIO `Anchor Point`
     (0,5:0,5 = centro): `p' = Position_g + (p − Anchor_g) × escala`, no corpo E na posição. O título final
-    do PRODB tem a escala ANIMADA 80% → 100% (Bézier no gráfico, `interp` 0): no Resolve isso é o Zoom
+    do PRODUCAO_B tem a escala ANIMADA 80% → 100% (Bézier no gráfico, `interp` 0): no Resolve isso é o Zoom
     animado do clipe, e caiu em ±1 px aos 5 s e aos 10 s com interpolação LINEAR. `confirmado`.
 - **Reverso:** `<PlayBackwards>true</PlayBackwards>` no `<Clip>` do `VideoClip`, com a `PlaybackSpeed`
   POSITIVA. `confirmado` pela imagem (2026-10-02): a fonte no instante t é (duração − 1 quadro) −
   `InPoint` − (t − `Start`) × velocidade — o `InPoint` conta a partir do FIM da mídia. Era a lâmpada
-  da abertura do PRODB: lida como direta, mostrava o começo do take (lâmpada acesa e próxima).
+  da abertura do PRODUCAO_B: lida como direta, mostrava o começo do take (lâmpada acesa e próxima).
 - **Clipe desligado:** `<IsMuted>true</IsMuted>` no `ClipTrackItem` (Enable desmarcado) — além do
-  da trilha. `confirmado` (PRODB 30B-2-2).
+  da trilha. `confirmado` (PRODUCAO_B 30B-2-2).
 - **Crop com máscara:** o `AE.ADBE AECrop` pode ter um `SubComponent` `AE.ADBE AEMask2` com `Path`
   animado (contorno rastreado) — Crop 100% + máscara = "mostre só o recorte". Traduzir só o crop
   esconde o plano inteiro; é composição (Fusion/Color), não Edit.
@@ -761,15 +761,15 @@ vai mostrar, para conferir enquadramento sem abrir o Premiere).
 - ⚠️ **Formato do `Path` deduzido de UM projeto (Premiere 26.0.2)** — outras versões `pendente`, na
   lista de testes sintéticos do De Lá Pra Cá. O De Lá Pra Cá trata o blob que não se lê como "refazer"
   só naquele efeito (2026-10-03).
-- **Conferido:** PRODB 02:00:49 (insert da polícia na tela do interfone), 3 pontos, correlação
+- **Conferido:** PRODUCAO_B 02:00:49 (insert da polícia na tela do interfone), 3 pontos, correlação
   0,998–0,999 contra o export, cantos arredondados incluídos.
-- **Crop num plano que aponta para um take aninhado** (PRODB 66-1-9): corta o QUADRO do take. O
+- **Crop num plano que aponta para um take aninhado** (PRODUCAO_B 66-1-9): corta o QUADRO do take. O
   Cropping do Resolve corta a FONTE, então o retângulo volta à fonte pela inversa da geometria de
   dentro do take. `Edge Feather` (px do quadro do item) → Softness.
 
 ### 10.7 Máscara no fluxo, sem molde; Gaussian Blur com máscara — 2026-10-03 (Resolve 21.1, Mac)
 
-- **No filme inteiro do PRODB são 3 usos de máscara, todos FIXOS** (1 keyframe de contorno): Crop
+- **No filme inteiro do PRODUCAO_B são 3 usos de máscara, todos FIXOS** (1 keyframe de contorno): Crop
   com máscara invertida de 12 pontos nos dois `87-INSERT-EXTRA` (01:00:49:14 e 01:22:41:07) e um
   **`AE.ADBE Gaussian Blur 2` com máscara** de 6 pontos no A055C012 (01:01:42:06–21, V5) — esconde um
   objeto refletido no espelho. Nenhum contorno rastreado/animado neste projeto.
@@ -796,7 +796,7 @@ vai mostrar, para conferir enquadramento sem abrir o Premiere).
 ### 10.8 Basic 3D do Premiere → Corner Positioner do Fusion — 2026-10-03 (`confirmado` pela imagem)
 
 - **`AE.ADBE Basic 3D`**: parâmetros `Swivel` (giro no eixo vertical), `Tilt` (horizontal), em graus;
-  `Distance to Image` (0 = padrão), `Specular Highlight`, `Preview`. No PRODB: os dois inserts do
+  `Distance to Image` (0 = padrão), `Specular Highlight`, `Preview`. No PRODUCAO_B: os dois inserts do
   interfone (Swivel 1,8 / Tilt −1,9) e o clipe de calibração do autor no caso R02 (20 / 20).
 - **Geometria medida** (homografia por pontos casados, flat × export do Premiere, 925/1101
   concordantes; caso R02, quadros 372–460): é rotação de verdade, **R = Ry(Swivel)·Rx(Tilt)** em torno do
@@ -817,7 +817,7 @@ vai mostrar, para conferir enquadramento sem abrir o Premiere).
 
 ### 10.9 O filme inteiro pelo gesto — 2026-10-03 (`confirmado` pela imagem)
 
-PRODB `DU_CORTE_06 SIMPLIFICADA` montada pelo autor no painel do Resolve 21.1 (Importar `.prproj`,
+PRODUCAO_B `DU_CORTE_06 SIMPLIFICADA` montada pelo autor no painel do Resolve 21.1 (Importar `.prproj`,
 originais em dois HDs, ARRIRAW em log): conferência de 1.142 pontos (1º e último quadro visível de
 cada plano) contra o export → **1.141 ≥ 0,75 (99,9%)**; o único abaixo é cena muito escura com
 burn-in do nome no export (0,99 sem as bordas). A v4 (2026-10-02) tinha 98,3%.
@@ -828,11 +828,11 @@ burn-in do nome no export (0,99 sem as bordas). A v4 (2026-10-02) tinha 98,3%.
 
 ### 10.5 NEST × sequência MULTICAM — o sinal está na SEQUÊNCIA, não no clipe (2026-10-04)
 
-O `<IsMulticam>` do `VideoClip` NÃO separa os dois: no `FINALIZACAOPRODB_FINALIZACAO_PARA RESOLVE.prproj`
+O `<IsMulticam>` do `VideoClip` NÃO separa os dois: no `FINALIZACAOPRODUCAO_B_FINALIZACAO_PARA RESOLVE.prproj`
 (Premiere 26.0.2) os 505 takes usados no corte vêm sem ele (o "multicam desligado" do §10.3). O que
 separa é a **sequência de dentro**: `<Source.Monitor.Multicam.SwitchOnMulticamName>` no `Properties`
 dela existe nas 280 sequências multicam e em NENHUM nest, merged ou timeline de montagem (o mesmo nos
-dois projetos do PRODB: 295 × 0). Nest de verdade no filme: só `C87_COMP_INTERFONE_2` (2 trilhas:
+dois projetos do PRODUCAO_B: 295 × 0). Nest de verdade no filme: só `C87_COMP_INTERFONE_2` (2 trilhas:
 placa do interfone embaixo, policiais na telinha em cima; dentro dele, um take multicam). Confiança:
 `inferido` — a observação que refutaria (um nest com a chave, ou multicam sem ela) não apareceu em 2
 projetos, mas ambos são do mesmo assistente/versão. Uso: o nest vira Compound Clip do Resolve 1:1; a
@@ -846,7 +846,7 @@ por `MasterClip › Clip › VideoSequenceSource › Sequence`. ⇒ reconhecer m
 `carta/itens.py::_sequencias_multicam`). As trilhas dela: V1…Vn = as câmeras, A1 = o som direto, A2… = o som de cada
 câmera; cada fonte INTEIRA (entrada 0) com início = onde o quadro 0 dela cai.
 
-### 10.10 "Metadata & Timecode Burn-in" → Text+ do Resolve — 2026-10-08 (Premiere 26.0.2, PRODB)
+### 10.10 "Metadata & Timecode Burn-in" → Text+ do Resolve — 2026-10-08 (Premiere 26.0.2, PRODUCAO_B)
 
 - Efeito `AE.ADBE PPro Metadata` (num Graphic/camada de ajuste). 67 parâmetros, os nomes se repetem: 0 `Size`
   (do efeito), 1 `Opacity` (do FUNDO, %), e 5 blocos de 13 a partir do 2: `Line N` (bool, `inferido`: a seta
@@ -859,9 +859,9 @@ câmera; cada fonte INTEIRA (entrada 0) com início = onde o quadro 0 dela cai.
   altura` (Size 17 → 65 px), caixa preta com a `Opacity`, ancorada pela `Position` no canto INFERIOR ESQUERDO
   (0,8168/0,0757 → x 2352, y 123), folga ~0,12 × a altura dos dígitos à esquerda e ~0,25–0,28 embaixo.
 - **Tradução**: um Text+ ("Fusion Title") no trecho do Graphic, com o TC vivo (modificador TimeCode) em Open
-  Sans Semibold — a mesma proporção dos dígitos (7,23 × 7,20). Sobre o PRODB: os dígitos a ≤ 2 px dos da
+  Sans Semibold — a mesma proporção dos dígitos (7,23 × 7,20). Sobre o PRODUCAO_B: os dígitos a ≤ 2 px dos da
   referência nos 3 trechos. Exceção pedida pelo autor à regra "título = Text simples". Formato do Text+ no
   DRT: `protocolos/drt-drp/estruturas.md` (seção do Text+).
-- ⚠️ A referência do PRODB tem também o NOME do arquivo original (`A093C005_240807_R1X0.mxf`) queimado
+- ⚠️ A referência do PRODUCAO_B tem também o NOME do arquivo original (`A093C005_240807_R1X0.mxf`) queimado
   embaixo à direita: não vem do burn-in do Premiere (não está no projeto, e o Premiere usa os proxies .mov) —
   `inferido`: um data burn-in de quem exportou a referência.

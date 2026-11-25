@@ -166,7 +166,7 @@ def alfa(im: np.ndarray) -> np.ndarray:
     return ((im - FUNDO) @ d) / (d @ d)
 
 
-def PRODUCAO-A(perfil: np.ndarray) -> list[dict]:
+def producao_a(perfil: np.ndarray) -> list[dict]:
     """Onde o alfa cruza 0,5 (subpixel) e a largura 10–90 % de cada transição."""
     out = []
     for i in range(1, len(perfil)):
@@ -195,7 +195,7 @@ def medir(arq: str, quadros=(0, 72, 143)) -> dict:
         cy, cx = int(np.median(ys)), int(np.median(xs))
         linha = a[cy - 4:cy + 5].mean(axis=0)
         coluna = a[:, cx - 4:cx + 5].mean(axis=1)
-        res[q] = {"centro": (cx, cy), "na_linha_y": PRODUCAO-A(linha), "na_coluna_x": PRODUCAO-A(coluna),
+        res[q] = {"centro": (cx, cy), "na_linha_y": producao_a(linha), "na_coluna_x": producao_a(coluna),
                   "fracao_frente": round(float(dentro.mean()), 4)}
     return res
 

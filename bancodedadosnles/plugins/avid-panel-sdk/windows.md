@@ -627,7 +627,7 @@ Detalhes por bloco em [fontes.md](fontes.md).
 - ✅ **`ImportFile` põe mídia GERENCIADA na `MXF\1` sem diálogo** (`import_settings_name="Untitled"`,
   `destination_video_drive="SSD (D:)"`, `destination_bin` = caminho absoluto da bin): responde "Completed" em 0,3 s e o
   import termina DEPOIS (o master clip aparece na bin e os `.mxf` na `MXF\1` alguns segundos mais tarde) — esperar pela bin, não
-  pela resposta. (2026-10-11) O B02 apareceu em `MXF\1-ocruz_ignorar\` porque o AUTOR moveu a `MXF\1` inteira para
+  pela resposta. (2026-10-11) O B02 apareceu em `MXF\1-oproda_ignorar\` porque o AUTOR moveu a `MXF\1` inteira para
   liberar a pasta (o import tinha ido para a `MXF\1`, como esperado). `GetListOfImportSettings`/`GetListOfLinkSettings` = ["Untitled"]; export: "MP4-2kbps", "aaf", "dnxlb", "mp4".
   `LoadSetting(unique_id, xml_setting)` cria configuração por XML — ⭐ **e instala preset de export com o MC ABERTO desde que o envelope
   traga `<AvClass id="SETG"/>`** (sem ele: "No settings objects"). Medido 2026-10-11: o "DLPC_LAB_DNXLB" (MXF DNxHR LB) entrou na

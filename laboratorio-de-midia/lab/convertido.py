@@ -67,7 +67,7 @@ def filtro(cw: int, ch: int, modo: str, sar: str | None, nome_queimado: str | No
         partes.append(f"scale={cw}:{ch}")
     partes.append("setsar=1")
     if nome_queimado:
-        # como o data burn-in do proxy ALEXA do PRODB: o nome do clipe no canto de baixo à direita
+        # como o data burn-in do proxy ALEXA do PRODUCAO_B: o nome do clipe no canto de baixo à direita
         esc = max(2, round(3 * video.unidade(cw, ch)))
         from . import fonte_pixel
         larg = fonte_pixel.largura(nome_queimado, esc)

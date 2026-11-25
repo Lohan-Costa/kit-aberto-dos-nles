@@ -127,7 +127,7 @@ Medidos 16 casos no modo `resolve` (timelines 24/25/30/50, clipe de 60 s inteiro
 ## 2. Premiere — `pendente`
 
 Mesmos sintéticos. Pergunta central: o Premiere também toca em tempo real (pula/repete) ou conforma? O
-que ele faz com taxa variável (conta pela média: 24,0118 no vídeo de celular do PRODB).
+que ele faz com taxa variável (conta pela média: 24,0118 no vídeo de celular do PRODUCAO_B).
 
 ## 3. Avid Media Composer — `pendente`
 

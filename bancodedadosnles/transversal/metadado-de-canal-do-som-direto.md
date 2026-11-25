@@ -67,7 +67,7 @@ varredura confirmar: *"essa ordem varia de acordo com o técnico de som e condi�
 **3b. O número de canais varia DENTRO da mesma bin.** `PRODUCAO-F`: 3ch×8, 5ch×9, **6ch×27**,
 7ch×7. `PRODE 3`: 2, 3, 4 e 5. `D04_SOM`: 3, 4 e 5. ⇒ nada de assumir largura fixa; é por master.
 
-**3c. Metade de uma bin pode ter nome e a outra metade não.** `PRODE/_Assist anterior`: 36 de 73.
+**3c. Metade de uma bin pode ter nome e a outra metade não.** `PRODE/_ASSIST ANTERIOR`: 36 de 73.
 ⇒ a estratégia se decide **por master**, nunca por bin.
 
 ## 4. O OP-Atom não carrega o papel — `confirmado` (ffprobe, 2026-09-02)
@@ -237,7 +237,7 @@ segura). ⚠️ A margem de 3 dB continua não calibrada contra verdade-terreno.
 > enquanto o `bext` traz só `SCENE = PRODUCAO-A - 05-04`. Dois campos com o mesmo nome e valores diferentes no mesmo arquivo.
 
 Medido em `D:\AUDIOS ANALISAR` (Sound Devices, iXML e bext iguais nos 96 WAV), `confirmado`:
-- `PRODB` (43): nome `18-1T01`, `SCENE = 18-1`. Formas: `#-#` 31 · `#B-#-#` 6 · `#-EXTRA` 2 · `#B-#` 2 · `#-#-#` 2.
+- `PRODUCAO_B` (43): nome `18-1T01`, `SCENE = 18-1`. Formas: `#-#` 31 · `#B-#-#` 6 · `#-EXTRA` 2 · `#B-#` 2 · `#-#-#` 2.
 - `Diaria 03` (53): nome `E3C2P1T01`, `SCENE = E3C2P1`. Formas: `E#C#P#` 43 · `E#C#ctP#` 9 (`ct`: sentido não confirmado).
 - Em 95 de 95 da raiz, nome = `SCENE` + `T` + `TAKE`. ⚠️ Pasta de descarte real: `FALSETAKES` (sem espaço), que `claquete.PASTAS_DE_DESCARTE` não conhece.
 
@@ -245,7 +245,7 @@ Aplicado (autor, 2026-11-08): `E#C#P#T#` lido com o episódio em campo próprio 
 `FALSETAKES` é descarte; `número-número` só se separa em cena e plano quando pelo menos 2/3 das tomadas da diária têm essa forma, marcado como presumido
 (`identidade.presumir_da_forma`, `convencao = "forma_da_diaria"`). `hipotese`: que `18-1` seja cena-plano; a regra vem de uma diária só.
 
-**Regra de leitura proposta por modelo (2026-11-08, Ciclo Assist, Sonnet 5.5, PRODB, 43 WAV), `confirmado` numa rodada:** conferir só contra o metadado não basta. Sem saber o plano, o modelo propôs
+**Regra de leitura proposta por modelo (2026-11-08, Ciclo Assist, Sonnet 5.5, PRODUCAO_B, 43 WAV), `confirmado` numa rodada:** conferir só contra o metadado não basta. Sem saber o plano, o modelo propôs
 `{cena}-#T{take}`: o take bate em 100% com o iXML, e mesmo assim `18-1T01` e `18-2T01` virariam a mesma tomada. A conferência precisa procurar **colisão de identidade** entre arquivos diferentes (canais mono do mesmo take não contam).
 E uma regra feita sobre o nome do arquivo precisa aceitar `/` no lugar do RÓTULO do take para valer no master do MC (`SCENE/TAKE`, `protocolos/avb/estruturas.md`): só o rótulo, porque o resto é a SCENE (`18-EXTRAT01` lá é `18-EXTRA/01`). `pendente` conferir numa bin real.
 

@@ -234,7 +234,7 @@ nome que já vem sem extensão não passa por `Path.stem`. Corrigido no Órbita 
 
 ## O mesmo subclipe vive em VÁRIAS bins — e quem lista precisa juntar
 
-> **Medido em 2026-09-21**, projeto real de dramaturgia (`_Assist anterior`, 37 bins, Media
+> **Medido em 2026-09-21**, projeto real de dramaturgia (`_ASSIST ANTERIOR`, 37 bins, Media
 > Composer 25.6 / Windows). Confiança: **`confirmado`** para as contagens; ⚠️ `hipotese`
 > para a generalização a outros fluxos de trabalho — é UM projeto, de um editor.
 
@@ -320,7 +320,7 @@ estão na bin e a timeline não usa" viraria um filtro que esconderia material M
 
 ## 🆕 ⭐⭐ 5. O GROUP CLIP (multicâmera) por dentro — `confirmado` na LEITURA (2026-11-11, Mac, 1 grupo)
 
-Lido por pyavb no `GRUPO-MULTCAM` da bin `EDICAO.avb` do projeto `producao-a-ENSAIO` (Mac mini, feito à mão no MC em
+Lido por pyavb no `GRUPO-MULTCAM` da bin `EDICAO.avb` do projeto `PRODUCAO-A-ENSAIO` (Mac mini, feito à mão no MC em
 2026-06-28; câmeras `CAM A` e `CAM B` + `SOM-DIRETO.wav`, 23,976). Ciclo Assist, plano `docs/plano/2026-11-11-carta-aberta.md`.
 São DOIS mobs, e o segundo é o que guarda a sincronia:
 

@@ -7,7 +7,7 @@
     "fontes": [
       "_ASSIST ANTERIOR/assist_anterior/som/canais.py",
       "_ASSIST ANTERIOR/assist_anterior/som/ixml.py",
-      "C:/Users/<user>/Documents/Avid Projects/_Assist anterior (18 bins, 517 masters de som)"
+      "C:/Users/<user>/Documents/Avid Projects/_ASSIST ANTERIOR (18 bins, 517 masters de som)"
     ],
     "nle": "Avid Media Composer 25.x (bins .avb lidas com pyavb)",
     "notas": "Varredura do projeto inteiro do autor em 2026-09-02: quatro produções, dois fluxos de importação (direto e via Resolve). A distribuição NAO e' estatistica de mercado — e' a prova de que as quatro condicoes existem."
@@ -100,7 +100,7 @@
     },
     "metade_da_bin_sem_nome": {
       "confianca": "confirmado",
-      "exemplo": "PRODE/_Assist anterior: 36 de 73 masters com TRK",
+      "exemplo": "PRODE/_ASSIST ANTERIOR: 36 de 73 masters com TRK",
       "licao": "a estrategia se decide por MASTER, nunca por bin"
     }
   },

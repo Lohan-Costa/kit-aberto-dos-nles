@@ -232,7 +232,7 @@ real) e usa `MediaFrameRate = 9223372036854775807` (INT64_MAX) no `ClipLoggingIn
 
 ## 🆕 Valor binário guardado por HASH (`BinaryHash`) — 2026-10-04 (Premiere 26.0.2)
 
-`confirmado` (PRODB, `FINALIZACAOPRODB_FINALIZACAO_PARA RESOLVE.prproj`): um `StartKeyframeValue`
+`confirmado` (PRODUCAO_B, `FINALIZACAOPRODUCAO_B_FINALIZACAO_PARA RESOLVE.prproj`): um `StartKeyframeValue`
 binário (`Encoding="base64"`) IGUAL a outro é gravado uma vez só; as demais ocorrências vêm VAZIAS, só
 com o atributo — `<StartKeyframeValue Encoding="base64" BinaryHash="1660e736-…"/>` — e o conteúdo está
 no elemento de mesmo `BinaryHash` em outro ponto do arquivo. No projeto: 326 vazios, 0 órfãos (o
@@ -415,7 +415,7 @@ em gama; Hue gira ao contrário do MC.
   ✅ **Também nos efeitos de imagem** (mesma noite, `lab/premiere_ordem_fusion.py`): Gaussian Blur (Legacy) 40 + Basic
   3D Swivel 65° — arquivo [Basic 3D, Blur] sai NÍTIDO (p99 do gradiente 42: desfocou antes de girar), [Blur, Basic 3D]
   sai borrado (8: girou antes). Corrigido no Conformar (`Motion.fusion` invertida; `fusion_clipe.plano` aceita o
-  recorte DEPOIS de outro efeito como Merge + Polygon — o insert do PRODB, [Crop com máscara, Basic 3D] no arquivo,
+  recorte DEPOIS de outro efeito como Merge + Polygon — o insert do PRODUCAO_B, [Crop com máscara, Basic 3D] no arquivo,
   gira e depois recorta; montado e conferido no Resolve 19.1.4).
   ⭐ **DENTRO da página Color é o CONTRÁRIO: a ordem do arquivo É a do render** (Premiere 27.0.0, mesma noite,
   `lab/premiere27_ordem_camadas.py`): duas camadas Adjustment no nível Clip (a 2ª clonada no arquivo, pendurada depois
@@ -582,7 +582,7 @@ o disco não existe mais) — e o projeto carrega a LUT inteira:
   ALTURA). Reconhecer o modo pelo param de nome em branco com `false`, nunca pelo nome "Scale Height".
   Ler pelo `ParameterID`, ou tratar os dois nomes como o mesmo.
 - ⛔ **Sem keyframe, o valor que vale é o `StartKeyframe`, não o `CurrentValue`.** 8 escalas do projeto original de 2023
-  (não mexido por script) e 1 do PRODB têm os dois diferentes (CurrentValue 28 / 54,7, StartKeyframe 50): a API do
+  (não mexido por script) e 1 do PRODUCAO_B têm os dois diferentes (CurrentValue 28 / 54,7, StartKeyframe 50): a API do
   Premiere (`getValue`) devolveu SEMPRE o StartKeyframe e a imagem confirma. O leitor do De Lá Pra Cá preferia o
   CurrentValue: um plano de 50 % saía "28 %, quadro dentro do quadro" no Resolve. Com keyframe, vale o keyframe (§10.5 do
   relink-e-geometria); sem instante, o CurrentValue fica como antes.

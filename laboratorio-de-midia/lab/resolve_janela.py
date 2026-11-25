@@ -78,7 +78,7 @@ def quadro(arquivo: str, n: int) -> np.ndarray:
     return (np.frombuffer(cru, np.uint8).reshape(1080, 1920).astype(float) - 16) / 219
 
 
-def _PRODUCAO-A(perfil: np.ndarray, nivel: float) -> tuple[float, float]:
+def _producao_a(perfil: np.ndarray, nivel: float) -> tuple[float, float]:
     """As duas posições (subpixel) em que o perfil cruza `nivel`, a da esquerda e a da direita."""
     acima = np.where(perfil >= nivel)[0]
     if len(acima) == 0:
@@ -100,9 +100,9 @@ def medir_mascara(m: np.ndarray) -> dict:
     lin, col = m[int(round(cy))], m[:, int(round(cx))]
     out = {"centro": [round(cx, 1), round(cy, 1)], "max": round(float(m.max()), 3), "min": round(float(m.min()), 3)}
     for nome, perfil in (("h", lin), ("v", col)):
-        e50, d50 = _PRODUCAO-A(perfil, 0.5)
-        e10, d10 = _PRODUCAO-A(perfil, 0.1)
-        e90, d90 = _PRODUCAO-A(perfil, 0.9)
+        e50, d50 = _producao_a(perfil, 0.5)
+        e10, d10 = _producao_a(perfil, 0.1)
+        e90, d90 = _producao_a(perfil, 0.9)
         out[f"raio_{nome}"] = round((d50 - e50) / 2, 1)
         out[f"borda_{nome}"] = round(((e90 - e10) + (d10 - d90)) / 2, 1)     # 10 → 90 %
     return out
