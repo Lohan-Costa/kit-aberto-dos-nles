@@ -670,6 +670,11 @@ Medido na bin do autor (ele linkou pelo Source Browser três WAV do PRODC gravad
   - **A cadeia muda com a cena:** master → fonte de arquivo (PCMA) → fonte de TAPE (`sTAPE`) com cena; → fonte de
     MÍDIA (`MediaDescriptor`, o nome do arquivo) sem. Quem autora por molde precisa do molde da MESMA variante (o de
     gravador num WAV de música põe o tape do molde na coluna Tape) — o app tem `audio|…|cena` / `|semcena`.
+  - ⛔ **Nome com acento PERDIDO na própria bin** (MC 25.12 Mac, PRODUCAO-A, 2026-11-24): efeitos importados com nome
+    UTF-8 ficaram gravados como o UTF-8 lido em outra codificação, e o caractere que não coube virou `?` — `PATÃO` →
+    bytes `50 41 54 cc 3f 4f` (`PATÃ?O`, macroman) e `… c3 83 3f …` no campo UTF-8; `Flüssigkeiten` → `Flcc3f…`;
+    `DopplerCar…ched` → `DopplerCar\x89??ched`. O MXF que o MC gerou tem o nome CERTO. Não há o que recuperar da bin:
+    quem precisa do nome da origem usa o do MXF (quando a mídia gerenciada está à mão). Confiança: `confirmado` (bytes).
   - **Acento: o MC grava NFC**, no nome do mob (macroman, `ç` = `0x8D`, `ã` = `0x8B`) e no caminho (macroman e
     UTF-8 composto `c3 a7`), mesmo com o exFAT LISTANDO em NFD. ⛔ Um nome NFD não cabe no macroman (o cedilha solto
     `U+0327`): o clone de um WAV com acento caía e o áudio ficava offline. E o `replace_field` com texto codifica em

@@ -163,7 +163,7 @@ def exportar(saida: str) -> dict:
                 import gzip
                 texto = trocar(gzip.decompress(open(orig, "rb").read()).decode("utf-8"), trocas, rel["trocas"])
                 with open(novo, "wb") as fh:
-                    fh.write(gzip.compress(texto.encode("utf-8")))
+                    fh.write(gzip.compress(texto.encode("utf-8"), mtime=0))   # mtime=0: a mesma cópia a cada exportação (sem diff falso)
                 for nivel, oque, linha, trecho in varrer(texto, bloqueio, revisar):
                     rel["achados"].append({"nivel": nivel, "oque": oque, "arquivo": f"{alvo['destino']}/{novo_rel}",
                                            "linha": linha, "trecho": trecho})

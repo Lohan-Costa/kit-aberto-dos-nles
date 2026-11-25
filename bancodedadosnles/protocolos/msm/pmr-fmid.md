@@ -201,6 +201,18 @@ arquivo que sumiu não quebra nada — a fila só fica pior ordenada. Mesma regr
 [`../../transversal/banco-de-midias-compartilhado.md`](../../transversal/banco-de-midias-compartilhado.md)
 §7: **o cache é guia, nunca regra.**
 
+⛔ **Medido de novo em 2026-11-24 (MC 25.12, Mac — o caso que custou):** a pasta `98_SFX - GRITOS - MOTO - BOZINA - LAB -
+CHAVES` da PRODUCAO-A tem **84 MXF no disco e o `.pmr` dela lista 30** (55 de fora — ex.: lista o `_A02` de um efeito
+e não o `_A01`). A `990123` idem. (CORRIGE 2026-11-24, mesma sessão: escrevi antes que o `.pmr` trazia identidades de
+"versões antigas" — errado: o `…10ee…` que comparei é o do MASTER, e o `…10f1`/`…10f2` da bin são as ESSÊNCIAS de cada
+canal; os dois batem com o `material_package_umid`/`file_package_umid` do MXF.) O MC mostra a timeline (`PRODA_CORTE.00.2`) **100% online** — ele lê os MXF —, e o
+Conformar do Ciclo Assist, que usava o `.pmr` como fonte ÚNICA da mídia gerenciada, deixou **21 de 866 trechos offline**
+(14 arquivos). Confiança: `confirmado` (contagem no disco × `pmr.ler`, e a leitura da bin). ⇒ quem monta a mídia
+gerenciada tem de confirmar pelo UMID do MXF quando o `.pmr` não cobre a pasta — a regra deste §5.
+✅ Feito no Conformar (`media/pmr.py::indice_de(completar=True)`): os `.mxf` da pasta que o `.pmr` não lista são lidos
+pelo `ffprobe` (`file_package_umid` da essência, `material_package_umid` do master — tags de formato/stream). Medido:
+`PRODA_CORTE.00.2` **866/866** online; 120 arquivos lidos do MXF, o índice inteiro em 0,8 s (era 0,4 s, só `.pmr`).
+
 ### 6. ⭐⭐ Ele revela mídia ESTACIONADA — e `MXF-<projeto>` NÃO deve ser varrida
 
 Achado de brinde, e vale para **qualquer app que varra uma `Avid MediaFiles`**. O `.pmr`

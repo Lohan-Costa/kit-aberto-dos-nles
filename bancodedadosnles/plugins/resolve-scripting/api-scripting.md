@@ -1019,3 +1019,13 @@ Do PRODUCAO-H LAB (cópia por `.drp` do projeto do autor; `laboratorio-de-midia/
   Causa exata `pendente`. Depois da queda: o aviso "quit unexpectedly" (Ignore) e o próximo `launch` abre o "Untitled".
 - `GetSourceStartFrame() > GetSourceEndFrame()` num item = o clipe está **ESPELHADO na horizontal** (flip), não invertido
   no tempo (medido pelo still: o chart saiu espelhado).
+
+## ⭐ `MediaPool.RelinkClips(clips, pasta)` procura o MESMO nome de arquivo — com a extensão (2026-11-24)
+
+Medido no Resolve Studio 21.1 (macOS), projetos "LAB RELINK WAV PRODA" e "… 2": 16 clipes de áudio offline de um DRT,
+religados à pasta onde estão os WAVs. Rótulo SEM extensão (`…/Glass And Wood Door, Heavy`) × arquivo
+`Glass And Wood Door, Heavy.wav`: **0 de 16** (a chamada devolve `False`). O mesmo DRT com `.wav` no rótulo: **11 de 16**
+(`True`) — os 5 de fora têm o nome diferente do arquivo (acentuação perdida na bin do MC; ponto final retirado). Não desce
+a subpastas: chamar uma vez por pasta. ⚠️ Importar um segundo DRT no MESMO projeto reaproveita os clipes do pool que já
+existem (o mesmo identificador) em vez de criar os novos — teste de religação num projeto limpo. Confiança: `confirmado`.
+
