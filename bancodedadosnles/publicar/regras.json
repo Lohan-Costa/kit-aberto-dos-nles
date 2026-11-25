@@ -183,6 +183,22 @@
    "destino": "kit-aberto-dos-nles/laboratorio-de-midia",
    "regras": [
     [
+     "prproj",
+     "resultados/B*/prproj/premiere-*.prproj"
+    ],
+    [
+     "prproj",
+     "resultados/B10_ROTO/premiere-26.0.2-*/*.prproj"
+    ],
+    [
+     "binario",
+     "resultados/B10_ROTO/premiere-26.0.2-autor/*Masks/*.prmf"
+    ],
+    [
+     "binario",
+     "lab/moldes/resolve/*.bin"
+    ],
+    [
      "fica",
      "resultados/*"
     ],
@@ -288,6 +304,26 @@
    "repo": "2 ATIVOS/_CICLO ASSIST",
    "destino": "ciclo-assist-kit-nle",
    "regras": [
+    [
+     "binario",
+     "modulos/conformar/motor/drp/fairlight_r19_mesa99.bin"
+    ],
+    [
+     "vai",
+     "modulos/conformar/tests/dados/baselight/plano_limpo_C011.blg.txt"
+    ],
+    [
+     "vai",
+     "modulos/sincronizar/motor/tests/fixtures/opatom_probes.json"
+    ],
+    [
+     "vai",
+     "tests/dados/titler_legacy_cruz_estilo.json"
+    ],
+    [
+     "vai",
+     "tests/dados/titulo_source_text.txt"
+    ],
     [
      "fica",
      "________claude-iniciar_opcoes*"

@@ -236,6 +236,11 @@ def montar_kit(saida: str) -> None:
     if os.path.isfile(os.path.join(fonte, "COMECE-AQUI.md")):
         shutil.copy2(os.path.join(fonte, "COMECE-AQUI.md"), kit)
     shutil.rmtree(fonte)
+    # a marca da cópia pública: os testes do laboratório pulam (em vez de falhar) o que depende de dado que não veio
+    lab = os.path.join(kit, "laboratorio-de-midia")
+    if os.path.isdir(lab):
+        with open(os.path.join(lab, ".copia-publica"), "w", encoding="utf-8") as fh:
+            fh.write("Cópia pública do KIT ABERTO DOS NLEs (gerada por publicar/exportar_publico.py).\n")
 
 
 def relatorio(rel: dict, saida: str) -> str:

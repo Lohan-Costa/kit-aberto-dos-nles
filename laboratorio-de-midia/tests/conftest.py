@@ -1,6 +1,6 @@
 """Os testes que leem dados de produção real ou resultados de bancada, na CÓPIA PÚBLICA (o kit aberto).
 
-A cópia pública do laboratório não leva `resultados/` (nem os moldes binários de produção): ali, um teste que tropeça
+A cópia pública do laboratório não leva tudo de `resultados/` (nem os moldes binários de produção): ali, um teste que tropeça
 num arquivo que falta DENTRO do laboratório PULA dizendo qual — em vez de falhar como se o kit estivesse quebrado.
 Na máquina do autor (`resultados/` existe), o mesmo tropeço continua sendo FALHA: nada se esconde onde os dados estão.
 """
@@ -11,7 +11,10 @@ import os
 import pytest
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-COPIA_PUBLICA = not os.path.isdir(os.path.join(RAIZ, "resultados"))
+#: A marca que o exportador do kit grava na cópia pública (`publicar/exportar_publico.py::montar_kit`); sem ela, a falta de
+#: `resultados/` também conta (a cópia pública de antes de 2026-11-24 não levava a pasta).
+COPIA_PUBLICA = (os.path.isfile(os.path.join(RAIZ, ".copia-publica"))
+                 or not os.path.isdir(os.path.join(RAIZ, "resultados")))
 
 
 @pytest.hookimpl(hookwrapper=True)
