@@ -403,6 +403,10 @@ o Claude numa tarefa) — e morrem junto. Nunca um processo de fundo que sobrevi
   DESABILITADO com o foco nos Controles de efeitos — clique na aba do painel Projeto e confira `enabled of menu item`.
 - O diálogo "Selecionar uma Pasta" (osascript `choose folder`, dono "Eventos do Sistema"): `frente` + Cmd+Shift+G +
   `digitar(caminho)` + Enter entra na pasta; **Escolher** escolhe a pasta ATUAL (sem nada selecionado).
+- MC 25.12 (Mac, 2026-11-26): NÃO há "New Sequence" no menu Clip, e carregar um MASTER no Record pela API não cria
+  sequência; o que cria: clipe selecionado na bin (clique no ícone) + **Clip › AutoSequence** (menu pelo nome). O
+  "Save All Bins" pelo System Events falhou com o MC na frente (o item some da consulta): salvar pela API
+  (`Acoes.salvar("<bin>.avb")`).
 - MC: o nome de item novo na bin (sequência criada por Splice) nasce em MODO DE RENOMEAR — clicar no vazio da bin antes
   de qualquer tecla. Os botões amarelo/vermelho da barra da timeline são MODOS de segmento; Splice/Overwrite ficam
   embaixo do monitor.

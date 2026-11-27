@@ -19,6 +19,7 @@ para o que saiu do Avid, e a tradução muda conforme o autor do arquivo.
 | **FCPXML** | não exporta | não exporta | 1.8 = arquivo; **1.10 = PASTA** com `Info.fcpxml` dentro (mesmo com a extensão `.fcpxml` que se pediu); 4 espaços; marca só no nome (`" (Resolve)"`) |
 | **OTIO** | `pendente` (o 25.6 não mostrou export de OTIO) | **o 2023 não exporta** (autor, 2026-10-12); 2025+ `pendente` | metadados **`Resolve_OTIO`** na timeline (`{"Resolve OTIO Meta Version": "1.0"}`) e em cada clipe |
 | **EDL** | — | — | **nenhuma marca** (só `TITLE:` e `FCM:`): EDL não tem origem |
+| ↳ CORRIGE (2026-11-25, MC 25.12 × Premiere 26.0.2, Mac) | `TITLE:` com 3 espaços, sem linha em branco entre eventos, `*FROM CLIP NAME:  `, canais `A3`…`A10`, UTF-8 | reel `AX`, linha em branco, `* AUDIO LEVEL AT … (REEL AX A1)`, `EFFECTS NAME IS`, `AA/V`, MacRoman no Mac | reel `AX`, linha em branco, 2 espaços no fim do evento, ASCII | marca DECLARADA continua não havendo, mas o desenho é **pista** (nunca prova): [protocolos/edl](../protocolos/edl/README.md) §3 |
 
 ## A regra de classificação (do mais forte ao mais fraco)
 

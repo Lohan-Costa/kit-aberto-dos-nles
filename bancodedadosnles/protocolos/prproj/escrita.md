@@ -885,6 +885,33 @@ idioma do app: "Cross Dissolve" ficou em inglês, a de som veio "Potência const
   (não lida); não medido se o Avid desta timeline usava potência constante ou linear.
 
 ### 11k. ⭐ VELOCIDADE e clipe DESLIGADO no `.prproj`, sobre o molde do Premiere (2026-11-14, 26.0.2 Mac) — `confirmado` (1 rodada)
+- ⭐ **SOM com velocidade e o TOM (2026-11-26, Premiere 27.0 Mac):** o `AudioClip` leva o mesmo `PlaybackSpeed` no `Clip`
+  e, com "Maintain Audio Pitch" ligado, `<MaintainAudioPitch>true</MaintainAudioPitch>` LOGO DEPOIS dele (o Premiere
+  grava assim — B30 do laboratório, `MIDIAS DE TESTES/9 SAIDAS…/2026-11-25 EDL PREMIERE MC/B30 EDL PREMIERE v04`; o
+  VideoClip do mesmo clipe também o leva quando o editor muda pela caixa Speed/Duration). Escrito pela Carta a partir
+  do AudioSuite TIME SHIFT do MC (Shift 100 %) e regravado pelo Premiere com os MESMOS valores: In 508540032000, Out
+  889945056000, 0.5, true — idênticos ao `.prproj` original, ida Premiere → MC → Premiere fechada no tick. `confirmado`.
+- ⭐ **REVERSO escrito (2026-11-26, B32, `confirmado` pelo código de barras de cada quadro):** `<PlayBackwards>true</PlayBackwards>`
+  no `Clip` (sem `PlaybackSpeed` a 100 %), com a entrada contada do FIM da mídia: InPoint = Duration (do `VideoStream`) −
+  FrameRate (um quadro da fonte) − o 1º quadro MOSTRADO (o mais alto); OutPoint = InPoint + duração × velocidade. Verdade
+  (Premiere 27): B30_A 480 q, In 3559780224000 → mostra 143→48. Carta `entrega_prproj` (`rev`): 96/96.
+- ⭐ **Molde de som numa timeline só ESTÉREO:** a Carta põe no projeto um WAV mono de silêncio (`CARTA molde de som
+  mono.wav`, 10 s) e monta o molde com ele (antes a timeline inteira era recusada). B32 pela Carta: 12/12 casos 96/96.
+- ⛔⛔ **A ENTRADA DA IMAGEM vai NA GRADE DA TIMELINE (2026-11-26, Premiere 27.0 Mac, medido com o quadro escrito na
+  imagem — B30, `MIDIAS DE TESTES/9 SAIDAS…/2026-11-26 CONFORMAR VELOCIDADE PREMIERE/quadros`):** o Premiere MOSTRA o
+  quadro do PISO da entrada na grade da timeline (passo × velocidade) — a mesma regra do piso medida no R04
+  (`estruturas.md`). Fonte a 25 p numa sequência 23,976, entrada no quadro 49: o tick EXATO (49/25 s = 497871360000 =
+  46,99 quadros da timeline) mostrou o **QUADRO 47**; na grade, pelo teto (47 × 10594584000 = 497945448000), o **49**
+  (o que o Avid toca). ⇒ Carta (`entrega_prproj._entrada_na_grade`) e Conformar (`premiere_montagem.na_grade`): teto
+  na grade. Corrige a conta da conformação `[1000, 1001]` acima (37 a 24 → 37 quadros da timeline, não 37 × 10584000000),
+  que só estava no teste. `confirmado` (25 p; a 24 pela mesma conta, `inferido`).
+  - ⛔ Pela API: `projectItem.setInPoint(ticks, 4)` ENCAIXA a entrada na grade da FONTE (25 p) e desfaz o teto (o
+    clipe voltou a mostrar o 47); `trackItem.inPoint = Time` (no clipe já na timeline) aceita o tick exato e mantém
+    início e fim — a saída NÃO acompanha: `outPoint` antes, depois `inPoint`. `trackItem.inPoint` LÊ a entrada já no
+    piso da grade (487350864000 = 46 q para o 497871360000 gravado).
+  - ⭐ QE `trackItem.setSpeed(v, "", false, MANTER_TOM, false)`: o 4º argumento é o "Maintain Audio Pitch" (antes
+    tido como ripple) — `true` no som grava `MaintainAudioPitch` true; `false` na imagem, nada. A duração fica, a
+    fonte encolhe (72 → 36 a 50 %: quadros 48, 48, 49 … 83 na tela). Conformar `dlpcMontar` (2026-11-26).
 
 Molde `MOLDE VELOCIDADE` (QE `qeItem.setSpeed(v, "", false, false, false)` sem ripple; DOM `trackItem.disabled = true`).
 - **Desligado:** `<IsMuted>true</IsMuted>` no `ClipTrackItem`, depois do `SubClip` — o mesmo na imagem e no som. É o

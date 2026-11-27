@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EDL para o som</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Space+Grotesk:wght@400..700&display=swap">
+<link rel="stylesheet" href="tema.css">
+<style>
+/* VOICE relatório de registro, impessoal · IDEA a lista de conform da casa de som, conferida linha a linha
+   PICTURE o placar caso × NLE × com vídeo/só áudio, e os prints de cada achado
+   COLOUR/TYPE o tema do banco (verde-água, âmbar só no alerta) · LAYOUT capa escura, placar, NLE por NLE, próxima metade */
+.edl{font:13px/1.5 "IBM Plex Mono",monospace;background:var(--surface-dark);color:var(--on-dark);border-radius:12px;padding:14px 16px;overflow-x:auto;white-space:pre;margin:0}
+.edl .x{color:#FF9B8F}.edl .ok{color:var(--on-dark-accent)}
+.par{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:18px;align-items:start}
+@media(max-width:760px){.par{grid-template-columns:minmax(0,1fr)}}
+.telas.tres{grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr))}
+td .marca{margin:0 auto;display:inline-grid}
+</style>
+<script>new MutationObserver(()=>{for(const c of document.querySelectorAll('.stack td:not([data-l])')){let i=0,p=c;while(p=p.previousElementSibling)i+=p.colSpan;c.dataset.l=c.closest('table').rows[0].cells[i]?.textContent||''}}).observe(document,{childList:true,subtree:true})</script>
+</head><body>
+
+<header class="capa"><div class="wrap">
+  <p class="eyebrow">EDL para o som · primeira metade · MC 25.12 e Premiere 26.0.2 (Mac)</p>
+  <h1>A EDL sai bem formada e leva o som ao lugar errado em cinco situações</h1>
+  <div class="barra"></div>
+  <p class="lead">A mesma cena de laboratório (duas câmeras e um som direto de 6 canais, cada quadro e cada canal dizendo o que é) montada com subclipe, AutoSync, group, merged, multicâmera e nest, exportada como EDL nos dois NLEs e conferida evento a evento. <strong>Tirar o vídeo da timeline não muda nada: a EDL de som sai igual.</strong></p>
+  <div class="numeros">
+    <div class="numero"><b>31</b><span>EDLs conferidas pelo programa</span></div>
+    <div class="numero"><b>5</b><span>situações de erro calado</span></div>
+    <div class="numero"><b>0</b><span>diferenças entre com vídeo e só áudio</span></div>
+    <div class="numero"><b>2ª</b><span>metade: o Pro Tools</span></div>
+  </div>
+</div></header>
+
+<main class="wrap">
+
+<section>
+  <div class="cab"><p class="eyebrow">O placar</p><h2>Onde a informação já se perde antes de sair do NLE</h2>
+    <p class="muted">Cada linha é uma montagem. "Com vídeo" e "só áudio" são a mesma montagem, a segunda sem nenhum segmento de vídeo. No MC, CMX_3600 e File_129 deram o mesmo resultado. No Premiere, o diálogo de exportação ficou no padrão, como um editor o deixaria.</p></div>
+  <div class="tabela"><table class="stack"><thead><tr><th>Caso</th><th class="c">MC · vídeo</th><th class="c">MC · só áudio</th><th class="c">Premiere · vídeo</th><th class="c">Premiere · só áudio</th><th>O que a EDL diz</th></tr></thead>
+  <tbody id="placar"></tbody></table></div>
+  <div class="legenda-marcas">
+    <span><i class="marca certo">ok</i>certo: o reel e o TC levam ao arquivo e ao trecho</span>
+    <span><i class="marca alerta">!</i>alerta: chega-se ao certo, mas não só pelo reel</span>
+    <span><i class="marca errado">×</i>errado calado: bem formada, aponta o lugar errado</span>
+    <span><i class="marca">–</i>não se aplica ou a medir</span>
+  </div>
+</section>
+
+<section>
+  <div class="cab"><p class="eyebrow">Os erros calados</p><h2>Cinco jeitos de a casa de som receber a lista certa e o som errado</h2></div>
+  <div class="provas" id="erros"></div>
+</section>
+
+<section>
+  <div class="cab"><p class="eyebrow">Media Composer 25.12</p><h2>Group, AutoSync e subclipe saem certos; o canal e as trilhas não</h2>
+    <p class="muted">A cena entrou por <code>LinkFile</code> no projeto de laboratório <code>LAB COR MC</code>; os casos foram escritos por programa (pyavb) e abertos no MC; as EDLs saíram do List Tool.</p></div>
+  <div class="telas tres">
+    <figure><a href="img/mc-aviso-link.jpg"><img src="img/mc-aviso-link.jpg" alt="Diálogo Audio Start-Time Options do Media Composer"></a><figcaption><b>O aviso ao linkar o WAV</b>"Audio Start-Time Options" a cada arquivo, mesmo com o iXML informando 23,976. Com 23.98, o MC mostra 13:59:58:00, o TC da receita.</figcaption></figure>
+    <figure><a href="img/mc-s7-record.jpg"><img src="img/mc-s7-record.jpg" alt="Monitor Record mostrando CAM 2 no quadro 104"></a><figcaption><b>O group escrito por programa</b>CAM 2, 14:00:06:08, quadro 104: exatamente o plano. Na EDL, a CAM B e o som direto, cada um com o seu reel.</figcaption></figure>
+    <figure><a href="img/mc-trilhas-herdadas.jpg"><img src="img/mc-trilhas-herdadas.jpg" alt="List Tool com só A1 e A2 marcadas"></a><figcaption><b>As trilhas herdadas</b>Carregada depois de uma sequência de 2 trilhas, a de 6 vem com A3–A6 desmarcadas. A EDL sai só com A1/A2, sem aviso.</figcaption></figure>
+  </div>
+  <div class="cab" style="margin-top:26px"><h3>A troca de ângulo (S8): o group na timeline é uma cópia do seletor</h3>
+    <p class="muted">O gesto do editor: botão direito no segmento da timeline › o ângulo. Escrito só como referência ao grupo, o segmento tocava certo, mas não aparecia como group. Lido o group que o autor arrastou para a timeline, a forma do MC é um seletor por segmento, e com ela o menu de ângulos apareceu.</p></div>
+  <div class="telas">
+    <figure><a href="img/mc-s8-sem-g.jpg"><img src="img/mc-s8-sem-g.jpg" alt="Timeline do MC sem o G no nome e com o menu geral"></a><figcaption><b>Antes</b>"12-1 GRUPO S8" sem o (G); o botão direito abre o menu geral da timeline.</figcaption></figure>
+    <figure><a href="img/mc-s8-angulos.jpg"><img src="img/mc-s8-angulos.jpg" alt="Timeline do MC com G no nome e o menu de ângulos"></a><figcaption><b>Na forma do MC</b>"B001C007_MOV-PRORES(G)" e "12/1(G)"; o menu traz A001C003 e B001C007.</figcaption></figure>
+    <figure><a href="img/mc-s8-trocado.jpg"><img src="img/mc-s8-trocado.jpg" alt="Timeline do MC com o segmento do meio trocado para A001C003"></a><figcaption><b>Trocado</b>O segmento do meio na CAM A. A EDL acompanha: CAM B → CAM A → CAM B, som direto contínuo, TCs exatos.</figcaption></figure>
+  </div>
+</section>
+
+<section>
+  <div class="cab"><p class="eyebrow">Premiere Pro 26.0.2</p><h2>Multicâmera e nest saem com o TC deles e sem fonte</h2>
+    <p class="muted">Merged e multicâmera pelo menu, com as opções que um editor usa (som da câmera removido no merged; "Todas as câmeras" na multicâmera, decisão do autor). Nest: um merged dentro de uma sequência. A verdade de cada evento foi conferida no monitor Programa, pelo quadro e o TC impressos na imagem.</p></div>
+  <div class="telas tres">
+    <figure><a href="img/pr-mesclar-tc.jpg"><img src="img/pr-mesclar-tc.jpg" alt="Diálogo Mesclar clipes por timecode"></a><figcaption><b>Mesclar clipes</b>Por timecode (S2) e por pontos de entrada (S3), com "Remover áudio do clipe AV".</figcaption></figure>
+    <figure><a href="img/pr-multicam.jpg"><img src="img/pr-multicam.jpg" alt="Diálogo de sequência de origem de várias câmeras"></a><figcaption><b>Multicâmera</b>Timecode, uma única sequência, "Todas as câmeras".</figcaption></figure>
+    <figure><a href="img/pr-edl-dialogo.jpg"><img src="img/pr-edl-dialogo.jpg" alt="Diálogo de exportação de EDL do Premiere"></a><figcaption><b>O diálogo de EDL</b>Só CMX 3600, 1 trilha de vídeo e 4 de áudio. Com 6 canais, A5 e A6 ficam de fora.</figcaption></figure>
+  </div>
+  <div class="par" style="margin-top:22px">
+    <div class="telas">
+      <figure><a href="img/pr-programa-s4.jpg"><img src="img/pr-programa-s4.jpg" alt="Monitor Programa da multicâmera mostrando CAM 1 14:00:06:08"></a><figcaption><b>O que toca (S4)</b>CAM 1, 14:00:06:08, quadro 152.</figcaption></figure>
+      <figure><a href="img/pr-programa-s5.jpg"><img src="img/pr-programa-s5.jpg" alt="Monitor Programa do nest mostrando CAM 1 14:00:04:00"></a><figcaption><b>O que toca (S5)</b>CAM 1, 14:00:04:00, quadro 96.</figcaption></figure>
+    </div>
+    <div>
+      <p><strong>O que a EDL diz</strong> para essas duas timelines: reel <code>AX</code>, o TC da sequência interna e o nome da multicâmera ou do nest. Nada leva à câmera nem ao som direto.</p>
+<pre class="edl">TITLE: P S4 MULTICAM
+001  AX       V     C   <span class="x">00:00:08:08</span> 00:00:11:08 01:00:00:00 01:00:03:00
+* FROM CLIP NAME: <span class="x">S4 MULTICAM</span>
+002  AX       AA    C   <span class="x">00:00:08:08</span> 00:00:11:08 01:00:00:00 01:00:03:00
+
+TITLE: P S5 NEST
+001  AX       AA/V  C   <span class="x">00:00:01:00</span> 00:00:05:00 01:00:00:00 01:00:04:00
+* FROM CLIP NAME: <span class="x">NEST INTERNO</span></pre>
+      <p style="margin-top:14px"><strong>O merged por TC</strong>, ao contrário, leva cada parte ao seu arquivo: a imagem pelo nome do MOV, o som pelo sound roll do iXML.</p>
+<pre class="edl">001  AX       V     C   <span class="ok">14:00:03:00</span> 14:00:08:00 01:00:00:00 01:00:05:00
+* FROM CLIP NAME: A001C003_MOV-PRORES.mov
+002  <span class="ok">26Y11M25</span> AA    C   <span class="ok">14:00:03:00</span> 14:00:08:00 01:00:00:00 01:00:05:00
+003  26Y11M25 NONE  C   14:00:03:00 14:00:08:00 01:00:00:00 01:00:05:00
+AUD  3    4                       <span class="x">← A5 e A6 não existem na lista</span></pre>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="cab"><p class="eyebrow">As duas perguntas do autor</p><h2>Nem o vídeo na timeline nem o TC do áudio no merged mudam a EDL</h2></div>
+  <div class="grade">
+    <div class="card acao"><span class="selo">Só áudio</span><h3>A mesma lista de som, nos dois NLEs</h3>
+      <p>No AAF do Premiere, o merged só sai certo sem vídeo na timeline. Na EDL isso não se repete: as variantes sem nenhum segmento de vídeo deram, evento a evento, o mesmo reel, TC, trilha e nome de clipe das com vídeo. <strong>O erro vem do tipo de clipe (multicâmera, nest, merged por pontos de entrada), não da imagem.</strong></p></div>
+    <div class="card acao"><span class="selo">Merged</span><h3>"Usar timecode de áudio do clipe"</h3>
+      <p>Refeitos sem a opção, como o autor costuma fazer: as EDLs saíram idênticas. A opção muda só o TC do próprio merged na bin e na Origem: por pontos de entrada, 14:00:02:00 (o da câmera) sem ela e 14:00:01:23 (o do áudio, com o quadro a menos) com ela.</p>
+      <figure style="margin-top:12px"><a href="img/pr-mesclar-sem-tc-audio.jpg"><img src="img/pr-mesclar-sem-tc-audio.jpg" alt="Diálogo Mesclar clipes com a opção de timecode do áudio desmarcada"></a></figure></div>
+  </div>
+</section>
+
+<section>
+  <div class="cab"><p class="eyebrow">A segunda metade</p><h2>Levar tudo ao Pro Tools e achar onde mais se perde</h2>
+    <p class="muted">A primeira metade mostrou o que sai do NLE. A segunda é a transferência completa, como a casa de som a faz: as mesmas montagens chegando ao Pro Tools, conferidas pela mesma verdade.</p></div>
+  <ol class="passos">
+    <li><strong>O AAF de cada caso</strong>, dos dois NLEs, com vídeo e só áudio: importado no Pro Tools (Import Session Data). Conferir se cada clipe aponta o arquivo, o trecho e o canal certos.</li>
+    <li><strong>O conform pela EDL</strong>, que é o caminho das casas que reconformam a partir do som direto: a EDL mais os WAV originais numa ferramenta de conform, comparando com o AAF.</li>
+    <li><strong>O que o som direto carrega</strong>: sound roll, cena e take, e os nomes dos canais (MIX, BOOM, LAPELAS) do iXML. Verificar o que chega à sessão e o que se perde no caminho.</li>
+    <li><strong>A variante que as casas pedem</strong>: uma trilha de vídeo com os cortes da cena e todas as de áudio com os cortes da montagem. No Premiere, duas EDLs (canais 1–4 e 5–6), e verificar se casam.</li>
+    <li><strong>O placar completo</strong>: NLE → EDL/AAF → Pro Tools, caso a caso, marcando em que passo a informação some.</li>
+  </ol>
+  <div class="card aviso"><p class="eyebrow">Decisões pendentes</p>
+    <p>A versão do Pro Tools e a máquina onde ele roda; qual ferramenta de conform por EDL usar; se o S10 (canais 3/5) e o S11 (mesmo sound roll) entram também no Premiere antes da transferência; se o collapse (adiado) volta.</p></div>
+</section>
+
+<section>
+  <div class="cab"><p class="eyebrow">Como foi medido</p><h2>Mídia que diz o que é, verdade escrita antes, conferência por programa</h2></div>
+  <div class="grade">
+    <div class="card"><h3>A cena (receita B31)</h3><p>CAM A 14:00:00:00, CAM B 14:00:02:00, CAM A2 15:00:00:00 (ProRes 23,976); som direto 13:59:58:00 e 14:59:59:00, BWF de 6 canais, sound roll <code>26Y11M25</code>, cena 12, takes 1 e 2. Câmeras e gravador no mesmo TC.</p></div>
+    <div class="card"><h3>A verdade</h3><p>Cada montagem grava, junto, o que cada evento deveria dizer: arquivo, tape, TC de origem e canal do arquivo, trilha a trilha. No Premiere, conferida no monitor Programa.</p></div>
+    <div class="card"><h3>O conferidor</h3><p><code>motor/edl/conferir.py</code> no Conformar: lê a EDL como a casa de som a leria (reel, TC, trilha) e dá certo, alerta ou errado calado. 41 testes com as EDLs desta rodada.</p></div>
+  </div>
+  <div class="card aviso" style="margin-top:18px"><p class="eyebrow">Corrigido durante a rodada</p>
+    <p>Três saídas erradas foram do piloto, não dos NLEs, e ficam guardadas como prova com o nome marcado: o merged "por pontos de entrada" feito com as entradas no item errado (48 quadros fora), as trilhas A3–A6 desligadas por um clique a mais no List Tool, e os merged e multicâmeras apagados junto com as sequências de teste (no Premiere eles são sequências; refeitos).</p></div>
+</section>
+
+<footer class="rodape"><span>Ciclo Assist · Conformar · EDL para o som</span><span>Primeira metade · 25/11/2026</span></footer>
+</main>
+
+<script>{
+const m = t => t === "certo" ? '<i class="marca certo">ok</i>' : t === "alerta" ? '<i class="marca alerta">!</i>'
+  : t === "errado" ? '<i class="marca errado">×</i>' : '<i class="marca">–</i>';
+const placar = [
+  ["S1 subclipe", "certo", "certo", "alerta", "alerta", "TC do master. No Premiere o reel é AX: só o nome do arquivo leva à fonte."],
+  ["S6 AutoSync", "alerta", "alerta", "", "", "Imagem e som com reels próprios; o som pelo sound roll, igual em todos os takes."],
+  ["S7 group (só o som direto)", "alerta", "alerta", "", "", "O ângulo ativo e o som direto, cada um com o seu reel e TC."],
+  ["S8 troca de ângulo", "alerta", "", "", "", "Cada evento com a sua câmera; o som contínuo."],
+  ["S2 merged por TC", "", "", "errado", "errado", "TC certo; com 6 canais, A5 e A6 somem (4 canais por EDL)."],
+  ["S3 merged por pontos de entrada", "", "", "errado", "errado", "Imagem certa; o som 1 quadro antes (14:00:02:23)."],
+  ["S4 multicâmera", "", "", "errado", "errado", "TC da sequência multicâmera, reel AX: nem câmera nem som."],
+  ["S5 nest", "", "", "errado", "errado", "TC do nest, reel AX; o áudio do nest é a mistura, numa trilha."],
+  ["S10 WAV de 6 usado nos canais 3/5", "errado", "errado", "", "", "Sai A/A2: nada diz que são o BOOM e a LAPELA BETO."],
+  ["S11 dois takes do mesmo rolo", "alerta", "alerta", "", "", "O mesmo reel nos dois; só o TC (14h × 15h) separa."],
+];
+document.getElementById("placar").innerHTML = placar.map(r =>
+  `<tr><td><strong>${r[0]}</strong></td>${r.slice(1, 5).map(x => `<td class="c">${m(x)}</td>`).join("")}<td>${r[5]}</td></tr>`).join("");
+const erros = [
+  ["O canal do arquivo não existe na EDL", "Os dois NLEs", "O canal da EDL é a trilha da timeline. A1/A2 tocando os canais 3 e 5 de um WAV de 6 saem como A e A2, e quem conforma põe o MIX L/R no lugar do BOOM e da lapela."],
+  ["Multicâmera e nest apontam para si mesmos", "Premiere", "O TC é o da sequência interna (00:00:…), o reel é AX e o nome é o da multicâmera ou do nest. Nenhuma linha leva à câmera ou ao som direto."],
+  ["O merged por pontos de entrada atrasa o som", "Premiere", "A EDL é fiel ao merged, e o merged põe o som 1 quadro antes: a casa de som recebe o diálogo 1 quadro fora."],
+  ["Seis canais viram quatro", "Premiere", "O diálogo de EDL tem 4 trilhas de áudio. Com 6 canais, a LAPELA BETO e o AMBIENTE não aparecem, e nada avisa."],
+  ["O List Tool exporta só as trilhas da sequência anterior", "Media Composer", "A seleção de trilhas do Input fica lembrada. Depois de uma sequência de 2 trilhas, a de 6 sai só com A1/A2; Clear e Load não repõem."],
+];
+document.getElementById("erros").innerHTML = erros.map((e, i) =>
+  `<div class="prova"><span class="n">${i + 1}</span><div class="corpo"><p class="pergunta"><strong>${e[0]}</strong></p><p class="medido">${e[1]}</p><p>${e[2]}</p></div></div>`).join("");
+}</script>
+</body></html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EDL para o som</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Space+Grotesk:wght@400..700&display=swap">
+<link rel="stylesheet" href="tema.css">
+<style>
+/* VOICE: registro técnico de laboratório, impessoal
+   IDEA: a EDL como uma linha que aponta para UMA fonte, quando a timeline tem duas camadas
+   PICTURE: diagrama — evento da timeline → merged/grupo → câmera e som direto; a EDL escolhe um caminho
+   COLOUR and TYPE: o tema do autor (verde-água, âmbar só no conector), Space Grotesk / Plex
+   LAYOUT: capa, diagrama, rodada 1, casos com placar, exportações, conferidor, ordem, decisões */
+.edl{font-family:var(--mono);font-size:13px;background:var(--surface-alt);border:1px solid var(--line);border-radius:8px;padding:12px 14px;overflow-x:auto;white-space:pre;line-height:1.5}
+.edl .err{color:var(--alert);font-weight:500}
+svg .seta{stroke:var(--slate);stroke-width:2;fill:none}
+</style>
+<script>new MutationObserver(()=>{for(const c of document.querySelectorAll('.stack td:not([data-l])')){let i=0,p=c;while(p=p.previousElementSibling)i+=p.colSpan;c.dataset.l=c.closest('table').rows[0].cells[i]?.textContent||''}}).observe(document,{childList:true,subtree:true})</script>
+</head><body>
+
+<header class="capa"><div class="wrap">
+  <p class="eyebrow">Conformar · EDL para a equipe de som</p>
+  <h1>Onde a fonte se perde entre a timeline e a EDL</h1>
+  <div class="barra"></div>
+  <p class="lead">A EDL diz <strong>uma</strong> fonte por evento: reel, timecode e trilha. Nest, merged, multicâmera e group clip escondem uma fonte dentro de outra, e o NLE escolhe qual camada escrever. Quando escolhe a errada, a lista fica bem formada e aponta para o lugar errado. Por isso ninguém sabe dizer exatamente o que aconteceu.</p>
+  <div class="numeros">
+    <div class="numero"><b>11</b><span>casos (S1–S11)</span></div>
+    <div class="numero"><b>2</b><span>NLEs: Premiere 26 e MC 25.12</span></div>
+    <div class="numero"><b>5</b><span>exportações por caso, no máximo</span></div>
+    <div class="numero"><b>1</b><span>conferidor automático</span></div>
+  </div>
+</div></header>
+
+<main class="wrap">
+
+<section>
+  <div class="cab"><p class="eyebrow">O mecanismo</p><h2>Duas camadas na timeline, uma linha na EDL</h2>
+    <p class="muted">Exemplo de um merged ou de um group clip: o plano toca a imagem da câmera e o som direto, mas a linha da EDL só tem lugar para um reel e um timecode por trilha.</p></div>
+  <div class="diagrama">
+    <svg viewBox="0 0 980 300" role="img" aria-label="Um evento da timeline aponta para um merged clip, que contém a câmera e o som direto; a EDL de som pode sair com o reel da câmera">
+      <rect class="g-slate" x="20" y="110" width="200" height="80" rx="10"/>
+      <text x="120" y="145" text-anchor="middle" class="nome">Evento na timeline</text>
+      <text x="120" y="168" text-anchor="middle" class="apoio">V1 + A1–A4</text>
+      <rect class="g-violet" x="300" y="110" width="210" height="80" rx="10"/>
+      <text x="405" y="145" text-anchor="middle" class="nome">Merged / group</text>
+      <text x="405" y="168" text-anchor="middle" class="apoio">TC da câmera</text>
+      <rect class="g-teal" x="600" y="30" width="230" height="74" rx="10"/>
+      <text x="715" y="62" text-anchor="middle" class="nome">Câmera A001C003</text>
+      <text x="715" y="84" text-anchor="middle" class="apoio">TC 14:23:10:05</text>
+      <rect class="g-teal destaque" x="600" y="196" width="230" height="74" rx="10"/>
+      <text x="715" y="228" text-anchor="middle" class="nome branco">Som direto T012.WAV</text>
+      <text x="715" y="250" text-anchor="middle" class="branco-apoio">roll 26Y06M29 · TC 14:23:09:20</text>
+      <line x1="220" y1="150" x2="300" y2="150" class="seta"/>
+      <line x1="510" y1="135" x2="600" y2="70" class="seta"/>
+      <line x1="510" y1="165" x2="600" y2="230" class="seta"/>
+      <path d="M 405 190 Q 405 285 600 262" class="con"/>
+      <text x="420" y="292" class="legenda">EDL de som: qual reel e qual TC saem aqui?</text>
+    </svg>
+  </div>
+  <p class="muted">Nomes e timecodes ilustrativos. Na prova, cada fonte do laboratório diz em cada quadro e em cada canal o que é, e o conferidor compara a EDL com o que a montagem de fato toca.</p>
+</section>
+
+<section>
+  <div class="cab"><p class="eyebrow">Rodada 1, já medida</p><h2>Com clipes simples a EDL já diverge entre os dois</h2></div>
+  <div class="grade">
+    <div class="card"><h3>Premiere 26.0.2</h3><p>Só CMX 3600, <strong>1 vídeo e 4 canais</strong>. Reel <code>AX</code> quando o clipe não tem nome de fita. Texto em MacRoman no Mac.</p></div>
+    <div class="card"><h3>Media Composer 25.12</h3><p>Dez formatos, UTF-8, reel = nome da fonte (8 caracteres no CMX_3600). O acento do reel vira <code>&#xFFFD;</code>. Um evento por trilha, até A10.</p></div>
+    <div class="card aviso"><h3>O canal não é o microfone</h3><p>O <code>A2</code> da EDL é a trilha da timeline, não o canal do arquivo. Um polifônico usado nos canais 3 e 5 não diz isso na lista.</p></div>
+  </div>
+  <div class="edl">002  AX       AA    W001 024 02:00:01:12 02:00:05:00 01:00:02:12 01:00:06:00   <span class="muted">← Premiere: reel AX</span>
+000004  B30_SOM_WAV-BWF.WAV      A7    C        06:00:00:22 06:00:06:22 01:00:00:00   <span class="muted">← MC File_129: reel = arquivo</span>
+016  B30_CENA V     C        04:00:02:00 04:00:05:00 01:00:06:00 01:00:09:00          <span class="muted">← MC CMX3600: corta em 8</span></div>
+  <p class="muted">Detalhe completo: <code>bancodedadosnles/protocolos/edl/README.md</code>.</p>
+</section>
+
+<section>
+  <div class="cab"><p class="eyebrow">Os casos</p><h2>Onde se suspeita que a fonte se perde</h2>
+    <p class="muted">O placar fica vazio até a rodada. Em cada caso conta o pior resultado entre as exportações.</p></div>
+  <div class="tabela"><table class="stack"><thead><tr><th>#</th><th>NLE</th><th>Estrutura</th><th>O risco a medir</th><th class="c">Placar</th></tr></thead>
+  <tbody id="casos"></tbody></table></div>
+  <div class="legenda-marcas">
+    <span><i class="marca certo">ok</i>certo</span>
+    <span><i class="marca alerta">!</i>certo com ressalva (ex.: reel cortado sem colisão)</span>
+    <span><i class="marca errado">×</i>errado calado: aponta para outro arquivo ou trecho</span>
+    <span><i class="marca">–</i>a medir</span>
+  </div>
+</section>
+
+<section>
+  <div class="cab"><p class="eyebrow">As exportações</p><h2>As configurações que mudam a fonte escrita</h2></div>
+  <div class="grade">
+    <div class="card"><h3>Premiere</h3><p>Padrão · <strong>"Usar rolagem de som/timecode de som"</strong> (a caixa feita para o som; ainda não medida) · "Usar nome do arquivo de origem".</p></div>
+    <div class="card"><h3>Media Composer</h3><p>File_129 e CMX_3600 · Formatting › <strong>Source TC</strong> (Start e as opções de som e auxiliar que a lista oferecer) · Reel ID Type.</p></div>
+    <div class="card acao"><h3>O que as casas de som pedem</h3><p>As fichas de entrega do banco pedem EDL de som por rolo, com Sound Roll e File Name, na taxa do projeto. Essa combinação entra como variante obrigatória.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="cab"><p class="eyebrow">O conferidor</p><h2>Cada evento conferido contra o que a montagem toca</h2>
+    <p class="muted">Um script lê a EDL, acha o arquivo pelo reel e confere o trecho e o canal contra o plano da montagem (a verdade, porque cada caso é montado com mídia que se identifica). Depois vira função do produto: conferir uma EDL antes de ela sair para o som.</p></div>
+  <ol class="passos">
+    <li><strong>Achar</strong>: o reel acha um arquivo, exatamente um? Nenhum ou dois = alerta.</li>
+    <li><strong>Trecho</strong>: o TC de fonte cai no mesmo quadro que a timeline toca? Diferença em quadros.</li>
+    <li><strong>Canal</strong>: a trilha da EDL corresponde a qual canal do arquivo? A lista não diz; o plano diz.</li>
+    <li><strong>Veredito</strong>: certo, alerta ou errado calado, por caso, NLE e exportação.</li>
+  </ol>
+</section>
+
+<section>
+  <div class="cab"><p class="eyebrow">A ordem</p><h2>Cada etapa fecha antes da próxima</h2></div>
+  <div class="provas" id="ordem"></div>
+</section>
+
+<section>
+  <div class="cab"><p class="eyebrow">Decisões do autor · 25/11</p><h2>Como a rodada vai ser feita</h2></div>
+  <div class="grade">
+    <div class="card"><span class="selo">1</span><h3>Group escrito por programa</h3><p>Pelo pyavb: sync por timecode, mantendo só o som direto.</p></div>
+    <div class="card"><span class="selo">2</span><h3>A lista que o som pede</h3><p><strong>Uma única trilha de vídeo com os cortes da cena, e todas as trilhas de áudio com os cortes da montagem.</strong> No Premiere, o número fixo de canais por EDL obriga a gerar várias EDLs: mede-se como elas ficam e se casam entre si.</p></div>
+    <div class="card"><span class="selo">3</span><h3>O Media Composer primeiro</h3><p>S1 e S6–S11 no MC; o Premiere depois.</p></div>
+  </div>
+  <details><summary class="muted">As perguntas como foram feitas</summary>
+  <div class="grade">
+    <div class="card acao"><span class="selo">1</span><h3>Como nasce o group clip no MC</h3>
+      <p>Pelo gesto do editor, pilotado: a sequência com CAM A na V1, CAM B na V2 e só o som direto, e o botão direito no monitor Record › criar grupo. É fiel ao que acontece em produção (recomendado). Ou escrito pelo pyavb (sync por TC, só o som direto), mais rápido e repetível. Os dois juntos também servem como comparação.</p></div>
+    <div class="card acao"><span class="selo">2</span><h3>As configurações que as casas de som pedem</h3>
+      <p>Formato, um arquivo por trilha ou um só, TC de som ou de vídeo. As que forem informadas entram como variante obrigatória.</p></div>
+    <div class="card acao"><span class="selo">3</span><h3>Os dois NLEs juntos, ou o MC primeiro</h3>
+      <p>O group clip no MC é o caso mais comum na casa; o Premiere é mais rápido de montar por script.</p></div>
+  </div>
+  </details>
+</section>
+
+<footer class="rodape"><span>Ciclo Assist · Conformar · EDL para o som</span><span>Proposta de 25/11/2026</span></footer>
+</main>
+
+<script>{
+const C=[
+["S1","os dois","Subclipe do master","O comentário traz o nome do subclipe; o reel e o TC vêm do master?"],
+["S2","Premiere","Merged por timecode","O som sai com o reel e o TC da câmera, em vez dos do WAV?"],
+["S3","Premiere","Merged por ponto de entrada","Idem, mais o quadro a menos já medido (240 → 239)"],
+["S4","Premiere","Multicâmera (ângulo ativo)","A câmera ativa ou a fonte multicâmera? O som direto com o reel dele?"],
+["S5","Premiere","Nest","O próprio nest vira a fonte (reel = nome do nest)?"],
+["S6","MC","AutoSync (subclipe sincronizado)","Imagem e som com reels próprios?"],
+["S7","MC","Group clip do jeito do editor","A câmera ativa e o som direto com o reel e o TC certos?"],
+["S8","MC","Multigroup / troca de ângulo no meio","Cada trecho com a sua câmera?"],
+["S9","MC","Collapse (nest)","O MC desce até as fontes ou lista o collapse?"],
+["S10","os dois","Polifônico usado só nos canais 3 e 5","Algum campo diz qual canal do arquivo foi usado?"],
+["S11","os dois","Sound rolls que começam igual","Colisão no reel de 8 caracteres do CMX 3600"]];
+document.getElementById('casos').innerHTML=C.map(c=>`<tr><td class="cod">${c[0]}</td><td>${c[1]}</td><td>${c[2]}</td><td>${c[3]}</td><td class="c"><i class="marca">–</i></td></tr>`).join('');
+const O=[
+["Receita B31","Duas câmeras com TC e som guia, som direto polifônico de 6 canais (BWF com sound roll e nome de cada microfone), nomes que começam igual. Gerar e verificar.","sem NLE"],
+["Conferidor","Leitor de EDL (CMX 3600, File_32/129, MacRoman e UTF-8) e a conferência contra o plano. Testado com as EDLs da rodada 1.","sem NLE"],
+["Montar no Premiere","S1–S5, S10, S11 por script; merged e multicâmera pelo menu nativo, pelo nome.","Premiere 26.0.2"],
+["Montar no Media Composer","S1, S6–S11; o group como for decidido (item 1 abaixo).","MC 25.12, LAB COR MC"],
+["Exportar e conferir","As variantes de cada NLE, pilotadas, e o placar preenchido.","os dois"],
+["Registrar","Banco (protocolos/edl), lista de conferência para mandar EDL ao som, relatório da etapa.","página + banco"]];
+document.getElementById('ordem').innerHTML=O.map((o,i)=>`<div class="prova"><div class="n">${String(i+1).padStart(2,'0')}</div><div class="corpo"><h3>${o[0]}</h3><p class="pergunta">${o[1]}</p><p class="medido">${o[2]}</p></div></div>`).join('');
+}</script>
+</body></html>

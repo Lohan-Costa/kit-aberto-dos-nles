@@ -433,6 +433,16 @@ dentro do `.avpi` seria pior: a pasta é `rwxrwxrwx`, então qualquer processo l
   28 com o comentário acentuado e o TC certo (`00:00:44:11` para o offset 1067 a 23,976).
 - **`SetPosition`** existe no 25.12 (no 25.6 Windows não): corpo `mob_id` + `offset` (ou `timecode`) — não há campo
   `position`. Leva o Record ao quadro pedido (conferido pela foto do monitor).
+  ⛔⛔ **Mas pode TRAVAR o MC para sempre (2026-11-26, MC 25.12 Mac, `confirmado` uma vez):** com o List Tool aberto e
+  logo depois de um `ExportFile`, um `SetPosition {mob_id, offset 144}` não respondeu, e dali em diante NADA respondeu
+  (API, AppleEvent `activate`, cliques — o X do List Tool não fechava), com 0,2 % de CPU. A pilha (`sample`) é um
+  DEADLOCK na linha principal: `MCAPI_SetPosition::Execute` → `MonPane::SendPosChanged` → redesenho do monitor →
+  `BlipPlayer::PlayBlipField` → `APlayer::Quiesce` → `MutexRep::Lock` esperando para sempre. Só sai matando o processo
+  (o SIGTERM bastou, sem relatório de falha). Amostra guardada em `MIDIAS DE TESTES/9 SAIDAS DOS APPS/_CICLO ASSIST/
+  2026-11-26 OUVIDO VELOCIDADE/`. ⇒ Antes de `SetPosition`: nada exportando nem tocando; prazo curto e, se estourar,
+  o MC está perdido (não insistir). `IsCommandsEnabled` respondeu normal (6295 Quick Transition habilitado) e a
+  reflexão do 25.12 Mac lista `DoCommand`/`GetListOfCommands`/`SetPosition` — CORRIGE "o 25.12 Mac não tem DoCommand"
+  (`protocolos/edl/README.md`); o `DoCommand` em si ficou SEM medida (chamado com o MC já travado).
 
 ## ⛔⛔ `GetBinFromMob` — duas armadilhas MEDIDAS (2026-09-02, MC 25.6 / Windows)
 

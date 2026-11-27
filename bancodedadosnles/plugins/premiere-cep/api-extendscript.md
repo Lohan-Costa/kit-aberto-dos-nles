@@ -491,6 +491,8 @@ Operado de fora pela ponte do laboratório (`laboratorio-de-midia/lab/bancadas/p
   clipe sai com N − 1 ou N + 1 quadros conforme o N (e diferente para arquivo e sequência). **Usar um `Time` com `ticks`
   exatos** (`var t = new Time(); t.ticks = String(n * 10594584000)`), também no `overwriteClip`. A API encaixa o in na
   grade da timeline (7 quadros de 100 qps → 4,17). Velocidade: `qe…getItemAt(i).setSpeed(v, "", false, false, false)`
+  (⭐ 2026-11-26: o 4º argumento é o MANTER O TOM — `true` grava `MaintainAudioPitch`; e a entrada de fonte de outra
+  taxa vai NA GRADE da timeline, pelo teto — `prproj/escrita.md` §11k)
   (sem ripple, a duração fica; no QE o `getItemAt` conta os vãos "Empty"); `trackItem.getSpeed()` confirma. O nome dado
   ao clipe na timeline (`trackItem.name = …`) vai para o `SubClip/Name` do XML. ExtendScript é ES3 (sem `reduce`). E a Opacity no padrão NÃO vai para o `.prproj` (`DefaultOpacity` = true na
   cadeia, nenhum componente) mesmo depois de `setValue` pela API: máscara por XML precisa criar o componente
@@ -816,6 +818,13 @@ claques do lab 1 quadro atrasadas no export do MC). A folga não basta quando a 
 0,959 q). Conserto: ler o `getInPoint` de volta e, abaixo do pedido, subir +0,8/+0,95/+0,99 q até passar → 1,04 s
 (o 1º ponto da grade ≥ 1,001), o leitor do `.prproj` relê 24, e o MC toca as claques no tempo exato (0,999/3,001 s).
 
+⭐ **O `displayName` dos parâmetros vem no IDIOMA do Premiere** (26.0.2 em português, Mac, 2026-11-25) — `confirmado`.
+Movimento (`AE.ADBE Motion`): 0 Posição · 1 Escala · 2 Dimensionar largura · 3 Dimensionar uniformemente · 4 Rotação ·
+5 Ponto de ancoragem · 6 Filtro anti-cintilação · 7–10 Corte à esquerda/superior/à direita/inferior; Opacidade
+(`AE.ADBE Opacity`) = "Opacidade". A ORDEM é a do inglês (Position, Scale, Scale Width, Uniform Scale…): a posição é
+uma reserva segura, mas procure pelo nome nos dois idiomas antes (o `matchName` do componente não depende do idioma;
+o do parâmetro não existe no ExtendScript). Mesma classe do título ("Source Text" × "Texto de origem").
+
 ## 🆕 2026-11-13 — XML de timeline (FCP7 `xmeml` 4) por `importFiles`, apontando OP-Atom do Avid (Premiere 26.0.2 Mac) — `observado` (1 rodada)
 
 Ciclo Assist, Carta Aberta (`cicloassist/carta/entrega_premiere.py`), com a timeline real da PRODUCAO-A
@@ -877,3 +886,14 @@ entrou, o que já estava e o proxy). - **Recusa no meio do lote — `confirmado`
   `/Library/Application Support/Adobe/Common/Plug-ins/7.0/MediaCore/BlackmagicRawPremiereImporter.bundle` (+
   `BlackmagicRawPremiereSourceEffect.plugin`) — `confirmado` (presente neste Mac). Windows: `C:\Program Files\Adobe\Common\
   Plug-ins\7.0\MediaCore\` — `pendente`. ⇒ dá para saber ANTES de importar que um `.braw` vai ser recusado.
+
+## ⛔ O nome do efeito no QE muda com o IDIOMA do Premiere (2026-11-26, 26.0.2 Mac em português) — `confirmado`
+
+`qe.project.getVideoEffectByName` só acha pelo nome LOCALIZADO: no Premiere em português o Lumetri é **"Cor de Lumetri"**
+(nem "Lumetri Color", nem "Cor Lumetri", nem "Lumetri"); o ProcAmp é "ProcAmp"; o Warp Stabilizer é "Estabilizador de
+distorção". ⚠️ O QE devolve OBJETO até para nome que não existe (com `name` vazio): conferir `String(e.name)`. Achado
+porque o molde de cor da Carta (ProcAmp → Lumetri) nunca era montado e os 7 Color Correction da `PRODA_CORTE.00.2`
+ficavam de fora "sem molde". Conserto (Ciclo Assist `nle/premiere/host.jsx::cicloEfeitoQE`): a lista de nomes conhecidos
+e, como reserva, o nome da `getVideoEffectList()` que CONTÉM a marca ("lumetri", "procamp") — vale em qualquer idioma.
+Depois: 7/7 clipes com a cor (3 ProcAmp + Lumetri, 4 só Lumetri — o ProcAmp entra só com a saturação mexida).
+⚠️ O diálogo "Resolver fontes" (fonte do molde de título faltando, só OK) trava a ponte até alguém clicar OK.

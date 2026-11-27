@@ -847,6 +847,69 @@ que já não está aberto.
   ambíguos). Emissão de título nativo em DRT/OTIO (DaVinci/Premiere) usa o `text` já extraído.
 - **Transição/dissolve com áudio renderizado:** o `precomputed` real é o mixdown já renderizado; hoje
   autoramos com `precomputed=None` (válido, o Avid re-renderiza). Idem AudioSuitePluginEffect (D-Verb).
+- **AudioSuite TIME SHIFT = a velocidade do SOM que o editor escolhe** (medido 2026-11-26, MC 25.12 Mac, LAB COR MC,
+  `B30 EDL_SEQ.avb` › `B30 EDL LAB time shift`, aplicado e renderizado pelo autor): `AudioSuitePluginEffect`
+  `EFF_AUDIO_AS_PLUG_IN`, `_EFFECT_PLUGIN_NAME` "Time Shift" (AAXClip, classe PitchShift, `rendering_mode 1`,
+  `left/right_length 15`), envolvendo `Sequence[Filler 0, SourceClip, Filler 0]`. ⭐ O clipe de DENTRO tem a MESMA
+  duração do de fora e o mesmo ponto de entrada (72 de fonte para 72 na timeline a 50 %: só a 1ª metade é ouvida) — não
+  é a convenção do Motion Effect (fonte = duração × velocidade). O render é o `precomputed` = SourceClip de um MasterMob
+  `<sequência>,Time_Shift+N` (mídia nova no disco de render do AudioSuite). Sem render (`precomputed=None`) o MC aceita
+  o efeito, mostra o ícone e toca a 100 % até o editor renderizar. `confirmado`.
+  - O chunk "Complete Controls State" (164 bytes, igual no ALL_CHUNKS do atributo `_AUDIO_SUITE_EFFECT_0_ALL_CHUNKS`,
+    no fim): 4 bytes de cabeçalho `01010101`, depois registros `<tag 6 bytes>\0\0` + valor big-endian (`l_…` int32,
+    `d_…` double). Molde de fábrica × o clipe a 50 %: **`d_c006` 1,0 → 0,5 = SPEED** (`confirmado` pela diferença);
+    `d_c005` = o SHIFT do tom (1,0 = mantém; `confirmado` 2026-11-26: Speed 0,5 + Shift 0,5 tocou 2700/2750 Hz de uma
+    fonte 5400/5500 = o Premiere com "Maintain Audio Pitch" desligado); `d_c016` 0,018 = Window 18 ms; `d_c017` 0,5 =
+    Threshold −6 dB (`hipotese`); `d_c014` mudou de 0 para 5,6e-9 (ruído do knob). Escrita: Conformar
+    `translate._chunk_com_velocidade`.
+  - ✅ **Velocidades medidas no MC depois do render (B32, 2026-11-26, claques do laboratório):** 50 % (a cada 2 s), 200 %
+    (0,5 s), 75 % (1,33 s), 125 % (0,8 s), 25p a 50 % (2 s) e 29,97 a 1,791 (0,56 s) — o espaço certo em todas; acima de
+    100 % também. O render do PREMIERE borra/perde claques no esticamento (não serve de régua fina do som). ⭐ **A régua fina (2026-11-26):** contra a posição IDEAL de cada claque (a fase tirada do caso a 100 % da mesma
+    mídia, ÷ a velocidade), o MC (B32 VEL 4 renderizada) erra no máximo ~20 ms (meio quadro a 23,976): 200 % +7…+19 ms
+    (claques a cada 0,5 s, algumas engolidas pelo esticamento), 125 % +2…+12, 50 % −11/−6, 25p a 50 % −14. A varredura da
+    B33 concorda (200 %: 1,997, início 10 ms antes do ideal). O Premiere a 200 % mantendo o tom PERDE metade das claques
+    (uma por segundo) e a 50 % as CASA-POS-4 (1,96 + 2,046 em volta de 2,002). ⇒ Time Shift acima de 100 % = certo; a sobra
+    é a granulação do algoritmo de esticar, não a tradução. Render: um
+    clipe por vez pelo gesto do autor (as trilhas dele no patching, a agulha no clipe, o ícone do plugin, Render, o X);
+    ~3 arquivos por render.
+- **AudioSuite REVERSE = o som em reverso** (medido 2026-11-26, MC 25.12 Mac, B32): `AudioSuitePluginEffect`
+  "Reverse" (AAXClip, classe Other, product 1314018336, plugin 1381388883) SEM chunk (`chunks` vazio;
+  `_AUDIO_SUITE_EFFECT_0_ALL_CHUNKS` = 56 bytes zero), sobre o clipe de dentro PARA A FRENTE (a mesma duração). Escolher
+  o plugin no painel: o menu do AudioSuite › Other › Reverse (o submenu abre passando o mouse; clicar em "Other" fecha).
+  ⚠️ Aplicar um AudioSuite num clipe que já tem outro SUBSTITUI o de antes (o Time Shift do "50 % tom cai" virou
+  Reverse numa tentativa). Escrito pelo Conformar (molde `__asp__Reverse` no `templates.json`, `precomputed` nulo),
+  renderizado pelo gesto do autor: claques 1,0 · 2,0 · 3,0 s = as do Premiere. `confirmado`.
+  ⛔ O som em reverso do `.prproj` (`PlayBackwards` no `Clip` do AudioClip) conta a entrada do FIM da mídia, como a
+  imagem: lido para a frente, o som saía de OUTRO trecho (o 336 no lugar do 48–143) — o laboratório NÃO acusa de ouvido
+  (a claque e o tom são iguais em todo segundo).
+  ⭐ **B33 (2026-11-26): o som medido pela POSIÇÃO da fonte** — uma varredura de 500 Hz + 100 Hz/s (a frequência
+  instantânea dá o segundo da fonte, ±2 ms; `ciclo assist: spikes/velocidade/b33.py`). O som em reverso do Premiere
+  TERMINA em Duration do `AudioStream` − InPoint (sem o quadro que a imagem desconta; vale para o WAV, cujo quadro é uma
+  amostra). Placar contra o Premiere 26 (8 casos: AV 100/50/200 %, AV reverso, AV reverso 50 %, WAV 100/50 %, WAV
+  reverso): Premiere → MC 7/8 (AV 200 % 17 ms antes), MC → Premiere pelo Conformar 7/8 e pela Carta 7/8 (exatos). O que
+  falta é o reverso COM velocidade: o MC não empilha dois AudioSuite (aplicar um SUBSTITUI o outro) e o Time Shift NÃO
+  aceita Speed negativa (`d_c006` = −0,5 escrito → o painel mostra 25 %, o mínimo dele; medido 2026-11-26) — vai AO
+  CONTRÁRIO a 100 % (o Reverse), do ponto certo, com aviso para refazer a velocidade. ⚠️ O AudioSuite age nas trilhas SELECIONADAS: o clipe da A3 só renderiza com a A3 sozinha.
+  Na volta, a bin lê o Reverse como o mapa que DESCE (`avb_bin.segmentos`), e a Carta escreve o `PlayBackwards` do som
+  com a entrada = Duration do `AudioStream` − o fim do trecho.
+  - ✅ **ESCRITO pelo Conformar e PROVADO no MC** (2026-11-26, `LAB COR MC` › `B30 EDL 3`): o Time Shift sem render
+    abre com o ícone, o painel do AudioSuite mostra SPEED 50,00 % / SHIFT 100 % (lê o `d_c006` escrito); depois do
+    Render (gesto do autor: só as trilhas do clipe ligadas, agulha no clipe, Tools › AudioSuite › ícone do plugin ›
+    Render) o export dá claques em 0,000 e 1,993 s com o tom mantido — IGUAL ao Time Shift feito à mão. O render vai ao
+    disco do menu do AudioSuite (o MC LEMBRA a última escolha). `confirmado`.
+  - ⛔ **Na volta, o som com Time Shift de um master de OUTRA taxa** (B32, 2026-11-26, as claques): a entrada do som
+    conta em quadros da TIMELINE (como o som sem velocidade do mesmo master) e o Speed é a razão em TEMPO REAL — no
+    Premiere, `PlaybackSpeed` = o Speed, sem dividir pela razão das taxas. Errado: 25p a 50 % saía 0,4795 com a entrada
+    contada a 25 (claque 200 ms depois); 29,97 a 200 % (1,791) saía 1,43. Certo: as claques iguais às do Premiere.
+  - **Na volta (bin → Premiere):** o Time Shift é a VELOCIDADE do clipe de som, lida do `d_c006` (o vínculo continua
+    no ORIGINAL; o render do MC é mídia gerenciada e não vai). Conformar `avb_bin.efeitos.parametros_do_time_shift`;
+    na Carta, `PlaybackSpeed` + `MaintainAudioPitch` (`prproj/escrita.md` §11k). Antes ia como "efeito sem
+    correspondência" e o som chegava a 100 % com o DOBRO da fonte.
+  - ⚠️ Na mesma manhã (antes do reinício do Mac): o MC caiu ao SALVAR as bins (`SIGABRT`, `InlineUTF16ToWChar` ←
+    `BinSaveFacade::Save` ← `SaveAllBins`: ponteiro liberado que não foi alocado) e, depois do render do Time Shift,
+    mostrou `Assertion failed: normalCaching || smallCaching` (`CoreMacFileLocator.c:1351`; a mesma do Windows em
+    `CoreWinFileLocator.c`). O render foi para o disco que o AudioSuite escolheu (`V-001`, o HD dos originais) e deixou
+    uma pasta `Creating`. Depois do reinício o render passou. Causa: não medida.
 - **Multicam (Selector):** o AAF flat-file já vem achatado p/ 1 câmera → não recuperável do AAF.
 - **Formatos de áudio:** mono real interleaved, poly multi-mono (N source mobs), MPGA/mp3 standalone.
 - **Retarget de volume / edit_rate ajustável / nome-caminho tam≠** (itens antigos, ver histórico git).
@@ -975,6 +1038,18 @@ são os tamanhos das strings do Component (`0xFFFF`).
 ✅ **No MC (mesmo dia):** o WAV injetado a 25 abriu na bin online, consolidou (abaixo) e tocou no Source, 08:00, A1–A4.
 
 ### O start do BWF: a fórmula está certa e é reprodutível
+
+⛔⛔ **CORRIGE (2026-11-25, MC 25.12 Mac + bins do MC 2024.6 da PRODUCAO-A, `confirmado`):** a conta é **segundos do
+relógio × a taxa EXATA do projeto** (NTSC: nominal × 1000/1001), e o PISO — **sem arredondar no meio**. A versão abaixo
+("TC nominal → pulldown") arredondava em quadros de 24 antes do 1000/1001: num WAV de gravador a 23,976 o
+`time_reference` é quadros × 2002 amostras, os segundos × 24 dão N × 1,001, e o arredondamento tirava **UM quadro** de
+todo WAV cujo milésimo (N mod 1000) fosse < 500 — metade dos arquivos. **Prova:** 36 dos 124 WAVs da PRODUCAO-A caem
+nisso; os 35 masters deles que o MC linkou (bins `CENAS/C04`, `C07`, `C09`, `C11`, `C15–C17`, `01_DIARIAS/D02–D04`)
+batem com a conta direta, **nenhum** com a antiga (ex.: `05-04 C4 P2-T001`, `time_reference` 2082832752 → MC 1040376; a
+antiga dava 1040375). A B30 do laboratório (06:00:00:00 = 518400) saía 518399, e a EDL do MC dizia o som 1 quadro antes
+do Premiere. Os gabaritos de 2026-10-31 e as conferências abaixo usavam relógio em SEGUNDOS INTEIROS, onde as duas contas
+coincidem — por isso "confirmava". Implementado em `clone_generic.inicio_exato_do_relogio` (Ciclo Assist, Conformar;
+`tests/test_inicio_do_wav.py` 11/11). ⚠️ Quem calcular TC de WAV em outro app: a mesma armadilha.
 
 `clone_generic._probe_bwf_start(path, edit_rate)` converte `time_reference` (samples desde
 a meia-noite) → TC no rate **nominal** (24) → pulldown NTSC **1000/1001 exato** (não o

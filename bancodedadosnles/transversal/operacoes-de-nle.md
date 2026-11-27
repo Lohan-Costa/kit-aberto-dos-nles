@@ -447,6 +447,14 @@ Selector é **dado** — está em
 ⛔⭐ **O DOM do Premiere NÃO tem `addEffect`. Só o QE adiciona efeito.** Confirmado por produto
 comercial. E **não há API de criação de transição** em lugar nenhum.
 
+### 🆕 MC: o dissolve (de som ou imagem) pelo QUICK TRANSITION — gesto ensinado pelo autor (2026-11-26, MC 25.12 Mac)
+
+Clicar no CORTE (a agulha no corte) → botão **Quick Transition** (quadrado meio preto à esquerda, meio branco à direita):
+na barra da timeline, à direita do `T+`, e o 4º ícone sob o lado Source do Composer. **Atalho: `\`** (a dica do botão).
+Abre o diálogo "Quick Transition": `Apply to` = as trilhas LIGADAS no patching (só A1/A2 para dissolve de som), `Add`
+Dissolve, `Position` Centered on Cut, `Duration` 24 frames (padrão), `Add` ou `Add and Render`. Medido no B33 SOM: A1/A2
+no fim de um clipe (corte com vazio) → as duas marcas de transição no corte. `confirmado` (piloto, uma vez).
+
 ### ⚠️⚠️ "Este clipe tem efeito?" é uma CLASSIFICAÇÃO, não uma consulta
 
 Todo `TrackItem` já vem com componentes de fábrica. Responder *"tem efeito aplicado"* exige

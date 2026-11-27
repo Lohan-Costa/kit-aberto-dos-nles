@@ -1,0 +1,277 @@
+{
+ "receita": "B31_EDL_SOM",
+ "fps": "23.976",
+ "fontes": {
+  "A001C003_MOV-PRORES": {
+   "arquivo": "A001C003_MOV-PRORES.mov",
+   "tape": null,
+   "tc": "14:00:00:00"
+  },
+  "B001C007_MOV-PRORES": {
+   "arquivo": "B001C007_MOV-PRORES.mov",
+   "tape": null,
+   "tc": "14:00:02:00"
+  },
+  "A001C004_MOV-PRORES": {
+   "arquivo": "A001C004_MOV-PRORES.mov",
+   "tape": null,
+   "tc": "15:00:00:00"
+  },
+  "12/1": {
+   "arquivo": "26Y11M25_T001_WAV-BWF.wav",
+   "tape": "26Y11M25",
+   "tc": "13:59:58:00"
+  },
+  "12/2": {
+   "arquivo": "26Y11M25_T002_WAV-BWF.wav",
+   "tape": "26Y11M25",
+   "tc": "14:59:59:00"
+  }
+ },
+ "canais": {
+  "1": "MIX L",
+  "2": "MIX R",
+  "3": "BOOM",
+  "4": "LAPELA ANA",
+  "5": "LAPELA BETO",
+  "6": "AMBIENTE"
+ },
+ "casos": [
+  {
+   "sequencia": "B31 S8 TROCA DE ANGULO",
+   "eventos": [
+    {
+     "rec_in": "01:00:00:00",
+     "rec_out": "01:00:03:00",
+     "dur": 72,
+     "trilhas": {
+      "V1": {
+       "fonte": "B001C007_MOV-PRORES",
+       "arquivo": "B001C007_MOV-PRORES.mov",
+       "tape": null,
+       "quadro": 104,
+       "src_in": "14:00:06:08",
+       "src_out": "14:00:09:08",
+       "canal_do_arquivo": null,
+       "microfone": null
+      },
+      "A1": {
+       "fonte": "12/1",
+       "arquivo": "26Y11M25_T001_WAV-BWF.wav",
+       "tape": "26Y11M25",
+       "quadro": 200,
+       "src_in": "14:00:06:08",
+       "src_out": "14:00:09:08",
+       "canal_do_arquivo": 1,
+       "microfone": "MIX L"
+      },
+      "A2": {
+       "fonte": "12/1",
+       "arquivo": "26Y11M25_T001_WAV-BWF.wav",
+       "tape": "26Y11M25",
+       "quadro": 200,
+       "src_in": "14:00:06:08",
+       "src_out": "14:00:09:08",
+       "canal_do_arquivo": 2,
+       "microfone": "MIX R"
+      },
+      "A3": {
+       "fonte": "12/1",
+       "arquivo": "26Y11M25_T001_WAV-BWF.wav",
+       "tape": "26Y11M25",
+       "quadro": 200,
+       "src_in": "14:00:06:08",
+       "src_out": "14:00:09:08",
+       "canal_do_arquivo": 3,
+       "microfone": "BOOM"
+      },
+      "A4": {
+       "fonte": "12/1",
+       "arquivo": "26Y11M25_T001_WAV-BWF.wav",
+       "tape": "26Y11M25",
+       "quadro": 200,
+       "src_in": "14:00:06:08",
+       "src_out": "14:00:09:08",
+       "canal_do_arquivo": 4,
+       "microfone": "LAPELA ANA"
+      },
+      "A5": {
+       "fonte": "12/1",
+       "arquivo": "26Y11M25_T001_WAV-BWF.wav",
+       "tape": "26Y11M25",
+       "quadro": 200,
+       "src_in": "14:00:06:08",
+       "src_out": "14:00:09:08",
+       "canal_do_arquivo": 5,
+       "microfone": "LAPELA BETO"
+      },
+      "A6": {
+       "fonte": "12/1",
+       "arquivo": "26Y11M25_T001_WAV-BWF.wav",
+       "tape": "26Y11M25",
+       "quadro": 200,
+       "src_in": "14:00:06:08",
+       "src_out": "14:00:09:08",
+       "canal_do_arquivo": 6,
+       "microfone": "AMBIENTE"
+      }
+     }
+    },
+    {
+     "rec_in": "01:00:03:00",
+     "rec_out": "01:00:06:00",
+     "dur": 72,
+     "trilhas": {
+      "V1": {
+       "fonte": "A001C003_MOV-PRORES",
+       "arquivo": "A001C003_MOV-PRORES.mov",
+       "tape": null,
+       "quadro": 224,
+       "src_in": "14:00:09:08",
+       "src_out": "14:00:12:08",
+       "canal_do_arquivo": null,
+       "microfone": null
+      },
+      "A1": {
+       "fonte": "12/1",
+       "arquivo": "26Y11M25_T001_WAV-BWF.wav",
+       "tape": "26Y11M25",
+       "quadro": 272,
+       "src_in": "14:00:09:08",
+       "src_out": "14:00:12:08",
+       "canal_do_arquivo": 1,
+       "microfone": "MIX L"
+      },
+      "A2": {
+       "fonte": "12/1",
+       "arquivo": "26Y11M25_T001_WAV-BWF.wav",
+       "tape": "26Y11M25",
+       "quadro": 272,
+       "src_in": "14:00:09:08",
+       "src_out": "14:00:12:08",
+       "canal_do_arquivo": 2,
+       "microfone": "MIX R"
+      },
+      "A3": {
+       "fonte": "12/1",
+       "arquivo": "26Y11M25_T001_WAV-BWF.wav",
+       "tape": "26Y11M25",
+       "quadro": 272,
+       "src_in": "14:00:09:08",
+       "src_out": "14:00:12:08",
+       "canal_do_arquivo": 3,
+       "microfone": "BOOM"
+      },
+      "A4": {
+       "fonte": "12/1",
+       "arquivo": "26Y11M25_T001_WAV-BWF.wav",
+       "tape": "26Y11M25",
+       "quadro": 272,
+       "src_in": "14:00:09:08",
+       "src_out": "14:00:12:08",
+       "canal_do_arquivo": 4,
+       "microfone": "LAPELA ANA"
+      },
+      "A5": {
+       "fonte": "12/1",
+       "arquivo": "26Y11M25_T001_WAV-BWF.wav",
+       "tape": "26Y11M25",
+       "quadro": 272,
+       "src_in": "14:00:09:08",
+       "src_out": "14:00:12:08",
+       "canal_do_arquivo": 5,
+       "microfone": "LAPELA BETO"
+      },
+      "A6": {
+       "fonte": "12/1",
+       "arquivo": "26Y11M25_T001_WAV-BWF.wav",
+       "tape": "26Y11M25",
+       "quadro": 272,
+       "src_in": "14:00:09:08",
+       "src_out": "14:00:12:08",
+       "canal_do_arquivo": 6,
+       "microfone": "AMBIENTE"
+      }
+     }
+    },
+    {
+     "rec_in": "01:00:06:00",
+     "rec_out": "01:00:09:00",
+     "dur": 72,
+     "trilhas": {
+      "V1": {
+       "fonte": "B001C007_MOV-PRORES",
+       "arquivo": "B001C007_MOV-PRORES.mov",
+       "tape": null,
+       "quadro": 248,
+       "src_in": "14:00:12:08",
+       "src_out": "14:00:15:08",
+       "canal_do_arquivo": null,
+       "microfone": null
+      },
+      "A1": {
+       "fonte": "12/1",
+       "arquivo": "26Y11M25_T001_WAV-BWF.wav",
+       "tape": "26Y11M25",
+       "quadro": 344,
+       "src_in": "14:00:12:08",
+       "src_out": "14:00:15:08",
+       "canal_do_arquivo": 1,
+       "microfone": "MIX L"
+      },
+      "A2": {
+       "fonte": "12/1",
+       "arquivo": "26Y11M25_T001_WAV-BWF.wav",
+       "tape": "26Y11M25",
+       "quadro": 344,
+       "src_in": "14:00:12:08",
+       "src_out": "14:00:15:08",
+       "canal_do_arquivo": 2,
+       "microfone": "MIX R"
+      },
+      "A3": {
+       "fonte": "12/1",
+       "arquivo": "26Y11M25_T001_WAV-BWF.wav",
+       "tape": "26Y11M25",
+       "quadro": 344,
+       "src_in": "14:00:12:08",
+       "src_out": "14:00:15:08",
+       "canal_do_arquivo": 3,
+       "microfone": "BOOM"
+      },
+      "A4": {
+       "fonte": "12/1",
+       "arquivo": "26Y11M25_T001_WAV-BWF.wav",
+       "tape": "26Y11M25",
+       "quadro": 344,
+       "src_in": "14:00:12:08",
+       "src_out": "14:00:15:08",
+       "canal_do_arquivo": 4,
+       "microfone": "LAPELA ANA"
+      },
+      "A5": {
+       "fonte": "12/1",
+       "arquivo": "26Y11M25_T001_WAV-BWF.wav",
+       "tape": "26Y11M25",
+       "quadro": 344,
+       "src_in": "14:00:12:08",
+       "src_out": "14:00:15:08",
+       "canal_do_arquivo": 5,
+       "microfone": "LAPELA BETO"
+      },
+      "A6": {
+       "fonte": "12/1",
+       "arquivo": "26Y11M25_T001_WAV-BWF.wav",
+       "tape": "26Y11M25",
+       "quadro": 344,
+       "src_in": "14:00:12:08",
+       "src_out": "14:00:15:08",
+       "canal_do_arquivo": 6,
+       "microfone": "AMBIENTE"
+      }
+     }
+    }
+   ]
+  }
+ ]
+}

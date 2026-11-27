@@ -1,0 +1,20 @@
+{
+ "caso": "B31_EDL_SOM",
+ "pergunta": "A EDL para o som (MC 25.12 primeiro, depois Premiere): com subclipe, AutoSync, group (só o som direto), multigroup, collapse e polifônico usado em poucos canais, cada evento aponta para o arquivo e o trecho certos? Duas câmeras com som guia e dois WAV de som direto de 6 canais com o MESMO começo de nome (sound roll 26Y11M25: colisão no reel de 8). O iXML (sound roll, cena, take, nome de cada microfone) entra depois, por `python -m lab.edl_som rotular`.",
+ "segundos": 30,
+ "fps": "23.976",
+ "raster": [1920, 1080],
+ "tc_inicio": "14:00:00:00",
+ "camera": 1,
+ "take": 1,
+ "fonte": 1,
+ "canais": 2,
+ "perfis": ["mov-prores"],
+ "variantes": [
+  {"rotulo": "CAMA", "nome": "A001C003", "tc_inicio": "14:00:00:00", "camera": 1, "fonte": 1},
+  {"rotulo": "CAMB", "nome": "B001C007", "tc_inicio": "14:00:02:00", "camera": 2, "fonte": 2},
+  {"rotulo": "SOM1", "nome": "26Y11M25_T001", "tc_inicio": "13:59:58:00", "camera": 3, "fonte": 3, "canais": 6, "perfis": ["wav-bwf"]},
+  {"rotulo": "CAMA2", "nome": "A001C004", "tc_inicio": "15:00:00:00", "camera": 1, "take": 2, "fonte": 1},
+  {"rotulo": "SOM2", "nome": "26Y11M25_T002", "tc_inicio": "14:59:59:00", "camera": 4, "take": 2, "fonte": 4, "canais": 6, "perfis": ["wav-bwf"]}
+ ]
+}

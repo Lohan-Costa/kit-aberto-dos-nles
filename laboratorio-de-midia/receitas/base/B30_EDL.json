@@ -1,0 +1,21 @@
+{
+ "caso": "B30_EDL",
+ "pergunta": "A mesma sequência exportada como EDL pelo Premiere e pelo Media Composer: o que cada um escreve (reel, nome da fonte, canais, transição, velocidade, título, acento, outra taxa)? Cada fonte tem TC e tons próprios, para cada evento da EDL ser conferido contra a verdade.",
+ "segundos": 20,
+ "fps": "23.976",
+ "raster": [1920, 1080],
+ "tc_inicio": "01:00:00:00",
+ "camera": 1,
+ "take": 1,
+ "fonte": 1,
+ "canais": 2,
+ "perfis": ["mov-prores"],
+ "variantes": [
+  {"rotulo": "A", "nome": "B30_A", "tc_inicio": "01:00:00:00", "camera": 1, "fonte": 1},
+  {"rotulo": "B", "nome": "B30_B", "tc_inicio": "02:00:00:00", "camera": 2, "fonte": 2, "canais": 5},
+  {"rotulo": "LONGO", "nome": "B30_NOME_DE_FONTE_COMPRIDO_PASSA_DOS_32_CARACTERES", "tc_inicio": "03:00:00:00", "camera": 3, "fonte": 3},
+  {"rotulo": "ACENTO", "nome": "B30_CENA_AÇÃO", "tc_inicio": "04:00:00:00", "camera": 4, "fonte": 4},
+  {"rotulo": "T25", "nome": "B30_T25", "fps": "25", "tc_inicio": "05:00:00:00", "camera": 1, "fonte": 1},
+  {"rotulo": "SOM", "nome": "B30_SOM", "tc_inicio": "06:00:00:00", "camera": 2, "fonte": 2, "canais": 4, "perfis": ["wav-bwf"]}
+ ]
+}

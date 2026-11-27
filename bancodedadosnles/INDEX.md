@@ -54,6 +54,11 @@ schema dos JSON e níveis de confiança, ver [CONVENCOES.md](CONVENCOES.md).
 
 ## Protocolos
 
+### [EDL](protocolos/edl/) — CMX 3600 e File_32/File_129 · maturidade: **inicial (1 sequência medida)**
+- [README](protocolos/edl/README.md) — 🆕 (2026-11-25, MC 25.12 × Premiere 26.0.2, Mac) a MESMA sequência do laboratório (B30_EDL) exportada pelos dois: o Premiere só escreve CMX 3600 com 1 trilha de vídeo e 4 canais, reel `AX`, MacRoman, dissolve novo como `W000`, `BL` nos vazios, `AA/V`; o MC (List Tool, 10 formatos) escreve UTF-8 (acento do reel vira `U+FFFD`), reel = nome da fonte (8 no CMX_3600, inteiro no File_129), um evento por trilha até `A10`, `D 024` só na transição, sem `BL`, e M2 25.0 no clipe de 25 fps. Sem export por script em nenhum dos dois.
+- 🆕 ⭐⭐ **EDL PARA O SOM (2026-11-25, MC 25.12 Mac, §5b)** → [README](protocolos/edl/README.md): subclipe, AutoSync e group saem com reel/TC certos; ⛔ o canal da EDL é a TRILHA — o WAV de 6 usado nos canais 3/5 sai `A`/`A2` sem dizer quais (errado calado); o mesmo sound roll = o mesmo reel em todos os takes (só o TC separa); ⛔⛔ o List Tool LEMBRA as trilhas marcadas da sequência anterior e exporta só A1/A2 calado. Conferidor: Ciclo Assist `motor/edl/conferir.py`.
+- 🆕 📁 **O ESTUDO inteiro** → [estudos/edl-para-o-som/](estudos/edl-para-o-som/LEIA-ME.md): proposta, relatório com prints (1ª metade, MC + Premiere, com vídeo × só áudio), as EDLs e a verdade de cada caso; `HANDOFF.md` = a 2ª metade (Pro Tools).
+
 ### [PRMF](protocolos/prmf/) — a máscara de OBJETO do Premiere 2026 (rotoscopia automática) · maturidade: **leitura confirmada**
 - [README](protocolos/prmf/README.md) — 🆕 ⭐⭐ (2026-10-07) decifrado no laboratório: índice **FlatBuffers** (caixa x/y/w/h + tempo em ticks por
   quadro), dados em **GDeflate** (deflate64 em 32 sub-fluxos, da NVIDIA/DirectStorage), máscara em meia resolução com 4 bits de opacidade.

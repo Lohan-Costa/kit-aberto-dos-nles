@@ -625,6 +625,14 @@ o disco não existe mais) — e o projeto carrega a LUT inteira:
   curva começa em (0, 0) a 100 %, os keyframes do plano andam I quadros (I INTEIRO = teto da 1ª posição) e o `InPoint`
   = I. ⚠️ I fracionário (15,564) deslocou o plano meio quadro (35/48) — o Premiere encaixa o In na grade (o mesmo do B18).
   Assim: **48/48**. `lab/bancadas/premiere_rampas.py::de_posicoes`.
+- ✅ **O ESCRITOR no app e o Premiere 26 (2026-11-26, Mac, B34 — Ciclo Assist `spikes/velocidade/b34.py`)**: a peça do
+  lab virou `modulos/conformar/motor/prproj/remap.py` (de_posicoes, objetos, pendurar) e a Carta a usa (Avid → Premiere:
+  rampa e congelado eram "fora"). Placa B30_A 23,976: R1 100 % → curva → 200 %, R2 começando DENTRO da curva
+  (200 % → 60 %), R3 CONGELADO (a curva deitada: cantos com a mesma fonte) — o Premiere 26.0.2 renderiza **48/48 =
+  piso(posição) nas três**; a volta inteira Premiere → MC (Conformar, gráfico de posição) → Premiere (Carta) **48/48 nas
+  três**, o mesmo quadro do original. ⚠️ O `.prproj` regravado pelo ElementTree sai com `<Clip ObjectRef="101" />`
+  (espaço): o Premiere aceita, o leitor do Conformar não acha o clipe (0 planos, sem aviso) — salve pelo Premiere antes
+  de ler, ou leia tolerante.
 - ✅ **`TimeInterpolationType 2` = OPTICAL FLOW** (confirma a hipótese de 10.5, PELA IMAGEM): 50 % constante
   (`PlaybackSpeed` 0,5) com 2 → nas posições inteiras o quadro exato; nas x,5 o quadro sai DEFORMADO (dígitos
   "derretidos", fantasma fora do lugar — fluxo óptico, não mistura). Ausente = Frame Sampling e 1 = Frame Blending
@@ -680,6 +688,18 @@ o disco não existe mais) — e o projeto carrega a LUT inteira:
   INTEIRO do tempo do clipe — (piso(In ÷ (v × quadro do nest)) + k) × v, com v em float32 (o 27,99999 vira 27). Lab
   (placa de 23,976 a 466,67 % dentro de nest a 1×, In ÷ v = 5,14 → toca de 5) e R04 (o "poste": LOU_7310 a 466,67 % com
   In ÷ v = 273,43 → 76/78/537 de 0,69/0,82/0,59 a 0,87/0,89/0,73, nada piorou). `leitura.py`, `_folhas` (prof > 0).
+- ⛔⛔ **A ENTRADA COM VELOCIDADE MUDA COM A VERSÃO (2026-11-26, laboratório B32, `confirmado` pelo código de barras de
+  CADA quadro):** o MESMO projeto (12 casos: 50/200/75/125 %, 25p, 24p, 29,97 a 100 % e a 1,791, 50p, reverso; montado
+  no 27.0 por `setSpeed`, rebaixado com `lab.prproj_downgrade`) renderizado no 23.6, 25.6.5, 26.0.2 e 27.0 (Mac):
+  - **26.0.2 e 27.0:** a fonte começa na entrada EXATA (125 % com In 48 q → 48, 49, 50, 51, 53…; 29,97 a 1,791 com In
+    47,5 q → 47, 49, 51, 54…). Só a grade da TIMELINE vale: a entrada fora dela mostra o piso (`prproj/escrita.md` §11k).
+  - **23.6 e 25.6.5:** pelo TETO de In ÷ (v × quadro) — 48,75 → 48, 50, 51…; 49,2537 → 49, 51, 53…
+  - Os outros 10 casos, iguais nas quatro. ⚠️ Nenhuma das quatro dá o PISO abaixo (R04, 22.6/23.2 Windows, medido pela
+    semelhança da imagem, não pelo código): fica para os projetos de antes do 26 até ser medido de novo no Windows.
+  - Conformar `prproj/leitura.py` (`_folhas`, `_versao_maior` pelo `MZ.BuildVersion.Modified`): do 26 em diante, o
+    piso só na grade da timeline; e o `fonte_exata` (a fração do quadro da fonte) vai ao Avid pelo gráfico de posição.
+    Resultado Premiere 27 → MC 25.12: 12/12 casos, 96/96 quadros cada (`spikes/velocidade/`, pasta
+    `MIDIAS DE TESTES/9 SAIDAS…/2026-11-26 VELOCIDADE B32`).
 - ⭐ **Clipe SOLTO (timeline de cima) com velocidade: também pelo PISO** (2026-10-10, `confirmado` no R04): cada quadro da
   referência exportada pelo autor casado com o quadro da MÍDIA (bordas, 192×108): 8 clipes de 1,1× a 10× com In ÷ passo
   fracionário (0,08–0,79) — o Premiere mostra piso(In ÷ passo) × passo + k × passo em TODOS (147: 4733, 4738, 4742…;
