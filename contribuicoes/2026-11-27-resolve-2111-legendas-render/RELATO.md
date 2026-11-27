@@ -91,3 +91,32 @@
   O `negrito_srt.py` é o mesmo que rodou, e foi testado de novo num SRT sintético.
 - Windows e outras versões do Resolve (21.1.0, 21.2) não foram medidos.
 - O item 7 com outro Python (3.11+ do Homebrew ou python.org) não foi testado.
+
+## Complemento: a mesma máquina depois de atualizar para o Resolve Studio 21.2.0.5 (2026-11-27)
+
+Medido com **mídia sintética**:
+- ProRes 422 de 10 s, 1920×1080 24p, com TC 01:00:00:00, gerado por `ffmpeg testsrc2`;
+- WAV estéreo de 10 s;
+- SRT com 2 legendas (00:00:02–03 e 00:00:05–06).
+
+O teste rodou num projeto de teste no Local Database, pela API externa com o Python 3.9.6 do sistema, no macOS 27.2.1. Confiança: `confirmado`, salvo onde está dito outra coisa.
+
+- **Item 1 (SRT):**
+  - continua caindo no fim do conteúdo: vídeo em 86400–86640 e a 1ª legenda em 86688;
+  - o `recordFrame` continua ignorado;
+  - numa timeline vazia, cai certo (86448).
+- **Contorno novo no 21.2, mais simples:**
+  - `Timeline.MoveItems(legendas, {"startFrame": início + 1º evento})`, que existe desde o 21.1.2 pelo changelog, devolveu `True` e levou as duas legendas para 86448/86520, sem tocar no vídeo;
+  - `TimelineItem.SetPosition({"startFrame": n})` numa legenda também funciona;
+  - `GetPosition()` numa legenda devolve `{'trackType': 'subtitle', 'trackIndex': 1, 'startFrame': …}`.
+- **Item 1 (queda):**
+  - o append do SRT com `startFrame` + `endFrame` + `recordFrame` **não derrubou** o 21.2 (uma tentativa);
+  - devolveu o item e ignorou o `recordFrame`;
+  - o changelog do 21.1.2 cita a correção dessa queda só para OGraf e Lottie.
+- **`endFrame` exclusivo:** igual (0..240 → duração 240).
+- **Item 7 (SIGSEGV ao sair):** seis execuções sem `os._exit` saíram com código 0 e sem relatório de erro: três simples e três com timeline e `MoveItems`. Confiança: `inferido` (poucas execuções), parece corrigido no 21.2.
+- **Itens 2 e 6:** o `DaVinciResolveScript.pyi` do 21.2 não tem chave de render para a Output Track do áudio nem API de preset de legenda. Isso foi conferido no arquivo, sem render.
+- **A documentação da API mudou de forma no 21.2:** em `Developer/Scripting/`, o `README.txt` deu lugar a `README.md`, `CHANGELOG.md` e `DaVinciResolveScript.pyi`.
+  - O `CHANGELOG.md` vai do 20.0 ao 21.2.
+  - O `.pyi` é o arquivo de tipos, com os métodos e as chaves dos dicionários (por exemplo, `RenderSettings.VideoQuality`: "0 = automático, int > 0 = bit rate, ou 'Least'…'Best'"; `SubtitleFormat`: 'BurnIn', 'EmbeddedCaptions' ou 'SeparateFile').
+  - O `README.txt` dos Workflow Integrations continua `.txt`.
